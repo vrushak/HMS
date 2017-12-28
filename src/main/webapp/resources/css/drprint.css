@@ -1,0 +1,35 @@
+#investigation {
+overflow : hidden;	
+min-height:50px;
+height: auto;
+width : 500px;
+border : none;
+}
+
+#treatment {
+overflow : hidden;	
+min-height:50px;
+height: auto;
+width : 500px;
+border : none;
+}
+
+#management {
+overflow : hidden;	
+min-height:50px;
+height: auto;
+width : 500px;
+border : none;
+}
+
+#dstxt{
+	border : none;
+}
+
+.cal{
+display:none!important;
+}
+
+.bootstrap-select.btn-group .dropdown-toggle .caret {
+  display : none;
+}

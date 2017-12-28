@@ -1,0 +1,200 @@
+/*
+	 CSS-Tricks Example
+	 by Chris Coyier
+	 http://css-tricks.com
+*/
+
+* { margin: 0; padding: 0; }
+body { font: 14px/1.4 Georgia, serif; }
+
+.wrapper {
+  height : auto;
+  background: #eaeaea;  
+  font-family: 'Open Sans', sans-serif;
+}
+#page-wrap { width: 800px; margin: 0 auto; background: #fff;  }
+
+textarea { border: 0; font: 14px Georgia, Serif; overflow: hidden; resize: none; }
+table { border-collapse: collapse; }
+table td, table th { border: 1px solid black; padding: 5px; }
+
+#header { height: 15px; width: 100%; margin: 20px 0; background: #222; text-align: center; color: white; font: bold 15px; padding: 8px 0px; }
+
+#address1 { width: 250px; height: 120px; float: right; }
+#customer { overflow: hidden; }
+#ftype{
+	width : 600px;
+}
+#customer-title { font-size: 20px; font-weight: bold; float: left; }
+
+#meta { margin-bottom: 40px; width: 300px; float: right; }
+#meta td { text-align: right;  }
+#meta td.meta-head { text-align: left; background: #eee; }
+#meta td textarea { width: 100%; height: 20px; text-align: right; }
+
+#meta1 {width: 300px; float: left; }
+#meta1 td { text-align: right;  }
+#meta1 td.meta-head { text-align: left; background: #eee; }
+#meta1 td textarea { width: 100%; height: 20px; text-align: right; }
+
+#meta2 { margin-top: 0px; width: 300px; float: right; margin-right: 10px; }
+#meta2 td .total-value { text-align: right;}
+#meta2 td.meta-head { text-align: left; background: #eee;width: 70px; }
+#meta2 td textarea { width: 100%; height: 20px; text-align: right; }
+
+
+
+
+#items td.balance { background: #eee; }
+#items td.blank { border: 0; }
+
+#terms { text-align: center; margin: 20px 0 0 0; }
+#terms h5 { text-transform: uppercase; font: 13px Helvetica, Sans-Serif; letter-spacing: 10px; border-bottom: 1px solid black; padding: 0 0 8px 0; margin: 0 0 8px 0; }
+#terms textarea { width: 100%; text-align: center;}
+
+textarea:hover, textarea:focus, #items td.total-value textarea:hover, #items td.total-value textarea:focus, .delete:hover { background-color:#EEFF88; }
+
+.delete-wpr { position: relative; }
+.delete { display: block; color: #000; text-decoration: none; position: absolute; background: #EEEEEE; font-weight: bold; padding: 0px 3px; border: 1px solid; top: -6px; left: -22px; font-family: Verdana; font-size: 12px; }
+
+#page-wrap h1 {
+  font-size: 18px;
+  background: #009999 none repeat scroll 0% 0%;
+  color: rgb(255, 255, 255);
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
+  text-shadow: none; 
+  text-align:center;
+}
+.bouton-contact{
+  background-color: #81BDA4;
+  color: #FFF;
+  text-align: center;
+  width: 100%;
+  border:0;
+  padding: 17px 25px;
+  border-radius: 0px 0px 5px 5px;
+  cursor: pointer;
+  margin-top: 40px;
+  font-size: 18px;
+}
+.button2{
+	float : right;
+}
+.button1{
+	float : left;
+}
+
+
+#form1 h1 {
+  font-size: 18px;
+  background: #009999 none repeat scroll 0% 0%;
+  color: rgb(255, 255, 255);
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
+  text-shadow: none; 
+  text-align:center;
+}
+
+#form1 {
+  border-radius: 5px;
+  max-width:800px;
+  width:100%;
+  margin: 5% auto;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+
+p span {
+  color: #F00;
+}
+
+p {
+  margin: 0px;
+  font-weight: 500;
+  line-height: 2;
+  color:#333;
+}
+
+h1 {
+  text-align:center; 
+  color: #666;
+  text-shadow: 1px 1px 0px #FFF;
+  margin:50px 0px 0px 0px
+}
+
+
+a {
+  text-decoration:inherit
+}
+
+#items {
+    border-collapse: collapse;
+    width: 100%;
+    
+  
+    }
+#items th {
+    background-color: #009999;
+    color: white;
+   
+}
+
+  #items tbody{
+    height:200px;
+    overflow-y:auto;
+ }
+ #items thead,.tbody{
+  
+    display:block;
+  }
+ 
+ 
+ #myTable1 {
+	
+    border-collapse: collapse;
+ 
+    width: 100%;
+     
+    
+    }
+#myTable1 th {
+    background-color: #009999;
+    
+    color: white;
+  
+}
+#myTable1 .tbody1{
+height:300px;
+overflow-y:auto;
+
+
+ }
+#myTable1 thead, .tbody1{
+    
+    display: block;
+  }
+ 
+  
+ .head{
+ background: #eee;
+ } 
+.foc:focus,.foc:hover {
+	background-color:#EEFF88;
+  
+	border : 0;
+}
+.foc{
+	border : 0;
+	outline: none;
+}
+
+.feet{
+	resize: none;
+    overflow: hidden;
+    min-height: 5px;
+    max-height: 100px;
+}
+ 

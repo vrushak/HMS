@@ -1,0 +1,156 @@
+/*
+	 CSS-Tricks Example
+	 by Chris Coyier
+	 http://css-tricks.com
+*/
+
+* { margin: 0; padding: 0; }
+body { font: 14px/1.4 Georgia, serif; }
+
+.wrapper {
+  height : auto;
+  background: #eaeaea;  
+  font-family: 'Open Sans', sans-serif;
+}
+#page-wrap { width: 800px; margin: 0 auto; background: #fff;  }
+
+textarea { border: 0; font: 14px Georgia, Serif; overflow: hidden; resize: none; }
+table { border-collapse: collapse; }
+table td, table th { border: 1px solid black; padding: 5px; }
+
+#header { height: 15px; width: 100%; margin: 20px 0; background: #222; text-align: center; color: white; font: bold 15px; padding: 8px 0px; }
+
+#address1 { width: 250px; height: 70px; float: left; }
+#customer { overflow: hidden; }
+#ftype{
+	width : 600px;
+}
+#customer-title { font-size: 20px; font-weight: bold; float: left; }
+
+#meta { margin-right:10px; bottom: 40px; width: 300px; float: right; }
+#meta td { text-align: right;  }
+
+#meta td.meta-head { text-align: left; background: #eee; }
+#meta td textarea { width: 100%; height: 20px; text-align: right; }
+
+#meta1 { margin-left:10px; margin-bottom: 40px; width: 300px; float: left; }
+#meta1 td { text-align: right;  }
+#meta1 td.meta-head { text-align: left; background: #eee; }
+#meta1 td textarea { width: 100%; height: 20px; text-align: right; }
+#meta1 td #address { width: 100%; height: 30px; text-align: right; }
+#items { clear: both; margin: 30px 0 0 0; border: 1px solid black; }
+#items th { background-color: #009999;   }
+#items textarea { width: 300px; height: 50px; }
+#items td.balance { background: #eee; }
+#items td.blank { border: 0; }
+
+
+#meta2 { margin-top: 0px; width: 300px; float: right; margin-right: 10px; }
+#meta2 td .total-value { text-align: right;}
+#meta2 td.meta-head { text-align: left; background: #eee;width: 70px; }
+#meta2 td textarea { width: 100%; height: 20px; text-align: right; }
+
+
+
+
+#terms { text-align: center; margin: 5px 0 0 0; width :500px; }
+#terms h5 { text-transform: uppercase; font: 13px Helvetica, Sans-Serif; letter-spacing: 10px; border-bottom: 1px solid black; padding: 0 0 8px 0; margin: 0 0 8px 0; }
+#terms textarea { width: 100%; text-align: left;}
+
+textarea:hover, textarea:focus, #items td.total-value textarea:hover, #items td.total-value textarea:focus, .deleter:hover { background-color:#EEFF88; }
+
+
+
+#myTable {
+	margin-left :10px;
+    border-collapse: collapse;
+  border : 1px ridge black;
+    width: 100%;
+     
+    
+    }
+#myTable th {
+    background-color: #009999;
+    
+    color: white;
+  
+}
+ .tbody{
+height:300px;
+overflow-y:auto;
+
+
+ }
+.thead, .tbody{
+    
+    display: block;
+  }
+
+#myTable tr td{
+	
+border : 1px ridge black;
+}
+span.slno{
+	
+	float : right;
+}
+
+span.killer {
+    float: left;
+    margin-left: 0.1em;
+    color: red;
+    font-weight: bold;
+    font-size : 20px; 
+}
+#page-wrap h1 {
+  font-size: 18px;
+  background: #009999 none repeat scroll 0% 0%;
+  color: rgb(255, 255, 255);
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
+  text-shadow: none; 
+  text-align:center;
+}
+.bouton-contact{
+  background-color: #81BDA4;
+  color: #FFF;
+  text-align: center;
+  width: 100%;
+  border:0;
+  padding: 17px 25px;
+  border-radius: 0px 0px 5px 5px;
+  cursor: pointer;
+  margin-top: 40px;
+  font-size: 18px;
+}
+.button2{
+	float : right;
+}
+.button1{
+	float : left;
+}
+
+#gtot{
+	margin-left  :10px;
+}
+
+
+  #logotext{
+  margin-left:80px; 
+  }
+  
+   #logotext1{
+  margin-left:80px; 
+  }
+  
+  .underline{
+   margin-left : 10px;
+   margin-right : 10px;
+    border-bottom: 1px solid black;
+    
+    display: block;
+}
+  #billed{
+  margin-left : 10px;
+  }

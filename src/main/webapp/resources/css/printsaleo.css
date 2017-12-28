@@ -1,0 +1,32 @@
+
+
+.bootstrap-select.btn-group .dropdown-toggle .caret {
+  display : none;
+}
+
+
+
+
+
+#myTable{
+	margin-left:-100px;
+}
+#myTable tbody{
+	min-height:300px;
+	height : auto;
+    overflow: hidden;
+	
+}
+
+.hidden-xs{
+	display : none;
+}
+
+#col3{
+margin-left: 15px; 
+border-style : none;
+border-radius : 10px;
+width : 970px;
+height : 620px;
+}
+

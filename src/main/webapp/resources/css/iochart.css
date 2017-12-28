@@ -1,0 +1,182 @@
+.wrapper {
+  height : auto;
+  background: #eaeaea;  
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+#form1 h1 {
+  font-size: 18px;
+  background: #009999 none repeat scroll 0% 0%;
+  color: rgb(255, 255, 255);
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
+  text-shadow: none; 
+  text-align:center;
+}
+
+#form1 {
+  border-radius: 5px;
+  max-width:1250px;
+  width:100%;
+  margin: 5% auto;
+  margin-top :  1cm;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+
+p span {
+  color: #F00;
+}
+
+p {
+  margin: 0px;
+  font-weight: 500;
+  line-height: 2;
+  color:#333;
+}
+
+h1 {
+  text-align:center; 
+  color: #666;
+  text-shadow: 1px 1px 0px #FFF;
+  margin:50px 0px 0px 0px
+}
+
+
+a {
+  text-decoration:inherit
+}
+
+textarea {
+  border-radius: 0px 5px 5px 0px;
+  border: 1px solid #cccccc;
+  margin: 0;
+  width: 225px;
+  height: 5px; 
+  float: left;
+  padding: 0px 15px;
+}
+#address2{
+	 border-radius: 0px 5px 5px 0px;
+  border: 1px solid #cccccc;
+  margin:0;
+  width: 312px;
+  height: 50px; 
+  float: left;
+  padding: 0px 15px;
+}
+
+.tds{
+	width : 200px;
+}
+
+#a{
+ margin-left : 70px; 
+ }
+ #b{
+ margin-left : 140px; 
+ }
+ 
+ #c{
+ margin-left : 50px; 
+ }
+  #d{
+ margin-left : 50px; 
+ }
+
+
+.bouton-contact{
+  background-color: #81BDA4;
+  color: #FFF;
+  text-align: center;
+  width: 100%;
+  border:0;
+  padding: 17px 25px;
+  border-radius: 0px 0px 5px 5px;
+  cursor: pointer;
+  margin-top: 40px;
+  font-size: 18px;
+}
+
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    }
+th {
+    background-color: #009999;
+    color: black;
+    
+}
+
+.table-fixed{
+ 
+}
+  tbody{
+    height:50px;
+    
+ }
+ 
+#myTable1 {
+    border-collapse: collapse;
+    width: 100%;
+     margin-left : -50px;
+    }
+#myTable1 th {
+    background-color: #009999;
+    color: black;
+    width : 180px;
+}
+
+.table-fixed{
+ 
+}
+  #myTable1 .tbody1{
+    height:200px;
+    overflow-y:scroll;
+ }
+ #myTable1 thead,.tbody1{
+  
+    display:block;
+  }
+
+modal-body{
+	background-color: #eaeaea;
+	height:auto;
+	width: auto;
+}  
+
+.button1{
+	float : left;
+}
+.button2{
+	float : right;
+}
+
+.delete{
+	width :50px;
+}
+
+#col3{
+margin-left: 25px; 
+border-style : groove;
+border-radius : 10px;
+width : 1000px;
+}
+/* Tablet Landscape */
+@media screen and (max-width: 1060px) {
+    #primary { width:67%; }
+    #secondary { width:30%; margin-left:3%;}  
+}
+/* Tabled Portrait */
+@media screen and (max-width: 768px) {
+    #primary { width:100%; }
+    #secondary { width:100%; margin:0; border:none; }
+}
+
+
+
+</style>

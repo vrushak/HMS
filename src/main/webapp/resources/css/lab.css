@@ -1,0 +1,217 @@
+.wrapper {
+  height : auto;
+  background: #eaeaea;  
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+#formc h1 {
+  font-size: 18px;
+  background: #009999 none repeat scroll 0% 0%;
+  color: rgb(255, 255, 255);
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
+  text-shadow: none; 
+  text-align:center;
+}
+
+
+#formc {
+  border-radius: 5px;
+  max-width:1100px;
+  width:100%;
+  margin: 5% auto;
+  background-color: #FFFFFF;
+  overflow: hidden;
+  height : auto;
+}
+
+#form2 h1 {
+  font-size: 18px;
+  background: #009999 none repeat scroll 0% 0%;
+  color: rgb(255, 255, 255);
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
+  text-shadow: none; 
+  text-align:center;
+}
+
+#form2 {
+  border-radius: 5px;
+  max-width:1200px;
+  width:100%;
+  margin: 5% auto;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+
+p span {
+  color: #F00;
+}
+
+p {
+  margin: 0px;
+  font-weight: 500;
+  line-height: 2;
+  color:#333;
+}
+
+h1 {
+  text-align:center; 
+  color: #666;
+  text-shadow: 1px 1px 0px #FFF;
+  margin:50px 0px 0px 0px
+}
+
+
+a {
+  text-decoration:inherit
+}
+
+#myTable1 th {
+    background-color: #009999;
+    color: black;
+   
+}
+#myTable td{
+	word-wrap:break-word; 
+}
+
+textarea {
+  border-radius: 0px 5px 5px 0px;
+  border: 1px solid #cccccc;
+  margin: 0;
+  width: 400px;
+  height: 50px; 
+  float: left;
+  padding: 0px 15px;
+}
+#symptoms {
+  border-radius: 0px 5px 5px 0px;
+  border: 1px solid #cccccc;
+  margin: 0;
+  width: 570px;
+  height: 50px; 
+  float: left;
+  padding: 0px 15px;
+}
+#systemic{
+	 border-radius: 0px 5px 5px 0px;
+  border: 1px solid #cccccc;
+  margin:0;
+  width: 400px;
+  height: 110px; 
+  float: left;
+  padding: 0px 15px;
+  margin-bottom : 0.5cm; 
+}
+
+
+#mt{
+	margin-top : 2cm;
+}
+table th{
+background-color: #009999;
+    color: white;	
+}
+
+#myTable {
+    border-collapse: collapse;
+    width: 100%;
+  
+    }
+#myTable th {
+    background-color: #009999;
+    color: white;
+    
+}
+
+
+
+.table-fixed{
+ 
+}
+#myTable  .tbgamma{
+    height:300px;
+    overflow-y:auto;
+ }
+ 
+ #myTable .thgamma,.tbgamma{
+  
+    display:block;
+  }
+  
+
+  table.alpha .thalpha th{
+    background-color: #009999;
+    color: white;
+}
+
+table.alpha .tbalpha{
+   height:200px;
+    overflow-y :auto;
+    
+    
+ }
+
+
+
+.bouton-contact{
+  background-color: #81BDA4;
+  color: #FFF;
+  text-align: center;
+  width: 100%;
+  border:0;
+  padding: 17px 25px;
+  border-radius: 0px 0px 5px 5px;
+  cursor: pointer;
+  margin-top: 40px;
+  font-size: 18px;
+}
+
+
+
+
+.button1{
+	float : left;
+}
+.button2{
+	float : right;
+}
+
+#mh{
+	text-align : center;
+	background-color: #009999;
+	color: #FFF;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////dcontroller
+
+
+
+ @RequestMapping(value="/Lab1", method = RequestMethod.GET)
+									public ModelAndView Lab1(@ModelAttribute("s") Lab1 l) {
+										//List<Appointment> list2=ddao.getappointment1();  
+									    //List<Lab> list3= ddao.getLab();
+										 Map<String, Object> model = new HashMap<String, Object>();
+									     //  model.put("list2",list2);
+									     // model.put("list3",list3);
+										return new ModelAndView("Lab1"); 
+										}
+

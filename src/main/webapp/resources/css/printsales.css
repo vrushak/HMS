@@ -1,0 +1,43 @@
+
+@media print{@page {size: landscape}}
+
+.bootstrap-select.btn-group .dropdown-toggle .caret {
+  display : none;
+}
+
+p span{
+	display : none;
+}
+
+.fa{
+	color : white;
+	display : none;
+}
+.rem{
+	border-style : none;
+	color : transperent;
+}
+
+#span2 {
+	margin-left : -250px;
+  
+}
+
+
+#myTable{
+   width : 1200px;
+ }
+
+#myTable .pc{
+	width : 100px;	
+}
+
+
+ 
+ #col3{
+margin-left: 25px; 
+border-style : groove;
+border-radius : 10px;
+width : auto;
+height : auto;
+}
