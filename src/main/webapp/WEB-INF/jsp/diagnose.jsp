@@ -67,7 +67,7 @@
 }
 p {
   margin: 0px;
-  font-weight: 499;
+  font-weight: 500;
   line-height: 2;
   color:#333;
 }
