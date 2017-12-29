@@ -529,6 +529,7 @@ $(".open1").click(function() {
     <ul class="nav navbar-nav">
       <li class="active"><a href="/HMS/home">Home</a></li>
     </ul>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.location.href='/HMS/staff';"></i>
   </div>
 </nav>
   <center>
@@ -546,7 +547,7 @@ $(".open1").click(function() {
 
 	    <br>
 	    <div class="container">
-   <table class="table table-striped table-bordered table-fixed table-hover table-condensed" style="width: 960px; " id="myTable">
+   <table class="table table-striped table-bordered table-fixed table-hover table-condensed" style="width: 977px; " id="myTable">
     <thead>
       <tr>
         <th style="width:100px;">Doctor Id</th>
@@ -557,6 +558,8 @@ $(".open1").click(function() {
         <th style="width:160px;">Department</th>
         <th style="width:100px;">Regn Number</th>
         <th style="width:100px;">Edit</th>
+        <th style="width:17px;"></th>
+        
       </tr>
     </thead>
     <tbody class="tbody">
@@ -708,7 +711,7 @@ $(".open1").click(function() {
  </div>
  
             <div class="form-group">
-             <center>  <div class="col-lg-10 col-lg-offset-2">
+             <center>  <div class="col-lg-10 col-lg-offset-1">
                 <!-- open1 is given in the class that is binded with the click event -->
                <button class="btn btn-primary open1"  type="button" >Next <span class="fa fa-arrow-right"></span></button>
               </div></center>
@@ -811,14 +814,11 @@ $(".open1").click(function() {
   </div>
 
   </div>     
-       
- 
- 
 
             <div class="clearfix" style="height: 10px;clear: both;"></div>
 
             <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- back2 unique class name  -->
                 <center><button class="btn btn-warning back2" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- open2 unique class name -->
@@ -870,17 +870,10 @@ $(".open1").click(function() {
        
  
 </div>
- 
-  
-    
-       
- 
- 
-
-            <div class="clearfix" style="height: 10px;clear: both;"></div>
+ <div class="clearfix" style="height: 10px;clear: both;"></div>
 
             <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- back2 unique class name  -->
                 <center><button class="btn btn-warning back2a" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- open2 unique class name -->
@@ -984,7 +977,7 @@ $(".open1").click(function() {
             <div class="clearfix" style="height: 10px;clear: both;"></div>
 
             <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- back2 unique class name  -->
                <center> <button class="btn btn-warning back3" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- open2 unique class name -->
@@ -1046,15 +1039,26 @@ $(".open1").click(function() {
 </div>
 
   <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
-                <!-- Unique class name -->
+              <div class="col-lg-10 col-lg-offset-1">
+                
+               <center>
                 <button class="btn btn-warning back4" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
-                <!-- Unique class name -->
+                
                 <button type="submit" id="bouton-contact" class="btn btn-primary open4 " onclick="">Save</button>
-
+				</center>
                 <img src="spinner.gif" alt="" id="loader" style="display: none">
               </div>
             </div>
+            
+            <%-- 
+            <div class="form-group">
+              <div class="col-lg-10 col-lg-offset-1">
+                <!-- back2 unique class name  -->
+               <center> <button class="btn btn-warning back3" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
+                <!-- open2 unique class name -->
+                <button class="btn btn-primary open3" type="button">Next <span class="fa fa-arrow-right"></span></button> </center>
+              </div>
+            </div> --%>
    
    </fieldset>
    </div>

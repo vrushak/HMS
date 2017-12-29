@@ -513,6 +513,7 @@ jQuery().ready(function() {
     <ul class="nav navbar-nav">
       <li class="active"><a href="/HMS/home">Home</a></li>
     </ul>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.location.href='/HMS/staff';"></i>
   </div>
 </nav>
   <center>
@@ -530,7 +531,7 @@ jQuery().ready(function() {
 
 	    <br>
 	    <div class="container">
-   <table class="table table-striped table-bordered table-fixed table-hover table-condensed" style="width: 960px; " id="myTable">
+   <table class="table table-striped table-bordered table-fixed table-hover table-condensed" style="width: 976px; " id="myTable">
     <thead>
       <tr>
         <th style="width:140px;">Nurse Id</th>
@@ -540,6 +541,7 @@ jQuery().ready(function() {
         <th style="width:140px;">Designation</th>
         <th style="width:140px;">Specialization</th>
         <th style="width:140px;">Edit</th>
+        <th style="width:16px;"></th>
       </tr>
     </thead>
     <tbody class="tbody">
@@ -700,7 +702,7 @@ jQuery().ready(function() {
   </div>
   </div>
    <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-1">
+              <div class="col-lg-10 col-lg-offset-2">
                 <!-- open1 is given in the class that is binded with the click event -->
                 <center><button class="btn btn-primary open1" name="button1" id="button1" type="button" onclick='return validateForm1("button1")' >Next <span class="fa fa-arrow-right"></span></button> </center>
               </div>
@@ -806,7 +808,7 @@ jQuery().ready(function() {
     <div class="clearfix" style="height: 10px;clear: both;"></div>
 
             <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-1">
+              <div class="col-lg-10 col-lg-offset-2">
                 <!-- back2 unique class name  -->
                 <center><button class="btn btn-warning back2" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- open2 unique class name -->
@@ -868,7 +870,7 @@ jQuery().ready(function() {
             <div class="clearfix" style="height: 10px;clear: both;"></div>
 
             <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-1">
+              <div class="col-lg-10 col-lg-offset-2">
                 <!-- back2 unique class name  -->
                 <center><button class="btn btn-warning back2a" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- open2 unique class name -->
@@ -966,7 +968,7 @@ jQuery().ready(function() {
    <div class="clearfix" style="height: 10px;clear: both;"></div>
 
             <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-1">
+              <div class="col-lg-10 col-lg-offset-2">
                 <!-- back2 unique class name  -->
                <center> <button class="btn btn-warning back3" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- open2 unique class name -->
@@ -1025,7 +1027,7 @@ jQuery().ready(function() {
 </div>
  
   <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-1">
+              <div class="col-lg-10 col-lg-offset-2">
                 <!-- Unique class name -->
               <center>  <button class="btn btn-warning back4" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- Unique class name -->
