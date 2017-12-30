@@ -342,7 +342,7 @@ $(document).ready(function () {
 		     var currentTime = new Date();
 		     var userTime = $("#time").val().split(":"); 
 		     if(currentTime.getHours() > parseInt(userTime[0])){
-		   	 alert("Cannot create appointments for past dates")
+		   	 alert("Appointments can be scheduled only for future time")
 		   	 $( "#time" ).val(time);
 		         $(this).focus();                
 		     }

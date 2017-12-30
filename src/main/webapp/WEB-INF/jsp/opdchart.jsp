@@ -1327,12 +1327,12 @@ if(datec.ratef == undefined){
 			document.getElementById("fileno").setAttribute("form","formbc");
 			document.getElementById("extflag").value = "nurse";
 			document.getElementById("extflag").setAttribute("form","formbc");
-		
-			
-		
 			
 	 }
-	 
+	 if(document.getElementById("pname").value == "Select"){
+		 alert("Please select patient name")
+		 return false;
+	 }
 	 var name = document.getElementsByName("oraltype");
 	
 	 for(var x = 0;x<name.length;x++){
@@ -1831,7 +1831,7 @@ $(function () {
     
     </tbody>
        <tr id="hiderow">
-		    <td><i class='fa fa-plus' style='font-size:20px; color : #ff9900;'  onclick="display1('<c:out value="${username}" />','<c:out value="${pageContext.request.userPrincipal.name}" />')"></i><a href="#" id="bc" class='button2' style='color : #ff9900;'  onclick="doAjaxPostSave('formbc')"><b>Save</b></a></td>
+		    <td><i class='fa fa-plus' style='font-size:20px; color : #ff9900;'  onclick="display1('<c:out value="${username}" />','<c:out value="${pageContext.request.userPrincipal.name}" />')"></i><a href="#" id="bc" class='button2' style='color : #ff9900;'  onclick="return doAjaxPostSave('formbc')"><b>Save</b></a></td>
 		  </tr>
 		  
     </table>
