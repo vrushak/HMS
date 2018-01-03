@@ -26,6 +26,10 @@
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
 <script type="text/javascript">
+function goBack() {
+    window.history.back();
+}
+
 function checkid(str){
 	
 	
@@ -246,6 +250,9 @@ for(var i =0;i<s.length;i++){
         <li><a href="/HMS/reorder.html" target="_blank">Check Reorder Level</a></li>
       
     </ul>
+    <br>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
+    
   </div>
 </nav>
   <center>

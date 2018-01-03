@@ -123,6 +123,11 @@ function hide(user,val){
 		
 	}
 	}
+	
+function goBack() {
+    window.history.back();
+}
+
 function myFunction() {
 	
 	  var input, filter, table, tr, td, i;

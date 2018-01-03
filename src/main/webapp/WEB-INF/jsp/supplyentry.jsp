@@ -509,9 +509,9 @@ $(document).ready(function () {
 
 
       
-
-       
-       
+       function goBack() {
+   	    window.history.back();
+   	}
        </script>
 </head>
 <body onload="oncheck()">
@@ -538,10 +538,11 @@ $(document).ready(function () {
         <li><a href="/HMS/purchaseho.html">Purchase Entry</a></li>
         <li><a href="/HMS/saleho.html">Sales</a></li>
         <li><a href="/HMS/stopriceho.html">Product Stocks and Pricing</a></li>
-      
       </li>
-     
     </ul>
+    <br>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
+    
 </div>
 </nav>
 </div>

@@ -142,6 +142,10 @@ a {
 
 </style>
 <script type="text/javascript">
+function goBack() {
+    window.history.back();
+}
+
 
 function checkhome(user){
 	if(user.includes("dbfdesk")){
@@ -370,6 +374,8 @@ function validmess(){
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
+    <br>
+         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
   </div>
 </nav>
   <center>

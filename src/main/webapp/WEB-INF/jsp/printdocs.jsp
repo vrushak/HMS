@@ -134,6 +134,9 @@ function checkhome(user){
 	disbut()
 }
 
+function goBack() {
+    window.history.back();
+}
 
 
 </script>
@@ -145,6 +148,7 @@ function checkhome(user){
 <br>
 <font color="#228B22" class="left" >Welcome : ${pageContext.request.userPrincipal.name}</font><a id="ho" href="" class="button2 rightspace" > BACK TO HOME</a>
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
+         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
 <div class="well well-lg" id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
 
  <div class ="container" >

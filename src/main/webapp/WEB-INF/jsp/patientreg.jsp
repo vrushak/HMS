@@ -779,6 +779,9 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
+    <br>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
+    
   </div>
 </nav>
   <center>
@@ -1449,7 +1452,6 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
      <input type="text" name="ph1" id="ph1" class="form-control input-sm" value="NA" />
 </div>
   </div>
-  
   <div class="col-xs-5">
    <div class="form-group">
             <p>Ins.Phone <span></span></p>
@@ -1457,10 +1459,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
 
 	</div>
   </div>
-
- 
-
-  </div>
+ </div>
   
        <div class="form-group row" >
         <div class="col-xs-1"></div>
@@ -1844,6 +1843,10 @@ check('<c:out value="${p.pid}" />');
 </script>
 </c:forEach>
 <script>
+function goBack() {
+    window.history.back();
+}
+
 
 function filterTable(event) {
 

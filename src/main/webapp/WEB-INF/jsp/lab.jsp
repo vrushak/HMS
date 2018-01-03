@@ -493,6 +493,10 @@ function verpr(){
 }	
 </script>
 <script type="text/javascript">
+function goBack() {
+    window.history.back();
+}
+
 $(document).ready(function(){
 	$('.launch-modal').click(function(){
 		$('#myModal').modal({
@@ -676,6 +680,7 @@ var decodedString = dom.body.textContent;
 $(document).ready(function(){
 $('#form1').draggable();
 });
+
 </script>
 
 </head>
@@ -693,6 +698,8 @@ $('#form1').draggable();
    
          
     </ul>
+    <br>
+         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
     <!-- 
     <ul class="nav navbar-nav navbar-right">
        <li style ="color:#ff9900;"><span class="glyphicon glyphicon-log-in">Welcome : ${pageContext.request.userPrincipal.name}</span></li>

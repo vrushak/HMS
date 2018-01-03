@@ -1292,6 +1292,8 @@ $('#form1').draggable();
            <li class=""><a  href="/HMS/discharge">Discharge Summary</a></li>
          
     </ul>
+    <br>
+         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.location.href='/HMS/doctor1';"></i>
     <!-- 
     <ul class="nav navbar-nav navbar-right">
        <li style ="color:#ff9900;"><span class="glyphicon glyphicon-log-in">Welcome : ${pageContext.request.userPrincipal.name}</span></li>
