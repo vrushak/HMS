@@ -780,7 +780,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
     <br>
-    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' onclick="window.location.href='/HMS/frontdesk';""></i>
     
   </div>
 </nav>
@@ -1843,10 +1843,6 @@ check('<c:out value="${p.pid}" />');
 </script>
 </c:forEach>
 <script>
-function goBack() {
-    window.history.back();
-}
-
 
 function filterTable(event) {
 

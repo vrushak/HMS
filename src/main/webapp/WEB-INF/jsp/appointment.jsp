@@ -346,6 +346,11 @@ $(document).ready(function () {
 		   	 $( "#time" ).val(time);
 		         $(this).focus();                
 		     }
+		     if(currentTime.getMinutes()>parseInt(userTime[1])){
+		    	 alert("Appointments can be scheduled only for future time")
+		    	 $( "#time" ).val(time);
+		         $(this).focus();
+		     }
 		     /*
 		     if(currentTime.getHours() <= parseInt(userTime[0])){
 		         if(currentTime.getMinutes() > parseInt(userTime[1])){
@@ -359,9 +364,6 @@ $(document).ready(function () {
 		 });
 
 });
-function goBack() {
-    window.history.back();
-}
 
 </script>
 
@@ -380,7 +382,7 @@ function goBack() {
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
     <br>
-    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.location.href='/HMS/frontdesk';"></i>
     
   </div>
 </nav>
@@ -421,7 +423,7 @@ function goBack() {
     </tbody>
     </table>
     </div>
-     <button type="" class="bouton-contact" onclick="" ></button>
+     <button type="" class="bouton-contact" disabled ></button>
      </form>
      
      <div class="container">
@@ -541,7 +543,7 @@ function goBack() {
  
 
  
- <button type="" id="" class="bouton-contact"  ></button>
+ <button type="" id="" class="bouton-contact" disabled ></button>
        </form>
        </div>
        

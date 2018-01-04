@@ -96,7 +96,7 @@ window.location = "/HMS/nursedesk.html";
 <font color="#228B22" class="left" >Welcome : ${pageContext.request.userPrincipal.name}</font>  <i style="font-size:20px; align: right;color : #228B22" class="fa fa-cog" ></i> 
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
 <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #228B22'  onclick="window.location.href='/HMS/home';"></i>
-<div class="well well-lg" id="well"> <center><h4><font color="white">Nurse Activity</font></h4></center></div>
+<div class="well well-lg" id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
 
   
  <div class ="container" >

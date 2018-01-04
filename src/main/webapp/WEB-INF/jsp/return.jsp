@@ -272,9 +272,7 @@ $(document).ready(function(){
 		
 
 	});
-function goBack() {
-    window.history.back();
-}
+
 </script>
 </head>
 <sec:authentication property="principal.authorities" var="username" />
@@ -302,9 +300,7 @@ function goBack() {
        <li><a href="/HMS/reorder.html" target="_blank">Check Reorder Level</a></li>
   
     </ul>
-    
-    <br>
-    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
+
     
   </div>
 </nav>

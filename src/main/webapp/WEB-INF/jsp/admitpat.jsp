@@ -280,9 +280,7 @@ $(document).ready(function () {
 	$('#editable-select').editableSelect();
 
 });
-function goBack() {
-    window.history.back();
-}
+
 
 </script>
 
@@ -298,9 +296,11 @@ function goBack() {
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
+      <br>
+    
     </ul>
     <br>
-    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.location.href='/HMS/frontdesk';"></i>
     
   </div>
 </nav>

@@ -555,7 +555,7 @@ jQuery().ready(function() {
     <td width="140px;">${p1.desg}</td>
      <td width="140px;">${p1.specialization}</td>
     <td width="140px;"><i class="fa fa-pencil" style="color:#00b300" onclick="copy('${p1.nid},${p1.fname},${p1.lname},${p1.joindate},${p1.dob},${p1.age},${p1.gender},${p1.regnno},${p1.ssn},${p1.qualification},${p1.landphone},${p1.mobile},${p1.email},${p1.country},${p1.city},${p1.pcode},${p1.prfshift},${p1.emptype},${p1.dept},${p1.desg},${p1.state},${p1.mname},${p1.specialization},${p1.username},${p1.password}','${p1.address2}'),copy1('${p1.address}')"></i></td>
-   
+   	<td style="width:16px;"></td>
  </tr>
     </c:forEach>
     </tbody>
@@ -703,7 +703,7 @@ jQuery().ready(function() {
   </div>
   </div>
    <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- open1 is given in the class that is binded with the click event -->
                 <center><button class="btn btn-primary open1" name="button1" id="button1" type="button" onclick='return validateForm1("button1")' >Next <span class="fa fa-arrow-right"></span></button> </center>
               </div>
@@ -809,7 +809,7 @@ jQuery().ready(function() {
     <div class="clearfix" style="height: 10px;clear: both;"></div>
 
             <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- back2 unique class name  -->
                 <center><button class="btn btn-warning back2" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- open2 unique class name -->
@@ -871,7 +871,7 @@ jQuery().ready(function() {
             <div class="clearfix" style="height: 10px;clear: both;"></div>
 
             <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- back2 unique class name  -->
                 <center><button class="btn btn-warning back2a" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- open2 unique class name -->
@@ -969,7 +969,7 @@ jQuery().ready(function() {
    <div class="clearfix" style="height: 10px;clear: both;"></div>
 
             <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- back2 unique class name  -->
                <center> <button class="btn btn-warning back3" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- open2 unique class name -->
@@ -1028,7 +1028,7 @@ jQuery().ready(function() {
 </div>
  
   <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- Unique class name -->
               <center>  <button class="btn btn-warning back4" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- Unique class name -->

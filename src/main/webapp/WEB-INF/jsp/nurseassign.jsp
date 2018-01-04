@@ -142,9 +142,7 @@ a {
 
 </style>
 <script type="text/javascript">
-function goBack() {
-    window.history.back();
-}
+
 
 
 function checkhome(user){
@@ -375,7 +373,7 @@ function validmess(){
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
     <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
+         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.location.href='/HMS/nursedesk';"></i>
   </div>
 </nav>
   <center>

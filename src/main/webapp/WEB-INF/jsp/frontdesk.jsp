@@ -244,7 +244,7 @@ function myconfirm()
 
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
 <i class="fa fa-arrow-left button2 rightspace" style="font-size:20px;color : #228B22" onclick="window.location.href='/HMS/home';"></i>
-<div class="well well-lg" id="well"> <center><h4><font color="white">Administration</font></h4></center></div>
+<div class="well well-lg" id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
 
  <div class ="container" >
  <div class="row text-center">

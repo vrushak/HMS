@@ -541,7 +541,7 @@ jQuery().ready(function() {
      <td style="width:150px;">${p1.joindate}</td>
     <td style="width:150px;">${p1.desg}</td>
     <td style="width:150px;"><i class="fa fa-pencil" style="color:#00b300" onclick="copy('${p1.aid},${p1.fname},${p1.lname},${p1.joindate},${p1.dob},${p1.age},${p1.gender},${p1.regnno},${p1.ssn},${p1.qualification},${p1.landphone},${p1.mobile},${p1.email},${p1.country},${p1.city},${p1.pcode},${p1.prfshift},${p1.emptype},${p1.dept},${p1.desg},${p1.state},${p1.mname},${p1.specialization},${p1.username},${p1.password}','${p1.address2}'),copy1('${p1.address}')"></i></td>
-   
+    <td style="width:13px;"></td>
  </tr>
     </c:forEach>
     </tbody>

@@ -560,9 +560,7 @@ function verpr(){
 		
 	}
 }	
-function goBack() {
-    window.history.back();
-}
+
 
 </script>
 <script type="text/javascript">
@@ -1244,7 +1242,7 @@ $('#form1').draggable();
          
          </ul>
          <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
+         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' onclick="window.location.href='/HMS/doctor1';"></i>
      <!--      
       <ul class="nav navbar-nav navbar-right">
        <li style ="color:#ff9900;"><span class="glyphicon glyphicon-log-in"></span> Welcome : ${pageContext.request.userPrincipal.name}</li>

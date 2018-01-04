@@ -574,7 +574,7 @@ $(".open1").click(function() {
     <td style="width:100px;">${p1.prnum}</td>
     <td style="width:100px;" id="user" class="user">${p1.username}</td>
     <td style="width:100px;"><i class="fa fa-pencil" style="color:#00b300" onclick="copy('${p1.docID},${p1.fname},${p1.mname},${p1.lname},${p1.dob},${p1.gender},${p1.doj},${p1.age},${p1.city},${p1.state},${p1.country},${p1.pcode},${p1.ssn},${p1.landphone},${p1.mobile},${p1.email},${p1.prnum},${p1.specialization},${p1.shift},${p1.etype},${p1.department},${p1.designation},${p1.username},${p1.password}','${p1.qualification}','${p1.address2}'),copy1('${p1.address1}')"></i></td>
-   
+   	<td style="width:17px;"></td>
  </tr>
     </c:forEach>
     </tbody>
