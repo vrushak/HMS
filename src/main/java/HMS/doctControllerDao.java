@@ -1142,15 +1142,71 @@ public class doctControllerDao {
 			
 			public List<Diagnose> getLoadvalue(int level,int pid) {
 				System.out.println(level);
-				return template.query("select did,checkval,parentid from diagdata where parentid = '"+pid+"'",new RowMapper<Diagnose>(){  
+				return template.query("select d.did,d.checkval,d.parentid,dh.header from diagdata d left outer join diagheader dh on d.hid = dh.hid  where parentid = '"+pid+"'",new RowMapper<Diagnose>(){  
 			        public Diagnose mapRow(ResultSet rs, int row) throws SQLException {   
 				       Diagnose p = new Diagnose();
 				   		p.setDid(rs.getInt(1));
 				   		p.setCheckval(rs.getString(2));
 				   		p.setPid(rs.getInt(3));
+				   		p.setHeader(rs.getString(4));
 				       return p;
 			        }
 				});
-			}			
+			}
+	// load history data for diagnose screen		
+			public List<Diagnose> getHistvalue() {
+			return template.query("select d.pid,d.fileno,concat(pat.fname,' ',pat.mname,' ',pat.lname) patient,doc.docid,concat(doc.fname,' ',doc.mname,' ',doc.lname) doctor,d.diagnose,d.datetime from diagnose d join patient pat on pat.pid = d.pid join doctor doc on doc.docid = d.docid",new RowMapper<Diagnose>(){  
+			        public Diagnose mapRow(ResultSet rs, int row) throws SQLException {   
+				       Diagnose p = new Diagnose();
+				   	p.setPpid(rs.getString(1));
+				   	p.setFileno(rs.getString(2));
+				   	p.setPname(rs.getString(3));
+				   	p.setDocid(rs.getString(4));
+				   	p.setDname(rs.getString(5));
+				   	p.setDiagnose(rs.getString(6));
+				   	p.setDatetime(rs.getString(7));
+				    return p;
+			        }
+				});
+			}		
+			
+			// save diagnose data
+			public int savediagnose(Diagnose b) {
+				   String sql="insert into diagnose(pid,fileno,docid,datetime,diagnose) values('"+b.getPpid()+"','"+b.getFileno()+"','"+b.getDocid()+"','"+b.getDatetime()+"','"+b.getDiagnose()+"') on duplicate key update docid = '"+b.getDocid()+"',diagnose = '"+b.getDiagnose()+"',datetime = '"+b.getDatetime()+"'";  
+				    return template.update(sql);  
+				} 
+			// save tab header
+			public int savediagtab(String b) {
+				   String sql="insert into diagtab(tabvalue) values('"+b+"') on duplicate key update tabvalue = '"+b+"'";  
+				    return template.update(sql);  
+				} 
+			
+			// save tab header
+			public int savediagheader(Diagnose b) {
+					String sql="insert into diagheader(tid,header) values('"+b.getTabid()+"','"+b.getHeader()+"') on duplicate key update header = '"+b.getTabvalue()+"',tid = '"+b.getTabid()+"'";  
+					return template.update(sql);  
+							} 
+						 
+			//load tabs
+			public List<Diagnose> getTabsvalue(String b) {
+				return template.query("select tid,tabvalue from diagtab where tabvalue = '"+b+"'",new RowMapper<Diagnose>(){  
+				        public Diagnose mapRow(ResultSet rs, int row) throws SQLException {   
+					       Diagnose p = new Diagnose();
+					   	p.setTabid(rs.getInt(1));
+					   	p.setTabvalue(rs.getString(2));
+					   	return p;
+				        }
+					});
+				}	
+			public List<Diagnose> getTabsvalue() {
+				return template.query("select tid,tabvalue from diagtab",new RowMapper<Diagnose>(){  
+				        public Diagnose mapRow(ResultSet rs, int row) throws SQLException {   
+					       Diagnose p = new Diagnose();
+					   	p.setTabid(rs.getInt(1));
+					   	p.setTabvalue(rs.getString(2));
+					   	return p;
+				        }
+					});
+				}	
 }  
 		

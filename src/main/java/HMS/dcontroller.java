@@ -1092,11 +1092,29 @@ public class dcontroller {
 								  
 								 
 		  @RequestMapping(value="/diagnose", method = RequestMethod.GET)
-			 public ModelAndView  diagnose(Principal principal,Authentication authentication) {
+			 public ModelAndView  diagnose(Prescription s,Principal principal,Authentication authentication) {
 				  authentication.getAuthorities();
 				  Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 				  String b = var.toString();
-			return new ModelAndView("diagnose"); 
+				 	List<Prescription> list1= ddao.getDocID2(principal.getName(),b);
+				 	if(list1.isEmpty()){
+				 		s.setDocid(b);
+				 	list1.add(s);
+				 	}
+				     List<Patient> list2= dao.getPatientId1();
+				     List<Diagnose>list3 = ddao.getHistvalue();
+				     List<Vitals> list15= ndao.getVitals(principal.getName());
+					 List<Appointment> list16 = ddao.getAppointment1();
+					 //List<Appointment> list3= dao.getAppointment();
+				     List<Prescription>list4 = dao.search();
+				 
+				     Map<String, Object> model = new HashMap<String, Object>();
+				       model.put("list1", list1);
+				       model.put("list2", list2);
+				       model.put("list3", list3);
+				       model.put("list4", list4);
+				       model.put("list16", list16);
+				 	return new ModelAndView("diagnose","model",model);  
 								}
 	
 		  @RequestMapping(value="/loaddiv1/{pid}", method = RequestMethod.GET)
@@ -1120,5 +1138,71 @@ public class dcontroller {
 	 		
 		  
 }
+		  
+		  @RequestMapping(value="/loadtab/{lab}", method = RequestMethod.POST)
+				public @ResponseBody String loadtab(@PathVariable String lab,@ModelAttribute("s") Diagnose s) {
+						String jsonFormatData = "";
+					 int res = 0;
+					 res = ddao.savediagtab(lab);
+				/*	 List<Diagnose> list5 = null;
+					 if(res > 0){
+					 list5 = ddao.getTabsvalue(lab);
+					 }
+					 Map<String, Object> model = new HashMap<String, Object>();
+				       model.put("list5", list5);
+					*/
+					 System.out.println("res"+res);
+					 if(res > 0){
+					 jsonFormatData = "success";
+					 }
+			       System.out.println();
+			 return jsonFormatData;
+	}
+		  
+		  @RequestMapping(value="/loadtab", method = RequestMethod.POST)
+				public @ResponseBody String loadtab(@ModelAttribute("s") Diagnose s) {
+						String jsonFormatData = "";
+					 int res = 0;
+					
+					 List<Diagnose> list5 = null;
+					
+					 list5 = ddao.getTabsvalue();
+					 
+					 Map<String, Object> model = new HashMap<String, Object>();
+				       model.put("list5", list5);
+					
+					 Gson gson = new Gson(); 
 
+					jsonFormatData = gson.toJson(list5);
+
+			       
+			 return jsonFormatData;
+			
+			
+					
+		 //get previous records
+	 		
+		  
+}
+		  
+		  @RequestMapping(value="/savediag", method = RequestMethod.POST)
+		 	public ModelAndView  savediag(@ModelAttribute("r") Diagnose r) {
+		 	 int sav=0;
+		 		sav=ddao.savediagnose(r);
+		 		ModelAndView  mav = new ModelAndView();
+		 		if(sav > 0){
+		 		mav.addObject("message", "The record has been saved sucessfully");
+		 		mav.setViewName("redirect:diagnose");		    
+		 						    
+		 		}
+
+		 		else{
+		 		mav.addObject("message", "Record could not be saved successfully ");
+		 		mav.setViewName("redirect:diagnose");
+		 		}
+		 			
+		 	return mav; 
+
+}
+		  
 }

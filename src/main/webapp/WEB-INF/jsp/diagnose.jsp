@@ -86,6 +86,38 @@ a {
   text-decoration:inherit
 }
 
+.button2{
+	float : right;
+}
+.button1{
+	float : left;
+}
+.tab-pane{
+width : 1120px;
+border-style : groove;
+border-radius : 10px;
+height : 330px;
+overflow-y : auto;
+}
+
+.reduce>li>a{
+
+padding-top : 2px;
+padding-bottom :2px;
+font-size:12px;
+}
+
+.btn btn{
+  padding: 15px 15px;
+   
+        /* All browsers since IE 5.5+ */
+
+    max-width:170px;
+  
+}
+.btn-block{
+ width : 1270px;
+}
 </style>
 <script type="text/javascript">
 var obj = {};
@@ -96,7 +128,9 @@ var prvrec;
 var newrec;
 var pid;
 var didd;
-function checkdiv(id,val){
+var flag;
+var fgr;
+function checkdiv(id,val,tab){
 
 var title = $(val).attr("title");
 var value = $(val).val();
@@ -116,7 +150,7 @@ console.log(a)
 console.log(arr)
 	*/
 
-newrec = 	$(".divin").eq(0).find(":checkbox[name='radio']:checked").val();
+newrec = 	$("#"+tab).find(".divin").eq(0).find(":checkbox[name='radio']:checked").val();
 
 pid = title
 var pid1 = "." + title;
@@ -160,11 +194,11 @@ var json = JSON.stringify(obj);
 console.log(json)
 //arr.push(obj)
 
-if ($(".divin").eq(0).find(":checkbox[name='radio']:checked").length == 1){
-		$(".divin").eq(0).find(":checkbox[name='radio']:not(:checked)").prop('disabled', true);
+if ($("#"+fgr).find(".divin").eq(0).find(":checkbox[name='radio']:checked").length == 1){
+	$("#"+fgr).find(".divin").eq(0).find(":checkbox[name='radio']:not(:checked)").prop('disabled', true);
 	 }  
 	else{
-	    $(".divin").eq(0).find(":checkbox[name='radio']:not(:checked)").prop('disabled', false);
+		$("#"+fgr).find(".divin").eq(0).find(":checkbox[name='radio']:not(:checked)").prop('disabled', false);
 		}
 //	$(":radio[name='radio']:not(:checked)").prop('disabled', true);  
 
@@ -174,12 +208,13 @@ if ($(".divin").eq(0).find(":checkbox[name='radio']:checked").length == 1){
 		if(val.checked == true){
 	      if(diva < 4 && divb < 4){
 	    	
-	    		if($(".divin").eq(diva).length < 1){
-	    			creatediv('maindiv')
+	    		if($("#"+tab).find(".divin").eq(diva).length < 1){
+	    			flag = true;
+	    			creatediv(tab)
 	    		}
 	    		else{
-	    		
-	    			loadval(diva)
+	    	
+	    			loadval(diva,tab)
 	    		}
 	    	  
 	    }
@@ -205,21 +240,87 @@ if ($(".divin").eq(0).find(":checkbox[name='radio']:checked").length == 1){
 	}*/
 }
 
-function creatediv(main){
-	
-var	divid =  $(".divin" ).length;
-var	divid1 = $(".divot" ).length;
+function addcheck(div){
+	var person = prompt("Please enter the Field name:");
+	if (person == null || person == " " || person.length == "0") {
+	       
+  		return false;
+  	    } else {
+  	      var div1 = "<br><input type='checkbox'  name='radio' title='' class='' onchange=''><span>"+person+"</span></input>";
+          $("#"+div).append(div1); 
+  	         
+  	    }
+}
 
+function createTabs(){
+	var person = prompt("Please enter the Tab Name:");
+	if (person == null || person == " " || person.length == "0") {
+	       
+  		return false;
+  	    } 
+	else{
+	var nextTab = $('#pills li').size()+1;
+	var no = $('#li').size();
+   /*
+	fgr = $.now();
+	$('<li><a href="#tab'+nextTab+'" id="li"'+no+'  data-toggle="tab"  onclick="fgr = '+fgr+'">'+person+'</a></li>').appendTo('#pills');
+		
+    	// create the tab content
+    $('<div class="tab-pane fade" id="tab'+nextTab+'"><div class="form-group row" id='+fgr+'></div></div>').appendTo('.tab-content');
+ 
+*/
+	 var uri = "/HMS/loadtab/"+person+"";
+	 var data1 = person; 
+    
+	 
+	  var successFn =  function(response){
+		  
+		  if(response.toString() == "success")   {
+		//  loadtabvalues()	  
+	  }
+	
+	  /*
+	  $.each(response, function(index, datec) {
+    	
+    	
+    	$('<li><a href="#tab'+nextTab+'" id="li'+no+'" class='+datec.tabid+' data-toggle="tab"  onclick="fgr = '+fgr+'">'+datec.tabvalue+'</a></li>').appendTo('#pills');
+		
+    	// create the tab content
+    	$('<div class="tab-pane fade" id="tab'+nextTab+'"><div class="form-group row" id='+datec.tabid+'></div></div>').appendTo('.tab-content');
    
-	var div = "<div class='col-xs-2 divin' title='"+divid+"' id='"+divid+"' style='border:1px solid;height:200px;overflow-Y:auto;'><center><font class='header' size='4' style='text-align:center;'></font></center></div><div class='col-xs-1 divot'></div>";
+   
+    	fgr = datec.tabid;	
+
+         });    */
+     }
+	    
+	  var errorFn = function(e){
+     	 // alert('Error: ' + e);
+     	  
+     	 loadtabvalues()
+	  }
+	  
+		var get = "POST";
+ doAjaxPostNew(get,uri,data1,successFn,errorFn,"application/json; charset=UTF-8");
+	
+	//create the tab
+creatediv(fgr)
+}
+}
+function creatediv(main){
+
+var	divid =  $('#'+main).find(".divin" ).length;
+var	divid1 = $('#'+main).find(".divot" ).length;
+
+	var div = "<div class='col-xs-2 divin' title='"+divid+"' id='"+divid+"' style='border:1px solid;height:200px;overflow-Y:auto;'><center><font class='header' size='4' style='text-align:center;'></font><i class='fa fa-plus button2' style='font-size:20px;color:#ff9900;' aria-hidden='true' onclick='return addcheck("+divid+")'></i></center></div><div class='col-xs-1 divot'></div>";
  //   console.log(div)
 	$('#'+main).append(div);
   
     
    
-    
-     loadval(divid)
-     
+ 
+     loadval(divid,main)
+  
 }
 /*
 function loadval(div){
@@ -229,33 +330,85 @@ function loadval(div){
 	}
 */
 
+function checkempty(value){
+	 if ($('#'+value).is(':empty')){
+		  creatediv(value)
+		}
+}
+function loadtabvalues(){
+	var nextTab = $('#pills li').size()+1;
+	var no = $('#li').size();
+	
+	 var uri = "/HMS/loadtab";
+	 var data1 = 0;
+    
 
+	  var successFn =  function(response){
+		  
+	  $.each(response, function(index, datec) {
+		 
+		  fgr = datec.tabid;
+	
+		  if($("."+fgr).size() < 1){
+    	$('<li><a href="#tab'+nextTab+'" id="li'+no+'" class='+datec.tabid+' data-toggle="tab" onclick="checkempty('+fgr+')">'+datec.tabvalue+'</a></li>').appendTo('#pills');
+		
+    	// create the tab content
+    	$('<div class="tab-pane fade" id="tab'+nextTab+'"><div class="form-group row" id='+datec.tabid+'></div></div>').appendTo('.tab-content');
+		  }	
+
+         });    
+     }
+	    
+	  var errorFn = function(e){
+     	  alert('Error: ' + e);
+	  }
+	  
+		var get = "POST";
+  doAjaxPostNew(get,uri,data1,successFn,errorFn,"application/json; charset=UTF-8");
+ if(fgr == undefined){
+	  creatediv(1)	 
+ }
+
+}
+
+function datasuccess(data){
+	
+	if(data != "null"){
+		
+		alert(data)
+window.location = "/HMS/diagnose.html";
+	}
+}
 </script>
       <script type="text/javascript">
-       function  doAjaxPostNew(uri,data,successFn,errorFn) {
-    	   
+       function  doAjaxPostNew(met,uri,data1,successFn,errorFn,ctype) {
+                   
     	              $.ajax({
     	        	  
-    	        	           type: "GET",
+    	        	           type: met,
     	        	   
     	        	           url: uri,
-    	        	           data: "level=" + data,
+    	        	           data: "tabvalue="+data1,
     	        	           dataType: "JSON",
-    	        	           contentType: "application/json; charset=UTF-8",
+    	        	           contentType: ctype,
     	        	           success: successFn,
     	                       error: errorFn
+    	                      
     	        	        	           });
+    	             
     	        	        	  }
       
 
 
-function loadval(div){
+function loadval(div,min){
 
 	var check = $(".checkbox" ).length;	
 
 	if(pid == undefined){
 		pid =0;
 	}
+	var res = parseInt(min);
+	
 
 	  var uri = "/HMS/loaddiv1/"+pid+"";
 	  
@@ -264,42 +417,105 @@ function loadval(div){
    var successFn =  function(response){
      $.each(response.list, function(index, datec) {
     	 
-       var div1 = "<br><input type='checkbox' value='"+datec.checkval+"' name='radio' title='"+datec.did+"' class='"+datec.pid+"' onchange='checkdiv("+div+",this)'><span>"+datec.checkval+"</span></input>";
-        $("#"+div).append(div1);
-    
+       var div1 = "<br><input type='checkbox' value='"+datec.checkval+"' name='radio' title='"+datec.did+"' class='"+datec.pid+"' onchange='checkdiv("+div+",this,"+min+")'><span>"+datec.checkval+"</span></input>";
+        $("#"+min).find("#"+div).append(div1);
+        $("#"+min).find(".header").eq(div).text(datec.header)
           });    
       }
 	    
 	  var errorFn = function(e){
       	  alert('Error: ' + e);
 	  }
-		if(div == 0){
-	    	$(".header").eq(div).text("Body Location");
-	    }
-	    else if(div == 1){
-	    	$(".header").eq(div).text("Details of illness");
-	    }
-	    else if(div == 2){
-	    	$(".header").eq(div).text("Chronology - Level 1");
-	    }
-	    else{
-	    	$(".header").eq(div).text("Chronology - Level 2");
-	    }
-		
-   doAjaxPostNew(uri,data,successFn,errorFn,div);
+	  
+		var get = "GET";
+   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8");
 	}
 
        </script>
        <script type="text/javascript">
        function preview(){
-    	   var i, j, x = "";	   
+    	   var i,j,x
+    	   $(".divin").eq(0).find(":checkbox[name='radio']").each(function() {
+    		   if(obj.hasOwnProperty($(this).val())){
+    			   var retobj = $(this).val();
+    		  createbr(retobj)	
+    		  createbr("\n")
+    		  createbr("\n")
+    		          for(i in obj[retobj]){
+    		           for(var key in obj[retobj][i]) {
+    		        	    if (obj[retobj][i].hasOwnProperty(key)) {
+    		        	        console.log(obj[retobj][i][key]);
+    		        	        var res = obj[retobj][i][key];
+    		        	        createbr(res)
+    		        	        createbr("\n")
+    		        	       }
+    		        	}
+    		          }
+    		     }
+    	      
+    	     });
+    	  
     	
-
-    	   
+    	}
+       
+       function createbr(retobj){
+    	       var head = document.getElementById("text1");
+	           var head1 = document.createTextNode(retobj);
+	           head.appendChild(head1);
        }
+       
+       function addcname(getval){
+    		
+    		var myname = getval.getAttribute('data-value'); 	
+//    		var cid = document.getElementById("pname").value; 
+    		var str = myname.split(',');
+    		
+    		// var res5 = $('select[name=pname1]').val();
+    	 	   $('select[name=ppid]').val(str[0]);
+    		   $('#ppid').selectpicker('refresh');
+    		   
+    	
+//    		document.getElementById("pid").value=str;
+
+    			document.getElementById("id").innerHTML = str[0];
+    			document.getElementById("nm").innerHTML = str[1];
+    			document.getElementById("flno").innerHTML = str[2];
+     			document.getElementById("fileno").value = str[2];
+
+    			$("#docid").val(str[3]); 
+    			$("#datetime").val(moment().format("DD-MM-YYYY hh:mm"));
+    			
+    	}
+       
+       function addcname1(getval){
+   		
+   		var myname = getval.getAttribute('data-value'); 	
+//   		var cid = document.getElementById("pname").value; 
+   		var str = myname.split(',');
+   		
+   		// var res5 = $('select[name=pname1]').val();
+   	 	   $('select[name=ppid]').val(str[0]);
+   		   $('#ppid').selectpicker('refresh');
+   		   
+   		   $('select[name=pname]').val(str[1]);
+		   $('#pname').selectpicker('refresh');
+   		   
+//   		document.getElementById("pid").value=str;
+
+   			document.getElementById("id").innerHTML = str[0];
+   			document.getElementById("nm").innerHTML = str[1];
+   			document.getElementById("flno").innerHTML = str[2];
+    			document.getElementById("fileno").value = str[2];
+
+   			$("#docid").val(str[3]); 
+   			$("#datetime").val(str[5]);
+   			$("#text1").val(str[4]);
+   	}
+
        </script>
+ 
 </head>
-<body onload="creatediv('maindiv')">
+<body onload="loadtabvalues()">
 <div class = "wrapper">
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -312,34 +528,129 @@ function loadval(div){
   </div>
 </nav>
  <div id ="form2">
-   <h1><font size="5"> Doctor </font><span class="button2"></h1>
+    <h1><button class="btn btn-warning btn-sm button1" class="form-control input-sm" onclick="return createTabs()">Add new Tab</button>
+  <font size="5"> Doctor </font><button class="btn btn-warning btn-sm button2" class="form-control input-sm" onclick="preview()">Preview</button>
+  </h1>
 <br>
- <div class="container">
-  <div class="form-group row" id="maindiv">
+ <form id = "formc" action="savediag.html" method = "post"></form>
+ <div class="container" style="width:auto;">
+ <button type="button" class="btn btn-primary btn-block"><span style="float:left">Patient Information</span><span id="flno" style="float:right">Fileno</span><span id="id" style="float:right;margin-right:15px;">Id</span><span style="float:right;margin-right:25px;" id="nm">Name</span></button>
+ <br>
+         <ul class="nav nav-pills nav-stacked col-md-2 reduce" id="pills" style="height:400px;width:140px;overflow : auto;">
+        <li class="active"><a data-toggle="pill"  href="#home1">PATIENT DETAILS</a></li>
+        </ul>
         
+        <div class="tab-content col-md-10">
+        <!-- Home1-->
+   <div id="home1" class="tab-pane fade in active">
+    <br><br>
+    <div class="form-group row" >
+    <div class="col-xs-1"></div>
+     <div class="col-xs-1">
+      <input type="" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Patient Name">
+     </div>
+     <div class="col-xs-2"></div>
+      <div class="col-xs-4">
+       <div class="form-group">
+      
+       <select class="selectpicker form-control btn btn" data-live-search="true" form="formc" name = "pname" id ="pname" onchange="addcname(this.options[this.selectedIndex])"   >
+          <option value="select" disabled selected>Select</option>
+        <c:forEach var="p"  items="${model.list1}">
+        <option value ="${p.pname}" data-value="${p.pid},${p.pname},${p.fileno},${p.docid}">${p.pname}</option>
+        </c:forEach>
+      </select></div>
+      </div>
+      </div>
+      <div class="form-group row" >
+      <div class="col-xs-1"></div>
+      <div class="col-xs-1">
+      <button type="button" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" >Patient Id</button>
+     </div>
+     <div class="col-xs-2"></div>
+      <div class="col-xs-4">
+       <div class="form-group">
+      
+             <select class="selectpicker form-control" data-width="100%"  form="formc" data-live-search="true"  name = "ppid" id ="ppid"  required>
+      <option value="select" disabled selected>Select</option>
+        <c:forEach var="p"  items="${model.list1}">
+        <option value = "${p.pid}" data-value="${p.pid},${p.pname},${p.fileno},${p.docid}">${p.pid}</option>
+        </c:forEach>
+      </select></div>
+      </div>
+      </div>
+      <div class="form-group row" >
+      <div class="col-xs-1"></div>
+       <div class="col-xs-2">
+      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Date">
+     </div>
+     <div class="col-xs-1"></div>
+      <div class="col-xs-4">
+       <div class="form-group">
        
+         <input type="text" name="datetime" id="datetime" class="form-control input-sm" form="formc" readonly="readonly" required>
         </div>
+      </div></div>
+      <div class="form-group row" >
+      <div class="col-xs-1"></div>
+       <div class="col-xs-2">
+      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="File No">
+     </div>
+     <div class="col-xs-1"></div>
+      <div class="col-xs-4">
+       <div class="form-group">
+       <input type="text" name="fileno" id="fileno" class="form-control input-sm" form="formc"  required>
+       </div>
+      </div>
+     </div>
+    <div class="form-group row" >
+    <div class="col-xs-1"></div>
+     <div class="col-xs-1">
+      <input type="" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Saved Patients">
+     </div>
+     <div class="col-xs-2"></div>
+      <div class="col-xs-4">
+       <div class="form-group">
+      
+       <select class="selectpicker form-control btn btn" data-live-search="true" form="formc" name = "pname1" id ="vpid" onchange="addcname1(this.options[this.selectedIndex])"   >
+          <option value="select" disabled selected>Select</option>
+        <c:forEach var="p"  items="${model.list3}">
+        <option value ="${p.pname}" data-value="${p.ppid},${p.pname},${p.fileno},${p.docid},${p.diagnose},${p.datetime}">${p.pname}</option>
+        </c:forEach>
+      </select></div>
+      </div>
+      </div>
+  <input type="hidden" name="docid" id="docid" form = "formc">
+  <input type="hidden" name="dname" id="dname" form = "formc">
+ 
+   
+     </div>
+     
+        </div>
+      
 </div>
  <div class="form-group row" >
     <div class="col-xs-1"></div>
     <div class="col-xs-5">
     <p>TextArea 1</p>
-    <textarea name='text1' rows='5' cols='60'>
+    <textarea name='diagnose' id='text1' rows='5' cols='60' form="formc">
     
     </textarea>
     </div>
     
     <div class="col-xs-5">
     <p>TextaArea 2</p>
-    <textarea name='text2' rows='5' cols='60'>
+    <textarea name='text2' id='text2' rows='5' cols='60' form="formc">
     
     </textarea>
     </div>
-    <button class="btn btn-warning" class="form-control input-sm" onclick="preview()">Preview</button>
+    
   </div> 
- <button type="button" class="bouton-contact" onclick="" ></button>
+ <button type="submit" class="bouton-contact" id ="bouton-contact" form="formc" >Save</button>
      
  </div>
 </div>
+<script>
+datasuccess('<%=request.getParameter("message")%>')
+</script>
 </body>
 </html>

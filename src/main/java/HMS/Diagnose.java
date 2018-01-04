@@ -9,8 +9,21 @@ public class Diagnose {
 	private int hid;
 	private int tabid;
 	private int pid;
+	private String ppid;
+	private String docid;
+	private String fileno;
+	private String pname;
+	private String dname;
+	private String diagnose;
+	private String datetime;
 
 	
+	public String getDatetime() {
+		return datetime;
+	}
+	public void setDatetime(String datetime) {
+		this.datetime = datetime;
+	}
 	public int getPid() {
 		return pid;
 	}
@@ -59,5 +72,42 @@ public class Diagnose {
 	public void setTabid(int tabid) {
 		this.tabid = tabid;
 	}
+	public String getPpid() {
+		return ppid;
+	}
+	public void setPpid(String ppid) {
+		this.ppid = ppid;
+	}
+	public String getDocid() {
+		return docid;
+	}
+	public void setDocid(String docid) {
+		this.docid = docid;
+	}
+	public String getFileno() {
+		return fileno;
+	}
+	public void setFileno(String fileno) {
+		this.fileno = fileno;
+	}
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+	public String getDname() {
+		return dname;
+	}
+	public void setDname(String dname) {
+		this.dname = dname;
+	}
+	public String getDiagnose() {
+		return diagnose;
+	}
+	public void setDiagnose(String diagnose) {
+		this.diagnose = diagnose;
+	}
+	
 
 }

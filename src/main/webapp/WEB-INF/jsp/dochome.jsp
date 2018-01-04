@@ -232,6 +232,15 @@ window.location = "/HMS/doctor1.html";
      
       </figure>
     </div>
+    
+   <div class="col-xs-2">
+      <figure>
+     
+       <img src="<c:url value='/Images/GCH.png'/>"/><br><br>
+      <figcaption><input type="button" onclick="location.href='/HMS/diagnose'" value="Diagnose"></figcaption>
+     
+      </figure>
+    </div> 
     </div>
    
 
