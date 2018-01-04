@@ -648,6 +648,9 @@ var pnflag;
        function oncheck(){
     	   document.getElementById('active').checked=true;
        }
+       function goBack() {
+   	    window.history.back();
+   	}
        </script>
 
 </head>
@@ -680,6 +683,9 @@ var pnflag;
       </li>
      
     </ul>
+    <br>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
+    
 
   </div>
 </nav>

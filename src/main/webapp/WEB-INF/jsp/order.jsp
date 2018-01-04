@@ -139,6 +139,9 @@ height : 620px;
 
 
 <script type="text/javascript">
+function goBack() {
+    window.history.back();
+}
 
 var cuser;
 function checkhome2(user){
@@ -840,6 +843,8 @@ $('#datetimepicker1').datetimepicker({
              </li>
      
     </ul>
+    <br>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
   </div>
 </nav>
   <center>

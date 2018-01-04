@@ -742,6 +742,10 @@ var user2a;
     		    $(":checkbox[name='motor']:not(:checked)").prop('disabled', false); 
     		 });
        });
+       function goBack() {
+   	    window.history.back();
+   	}
+
        </script>
     	    </head>
 </head>
@@ -757,6 +761,8 @@ var user2a;
       <li class="active"><a id="ho" href="">Home</a></li>
      
     </ul>
+    <br>
+         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
   </div>
 </nav>
   <center>

@@ -927,6 +927,10 @@ function d1a(i,user2a,aid,time,doct,disc,ratef,vomitus,nursesig,doctrmks,user2b)
 	
 	
 }
+function goBack() {
+    window.history.back();
+}
+
 
 </script>
 <script type="text/javascript">
@@ -1327,12 +1331,12 @@ if(datec.ratef == undefined){
 			document.getElementById("fileno").setAttribute("form","formbc");
 			document.getElementById("extflag").value = "nurse";
 			document.getElementById("extflag").setAttribute("form","formbc");
-		
-			
-		
 			
 	 }
-	 
+	 if(document.getElementById("pname").value == "Select"){
+		 alert("Please select patient name")
+		 return false;
+	 }
 	 var name = document.getElementsByName("oraltype");
 	
 	 for(var x = 0;x<name.length;x++){
@@ -1554,6 +1558,8 @@ $(function () {
        <li class=""><a id="nob" href="/HMS/nursetr/"  onclick=' return visible();' target="_blank">Nurse observations</a></li>
  -->
     </ul>
+    <br>
+         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
   </div>
 </nav>
   <center>
@@ -1831,7 +1837,7 @@ $(function () {
     
     </tbody>
        <tr id="hiderow">
-		    <td><i class='fa fa-plus' style='font-size:20px; color : #ff9900;'  onclick="display1('<c:out value="${username}" />','<c:out value="${pageContext.request.userPrincipal.name}" />')"></i><a href="#" id="bc" class='button2' style='color : #ff9900;'  onclick="doAjaxPostSave('formbc')"><b>Save</b></a></td>
+		    <td><i class='fa fa-plus' style='font-size:20px; color : #ff9900;'  onclick="display1('<c:out value="${username}" />','<c:out value="${pageContext.request.userPrincipal.name}" />')"></i><a href="#" id="bc" class='button2' style='color : #ff9900;'  onclick="return doAjaxPostSave('formbc')"><b>Save</b></a></td>
 		  </tr>
 		  
     </table>

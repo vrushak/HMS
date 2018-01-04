@@ -513,6 +513,8 @@ jQuery().ready(function() {
     <ul class="nav navbar-nav">
       <li class="active"><a href="/HMS/home">Home</a></li>
     </ul>
+    <br>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.location.href='/HMS/staff';"></i>
   </div>
 </nav>
   <center>
@@ -530,7 +532,7 @@ jQuery().ready(function() {
 
 	    <br>
 	    <div class="container">
-   <table class="table table-striped table-bordered table-fixed table-hover table-condensed" style="width: 960px; " id="myTable">
+   <table class="table table-striped table-bordered table-fixed table-hover table-condensed" style="width: 976px; " id="myTable">
     <thead>
       <tr>
         <th style="width:140px;">Nurse Id</th>
@@ -540,6 +542,7 @@ jQuery().ready(function() {
         <th style="width:140px;">Designation</th>
         <th style="width:140px;">Specialization</th>
         <th style="width:140px;">Edit</th>
+        <th style="width:16px;"></th>
       </tr>
     </thead>
     <tbody class="tbody">

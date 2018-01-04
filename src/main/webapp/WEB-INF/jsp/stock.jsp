@@ -26,6 +26,10 @@
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
 <script type="text/javascript">
+function goBack() {
+    window.history.back();
+}
+
 function checkid(str){
 	
 	
@@ -180,12 +184,14 @@ function caluclate(){
 
 function validdate(id){
 	
+	validDate();
 	var va	='Valid? '+ !!document.getElementById(id).value;
 
 	if(va == 'Valid? false'){
 		alert("invalid date")
 		return false;
 	}
+	
 	else{
 		return true;
 	}
@@ -199,6 +205,23 @@ $('#quantity,#up').on('change keyup', function() {
 	
 
 });
+
+function getInputDateFormat(date) {
+	 return date.toISOString().split('T')[0];
+	}
+
+function validDate() {
+	 var today = new Date();
+	 var maxDate = new Date();
+	 maxDate.setDate(maxDate.getDate() + 7);
+var s = document.getElementsByName("expdate");
+for(var i =0;i<s.length;i++){
+	s[i].setAttribute('min', getInputDateFormat(today));
+//s[i].setAttribute('max', getInputDateFormat(maxDate));	
+}
+	 
+	}
+
 </script>
 
 </head>
@@ -227,6 +250,9 @@ $('#quantity,#up').on('change keyup', function() {
         <li><a href="/HMS/reorder.html" target="_blank">Check Reorder Level</a></li>
       
     </ul>
+    <br>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
+    
   </div>
 </nav>
   <center>
@@ -357,7 +383,7 @@ $('#quantity,#up').on('change keyup', function() {
    <div class="col-xs-4">
   <div class="form-group">
      <p>Expiry Date <span>*</span></p>
-         	<input type="date"  max="2999-12-31"  name="expdate" id="expdate" class="form-control input-sm" onblur="return validdate(this.id)" required>
+         	<input type="date"  max="2999-12-31"   name="expdate" id="expdate" onkeydown="return false;" class="form-control input-sm"  onblur="return validdate(this.id)" required>
   
        </div>
   </div>

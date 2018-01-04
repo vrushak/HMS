@@ -342,7 +342,7 @@ $(document).ready(function () {
 		     var currentTime = new Date();
 		     var userTime = $("#time").val().split(":"); 
 		     if(currentTime.getHours() > parseInt(userTime[0])){
-		   	 alert("Cannot create appointments for past dates")
+		   	 alert("Appointments can be scheduled only for future time")
 		   	 $( "#time" ).val(time);
 		         $(this).focus();                
 		     }
@@ -359,6 +359,10 @@ $(document).ready(function () {
 		 });
 
 });
+function goBack() {
+    window.history.back();
+}
+
 </script>
 
 </head>
@@ -375,6 +379,9 @@ $(document).ready(function () {
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
+    <br>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
+    
   </div>
 </nav>
   <center>

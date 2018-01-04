@@ -229,16 +229,22 @@ function check1(id,name,type,quantity){
 }
 
 function validdate(id){
-	
+	if(id == "expdate"){
+		validDate("expdate");
+	}else{
+		validDate("allodate");
+	}
+	/*
 	var va	='Valid? '+ !!document.getElementById(id).value;
 
 	if(va == 'Valid? false'){
-		alert("invalid date")
+	//	alert("invalid date")
 		return false;
 	}
 	else{
 		return true;
 	}
+	*/
 	}
 
 $(document).ready(function(){
@@ -250,6 +256,29 @@ $(document).ready(function(){
 		
 
 	});
+function getInputDateFormat(date) {
+	 return date.toISOString().split('T')[0];
+	}
+
+function validDate(date) {
+	
+	 var today = new Date();
+	 var maxDate = new Date();
+	 maxDate.setDate(maxDate.getDate());
+var s = document.getElementsByName(date);
+
+for(var i =0;i<s.length;i++){
+	if(date == "expdate"){
+	s[i].setAttribute('min', getInputDateFormat(today));
+//s[i].setAttribute('max', getInputDateFormat(maxDate));	
+	}
+else{
+	s[i].setAttribute('min', getInputDateFormat(today));
+	s[i].setAttribute('max', getInputDateFormat(maxDate));	
+
+}
+}
+	}
 </script>
 </head>
 <sec:authentication property="principal.authorities" var="username" />
@@ -404,7 +433,7 @@ $(document).ready(function(){
     
 	   <div class="form-group">
             <p>Allocation Date<span>*</span></p>
-   <input type="date" max="2999-12-31" name="allodate" id="allodate"  onblur="return validdate(this.id)" class="form-control input-sm" required >
+   <input type="date" max="2999-12-31" name="allodate" id="allodate" onkeydown="return false;"  onfocus ="return validdate(this.id)" class="form-control input-sm" required >
 </div>
 	</div>
  </div>
@@ -415,7 +444,7 @@ $(document).ready(function(){
        <div class="col-xs-3">
   <div class="form-group">
             <p>Expected Return Date<span>*</span></p>
-          <input type="date" max="2999-12-31" name="expdate" id="expdate" onblur="return validdate(this.id)" class="form-control input-sm" required >	</div>
+          <input type="date" max="2999-12-31" name="expdate" id="expdate" onkeydown="return false;" onfocus ="return validdate(this.id)" class="form-control input-sm" required >	</div>
   </div>
   
    <div class="col-xs-4">
