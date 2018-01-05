@@ -132,14 +132,14 @@ window.location = "/HMS/doctor1.html";
     <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/input output.jpg'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='iochart'" value="IO CHART"></figcaption>
+      <figcaption><input type="button" onclick="location.href='iochart'" value="IO Chart"></figcaption>
       </figure>
     </div>
     
     <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/Hour Chart.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='hourchart'" value="HOUR CHART"></figcaption>
+      <figcaption><input type="button" onclick="location.href='hourchart'" value="Hour Chart"></figcaption>
       </figure>
     </div>
    
@@ -150,7 +150,7 @@ window.location = "/HMS/doctor1.html";
   <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/drug chart icon.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='drugchart'" value="DRUG CHART"></figcaption>
+      <figcaption><input type="button" onclick="location.href='drugchart'" value="Drug Chart"></figcaption>
       </figure>
     </div>
     
