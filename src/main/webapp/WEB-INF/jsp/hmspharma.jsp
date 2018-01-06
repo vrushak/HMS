@@ -235,7 +235,7 @@ function myconfirm()
 
   <ul class="nav nav-pills nav-justified">
     <li class="active"><a  data-toggle="pill"  href="#masters">Masters</a></li>
-    <li><a  data-toggle="pill" href="#os">Purchase/Sales/Order & Reorder</a></li>
+    <li><a  data-toggle="pill" href="#os">Order & Reorder/Purchase Entry/Sales</a></li>
    <!--   <li><a  data-toggle="pill" href="#co">Configuration</a></li>
     <li><a  data-toggle="pill"  href="#re">Reports</a></li> -->
     <li><a  data-toggle="pill"  href="#ps">Product Stocks and Pricing</a></li>

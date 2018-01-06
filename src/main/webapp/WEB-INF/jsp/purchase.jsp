@@ -223,7 +223,6 @@ function check(id){
 	
 		document.getElementById("allocationid").value = res1;
 		
-
 		
 	}
 }
@@ -768,9 +767,10 @@ for(var i =0;i<s.length;i++){
        
        
        </script>
-      
+
 
  <script>
+ 
  
       $(document).ready( function() {
     	  
@@ -836,12 +836,12 @@ $('#datetimepicker1').datetimepicker({
 	useCurrent: false,
 	format: "dd-mm-yyyy  hh:ii",
     autoclose: true,
-    todayBtn: true
-   
-	
+    todayBtn: true,
+    maxDate: moment().format("DD-MM-YYYY hh:mm")
 });
 
 });
+
    
 </script>     
 
@@ -926,25 +926,21 @@ $('#datetimepicker1').datetimepicker({
 	
 	      </div>
 	      
-	       <div class="col-xs-3"> 
+	<div class="col-xs-3"> 
   
   <div class="form-group">
   
    <p>Received Date<span>*</span></p>
  <div class='input-group date' id='datetimepicker1'>
-      <input form="purchasesave" type="text" class="form-control" name="receiveddate" id = "receiveddate"  required>
-         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+    <input form="purchasesave"  type="text" data-date-end-date="0d" class="form-control" name="receiveddate" id = "receiveddate"  required>
+       <span class="input-group-addon"><span  class="glyphicon glyphicon-calendar"></span></span>
     </div>
 </div>
   </div>
   
 	      
 	  </div>
-	  
-	  
-	  
-  
-  <input form="purchasesave" type="hidden" name="allocationid" id="allocationid">
+	  <input form="purchasesave" type="hidden" name="allocationid" id="allocationid">
   <input form="purchasesave" type="hidden" name="supplier" id="supplier">
 <!--  <input form="purchasesave" type="hidden" name="ean1" id="eans">-->  
 	   

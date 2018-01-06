@@ -140,7 +140,7 @@ window.location = "/HMS/nursedesk.html";
       <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/drug chart icon.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='drugchart'" value="DRUG CHART"></figcaption>
+      <figcaption><input type="button" onclick="location.href='drugchart'" value="Drug Chart"></figcaption>
       </figure>
     </div>
 

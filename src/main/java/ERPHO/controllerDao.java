@@ -63,7 +63,7 @@ public class controllerDao {
 	
 	//To display manufacture list in supplier masters 
 	public List<Manufacture> getManufacturename(){  
-	    return template.query("select distinct name,type,address1,address2,city,state,country,pincode,phone,mobile,fax,email,comment,mid,active from manufacture",new RowMapper<Manufacture>(){  
+	    return template.query("select distinct name,type,address1,address2,city,state,country,pincode,phone,mobile,fax,email,comment,mid,active from manufacture order by name",new RowMapper<Manufacture>(){  
 	        public Manufacture mapRow(ResultSet rs, int row) throws SQLException {  
 	            Manufacture man=new Manufacture();  
 	          
@@ -88,7 +88,7 @@ public class controllerDao {
 	    });  
 }
 	public List<Manufacture> getManufacturename1(){  
-	    return template.query("select distinct name,type,address1,address2,city,state,country,pincode,phone,mobile,fax,email,comment,active,mid from manufacture where active='on'",new RowMapper<Manufacture>(){  
+	    return template.query("select distinct name,type,address1,address2,city,state,country,pincode,phone,mobile,fax,email,comment,active,mid from manufacture where active='on' order by name ",new RowMapper<Manufacture>(){  
 	        public Manufacture mapRow(ResultSet rs, int row) throws SQLException {  
 	            Manufacture man=new Manufacture();  
 	          
@@ -137,7 +137,7 @@ public class controllerDao {
 		});
 	}	
 	public List<Supply> getSupplyname() {
-		return template.query("select name,type,address1,address2,city,state,country,pincode,phone,mobile,fax,email,poc,pc,website,manufacturers,comment,active,sid from supply where active='on'",new RowMapper<Supply>(){  
+		return template.query("select name,type,address1,address2,city,state,country,pincode,phone,mobile,fax,email,poc,pc,website,manufacturers,comment,active,sid from supply where active='on' order by name",new RowMapper<Supply>(){  
 	        public Supply mapRow(ResultSet rs, int row) throws SQLException {  
 	            Supply supp = new Supply();  
 	            supp.setName(rs.getString(1));
@@ -166,7 +166,7 @@ public class controllerDao {
 	}
 	
 	public List<Supply> getSupplyname1() {
-		return template.query("select name,type,address1,address2,city,state,country,pincode,phone,mobile,fax,email,poc,pc,website,manufacturers,comment,active,sid from supply ",new RowMapper<Supply>(){  
+		return template.query("select name,type,address1,address2,city,state,country,pincode,phone,mobile,fax,email,poc,pc,website,manufacturers,comment,active,sid from supply order by name ",new RowMapper<Supply>(){  
 	        public Supply mapRow(ResultSet rs, int row) throws SQLException {  
 	            Supply supp = new Supply();  
 	            supp.setName(rs.getString(1));
@@ -220,7 +220,7 @@ public class controllerDao {
     
     //getCustomer datails
     public List<Customer> getCustomername() {
-		return template.query("select customer,name,phone,age,sex,type from customer where active = 'active'",new RowMapper<Customer>(){  
+		return template.query("select customer,name,phone,age,sex,type from customer where active = 'active' order by name",new RowMapper<Customer>(){  
 	        public Customer mapRow(ResultSet rs, int row) throws SQLException {   
 		       Customer c = new Customer();
 		       System.out.println(rs.getString(1));
@@ -236,7 +236,7 @@ public class controllerDao {
 		});
 	}
 	public List<Customer> getCustomername1() {
-		return template.query("select customer,name,type,age,sex,phone,address1,address2,mobile,city,fax,state,email,country,comment,pincode,active from customer ",new RowMapper<Customer>(){  
+		return template.query("select customer,name,type,age,sex,phone,address1,address2,mobile,city,fax,state,email,country,comment,pincode,active from customer order by name ",new RowMapper<Customer>(){  
 	        public Customer mapRow(ResultSet rs, int row) throws SQLException {   
 		       Customer c = new Customer();
 		      c.setCustomer(rs.getString(1));
@@ -406,7 +406,7 @@ public class controllerDao {
 	//,(select Batch from purchase where purchase.ean = product.prc),(select expDate from purchase where purchase.ean=product.prc),(select unit from purchase where purchase.ean=product.prc),(select unitprice from purchase where purchase.ean=product.prc),(select quantity from purchase where purchase.ean=product.prc),(select total from purchase where purchase.ean=product.prc)
 	public List<Product> searchProduct(){
 		//System.out.println("name:" +p.getName());
-		return template.query("select name,supplier,bc,rq,prc,(select sum(currentstock) from productstock where productstock.name = product.name) from product",new RowMapper<Product>(){  
+		return template.query("select name,supplier,bc,rq,prc,(select sum(currentstock) from productstock where productstock.name = product.name) from product order by name ",new RowMapper<Product>(){  
 	        public Product mapRow(ResultSet rs, int row) throws SQLException {  
 	        	  Product s=new Product();  
 	    	      //      System.out.println(rs.getString(2));
@@ -535,7 +535,7 @@ public class controllerDao {
 	
 	//list products in sale screen
 	public List<Purchase> getProducts() {
-		return template.query("select ean,productName,Batch,expDate,unit,unitprice,quantity,total from purchase",new RowMapper<Purchase>(){  
+		return template.query("select ean,productName,Batch,expDate,unit,unitprice,quantity,total from purchase order by productName",new RowMapper<Purchase>(){  
 	        public Purchase mapRow(ResultSet rs, int row) throws SQLException {   
 		          Purchase p =new Purchase();
 			      p.setEan(rs.getString(1));
@@ -1295,7 +1295,7 @@ public class controllerDao {
 	
 	
 	public List<Productstock> getInfoStkSearch() {
-		return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from productstock p ",new RowMapper<Productstock>(){  
+		return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from productstock p order by p.name ",new RowMapper<Productstock>(){  
 			public Productstock mapRow(ResultSet rs, int row) throws SQLException {
 	        	Productstock p = new Productstock();
 	        	p.setCode(rs.getString(1));

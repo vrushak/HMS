@@ -226,6 +226,11 @@ var x = document.getElementById('myTable').getElementsByTagName('tbody')[0];
    }
    
 function disp(){
+	var rcount=$('#mytable  tr').length;
+	
+	if(rcount==0){
+		alert("Cannot print blank table")
+	}
 	if(document.getElementById("sinvoice").value == "Select" ){
 		alert("Please select the Invoice")
 		return false;
@@ -381,7 +386,7 @@ function verifyproAdd(){
 	}
 	
     else if((document.getElementById("gTotal").value) == 0)  {
-		alert("Please click on Generate Total button")
+		alert("Please click on Generate Total button to calculate total"); 
 	return false;
 	  }
     
@@ -1383,7 +1388,7 @@ else{
 	        	   */
 	        	   
 	        	   var markup = "<tr><td class='pc'>"+idx+"</td><td class='pc'><input type = 'text' class='form-control input-sm' form ='saveSales' disabled name = 'ean' id='eans' value='"+datec.ean+"'></td><td><textarea rows='1' cols='30' form ='saveSales' disabled class='form-control input-sm' id = '"+pr+"' name= 'pname' value = '"+datec.pname+"' oninput='auto_grow(this)' required>"+datec.pname+"</textarea></td><td class='pc'><input form ='saveSales'  class='form-control input-sm' disabled type='text' id = 'batchSale' name= 'batch' value = '"+datec.batch+"'></td><td class='pc'><input form ='saveSales' class='form-control input-sm'  readonly= 'readonly' type='text' id = 'expSale' name= 'expDate' value = '"+datec.expDate+"'></td><td><input class='form-control input-sm' form='saveSales'   type='text'  id = 'spack' name='spack' disabled required value ='"+datec.sdesc+"' required></td><td class='pc'><input class='form-control input-sm' form='saveSales'   type='text'  id = 'spsize' name='spsize' disabled value = '"+datec.spsize+"' required></td><td class='pc'><input class='form-control input-sm ' form ='saveSales'  type='text' id = 'sudesc'   name= 'sudesc' disabled required value = '"+datec.sudesc+"' ></td><td class='pc'><input form ='saveSales'  class='form-control input-sm' disabled type='text' id = '"+stks+"' name='stk[]'  value = '"+datec.stock+"'></td><td><input  form ='saveSales' type='text' class='form-control input-sm' disabled name= 'unit' id = 'unitSale' value= "+datec.unit+"></td><td><input form='saveSales'  class='form-control input-sm' type='number'  id = '"+quantity+"'  name='qty[]' name='quantity' value='"+datec.quantity+"'disabled ></td><td class='pc'><input form ='saveSales' onkeypress='return onlyNos(event,this);' disabled class='form-control input-sm' type='text' id = '"+unitp+"' name= 'unitprice' value = '"+datec.unitprice+"'></td><td class='pc'><input  class='form-control input-sm' form ='saveSales' disabled type='text' id = '"+total+"'  name='price[]'  value = '"+datec.total+"'></td><td><i class='fa fa-trash-o' style='font-size:20px'onclick='deleteRow(this)'></i><input type='hidden' id='"+sk+"' value='"+datec.quantity+"'></td></tr>";
-        $('#myTable .tbody').append(markup);	   
+        $('#myTable .tbody').append(markup);   
     
         $("#myTable th:eq(0), #myTable td:nth-child(1)").hide();
         document.getElementById(pr).oninput();
@@ -1410,6 +1415,8 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
        </script>
        <script>
       $(document).ready( function() {
+    	  
+    	  
     	  $(document).on('keypress', 'input', function(e){ 
     		   if (this.value.length == 0 && e.which == 48 ){
     		      return false;
@@ -1421,6 +1428,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
 <script>
    
    $(function () {
+	   
 	   var m,n;
 	  
 	    $('#myTable').on('focusout','.tbody tr', function () {
@@ -1432,16 +1440,17 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
 	        var b = x[8].getElementsByTagName('input')[0].value;
 	        
 	    
-	        x[9].getElementsByTagName('input')[0].value = (Number(a) * Number(b)).toFixed(2);
+	        x[9].getElementsByTagName('input')[0].value = (Number(a) * Number(b)).toFixed(0);
 	        x[11].getElementsByTagName('input')[0].value =   Math.round(Number(x[9].getElementsByTagName('input')[0].value) * Number(x[10].getElementsByTagName('input')[0].value));
 	       
 	    });
 	   
    });
+   
    function goBack() {
 	    window.history.back();
 	}
-
+		
    </script>    
 </head>
 
@@ -1487,7 +1496,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
  <div id="form1" >  
   
      <h1> <font size="5">Sales </font><span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i></span>
-      <button type="button" id="close" class="btn btn-warning button2" onclick="return disp();">Print</button>    
+      <button type="button" id="close" class="btn btn-warning button2"  onclick="return disp();">Print</button>    
      
      </h1>
      
@@ -1789,13 +1798,13 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
    <tr>
                     
                     <td  colspan="" class="total-line meta-head">Total Items</td>
-		      <td style="width:10px" class="total-value"><div id="subtotal"><input form ="saveSales" class="form-control input-sm rem" value="0" readonly = "readonly" type= "text" name="titems"  id="totalItems"  ></div></td>
+		      <td style="width:10px" class="total-value"><div id="subtotal"><input form ="saveSales" class="form-control input-sm rem" value="0" readonly = "readonly" type= "text" name="titems"  id="totalItems"></div></td>
                 </tr>
                 <tr>
                 <tr>
                     
                     <td  colspan="" class="total-line meta-head">Sub Total</td>
-		      <td style="width:10px" class="total-value"><div id="subtotal"><input form ="saveSales" class="form-control input-sm rem" value="0" readonly = "readonly" type= "text" name="subt"  id="subTotal"  ></div></td>
+		      <td style="width:10px" class="total-value"><div id="subtotal"><input form ="saveSales" class="form-control input-sm rem" value="0.00" readonly = "readonly" type= "text" name="subt"  id="subTotal" ></div></td>
                 </tr>
              
 
@@ -1803,14 +1812,14 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
                   
                 <tr>
                     <td colspan="" class="total-line meta-head">Tax</td>
-		      <td class="total-value"><div id=""><input form ="saveSales" value="0" type="text" class="form-control input-sm rem" name="tax" onkeypress='return onlyNos(event,this);' min="0"  id="tax" onmouse="alert("please click on generate total");"></div></td>
+		      <td class="total-value"><div id=""><input form ="saveSales" value="0.00" type="text" class="form-control input-sm rem" name="tax" onkeypress='return onlyNos(event,this);' min="0"  id="tax" onmouse="alert("please click on generate total");"></div></td>
                 </tr>
                 <tr>
              
                 <tr>
                     <td colspan="" class="total-line meta-head">Grand Total</td>
 
-		      <td class="total-value balance"><input value="0" form ="saveSales"readonly = "readonly" class="form-control input-sm rem" type= "text" name="gtotal"  id="gTotal" ></td>
+		      <td class="total-value balance"><input value="0.00" form ="saveSales"readonly = "readonly" class="form-control input-sm rem" type= "text" name="gtotal"  id="gTotal" ></td>
                 </tr>
                 
                   </table>

@@ -381,11 +381,16 @@ function add() {
  
     var pname = encodeURI(document.getElementById("pname").value);
     var ean = document.getElementById("ean1").value;
-     
+    var sup= document.getElementById("Supplier").value;
+    if(sup=="Select"){
+    	alert("Please select Supplier")
+    	return false;
+    }
 if(pname == "Select" && ean == "Select"){
 	alert("Please select the Product")
 	return false;
 }
+
     
 var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
 
@@ -674,9 +679,23 @@ function verifypro(){
 		alert("No products added.")
 	   return false;
 	}
+	
 }
 </script>
 <script>
+$(document).ready(function(){
+	$('#close').prop("disabled",true);
+	
+	$("#sinvoice").change(function(){
+    	
+    	var theValue = $("#sinvoice").val();
+        if(theValue!='Select')
+            {
+        	$('#close').prop("disabled",false);
+            }
+        });
+})
+
 function doAjaxdel(r){
 
 	//var a = document.getElementById(drug).value;
@@ -812,7 +831,7 @@ $('#datetimepicker1').datetimepicker({
 });
 
 });
-   
+
 </script>  
 
 </head>
@@ -908,7 +927,7 @@ $('#datetimepicker1').datetimepicker({
   
   <div class="form-group">
   
-  <p>Supplier<span></span></p>
+  <p>Supplier<span>*</span></p>
      <select class="selectpicker form-control input-sm" data-size="5" data-show-subtext="true" data-live-search="true"  name = "Supplier" id ="Supplier"  form="saveo" required>
   <option value="Select">Select</option>
  <c:forEach var="product"  items="${model.list6}">
@@ -945,7 +964,7 @@ $('#datetimepicker1').datetimepicker({
 	      <div class="col-xs-3">
 	       <div class="form-group fe">
 	       
-	        <p>Product Code<span></span></p>
+	        <p>Product Code<span>*</span></p>
       <select class="selectpicker form-control input-sm" data-size="6" data-show-subtext="true" data-live-search="true" name = "ean1" id ="ean1"  onchange="add1(this.options[this.selectedIndex])" required>
      <option value="Select" data-value="Select">Select</option>
      <c:forEach var="product"  items="${model.list}">
@@ -961,7 +980,7 @@ $('#datetimepicker1').datetimepicker({
 	      <div class="col-xs-3">
 	      <div class="form-group fe">
 	       
-   <p>Product Name<span></span></p>
+   <p>Product Name<span>*</span></p>
       <select class="selectpicker form-control input-sm" data-size="6"  data-show-subtext="true" data-live-search="true" name = "pname" id ="pname"  onchange="add2(this.options[this.selectedIndex])" required>
        <option value="Select" data-value="Select">Select</option>
         <c:forEach var="product"  items="${model.list}">

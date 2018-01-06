@@ -341,16 +341,12 @@ $(document).ready(function () {
 		 
 		     var currentTime = new Date();
 		     var userTime = $("#time").val().split(":"); 
-		     if(currentTime.getHours() > parseInt(userTime[0])){
+		     if(currentTime.getHours() > parseInt(userTime[0]) || (currentTime.getMinutes()>parseInt(userTime[1]))){
 		   	 alert("Appointments can be scheduled only for future time")
 		   	 $( "#time" ).val(time);
 		         $(this).focus();                
 		     }
-		     if(currentTime.getMinutes()>parseInt(userTime[1])){
-		    	 alert("Appointments can be scheduled only for future time")
-		    	 $( "#time" ).val(time);
-		         $(this).focus();
-		     }
+		     
 		     /*
 		     if(currentTime.getHours() <= parseInt(userTime[0])){
 		         if(currentTime.getMinutes() > parseInt(userTime[1])){
