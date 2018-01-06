@@ -257,11 +257,9 @@ window.location = "/HMS/doctor1.html";
       <figure>
      
        <img src="<c:url value='/Images/GCH.png'/>"/><br><br>
-<<<<<<< HEAD
+
       <figcaption><input type="button" onclick="location.href='/HMS/diagnose/config'" value="Clinical Diagnosis Configuration"></figcaption>
-=======
-      <figcaption><input type="button" onclick="location.href='/HMS/diagnose'" value="Diagnose"></figcaption>
->>>>>>> origin/shrikant
+
      
       </figure>
     </div> 
