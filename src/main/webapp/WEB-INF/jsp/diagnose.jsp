@@ -215,7 +215,7 @@ obj[newrec].push({});
 
 
  prvrec = newrec;
- activechk(tab)
+// activechk(tab)
 }
 else if(newrec == undefined){
 	$("#tab"+tab).find(".main").find('div.divin').not(':first').remove();
@@ -583,7 +583,7 @@ function datasuccess(data){
 window.location = "/HMS/diagnose/user";
 	}
 }
-
+/*
 function activechk(flag){
 	var i,j,x
 	   $("#tab"+flag).find(".main").find(".divin").eq(0).find(":checkbox[name='radio']").each(function() {
@@ -608,6 +608,7 @@ function activechk(flag){
 	     });
 	
 }
+*/
 </script>
       <script type="text/javascript">
        function  doAjaxPostNew(met,uri,data1,successFn,errorFn,ctype) {
