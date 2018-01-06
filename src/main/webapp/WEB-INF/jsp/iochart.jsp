@@ -136,11 +136,7 @@ textarea {
 
 
  
-#myTable1 {
-    border-collapse: collapse;
-    width: 100%;
-     margin-left : -90px;
-    }
+
 #myTable1 th {
     background-color: #009999;
     color: white;
@@ -175,6 +171,12 @@ modal-body{
 .delete{
 	width :50px;
 }
+
+#myTable1 {
+    border-collapse: collapse;
+    width: 100%;
+     margin-left : -90px;
+    }
 
 #col3{
 margin-left: 80px; 
