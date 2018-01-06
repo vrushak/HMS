@@ -29,7 +29,7 @@
 .wrapper {
 	width : 1350px;
 	background : #eee;
-	height: 700px;
+	height: 800px;
 	font-family: 'Open Sans', 'Droid Sans';
 }
 input[type="button"]{
@@ -56,6 +56,24 @@ margin-left:10px;
 }
 </style>
 <script type="text/javascript">
+function checkhome(user){
+	
+	if(user.includes("[ROLE_DOCTOR]")){
+		
+		 var url = "/HMS/doctor1" ;
+			
+		 var element = document.getElementById('ho');
+		 element.setAttribute("href",url)
+	}
+	
+	else{
+		 var url = "/HMS/home" ;
+			
+		 var element = document.getElementById('ho');
+		 element.setAttribute("href",url)
+	}
+}
+
 function myconfirm()
 {
  var r = confirm("Do you want to Logout?");
@@ -239,12 +257,25 @@ window.location = "/HMS/doctor1.html";
       <figure>
      
        <img src="<c:url value='/Images/GCH.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='/HMS/diagnose'" value="Diagnose"></figcaption>
+
+      <figcaption><input type="button" onclick="location.href='/HMS/diagnose/config'" value="Clinical Diagnosis Configuration"></figcaption>
+
      
       </figure>
     </div> 
     </div>
+    <br>
+   <div class="row text-center">
+      <div class="col-xs-2">
+      <figure>
+     
+       <img src="<c:url value='/Images/GCH.png'/>"/><br><br>
+      <figcaption><input type="button" onclick="location.href='/HMS/diagnose/user'" value="Clinical Diagnosis"></figcaption>
+     
+      </figure>
+    </div> 
    
+   </div>
 
  </div>
  <br>
