@@ -29,6 +29,7 @@
 
 
 <script type="text/javascript">
+
 var cuser
 function checkhome(user){
 	cuser = user;
@@ -172,6 +173,9 @@ function display(){
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
+    <br>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.location.href='/HMS/frontdesk';"></i>
+    
   </div>
 </nav>
   

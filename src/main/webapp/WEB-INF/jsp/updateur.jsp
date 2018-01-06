@@ -393,6 +393,9 @@ function validDate() {
     <ul class="nav navbar-nav">
       <li class="active"><a id="" href="home.html">Home</a></li>
     </ul>
+    <br>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #228B22'  onclick="window.location.href='/HMS/home';"></i>
+    
   </div>
 </nav>
   <center>

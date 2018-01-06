@@ -227,14 +227,15 @@ function myconfirm()
 
 <br>
 <font color="#228B22" class="left" >Welcome : ${pageContext.request.userPrincipal.name}</font>  <i style="font-size:20px; align: right; color : #228B22;" class="fa fa-cog" ></i> 
-<i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #228B22'  onclick="window.location.href='/HMS/welcome';"></i><i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
+<i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
+<i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #228B22'  onclick="window.location.href='/HMS/welcome';"></i>
 <div class="well well-sm" id="well"> <center><h4><font color="white">Pharmacy</font></h4></center></div>
 
 <div class="container">
 
   <ul class="nav nav-pills nav-justified">
     <li class="active"><a  data-toggle="pill"  href="#masters">Masters</a></li>
-    <li><a  data-toggle="pill" href="#os">Purchase/Sales/Order & Reorder</a></li>
+    <li><a  data-toggle="pill" href="#os">Order & Reorder/Purchase Entry/Sales</a></li>
    <!--   <li><a  data-toggle="pill" href="#co">Configuration</a></li>
     <li><a  data-toggle="pill"  href="#re">Reports</a></li> -->
     <li><a  data-toggle="pill"  href="#ps">Product Stocks and Pricing</a></li>

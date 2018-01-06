@@ -1141,22 +1141,31 @@ public class doctControllerDao {
 			}
 			
 			public List<Diagnose> getLoadvalue(int level,int pid) {
+<<<<<<< HEAD
 				System.out.println("lev"+level);
 				System.out.println("lev"+pid);
 				
 				return template.query("select d.did,d.checkval,d.parentid,dh.header,d.hid from diagdata d right outer join diagheader dh on dh.hid = d.hid where parentid = '"+pid+"' and tabid = '"+level+"'",new RowMapper<Diagnose>(){  
+=======
+				System.out.println(level);
+				return template.query("select d.did,d.checkval,d.parentid,dh.header from diagdata d left outer join diagheader dh on d.hid = dh.hid  where parentid = '"+pid+"'",new RowMapper<Diagnose>(){  
+>>>>>>> origin/shrikant
 			        public Diagnose mapRow(ResultSet rs, int row) throws SQLException {   
 				       Diagnose p = new Diagnose();
 				   		p.setDid(rs.getInt(1));
 				   		p.setCheckval(rs.getString(2));
 				   		p.setPid(rs.getInt(3));
 				   		p.setHeader(rs.getString(4));
+<<<<<<< HEAD
 				   		p.setHid(rs.getInt(5));
 				   		System.out.println(rs.getInt(3));
+=======
+>>>>>>> origin/shrikant
 				       return p;
 			        }
 				});
 			}
+<<<<<<< HEAD
 			
 			//load header data
 			public List<Diagnose> getHeaderVal(int level,String pid) {
@@ -1175,6 +1184,8 @@ public class doctControllerDao {
 			// load header data on tabclick
 			
 			
+=======
+>>>>>>> origin/shrikant
 	// load history data for diagnose screen		
 			public List<Diagnose> getHistvalue() {
 			return template.query("select d.pid,d.fileno,concat(pat.fname,' ',pat.mname,' ',pat.lname) patient,doc.docid,concat(doc.fname,' ',doc.mname,' ',doc.lname) doctor,d.diagnose,d.datetime from diagnose d join patient pat on pat.pid = d.pid join doctor doc on doc.docid = d.docid",new RowMapper<Diagnose>(){  
@@ -1204,6 +1215,7 @@ public class doctControllerDao {
 				} 
 			
 			// save tab header
+<<<<<<< HEAD
 			public int savediagheader(int tabid,String header) {
 					String sql="insert into diagheader(tid,header) values('"+tabid+"','"+header+"') on duplicate key update header = '"+header+"',tid = '"+tabid+"'";  
 					return template.update(sql);  
@@ -1222,6 +1234,13 @@ public class doctControllerDao {
 				String sql="insert into diagdata(checkval,level,hid,tabid,parentid) values('"+chkname+"','"+level+"','"+hid+"','"+tabid+"','"+pid+"') on duplicate key update checkval = '"+chkname+"',tabid = '"+tabid+"',hid='"+hid+"',parentid='"+pid+"',level='"+level+"'";  
 				return template.update(sql);  
 						} 
+=======
+			public int savediagheader(Diagnose b) {
+					String sql="insert into diagheader(tid,header) values('"+b.getTabid()+"','"+b.getHeader()+"') on duplicate key update header = '"+b.getTabvalue()+"',tid = '"+b.getTabid()+"'";  
+					return template.update(sql);  
+							} 
+						 
+>>>>>>> origin/shrikant
 			//load tabs
 			public List<Diagnose> getTabsvalue(String b) {
 				return template.query("select tid,tabvalue from diagtab where tabvalue = '"+b+"'",new RowMapper<Diagnose>(){  
@@ -1242,6 +1261,7 @@ public class doctControllerDao {
 					   	return p;
 				        }
 					});
+<<<<<<< HEAD
 				}
 
 
@@ -1257,5 +1277,8 @@ public class doctControllerDao {
 			        }
 				});
 			}
+=======
+				}	
+>>>>>>> origin/shrikant
 }  
 		

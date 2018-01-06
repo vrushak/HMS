@@ -1091,8 +1091,13 @@ public class dcontroller {
 										}
 								  
 								 
+<<<<<<< HEAD
 		  @RequestMapping(value="/diagnose/{path}", method = RequestMethod.GET)
 			 public ModelAndView  diagnose(@PathVariable String path,Prescription s,Principal principal,Authentication authentication) {
+=======
+		  @RequestMapping(value="/diagnose", method = RequestMethod.GET)
+			 public ModelAndView  diagnose(Prescription s,Principal principal,Authentication authentication) {
+>>>>>>> origin/shrikant
 				  authentication.getAuthorities();
 				  Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 				  String b = var.toString();
@@ -1114,12 +1119,15 @@ public class dcontroller {
 				       model.put("list3", list3);
 				       model.put("list4", list4);
 				       model.put("list16", list16);
+<<<<<<< HEAD
 				       if(path.contains("config")){
 				    	   model.put("use","config");
 				       }
 				       else{
 				    	   model.put("use","user"); 
 				       }
+=======
+>>>>>>> origin/shrikant
 				 	return new ModelAndView("diagnose","model",model);  
 								}
 	
@@ -1199,19 +1207,28 @@ public class dcontroller {
 		 		ModelAndView  mav = new ModelAndView();
 		 		if(sav > 0){
 		 		mav.addObject("message", "The record has been saved sucessfully");
+<<<<<<< HEAD
 		 		mav.setViewName("redirect:diagnose/user");		    
+=======
+		 		mav.setViewName("redirect:diagnose");		    
+>>>>>>> origin/shrikant
 		 						    
 		 		}
 
 		 		else{
 		 		mav.addObject("message", "Record could not be saved successfully ");
+<<<<<<< HEAD
 		 		mav.setViewName("redirect:diagnose/user");
+=======
+		 		mav.setViewName("redirect:diagnose");
+>>>>>>> origin/shrikant
 		 		}
 		 			
 		 	return mav; 
 
 }
 		  
+<<<<<<< HEAD
 		  //load header values
 		  @RequestMapping(value="/loadhead/{tab}/{header}", method = RequestMethod.POST)
 			public @ResponseBody String loadtab(@PathVariable int tab,@PathVariable String header,@ModelAttribute("s") Diagnose s) {
@@ -1281,4 +1298,6 @@ public class dcontroller {
 				
 		 return jsonFormatData;
 }		  
+=======
+>>>>>>> origin/shrikant
 }

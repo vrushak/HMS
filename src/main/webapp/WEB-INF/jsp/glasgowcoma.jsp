@@ -13,7 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
-<link rel='stylesheet' href='<c:url value="/resources/css/iochart.css" />' type='text/css' media='all' />
+<link rel='stylesheet' href='<c:url value="/resources/css/ioochart.css" />' type='text/css' media='all' />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -742,6 +742,8 @@ var user2a;
     		    $(":checkbox[name='motor']:not(:checked)").prop('disabled', false); 
     		 });
        });
+       
+
        </script>
     	    </head>
 </head>
@@ -757,6 +759,8 @@ var user2a;
       <li class="active"><a id="ho" href="">Home</a></li>
      
     </ul>
+    <br>
+         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.location.href='/HMS/doctor1';"></i>
   </div>
 </nav>
   <center>

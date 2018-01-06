@@ -370,6 +370,7 @@ function datasuccess(data){
 window.location = "/HMS/blantyrecoma.html";
 	}
 }
+
 	</script>
 	
 	
@@ -697,6 +698,8 @@ $(document).ready(function(){
       
  
     </ul>
+    <br>
+         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' onclick="window.location.href='/HMS/doctor1';"></i>
   </div>
 </nav>
   <center>

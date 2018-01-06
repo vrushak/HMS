@@ -103,6 +103,8 @@ window.location = "/HMS/doctor1.html";
 <br>
 <font color="#228B22" class="left" >Welcome : ${pageContext.request.userPrincipal.name}</font>  <i style="font-size:20px; align: right;color : #228B22" class="fa fa-cog" ></i> 
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
+<i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #228B22'  onclick="window.location.href='/HMS/admin';"></i>
+
 <div class="well well-lg" id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
 
  <div class ="container" >
@@ -148,14 +150,14 @@ window.location = "/HMS/doctor1.html";
     <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/input output.jpg'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='iochart'" value="IO CHART"></figcaption>
+      <figcaption><input type="button" onclick="location.href='iochart'" value="IO Chart"></figcaption>
       </figure>
     </div>
     
     <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/Hour Chart.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='hourchart'" value="HOUR CHART"></figcaption>
+      <figcaption><input type="button" onclick="location.href='hourchart'" value="Hour Chart"></figcaption>
       </figure>
     </div>
    
@@ -166,7 +168,7 @@ window.location = "/HMS/doctor1.html";
   <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/drug chart icon.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='drugchart'" value="DRUG CHART"></figcaption>
+      <figcaption><input type="button" onclick="location.href='drugchart'" value="Drug Chart"></figcaption>
       </figure>
     </div>
     
@@ -255,7 +257,11 @@ window.location = "/HMS/doctor1.html";
       <figure>
      
        <img src="<c:url value='/Images/GCH.png'/>"/><br><br>
+<<<<<<< HEAD
       <figcaption><input type="button" onclick="location.href='/HMS/diagnose/config'" value="Clinical Diagnosis Configuration"></figcaption>
+=======
+      <figcaption><input type="button" onclick="location.href='/HMS/diagnose'" value="Diagnose"></figcaption>
+>>>>>>> origin/shrikant
      
       </figure>
     </div> 

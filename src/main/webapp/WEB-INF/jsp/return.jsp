@@ -272,6 +272,7 @@ $(document).ready(function(){
 		
 
 	});
+
 </script>
 </head>
 <sec:authentication property="principal.authorities" var="username" />
@@ -299,6 +300,8 @@ $(document).ready(function(){
        <li><a href="/HMS/reorder.html" target="_blank">Check Reorder Level</a></li>
   
     </ul>
+
+    
   </div>
 </nav>
   <center>

@@ -399,7 +399,9 @@ function datasuccess(data){
        </script>
 
     <script>
-   
+    
+
+    
    $(function () {
 	    $(document).on('click','#myTable .tbody tr', function () {
 	   // 	$('.success').removeClass('success');
@@ -434,6 +436,8 @@ function datasuccess(data){
     <li class=""><a id="hp" href="">General Checkup</a></li>
  <li class=""><a id="m2" href="">Treatment Records</a></li> -->
             </ul>
+            <br>
+         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' onclick="window.location.href='/HMS/doctor1';" ></i>
   </div>
 </nav>
   <center>

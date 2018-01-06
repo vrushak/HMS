@@ -500,6 +500,8 @@ jQuery().ready(function() {
     <ul class="nav navbar-nav">
       <li class="active"><a href="/HMS/home">Home</a></li>
     </ul>
+    <br>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.location.href='/HMS/staff';"></i>
   </div>
 </nav>
   <center>
@@ -517,7 +519,7 @@ jQuery().ready(function() {
 
 	    <br>
 	    <div class="container">
-   <table class="table table-striped table-bordered table-fixed table-hover table-condensed" style="width: 900px; " id="myTable">
+   <table class="table table-striped table-bordered table-fixed table-hover table-condensed" style="width: 916px; " id="myTable">
     <thead>
       <tr>
         <th style="width:150px;">Assistant Id</th>
@@ -526,6 +528,8 @@ jQuery().ready(function() {
         <th style="width:150px;">Date of Join</th>
         <th style="width:150px;">Designation</th>
         <th style="width:150px;">Edit</th>
+        <th style="width:13px;"></th>
+        
       </tr>
     </thead>
     <tbody class="tbody">
@@ -537,7 +541,7 @@ jQuery().ready(function() {
      <td style="width:150px;">${p1.joindate}</td>
     <td style="width:150px;">${p1.desg}</td>
     <td style="width:150px;"><i class="fa fa-pencil" style="color:#00b300" onclick="copy('${p1.aid},${p1.fname},${p1.lname},${p1.joindate},${p1.dob},${p1.age},${p1.gender},${p1.regnno},${p1.ssn},${p1.qualification},${p1.landphone},${p1.mobile},${p1.email},${p1.country},${p1.city},${p1.pcode},${p1.prfshift},${p1.emptype},${p1.dept},${p1.desg},${p1.state},${p1.mname},${p1.specialization},${p1.username},${p1.password}','${p1.address2}'),copy1('${p1.address}')"></i></td>
-   
+    <td style="width:13px;"></td>
  </tr>
     </c:forEach>
     </tbody>
@@ -685,7 +689,7 @@ jQuery().ready(function() {
  
  
             <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- open1 is given in the class that is binded with the click event -->
           <center><button class="btn btn-primary open1" type="button" >Next <span class="fa fa-arrow-right"></span></button> </center>
               </div>
@@ -794,7 +798,7 @@ jQuery().ready(function() {
             <div class="clearfix" style="height: 10px;clear: both;"></div>
 
             <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- back2 unique class name  -->
             <center>       <button class="btn btn-warning back2" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- open2 unique class name -->
@@ -855,7 +859,7 @@ jQuery().ready(function() {
             <div class="clearfix" style="height: 10px;clear: both;"></div>
 
             <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- back2 unique class name  -->
                 <center><button class="btn btn-warning back2a" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- open2 unique class name -->
@@ -951,19 +955,16 @@ jQuery().ready(function() {
   
   
   </div>
- 
-       
- 
- 
-
-            <div class="clearfix" style="height: 10px;clear: both;"></div>
+              <div class="clearfix" style="height: 10px;clear: both;"></div>
 
             <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- back2 unique class name  -->
+               <center>
                 <button class="btn btn-warning back3" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- open2 unique class name -->
                 <button class="btn btn-primary open3" type="button">Next <span class="fa fa-arrow-right"></span></button> 
+              </center>
               </div>
             </div>
 </fieldset>
@@ -1017,7 +1018,7 @@ jQuery().ready(function() {
 </div>
 
   <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- Unique class name -->
              <center><button class="btn btn-warning back4" type="button" form="form1"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- Unique class name -->

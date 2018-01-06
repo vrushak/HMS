@@ -1535,6 +1535,9 @@ $(function () {
   	}
   }
 
+  function goBack() {
+	    window.history.back();
+	}
   
   </script>
 </head>
@@ -1556,6 +1559,8 @@ $(function () {
        <li class=""><a id="nob" href="/HMS/nursetr/"  onclick=' return visible();' target="_blank">Nurse observations</a></li>
  -->
     </ul>
+    <br>
+         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
   </div>
 </nav>
   <center>

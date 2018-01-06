@@ -2,31 +2,29 @@
     pageEncoding="ISO-8859-1"%>
  <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>CMS Wedge</title>
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>CMS Wedge</title>
 
-<link rel='stylesheet' href='<c:url value="/resources/css/prescription.css" />' type='text/css' media='all' />
 <link rel="stylesheet" href='<c:url value="/resources/css/font-awesome.css" />' >
 <link rel="stylesheet" href='<c:url value="/resources/css/font-awesome.min.css" />' >
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap.min.css" />' >
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-select.min.css" />' />
-<link rel="stylesheet" href='<c:url value="/resources/css/jquery-ui.css" />' >
 
 <script type="text/javascript" src="/HMS/resources/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/moment.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-select.min.js"></script>
-<script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
-<script type="text/javascript" src="/HMS/resources/js/jquery-ui.min.js"></script>
 
-<style type="text/css">
+<style>
 .tab-pane{
 width : auto;
 border-style : groove;
@@ -36,12 +34,11 @@ overflow-y : auto;
 
 }
 
-
 #menu4{
 width : 820px;
 border-style : groove;
 border-radius : 10px;
-height : 300px;
+
 }
 .btn btn{
   padding: 15px 15px;
@@ -49,7 +46,6 @@ height : 300px;
         /* All browsers since IE 5.5+ */
 
     max-width:170px;
-    cursor: default;
   
 }
 .btn-block{
@@ -59,34 +55,194 @@ height : 300px;
 .remove{
 
 }
-table.beta .tbody2{
-
-    height:300px;
-    overflow-y :auto;
-}
-
-
-table.beta .thead2 th{
-	background-color: #009999;
-    color: white;
-}
-  
-#mc1{
-height : 300px;
-
+#myTable1 th {
+    background-color: #009999;
+    color: black;
 } 
+   
+#myTable1 .tbody{
+    height:200px;
+    overflow :auto;
+ }
+ #myTable1 .thead1,.tbody{
+  
+    display:block;
+  }
+.wrapper {
+  height : auto;
+  background: #eaeaea;  
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+#form1 h1 {
+  font-size: 18px;
+  background: #009999 none repeat scroll 0% 0%;
+  color: rgb(255, 255, 255);
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
+  text-shadow: none; 
+  text-align:center;
+}
+
+#form1 {
+  border-radius: 5px;
+  max-width:1100px;
+  width:100%;
+  margin: 5% auto;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+
+#form2 h1 {
+  font-size: 18px;
+  background: #009999 none repeat scroll 0% 0%;
+  color: rgb(255, 255, 255);
+  padding: 22px 25px;
+  border-radius: 5px 5px 0px 0px;
+  margin: auto;
+  text-shadow: none; 
+  text-align:center;
+}
+
+#form2 {
+  border-radius: 5px;
+  max-width:1000px;
+  width:100%;
+  margin: 5% auto;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+
+p span {
+  color: #F00;
+}
+
+p {
+  margin: 0px;
+  font-weight: 500;
+  line-height: 2;
+  color:#333;
+}
+
+h1 {
+  text-align:center; 
+  color: #666;
+  text-shadow: 1px 1px 0px #FFF;
+  margin:50px 0px 0px 0px
+}
+
+
+a {
+  text-decoration:inherit
+}
+
+textarea {
+  border-radius: 0px 5px 5px 0px;
+  border: 1px solid #cccccc;
+  margin: 0;
+  width: 400px;
+  height: 50px; 
+  float: left;
+  padding: 0px 15px;
+}
+#symptoms {
+  border-radius: 0px 5px 5px 0px;
+  border: 1px solid #cccccc;
+  margin: 0;
+  width: 570px;
+  height: 50px; 
+  float: left;
+  padding: 0px 15px;
+}
+#systemic{
+	 border-radius: 0px 5px 5px 0px;
+  border: 1px solid #cccccc;
+  margin:0;
+  width: 400px;
+  height: 110px; 
+  float: left;
+  padding: 0px 15px;
+  margin-bottom : 0.5cm; 
+}
+
+
+#mt{
+	margin-top : 2cm;
+}
+
+
+
+.bouton-contact{
+  background-color: #81BDA4;
+  color: #FFF;
+  text-align: center;
+  width: 100%;
+  border:0;
+  padding: 17px 25px;
+  border-radius: 0px 0px 5px 5px;
+  cursor: pointer;
+  margin-top: 40px;
+  font-size: 18px;
+}
 
 
 
 
+#myTable th {
+    background-color: #009999;
+    color: white;
+    width : 192px;
+}
+
+
+
+.table-fixed{
+ 
+}
+#myTable  tbody{
+    height:300px;
+    overflow-y:auto;
+ }
+ 
+ #myTable thead,tbody{
+  
+    display:block;
+  }
+  
+
+  
+
+#myTable3 th {
+    background-color: #009999;
+    color: white;
+    
+}
+
+
+
+.table-fixed{
+ 
+}
+
+
+
+.button1{
+	float : left;
+}
+.button2{
+	float : right;
+}
 </style>
+
+
+
+
 <script type="text/javascript">
-var adminusr;
-var admnme;
+
 function checkhome(user){
-document.getElementById("print").style.display = "none";	
-adminusr = user;
-document.getElementById("adr").style.visibility ="hidden";
+
 	
 		if(user.includes("[ROLE_DOCTOR]")){
 			var url = "/HMS/doctor1" ;
@@ -189,111 +345,13 @@ function check(id,name){
 	
 	
 }
-var prevtab;
-var tabid;
 
-function copyval1(name){
-	
-	var a = $("#fileno").val();
-	var b = $("#pname1").val();
-	var c = $("#pid1").val();
-	var d = document.getElementById("pname").value;
-	
-	if(name == "menu4a" && d =="Select"){
-		alert("Please select Patient Name")
-		return false;
-	
-	}
-	else if(name == "menu4a" && d !="Select"){
-	
-		  var url = "/HMS/labup2?location="+a+"&location1="+b+"&location2="+c+"";
-		    var element = document.getElementById(name);
-			element.setAttribute("href",url);
-		
-			
-			return true;
-	}
-	
-	else{
-		
-	}
-	
-}
+var tabid;
 function copyval(tabi){
 	tabid = tabi;
-	var a = $("#fileno").val();
-	var b = $("#pname1").val();
-	var c = $("#pid1").val();
-	var d = document.getElementById("pname").value;
-	
-	
-	if(tabi == "menu4"){
-		document.getElementById("adr").style.visibility ="visible";
-		document.getElementById("addButton").style.visibility = "hidden";
-		var tableRef = document.getElementById('myTable1').getElementsByTagName('tbody')[0];
-		if(tableRef.rows.length == 0){
-			display()
-		}
-	}
-
-	else{
-		document.getElementById("adr").style.visibility ="hidden";
-		document.getElementById("addButton").style.visibility = "visible";
-		//document.getElementById("print").style.visibility = "hidden";
-	}
-	
-	if(tabi == "home1"){
-		document.getElementById("addButton").style.visibility = "hidden";
-		document.getElementById("showdrugs").style.visibility = "hidden";
-	//	document.getElementById("print").style.visibility = "hidden";
-	}
-	else if(tabi == "menu3a"){
-		document.getElementById("addButton").style.visibility = "hidden";
-		document.getElementById("showdrugs").style.visibility = "hidden";
-	//	document.getElementById("print").style.visibility = "hidden";
-	}
-	else if(tabi == "menu4"){
-		document.getElementById("addButton").style.visibility = "hidden";	
-		document.getElementById("showdrugs").style.visibility = "visible";
-	//	document.getElementById("print").style.visibility = "visible";
-	}
-	else{
-		document.getElementById("addButton").style.visibility = "visible";	
-		document.getElementById("showdrugs").style.visibility = "hidden";
-	//	document.getElementById("print").style.visibility = "hidden";
-	}
-
-
-	
 	
 } 
-var addpe;
-function callevent(e){
-	 addpe = e;
-	 $('#myModal2').modal('show');
-	/*
-	var key=e.keyCode || e.which;
-	  if (e.keyCode==123){
-		  $('#myModal2').modal('show');
-	  }
-	
-	*/
-	
-}
 
-function addp(){
-	if(document.getElementById("drugn").value == "select"){
-		alert("Drug Name is not selected")
-		return false;
-	}
-	else{
-	document.getElementById(addpe).value = document.getElementById("drugn").value;
-	  $('select[name=drugn]').val("select");
-	   $('#drugn').selectpicker('refresh');
-	   
-	$('#myModal2').modal('hide');
-	}
-}
 function display(){ 
 	
 	
@@ -303,49 +361,54 @@ function display(){
 	//    var m = moment().format('YYYY-MM-DD h:mm a');
 
 	  var newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<input type='text'  form ='form1' onfocus='' class= 'form-control input-sm' value=' ' id = 'typeofdr' name= 'typeofdr' required >";
+	  newCell.innerHTML="<input type='text'  form ='form1'  class= 'form-control input-sm' value=' ' id = 'typeofdr' name= 'typeofdr'  required>";
 	  newCell.style.width ='100px';
 		 
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm button1' value=' ' style='width: 100px;' type='text' id = '"+tableRef.rows.length+"' name= 'drugname' required ><a title='Click to View Available drugs'><i class='glyphicon glyphicon-list-alt button2' style='font-size:20px'  onclick= callevent('"+tableRef.rows.length+"')></i></a> </td></tr>";
-	  newCell.style.width ='140px';
+	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value=' '  type='text' id = 'drugname' name= 'drugname'  required> </td></tr>";
+	  newCell.style.width ='100px';
 		 
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value=' ' type='text' id = 'strdrug' name= 'strdrug' required > </td></tr>";
-	  newCell.style.width ='80px';
+	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value=' ' type='text' id = 'strdrug' name= 'strdrug'  required> </td></tr>";
+	  newCell.style.width ='100px';
 		 
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value=' ' type='text' id = 'dosage' name= 'dosage' required > </td></tr>";
+	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value=' ' type='text' id = 'dosage' name= 'dosage'  required> </td></tr>";
 	  newCell.style.width ='50px';
 	  
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><select  form ='form1' class= 'form-control input-sm'   id = 'dm'  name= 'dm'  ><option value='PRN'>PRN</option><option value='OD'>OD</option><option value='BD'>BD</option><option value='TDS'>TDS</option><option value='QID'>QID</option><option value='OTHERS'>OTHERS</option></select> </td></tr>";
-	  newCell.style.width ='20px';
+	  newCell.innerHTML="<tr><td><input  form ='form1' class= ''  type='checkbox' id = 'dm' value= 'on' name= 'dm'  ><input type='hidden' name='dm' value='off' form='form1'> </td></tr>";
+	  newCell.style.width ='37.5px';
 	  
-	 /* 
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value='NA' type='text' id = 'da' name= 'da' required > </td></tr>";
-	  newCell.style.width ='120px';
-	  */
+	  newCell.innerHTML="<tr><td><input  form ='form1' class= ''  type='checkbox' id = 'da' name= 'da' value='on'  ><input type='hidden' name='da' value='off' form='form1'> </td></tr>";
+	  newCell.style.width ='37.5px';
 	  
+	  newCell = rowsAdd.insertCell();
+	  newCell.innerHTML="<tr><td><input  form ='form1' class= ''  type='checkbox' id = 'de' name= 'de' value='on' ><input type='hidden' name='de' value='off' form='form1'> </td></tr>";
+	  newCell.style.width ='37.5px';
+	  
+	  newCell = rowsAdd.insertCell();
+	  newCell.innerHTML="<tr><td><input  form ='form1' class= ''  type='checkbox' id = 'dn' name= 'dn' value='on' ><input type='hidden' name='dn' value='off' form='form1'> </td></tr>";
+	  newCell.style.width ='37.5px';
 		 
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input type='text'  form ='form1' class= 'form-control input-sm' value='NA' id = 'baf' name= 'baf'  ></td></tr>";
-	  newCell.style.width ='100px';
+	  newCell.innerHTML="<tr><td><select  form ='form1' class= 'form-control input-sm' value=' ' id = 'baf' name= 'baf'  required><option>Before</option><option>After</option></select> </td></tr>";
+	  newCell.style.width ='90px';
 		 
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value=' ' type='text' id = 'totn' name= 'totn' > </td></tr>";
+	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value=' ' type='text' id = 'totn' name= 'totn'  required> </td></tr>";
 	  newCell.style.width ='70px';
 		 
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value=' ' type='text' id = 'nofdays' name= 'nofdays' > </td></tr>";
+	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value=' ' type='text' id = 'nofdays' name= 'nofdays'  required> </td></tr>";
 	  newCell.style.width ='50px';
 		 
 	 
 	  
 	  newCell = rowsAdd.insertCell();
 	  newCell.innerHTML="<tr><td class='tds'><i class='fa fa-trash-o' font-size:20px'  onclick='deleteRow(this)'></i></td></tr>";
-	  newCell.style.width ='30px';
+	  newCell.style.width ='50px';
 		 
 
 	disbut();
@@ -366,8 +429,7 @@ function addcname(){
 	document.getElementById("nm").innerHTML = str[1];
 	document.getElementById("flno").innerHTML = str[2];
 	document.getElementById("fileno").value = str[2];
-	
-	doAjaxPost(str[2],str[0])
+	doAjaxPost(str[2])
 	
 	
 	
@@ -537,26 +599,6 @@ function copy(pid,sym,treat,diag,ka,pm,systemic,gtest,gvalue){
 
 }
 
-//check whether values are present or not
-function checklen(){
-	var len = document.getElementById("fileno").value;
-	
-	if(len.length== 0){
-		alert("Please select Patient Name")
-		return false;
-	}
-	var tableRef = document.getElementById('myTable3').getElementsByTagName('tbody')[0];
-	   if(tableRef.rows.length == 0){
-	  		   alert("Selected patient does not have previous records")
-	  	return false;
-	   }
-	   else{
-		   
-		   $('#myModal1').modal('show');
-	   }
-	  
-}
-
 function calculateBmi() {
 	var weight = document.getElementById("weightw").value;
 	var height = document.getElementById("height").value;
@@ -586,34 +628,6 @@ function calculateBmi() {
 	}
 	
 	}
-	
-function verpr(){
-	var d = document.getElementById("pname").value;
-	var a = $("#fileno").val();
-//	var b = $("#pds").val();
-//	var c = $("#pid1").val();
-	var e = document.getElementsByName("typeofdr")[0].value;
-
-	if(d =="Select"){
-		alert("Please select Patient Name")
-		return false;
-	}
-
-	//else if(e == " "){
-//	alert("Cannot print empty Prescription!")	
-//	return false;
-//	}/*
-/*
-	else{
-		var url = "/HMS/prprs1";
-				    var element = document.getElementById("print");
-					element.setAttribute("href",url);
-				return true;
-		
-		
-	}
-	*/
-}	
 </script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -624,61 +638,20 @@ $(document).ready(function(){
 	}); 
 });
 </script>
-<script>
-function doAjaxDelete(r,drug,type){
-
-	var a = document.getElementById(drug).value;
-	var b = document.getElementById(type).value;
-	var file = $('#fileno').val();
-		
-	 
-	    
-	   
-	   $.ajax({
-      	 
-           type: "GET",
-   
-           url: "/HMS/delpr/"+a+"/"+b+"/"+file+"",
-           async : false,      
-           dataType: "JSON",
-           contentType: "application/json; charset=UTF-8",
-           
-         success: function(response){
-              	if(response.toString() == "success")   
-                 {
-             	  alert("Record deleted Successfully")
-                 }
-             	  unsaved = false;
-                 },
-                 
-
-            	
-               //  error: function(e){
-              	  
-              	 //          alert('Error: ' + e);
-              	  
-              	  //         }
-              	           });
-	    var i = r.parentNode.parentNode.rowIndex;
-	    document.getElementById("myTable1").deleteRow(i);
-}
-
-</script>
 <script type="text/javascript">
 
 
 
 
-       function doAjaxPost(fileno,pid) {
+       function doAjaxPost(fileno) {
     	   // get the form values
     	   
     	  var counter = 1;
     	 
     	         //  var name = $('#pname').val();
-    	    //       var pid = $('#pid1').val();
-    	          
+    	           var pid = $('#pid1').val();
     	             $.ajax({
-    	        	 
+    	        	  
     	        	           type: "GET",
     	        	   
     	        	           url: "/HMS/prescription1/"+fileno+"/"+pid+"",
@@ -707,18 +680,9 @@ function doAjaxDelete(r,drug,type){
       	                document.getElementById("pid").disabled = true;
       	              document.getElementById("pname1").value = addn.pname;
       	              document.getElementById("pid1").value = addn.pid;
-      	            document.getElementById("print").style.display = "block";	
-      	              
-      	            if(adminusr.includes("[ROLE_ADMIN]")){
-      	      		document.getElementById("docid").value = admnme;
-      	      		document.getElementById("dname").value = admnme;
-      	      	
-      	      	}
-      	            else{
-      	            	
       	            document.getElementById("dname").value = addn.dname;
     	              document.getElementById("docid").value = addn.docid;
-      	            } 
+      	              
       	              if( addn.admit == "Yes"){
       	   		          $('#yes').click();
       	   		        }
@@ -770,7 +734,7 @@ function doAjaxDelete(r,drug,type){
 	            		    .attr("class", 'form-group row')
 	            		    .attr("id",'form1ac' + counter);
 	            		  
-	            		    newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px;color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;cursor: default;">'+addn.buttonl+'</button><input type="hidden" name="buttonl" form="form1" value="'+addn.buttonl+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" onkeypress = ""  name="df" id="df" >'+addn.df+'</textarea></div><input form="form1" type="hidden" name="tabid" value='+addn.tabidc+'></div>');
+	            		    newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px;color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;">'+addn.buttonl+'</button><input type="hidden" name="buttonl" form="form1" value="'+addn.buttonl+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" onkeypress = ""  name="df" id="df" >'+addn.df+'</textarea></div><input form="form1" type="hidden" name="tabid" value='+addn.tabidc+'></div>');
 	            		    newTextBoxDiv0.appendTo('#'+addn.tabidc);
 	            		    
 	            		    counter++;
@@ -787,7 +751,7 @@ function doAjaxDelete(r,drug,type){
         	            		    .attr("class", 'form-group row')
         	            		    .attr("id",'form1ac' + counter);
         	            		  
-        	            		    newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px;color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;cursor: default;">'+addn.buttonl+'</button><input type="hidden" name="buttonl" form="form1" value="'+addn.buttonl+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" name="df" id="df" onkeyup="" > '+addn.df+'</textarea></div><input form="form1" type="hidden" name="tabid" value='+addn.tabidc+'></div>');
+        	            		    newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px;color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;">'+addn.buttonl+'</button><input type="hidden" name="buttonl" form="form1" value="'+addn.buttonl+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" name="df" id="df" onkeyup="" > '+addn.df+'</textarea></div><input form="form1" type="hidden" name="tabid" value='+addn.tabidc+'></div>');
         	            		    newTextBoxDiv0.appendTo('#'+addn.tabidc);
         	            		    
         	            		    counter++;
@@ -801,7 +765,7 @@ function doAjaxDelete(r,drug,type){
         	            		    .attr("class", 'form-group row')
         	            		    .attr("id",'form1ac' + counter);
         	            		  
-        	            		    newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px;color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;cursor: default;">'+addn.buttonl+'</button><input type="hidden" name="buttonl" form="form1" value="'+addn.buttonl+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" name="df" id="df" onkeyup="" >'+addn.df+'</textarea></div><input form="form1" type="hidden" name="tabid" value='+addn.tabidc+'></div>');
+        	            		    newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px;color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;">'+addn.buttonl+'</button><input type="hidden" name="buttonl" form="form1" value="'+addn.buttonl+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" name="df" id="df" onkeyup="" >'+addn.df+'</textarea></div><input form="form1" type="hidden" name="tabid" value='+addn.tabidc+'></div>');
         	            		    newTextBoxDiv0.appendTo('#'+addn.tabidc);
         	            		    
         	            		    counter++;
@@ -815,7 +779,7 @@ function doAjaxDelete(r,drug,type){
         	            		    .attr("class", 'form-group row')
         	            		    .attr("id",'form1ac' + counter);
         	            		  
-        	            		    newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px;color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;cursor: default;">'+addn.buttonl+'</button><input type="hidden" name="buttonl" form="form1" value="'+addn.buttonl+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" name="df" id="df" >'+addn.df+'</textarea></div><input form="form1" type="hidden" name="tabid" value='+addn.tabidc+'></div>');
+        	            		    newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px;color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;">'+addn.buttonl+'</button><input type="hidden" name="buttonl" form="form1" value="'+addn.buttonl+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" name="df" id="df" >'+addn.df+'</textarea></div><input form="form1" type="hidden" name="tabid" value='+addn.tabidc+'></div>');
         	            		    newTextBoxDiv0.appendTo('#'+addn.tabidc);
         	            		    
         	            		    counter++;
@@ -874,49 +838,54 @@ function doAjaxDelete(r,drug,type){
       	           $.each(response.list5, function(index, drug) {
       	        	 
 	                
-                      document.getElementById("advice").value = drug.advice;
+
     	           	var tableRef = document.getElementById('myTable1').getElementsByTagName('tbody')[0];
     	           	var rowsAdd = tableRef.insertRow(tableRef.rows.length);  
     	            var cnt = tableRef.rows.length;
-        	     	   var dmc = "dm"+cnt;
-        	     	   var dac = "da"+cnt;
-        	     	   var dec = "de"+cnt;
-        	     	   var dnc = "dn"+cnt;
-        	     	   var baf = "baf"+cnt;
-
-     	            var id = Math.random()  
+       	     	   var dmc= "dm"+cnt;
+       	     	   var dac = "da"+cnt;
+       	     	   var dec = "de"+cnt;
+       	     	   var dnc = "dn"+cnt;
+       	     	   var baf = "baf"+cnt;
+     	              
        	     
     	           	//    var m = moment().format('YYYY-MM-DD h:mm a');
 
     	           	  var newCell = rowsAdd.insertCell();
-    	           	  newCell.innerHTML="<tr><td><input type='text' class='form-control input-sm'  form ='form1'   id = '"+id+"' value='"+drug.typeofdr+"' name= 'typeofdr'  required> </td></tr>";
+    	           	  newCell.innerHTML="<tr><td><input type='text' class='form-control input-sm'  form ='form1'   id = 'typeofdr' value='"+drug.typeofdr+"' name= 'typeofdr'  required> </td></tr>";
     	           	  newCell.style.width ='100px';
     	           		 
     	           	  newCell = rowsAdd.insertCell();
-    	           	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm button1' style='width: 100px;' value='"+drug.drugname+"' type='text' id = '"+tableRef.rows.length+"' name= 'drugname' required><a title='Click to View Available drugs'><i class='glyphicon glyphicon-list-alt button2' style='font-size:20px'  onclick= callevent('"+tableRef.rows.length+"')></i></a> </td></tr>";
-    	           	  newCell.style.width ='140px';
+    	           	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value='"+drug.drugname+"' type='text' id = 'drugname' name= 'drugname'  required> </td></tr>";
+    	           	  newCell.style.width ='100px';
     	           		 
     	           	  newCell = rowsAdd.insertCell();
     	           	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value='"+drug.strdrug+"' type='text' id = 'strdrug' name= 'strdrug'  required> </td></tr>";
-    	           	  newCell.style.width ='80px';
+    	           	  newCell.style.width ='100px';
     	           	  
     	           	 newCell = rowsAdd.insertCell();
    	           	     newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value='"+drug.dosage+"' type='text' id = 'dosage' name= 'dosage'  required> </td></tr>";
    	           	     newCell.style.width ='50px';
     	           		 
-   	           	 newCell = rowsAdd.insertCell();
-   	      	  newCell.innerHTML="<tr><td><select  form ='form1' class= 'form-control input-sm'   id = '"+dmc+"'  name= 'dm'  ><option value='PRN'>PRN</option><option value='OD'>OD</option><option value='BD'>BD</option><option value='TDS'>TDS</option><option value='QID'>QID</option><option value='OTHERS'>OTHERS</option></select> </td></tr>";
-   	      	  newCell.style.width ='20px';
-   	      	  /*
-   	      	  newCell = rowsAdd.insertCell();
-   	      	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm'  type='text' id = '"+dac+"'  name= 'da'  value='"+drug.da+"'</td></tr>";
-   	      	  newCell.style.width ='120px';
-   	      	  */
-   	      	 
-   	      		 
     	           	  newCell = rowsAdd.insertCell();
-    	           	  newCell.innerHTML="<tr><td><input type='text' form ='form1' class= 'form-control input-sm'  id = '"+baf+"' name= 'baf' value='"+drug.baf+"'></td></tr>";
-    	           	  newCell.style.width ='100px';
+    	           	  newCell.innerHTML="<tr><td><input  form ='form1' class= ''  type='checkbox' id = '"+dmc+"' value='on' name= 'dm'  ><input type='hidden' value='off' form='form1' name='dm'> </td></tr>";
+    	           	  newCell.style.width ='37.5px';
+    	           	  
+    	           	  newCell = rowsAdd.insertCell();
+    	           	  newCell.innerHTML="<tr><td><input  form ='form1' class= '' value='on'  type='checkbox' id = '"+dac+"' name= 'da' ><input type='hidden' name='da' form='form1' value='off' ></td></tr>";
+    	           	  newCell.style.width ='37.5px';
+    	           	  
+    	           	  newCell = rowsAdd.insertCell();
+    	           	  newCell.innerHTML="<tr><td><input  form ='form1' class= '' value='on' type='checkbox' id = '"+dec+"' name= 'de'  ><input type='hidden' name='de' form='form1' value='off'> </td></tr>";
+    	           	  newCell.style.width ='37.5px';
+    	           	  
+    	           	  newCell = rowsAdd.insertCell();
+    	           	  newCell.innerHTML="<tr><td><input  form ='form1' class= '' value='on' type='checkbox' id = '"+dnc+"' name= 'dn'  ><input type='hidden' name='dn' form='form1' value='off'> </td></tr>";
+    	           	  newCell.style.width ='37.5px';
+    	           		
+    	           	  newCell = rowsAdd.insertCell();
+    	           	  newCell.innerHTML="<tr><td><select form ='form1' class= 'form-control input-sm'  id = '"+baf+"' name= 'baf'><option  value='before'>Before</option><option value='after'>After</option></select></td></tr>";
+    	           	  newCell.style.width ='90px';
     	           		 
     	           	  newCell = rowsAdd.insertCell();
     	           	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm'  type='text' value='"+drug.totn+"' id = 'totn' name= 'totn'  required> </td></tr>";
@@ -929,12 +898,27 @@ function doAjaxDelete(r,drug,type){
     	           	 
     	           	  
     	           	  newCell = rowsAdd.insertCell();
-    	           	  newCell.innerHTML="<tr><td class='tds'><i class='fa fa-trash-o' font-size:20px'  onclick='doAjaxDelete(this,"+tableRef.rows.length+","+id+")'></i></td></tr>";
-    	           	  newCell.style.width ='30px';
+    	           	  newCell.innerHTML="<tr><td class='tds'><i class='fa fa-trash-o' font-size:20px'  onclick='deleteRow(this)'></i></td></tr>";
+    	           	  newCell.style.width ='50px';
     	           	  
-    	           	 //document.getElementById(baf).value = drug.baf;
-    	        	 document.getElementById(dmc).value = drug.dm;
-    	        	 
+    	           	document.getElementById(baf).value = drug.baf;
+    	           		 
+    	           	 if(drug.dm == "on"){
+  	        		   document.getElementById(dmc).checked = true;
+  	        		
+  	        	   }
+    	           	if(drug.da == "on"){
+  	        		   document.getElementById(dac).checked = true;
+  	        		
+  	        	   }
+    	             if(drug.de == "on"){
+  	        		   document.getElementById(dec).checked = true;
+  	        		
+  	        	   }
+    	           	 if(drug.dn == "on"){
+  	        		   document.getElementById(dnc).checked = true;
+  	        		
+  	        	   }
     	           	 
   	          
   	            	  
@@ -980,11 +964,8 @@ function doAjaxDelete(r,drug,type){
       	  	   });
       	  	   
       	  	   var rows ="";
-      	  
       	     $.each(response.list18, function(index, drug) {
-      		   if(response.list18.length == 0){
-      	  		   alert("Selected patient does not have previous records")
-      	  	   }
+  	        	 
 	                
 
  	          // 	var tableRef = document.getElementById('myTable3').getElementsByTagName('tbody')[0];
@@ -1099,7 +1080,7 @@ function doAjaxDelete(r,drug,type){
     	    	            		    .attr("id",'form1ac' + counter);
     	    	            		 // var dup = document.getElementById('buttonl').value;
     	    	            		//  if(dup.length == 0){
-    	    	            			  newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px;color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;cursor: default;">'+addn.buttonl+'</button><input type="hidden" name="buttonl" form="form1" value="'+addn.buttonl+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" onkeypress="return onlyAlphabets(event,this);" name="df" id="df" value=" place"> &#13;&#10 NA </textarea></div><input form="form1" type="hidden" name="tabid" value='+addn.tabidc+'></div>');
+    	    	            			  newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px;color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;">'+addn.buttonl+'</button><input type="hidden" name="buttonl" form="form1" value="'+addn.buttonl+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" onkeypress="return onlyAlphabets(event,this);" name="df" id="df" value=" place"> &#13;&#10 </textarea></div><input form="form1" type="hidden" name="tabid" value='+addn.tabidc+'></div>');
       	    	            		    newTextBoxDiv0.appendTo('#'+addn.tabidc);
       	    	            		    
       	    	            		    counter++;
@@ -1118,7 +1099,7 @@ function doAjaxDelete(r,drug,type){
     	            	            		    .attr("class", 'form-group row')
     	            	            		    .attr("id",'form1ac' + counter);
     	            	            		  
-    	            	            		    newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px;color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;cursor: default;">'+addn.buttonl+'</button><input type="hidden" name="buttonl" form="form1" value="'+addn.buttonl+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" onkeypress="return onlyAlphabets(event,this);" name="df" id="df" value=" place" >&#13;&#10 NA</textarea></div><input form="form1" type="hidden" name="tabid" value='+addn.tabidc+'></div>');
+    	            	            		    newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px;color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;">'+addn.buttonl+'</button><input type="hidden" name="buttonl" form="form1" value="'+addn.buttonl+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" onkeypress="return onlyAlphabets(event,this);" name="df" id="df" value=" place" >&#13;&#10</textarea></div><input form="form1" type="hidden" name="tabid" value='+addn.tabidc+'></div>');
     	            	            		    newTextBoxDiv0.appendTo('#'+addn.tabidc);
     	            	            		    
     	            	            		    counter++;
@@ -1132,7 +1113,7 @@ function doAjaxDelete(r,drug,type){
     	            	            		    .attr("class", 'form-group row')
     	            	            		    .attr("id",'form1ac' + counter);
     	            	            		  
-    	            	            		    newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px;color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;cursor: default;">'+addn.buttonl+'</button><input type="hidden" name="buttonl" form="form1" value="'+addn.buttonl+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" name="df" id="df" onkeypress="return onlyAlphabets(event,this);" >&#13;&#10 NA</textarea></div><input form="form1" type="hidden" name="tabid" value='+addn.tabidc+'></div>');
+    	            	            		    newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px;color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;">'+addn.buttonl+'</button><input type="hidden" name="buttonl" form="form1" value="'+addn.buttonl+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" name="df" id="df" onkeypress="return onlyAlphabets(event,this);" >&#13;&#10</textarea></div><input form="form1" type="hidden" name="tabid" value='+addn.tabidc+'></div>');
     	            	            		    newTextBoxDiv0.appendTo('#'+addn.tabidc);
     	            	            		    
     	            	            		    counter++;
@@ -1146,7 +1127,7 @@ function doAjaxDelete(r,drug,type){
     	            	            		    .attr("class", 'form-group row')
     	            	            		    .attr("id",'form1ac' + counter);
     	            	            		  
-    	            	            		    newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px;color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;cursor: default;">'+addn.buttonl+'</button><input type="hidden" name="buttonl" form="form1" value="'+addn.buttonl+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" name="df" id="df" >&#13;&#10 NA</textarea></div><input form="form1" type="hidden" name="tabid" value='+addn.tabidc+'></div>');
+    	            	            		    newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px;color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;">'+addn.buttonl+'</button><input type="hidden" name="buttonl" form="form1" value="'+addn.buttonl+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" name="df" id="df" >&#13;&#10</textarea></div><input form="form1" type="hidden" name="tabid" value='+addn.tabidc+'></div>');
     	            	            		    newTextBoxDiv0.appendTo('#'+addn.tabidc);
     	            	            		    
     	            	            		    counter++;
@@ -1202,13 +1183,12 @@ if(tabid == "menu4" || tabid == "home1"){
 	return false;
 }
 
-
 	//alert(tabid);
   	var newTextBoxDiv0 = $(document.createElement('div'))
     .attr("class", 'form-group row')
     .attr("id",'form1ac' + counter);
   	
-    newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px; color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;cursor: default;">'+val+'</button><input type="hidden" name="buttonl" form="form1" value="'+val+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" name="df" id="df" class="" onkeypress="return onlyAlphabets(event,this);"></textarea></div><input form="form1" type="hidden" name="tabid" value='+tabid+'></div>');
+    newTextBoxDiv0.after().html('<div class="col-xs-1"><i class="fa fa-close" style="margin-left:2px;font-size:30px; color :#ff9900; "  onclick="rem(form1ac'+counter+')"></i></div><div class="col-xs-1"><button type="button" class="btn btn"  name="" id="buttonl"  style="width: 170px;height:auto;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;">'+val+'</button><input type="hidden" name="buttonl" form="form1" value="'+val+'"></div><div class="col-xs-2"></div><div class="col-xs-4"><div class="form-group"><textarea form="form1" name="df" id="df" class="" onkeypress="return onlyAlphabets(event,this);"></textarea></div><input form="form1" type="hidden" name="tabid" value='+tabid+'></div>');
     newTextBoxDiv0.appendTo('#'+tabid);
     
     counter++;
@@ -1227,7 +1207,7 @@ $(document).ready(function(){
 	$('.modal-content').resizable({
 	    //alsoResize: ".modal-dialog",
 	    minHeight: 300,
-	    minWidth: 800
+	    minWidth: 600
 	});
 	$('#myModal1 .modal-dialog').draggable();
 
@@ -1235,49 +1215,36 @@ $(document).ready(function(){
 	    $(this).find('.modal-body').css({
 	    	'max-height':'100%'
 	    });
-	    
-	    
 	});
-	
-	   
+
 });
 
 </script>
-
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#mc1').resizable({
-	    //alsoResize: ".modal-dialog",
-	   
-	    minWidth: 100
-	});
-	$('#myModal2 .modal-dialog').draggable();
-
-	$('#myModal2').on('show.bs.modal', function () {
-	    $(this).find('.modal-body').css({
-	    	'max-height':'100%'
-	    });
-	  
-	   
-	});
 	
+	var $table = $('table #myTable3'),
+    $bodyCells = $table.find('tbody tr:first').children(),
+    colWidth;
 
-
+// Adjust the width of thead cells when window resizes
+$(window).resize(function() {
+    // Get the tbody columns width array
+    colWidth = $bodyCells.map(function() {
+        return $(this).width();
+    }).get();
+    
+    // Set the width of thead columns
+    $table.find('thead tr').children().each(function(i, v) {
+        $(v).width(colWidth[i]);
+    });    
+}).resize(); // Trigger resize handler
 });
-
 </script>
-<script type="text/javascript">
-$(document).ready(function(){
-$('#form1').draggable();
-
-
-});
-</script>
-
 </head>
 <sec:authentication property="principal.authorities" var="username" />
-<body onload="checkhome('<c:out value="${username}" />',admnme='<c:out value="${pageContext.request.userPrincipal.name}" />'),disbut(),copyval('home1')" >
+<body onload="checkhome('<c:out value="${username}" />'),disbut()" >
 
 <div class = "wrapper">
 <nav class="navbar navbar-default">
@@ -1292,8 +1259,6 @@ $('#form1').draggable();
            <li class=""><a  href="/HMS/discharge">Discharge Summary</a></li>
          
     </ul>
-    <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.location.href='/HMS/doctor1';"></i>
     <!-- 
     <ul class="nav navbar-nav navbar-right">
        <li style ="color:#ff9900;"><span class="glyphicon glyphicon-log-in">Welcome : ${pageContext.request.userPrincipal.name}</span></li>
@@ -1303,7 +1268,7 @@ $('#form1').draggable();
 </nav>
   <center>
 </center>
- <form id="form2">  
+ <form id="form2" action="" method="post">  
   <h1>
 	  <button type="button" class="btn btn-warning button1" onclick="doAjaxPost2()">
 	  <span class="glyphicon glyphicon-plus"></span>General Checkup</button>
@@ -1313,8 +1278,8 @@ $('#form1').draggable();
 
 	    <br>
 	    <div class="container">
-   <table class="table table-striped table-bordered table-fixed table-hover table-condensed gamma" style="width: 1000px;border:0px; " id="myTable">
-    <thead class="thgamma">
+   <table class="table table-striped table-bordered table-fixed table-hover table-condensed" style="width: 1000px;border:0px; " id="myTable">
+    <thead>
       <tr>
         <th width="192px;">Patient Name</th>
         <th width="192px;">Patient Id</th>
@@ -1323,10 +1288,10 @@ $('#form1').draggable();
         <!--  <th class="">Treatment</th>
         <th class="">Medicines</th>
         <th class="">Admission</th> -->
-        <th width="192px;">View More</th>
+        <th width="20px;">View More</th>
       </tr>
     </thead>
-    <tbody class="tbgamma">
+    <tbody class="tbody">
     <c:forEach var="p1"  items="${model.list3}">
     <tr>
     <td width="192px;">${p1.pname}</td>
@@ -1334,14 +1299,14 @@ $('#form1').draggable();
     <td width="192px;">${p1.date}</td>
     <td width="192px;" class="trunk">${p1.dname}</td>
  
-    <td width="192px;"><i class="fa fa-eye" style="color:#00b300" onclick="doAjaxPost('${p1.fileno}','${p1.pid}')"></i></td>
+    <td width="192px;"><i class="fa fa-eye" style="color:#00b300" onclick="doAjaxPost('${p1.fileno}')"></i></td>
   
  </tr>
     </c:forEach>
     </tbody>
     </table>
     </div>
-    <button  class="bouton-contact" disabled></button>
+    <button type="" class="bouton-contact"></button>
      </form>
 
 <div class="container">
@@ -1369,15 +1334,13 @@ $('#form1').draggable();
  <br>
   <ul class="nav nav-pills nav-stacked col-md-2">
     <li class="active"><a data-toggle="pill" onclick = "return copyval('home1')" href="#home1">Patient Details</a></li>
-     <li><a data-toggle="pill" onclick = "return copyval('menu3a')" href="#menu3a">Patient Vitals</a></li>
     <li><a data-toggle="pill"  onclick = "return copyval('home')" href="#home">Presenting Problems/Complaints</a></li>
     <li><a data-toggle="pill" onclick = "return copyval('menu1')" href="#menu1">Systems Review</a></li>
     <li><a data-toggle="pill" onclick = "return copyval('menu2')" href="#menu2">Patient Examination</a></li>
     <li><a data-toggle="pill" onclick = "return copyval('menu3')" href="#menu3">Provisional Diagnosis</a></li>
-    <li><a onclick = "return copyval1('menu4a')" id="menu4a" href="" target="_blank">Lab</a></li>
+    <li><a data-toggle="pill" onclick = "" href="#menu3a">Patient Vitals</a></li>
     <li><a data-toggle="pill" onclick = "return copyval('menu4')" href="#menu4">Prescription</a></li>
-    
-    
+   
    
   </ul>
   
@@ -1389,14 +1352,14 @@ $('#form1').draggable();
     <div class="form-group row" >
     <div class="col-xs-1"></div>
      <div class="col-xs-1">
-      <input readonly="readonly" type="" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="Patient Name">
+      <input type="" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Patient Name">
      </div>
      <div class="col-xs-2"></div>
       <div class="col-xs-4">
        <div class="form-group">
       
        <select class="selectpicker form-control btn btn" data-live-search="true" name = "pname1" id ="pname" onchange="addcname()"   >
-          <option value = "Select" disabled selected>Select</option>
+          <option disabled selected>Select</option>
         <c:forEach var="p"  items="${model.list1}">
         <option value="${p.pid},${p.pname},${p.fileno}">${p.pname}</option>
         </c:forEach>
@@ -1406,7 +1369,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
       <div class="col-xs-1">
-      <button type="button" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" >Patient Id</button>
+      <button type="button" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" >Patient Id</button>
      </div>
      <div class="col-xs-2"></div>
       <div class="col-xs-4">
@@ -1423,7 +1386,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <input readonly="readonly" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="Date">
+      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Date">
      </div>
      <div class="col-xs-1"></div>
       <div class="col-xs-4">
@@ -1435,7 +1398,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <input readonly="readonly" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="File No">
+      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="File No">
      </div>
      <div class="col-xs-1"></div>
       <div class="col-xs-4">
@@ -1459,7 +1422,7 @@ $('#form1').draggable();
     
     <div class="col-xs-1"></div>
      <div class="col-xs-1">
-      <input type="button" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="Presenting Complaints">
+      <input type="button" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Presenting Complaints">
      </div>
      <div class="col-xs-2"></div>
       <div class="col-xs-4">
@@ -1471,7 +1434,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
       <div class="col-xs-1">
-      <button type="button" class="btn btn" style="width: 170px;height:45px;background-color:#dcdcdc;color:black;cursor: default;" >Past Medical & <br>Surgical History</button>
+      <button type="button" class="btn btn" style="width: 170px;height:45px;background-color:#dcdcdc;color:black;" >Past Medical & <br>Surgical History</button>
      </div>
      <div class="col-xs-2"></div>
       <div class="col-xs-4">
@@ -1483,7 +1446,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <input readonly="readonly" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="Pain History">
+      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Pain History">
      </div>
      <div class="col-xs-1"></div>
       <div class="col-xs-4">
@@ -1495,7 +1458,7 @@ $('#form1').draggable();
            <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <input readonly="readonly" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="Drug History">
+      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Drug History">
      </div>
      <div class="col-xs-1"></div>
       <div class="col-xs-4">
@@ -1507,7 +1470,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <input class="btn btn" readonly="readonly" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value = "Family History">
+      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value = "Family History">
      </div>
      <div class="col-xs-1"></div>
      
@@ -1519,7 +1482,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <button type="button" class="btn btn" readonly="readonly" style="width: 170px;height :45px;background-color:#dcdcdc;color:black;white-space: normal;word-wrap: break-word;cursor: default;">Obstetrics and <br> Gynaecology History</button>
+      <button class="btn btn" style="width: 170px;height :45px;background-color:#dcdcdc;color:black;">Obstetrics and <br>Gynaecology History</button>
      </div>
      <div class="col-xs-1"></div>
       <div class="col-xs-4">
@@ -1530,7 +1493,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <input readonly="readonly" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="Personal/Social History">
+      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Personal/Social History">
      </div>
       <div class="col-xs-1"></div>
        <div class="col-xs-4">
@@ -1565,7 +1528,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
       <div class="col-xs-1">
-      <button type="button" class="btn btn" style="width: 170px;height:40px;background-color:#dcdcdc;color:black;cursor: default;" >Cardiovascular</button>
+      <button type="button" class="btn btn" style="width: 170px;height:40px;background-color:#dcdcdc;color:black;" >Cardiovascular</button>
      </div>
      <div class="col-xs-2"></div>
       <div class="col-xs-4">
@@ -1577,7 +1540,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <input readonly="readonly" class="btn btn" type="button" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="Respiratory">
+      <input class="btn btn" type="button" style="width: 170px;background-color:#dcdcdc;color:black;" value="Respiratory">
      </div>
      <div class="col-xs-1"></div>
       <div class="col-xs-4">
@@ -1589,7 +1552,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <input readonly="readonly" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="Gastrointestinal">
+      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Gastrointestinal">
      </div>
      <div class="col-xs-1"></div>
       <div class="col-xs-4">
@@ -1601,7 +1564,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value = "Musculoskeletal">
+      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value = "Musculoskeletal">
      </div>
      <div class="col-xs-1"></div>
      
@@ -1613,7 +1576,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <input readonly="readonly" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="Genito-Urinary">
+      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Genito-Urinary">
      </div>
      <div class="col-xs-1"></div>
       <div class="col-xs-4">
@@ -1624,7 +1587,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <input readonly="readonly" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="Endocrine">
+      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Endocrine">
      </div>
       <div class="col-xs-1"></div>
        <div class="col-xs-4">
@@ -1635,7 +1598,7 @@ $('#form1').draggable();
        <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <input readonly="readonly" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Skin">
+      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Skin">
      </div>
       <div class="col-xs-1"></div>
        <div class="col-xs-4">
@@ -1647,7 +1610,7 @@ $('#form1').draggable();
        <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <button type="button" class="btn btn" style="width: 170px;height:45px;background-color:#dcdcdc;color:black;cursor: default;">Central Nervous <br> System</button>
+      <button class="btn btn" style="width: 170px;height:45px;background-color:#dcdcdc;color:black;">Central Nervous <br> System</button>
      </div>
       <div class="col-xs-1"></div>
        <div class="col-xs-4">
@@ -1666,7 +1629,7 @@ $('#form1').draggable();
    <div class="form-group row" >
     <div class="col-xs-1"></div>
      <div class="col-xs-1">
-      <input readonly="readonly" type="button" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="On Examination">
+      <input type="button" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="On Examination">
      </div>
      <div class="col-xs-2"></div>
       <div class="col-xs-4">
@@ -1678,7 +1641,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
       <div class="col-xs-1">
-      <button type="button" class="btn btn" style="width: 170px;height:40px;background-color:#dcdcdc;color:black;cursor: default;" >Oral Cavity</button>
+      <button type="button" class="btn btn" style="width: 170px;height:40px;background-color:#dcdcdc;color:black;" >Oral Cavity</button>
      </div>
      <div class="col-xs-2"></div>
       <div class="col-xs-4">
@@ -1690,7 +1653,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <input readonly="readonly" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="Nervous System">
+      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Nervous System">
      </div>
      <div class="col-xs-1"></div>
       <div class="col-xs-4">
@@ -1702,7 +1665,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <input readonly="readonly" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="Cardiovascular">
+      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Cardiovascular">
      </div>
      <div class="col-xs-1"></div>
       <div class="col-xs-4">
@@ -1714,7 +1677,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <input readonly="readonly" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value = "Respiratory System">
+      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value = "Respiratory System">
      </div>
      <div class="col-xs-1"></div>
      
@@ -1726,7 +1689,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
        <div class="col-xs-2">
-      <input readonly="readonly" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="Abdominal System">
+      <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Abdominal System">
      </div>
      <div class="col-xs-1"></div>
       <div class="col-xs-4">
@@ -1743,7 +1706,7 @@ $('#form1').draggable();
       <div class="form-group row" >
     <div class="col-xs-1"></div>
      <div class="col-xs-1">
-      <input readonly="readonly" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="Provisional Diagnosis">
+      <input type="" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Provisional Diagnosis">
      </div>
      <div class="col-xs-2"></div>
       <div class="col-xs-4">
@@ -1755,7 +1718,7 @@ $('#form1').draggable();
       <div class="form-group row" >
       <div class="col-xs-1"></div>
       <div class="col-xs-1">
-      <button type="button" class="btn btn" style="width: 170px;height:45x;background-color:#dcdcdc;color:black;cursor: default;" >Pathology Investigation <br> Recommended</button>
+      <button type="button" class="btn btn" style="width: 170px;height:45x;background-color:#dcdcdc;color:black;" >Pathology Investigation <br> Recommended</button>
      </div>
      <div class="col-xs-2"></div>
       <div class="col-xs-4">
@@ -1769,7 +1732,7 @@ $('#form1').draggable();
       <div class="form-group row" >
     <div class="col-xs-1"></div>
      <div class="col-xs-1">
-      <input readonly="readonly" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="Admit Patient">
+      <input type="" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Admit Patient">
      </div>
      <div class="col-xs-2"></div>
       <div class="col-xs-4">
@@ -1892,58 +1855,56 @@ $('#form1').draggable();
   
   <div class="form-group row" >
         <div class="col-xs-1"></div>
-   <div class="col-xs-7">
+   <div class="col-xs-8">
   <div class="form-group">
             <p>Chest Circumference<span></span></p>
-           <input type="text" form="form1" class="" size="10" onkeypress='return onlyNos(event,this);' placeholder="Full Inspiration" name="fi" id="fi">
-            <input type="text" form="form1" class="" size="10" onkeypress='return onlyNos(event,this);' placeholder="Full Expiration" name="fe" id="fe">
-             <input type="text" form="form1" class="" size="8" onkeypress='return onlyNos(event,this);' placeholder="At Rest" name="rest" id="rest">
+           <input type="text" form="form1" class="" size="16" onkeypress='return onlyNos(event,this);' placeholder="Full Inspiration" name="fi" id="fi">
+            <input type="text" form="form1" class="" size="16" onkeypress='return onlyNos(event,this);' placeholder="Full Expiration" name="fe" id="fe">
+             <input type="text" form="form1" class="" size="12" onkeypress='return onlyNos(event,this);' placeholder="At Rest" name="rest" id="rest">
 	</div>
   </div>
-  <div class="col-xs-1">
-  <br>
-  <button id="get" type="button" class="btn btn-warning btn-sm" onclick="return checklen()" >View Previous Records</button>
   
   </div>
-  </div>
-  
      
-     </div>
+    <button id="get" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal1" >View previous records</button>
+   </div>
       
    <!-- Menu $4 -->   
  <div id="menu4" class="tab-pane fade">
      <br><br>
-      <div class="table-responsive"> 
+       <div class="container">
 	      
 	     
 	     
 	     	    
-  <table class="table table-striped table-bordered table-fixed table-hover table-condensed alpha"  id="myTable1">
-    <thead class="thalpha">
+  <table class="table table-striped table-bordered table-responsive table-hover table-condensed" style="width: 760px; " id="myTable1">
+    <thead class="thead1">
       <tr>
-        <th style="">Category of Drug</th>
-        <th style="">Name of Drug</th>
-        <th style="">Strength of Drug</th>
-        <th style="">Dosage</th>
-        <th  style="" >Frequency</th>
-        
-        <th  style="">Remarks</th>
-        <th> Number of Quantity dispensed</th>
-        <th >No. of Days</th>
-        <th >Delete Row</th>
-        
+        <th rowspan = "2" style="width:100px;">Type of Drug</th>
+        <th rowspan = "2" style="width:100px;">Name of Drug(Generic Name)</th>
+        <th rowspan = "2" style="width:100px;">Strength of Drug</th>
+        <th rowspan = "2" style="width:50px;">Dosage</th>
+        <th colspan = "4"style="width:150px;" >Frequency</th>
+        <th rowspan = "2" style="width:90px;">Before /After Food</th>
+        <th rowspan = "2" style="width:70px;">Total No. of Tablets to be dispensed</th>
+        <th rowspan = "2" style="width:50px;">No. of Days</th>
+        <th rowspan = "2" style="width:30px;">Delete Row</th>
+        </tr>
+      <tr>
+      <th>M</th>
+      <th>A</th>
+      <th>E</th>
+      <th>N</th>
       </tr>
     </thead>
-   
-    <tbody  class="tbalpha">
+    <tbody class="tbody">
 
    
     </tbody>
-<!-- 
      <tr id="hide">
 		    <td><i class='fa fa-plus' style='font-size:20px; color : #ff9900;'  onclick="display()"></i></td>
 		  </tr>
-		 -->  
+		  
     </table>
    
 	      
@@ -1952,36 +1913,18 @@ $('#form1').draggable();
 	      </div>
       </div>
 
-  <div class="form-group row" >
-  
-    <div class="col-xs-1">
-    <p><b>Advice</b></p>
-    <textarea name="advice" id="advice" form="form1"></textarea>
-    </div>
-     <div class="col-xs-3"></div>
-     <div class="col-xs-7">
-     <br><br>
-    <input type='button' class="btn btn-info btn-sm"  value='Add Row' onclick="display()" id='adr'>
-         <input type='button' class="btn btn-info btn-sm" value='Add Field' id='addButton'>
-         <input type='button' class="btn btn-info btn-sm" value='Show Available Drugs' id='showdrugs' data-toggle="modal" data-target="#myModal2">
-  <!-- open2 unique class name -->
-            <button class="btn btn-info btn-sm" form="form1" id ="bouton-contact" type="submit" >Save <span class="fa fa-save"></span></button>
-            <a class="btn btn-info btn-sm" style="float:right;margin-right:-70px;" id ="print" onclick="return verpr();" href="prprs1" target="_blank" >Print Prescription</a>
-          
-    
-    </div>
-  </div>
+
 </div>
 </div>
      <br>
         <div class="col-lg-10 col-lg-offset-2">
           <!-- back2 unique class name  -->
-          
           <center>
-          
-                  
-         
-     
+         <input type='button' class="btn btn-info" value='Add Field' id='addButton'>
+<!--  <input type='button' class="btn btn-info" value='Remove Field' id='removeButton'>-->
+            <!-- open2 unique class name -->
+            <button class="btn btn-info" form="form1" id ="bouton-contact" type="submit" >Save <span class="fa fa-save"></span></button>
+            
           </center>
         </div>
    
@@ -1990,7 +1933,7 @@ $('#form1').draggable();
   <!-- id will be unique, but class name will be same -->
  
  
-  <button  class="bouton-contact" disabled></button>
+  <button type="" class="bouton-contact" onclick=""></button>
   
 </form>
 </div>
@@ -2002,15 +1945,16 @@ $('#form1').draggable();
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header" >
+      <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">View Previous Vitals</h4>
       </div>
       <div class="modal-body">
       <div class="table-responsive">  
-     
-        <table class="table table-striped table-bordered table-fixed table-hover table-condensed beta"  id="myTable3">
-    <thead class="thead2">
+      <div class="row clearfix">
+      	<div class="col-md-12 column">
+        <table class="table table-striped table-bordered table-fixed table-hover table-condensed" style="border:0px; " id="myTable3">
+    <thead>
       <tr>
         <th width="">FileNo</th>
         <th width="">Height</th>
@@ -2020,12 +1964,12 @@ $('#form1').draggable();
         <th width="">Blood Pressure</th>
         <th width="">Pulse</th>
         <th width="">BMI</th>
-        <th width="">Chest Circumference<br>(Full Inspiration/Full Expiration/At Rest)</th>
+        <th width="">Chest Circumference</th>
         <th width="">Time Recorded</th>
        
       </tr>
     </thead>
-    <tbody class="tbody2">
+    <tbody class="tbody">
    
     </tbody>
     </table>
@@ -2037,43 +1981,8 @@ $('#form1').draggable();
         
         </div>
         </div>
-        
-        
-       <!-- Pharmacy products load -->
-       
-       <div class="modal" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="false">
-  <div class="modal-dialog  modal-sm" role="document">
-    <div class="modal-content" id="mc1">
-      <div class="modal-header" id="mh">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Pharmacy Products</h4>
-      </div>
-      <div class="modal-body" id="mb">
-       
-     <div class="form-group row" >
-        <div class="col-xs-8">
-        <p>Drug Name<span></span></p>
-       <div class="form-group">
-      
-       <select class="selectpicker form-control input-sm" data-size="5" data-live-search="true" name = "drugn" id ="drugn" onchange=""   >
-          <option value="select" disabled selected>Select</option>
-        <c:forEach var="p"  items="${model.list4}">
-        <option data-subtext="Stocks -${p.pstock1}" value="${p.drugn}">${p.drugn}</option>
-        </c:forEach>
-      </select></div>
-      </div>
-       <div class="col-xs-2">
-       <br><br>
-      <button type="button" class="btn btn-warning" onclick="return addp()">ADD</button></div>
-      </div>
- <br>
-    </div>
-    </div>
-      </div>
-     
         </div>
-        
-        
+        </div>
         
 <c:forEach var="p"  items="${model.list1}">
 <script>

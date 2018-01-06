@@ -413,6 +413,10 @@ window.location = "/HMS/customerho.html";
 }
 </script>
 <script>
+function goBack() {
+    window.history.back();
+}
+
        function oncheck(){
     	   document.getElementById('active').checked=true;
        }
@@ -513,6 +517,7 @@ $(document).ready(function () {
       </li>
      
     </ul>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
 
   </div>
 </nav>

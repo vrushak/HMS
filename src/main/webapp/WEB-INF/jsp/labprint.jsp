@@ -324,6 +324,9 @@ function addname(getval){
 	
 }
 
+function goBack() {
+    window.history.back();
+}
 
 </script>
 <script>
@@ -493,10 +496,9 @@ function AutoGrowTextArea(textField)
        <li class=""><a id="nob" href="/HMS/nursetr/"  onclick=' return visible();' target="_blank">Nurse observations</a></li>
   -->
     </ul>
-     <ul class="nav navbar-nav navbar-right">
-      <li><a id="prnr" href="/HMS/prdocs"><span class="fa fa-arrow-left"></span>Back</a></li>
-      
-    </ul>
+     <br>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
+
   </div>
 </nav>
   <center>

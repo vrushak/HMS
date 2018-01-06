@@ -256,7 +256,7 @@ function datasuccess(data){
 			return false; 
 		}
 		else if(z.length == 0){
-			alert("Please provide the Mobile Number in contact details tab")
+			alert("Update Mobile Number in Contact Details")
 			return false; 
 		}
 		else{
@@ -282,9 +282,9 @@ function datasuccess(data){
 	}
 	
 	
-		function getAge(dateString) {
+		function getAge(dateString,id) {
 			  var now = new Date();
-			  
+			 
 			  
 			  var today = new Date(now.getYear(),now.getMonth(),now.getDate());
 
@@ -292,7 +292,7 @@ function datasuccess(data){
 			  var monthNow = now.getMonth();
 			  var dateNow = now.getDate();
 
-			  var dob = new Date(dateString);
+			  var dob = new Date($(dateString).val());
 
 			  var yearDob = dob.getYear();
 			  var monthDob = dob.getMonth();
@@ -357,7 +357,7 @@ function datasuccess(data){
 
 			   alert(ageString);
 			  }
-			   document.getElementById("age").value = ageString;
+			   document.getElementById(id).value = ageString;
 			}
 
 
@@ -779,6 +779,9 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
+    <br>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' onclick="window.location.href='/HMS/frontdesk';""></i>
+    
   </div>
 </nav>
   <center>
@@ -1087,7 +1090,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
    <div class="col-xs-5">
     <div class="form-group">
             <p>Date of Birth <span></span></p>
-     <input type="date" maxlength="2999-312-31"name="modate" id="modate"  onblur="return validdate(this.id)"  class="form-control input-sm" required>
+     <input type="date" maxlength="2999-312-31"name="modate" id="modate" onkeydown="return false"  onblur="return validdate(this.id)"  class="form-control input-sm" required>
 
 	</div>
    </div>
@@ -1107,7 +1110,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
    <div class="col-xs-5">
     <div class="form-group">
             <p>Date of Birth <span></span></p>
-     <input type="date" maxlength="2999-312-31"  name="fodate" id="fodate"  onblur="return validdate(this.id)" class="form-control input-sm" required>
+     <input type="date" maxlength="2999-312-31"  name="fodate" id="fodate" onkeydown="return false"  onblur="return validdate(this.id)" class="form-control input-sm" required>
 
 	</div>
    </div>
@@ -1119,7 +1122,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
 <div class="col-xs-3">
     <div class="form-group">
             <p>Date of Birth <span></span></p>
-     <input type="date" maxlength="2999-312-31"name="dob" id="dob"  onblur='getAge(this.value)' class="form-control input-sm" required>
+     <input type="date" maxlength="2999-312-31"name="dob" id="dob"  onblur='getAge(this,"age")' class="form-control input-sm" required>
 
 	</div>
    </div>
@@ -1449,7 +1452,6 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
      <input type="text" name="ph1" id="ph1" class="form-control input-sm" value="NA" />
 </div>
   </div>
-  
   <div class="col-xs-5">
    <div class="form-group">
             <p>Ins.Phone <span></span></p>
@@ -1457,10 +1459,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
 
 	</div>
   </div>
-
- 
-
-  </div>
+ </div>
   
        <div class="form-group row" >
         <div class="col-xs-1"></div>
@@ -1533,7 +1532,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
    <div class="form-group">
     
             <p>Date of Birth<span></span></p>
-         	<input type="date" name="spdate" id="spdate"  onblur="return validdate(this.id)" class="form-control input-sm"  >
+         	<input type="date" name="spdate" id="spdate" onkeydown="return false"  onblur="return validdate(this.id)" class="form-control input-sm"  >
 	
 	</div>
  
@@ -1588,7 +1587,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
    <div class="col-xs-3">
     <div class="form-group">
             <p>Date of Birth <span></span></p>
-         	<input type="date" name="rdateofbirth"  onblur='getAge1(this.value)' id="rdateofbirth" class="form-control input-sm"   >
+         	<input type="date" name="rdateofbirth"  onblur='getAge(this,"ager")' id="rdateofbirth" class="form-control input-sm"   >
 </div>
     </div>
   

@@ -389,6 +389,8 @@ $(document).ready(function() {
       </li>
      
     </ul>
+    <br>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.history.back();"></i>
   </div>
 </nav>
   <center>
@@ -398,9 +400,6 @@ $(document).ready(function() {
      <h1>
      <font size="5">Product Stocks and Pricing </font><span class="button2"></span><i class="" style="color:#ff9900;margin: 4px 8px;"></i>
 	 
-	
-	
-
 	</h1>
 	    
 	    <div class="container">

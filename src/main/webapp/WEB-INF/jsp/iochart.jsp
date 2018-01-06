@@ -136,11 +136,7 @@ textarea {
 
 
  
-#myTable1 {
-    border-collapse: collapse;
-    width: 100%;
-     margin-left : -90px;
-    }
+
 #myTable1 th {
     background-color: #009999;
     color: white;
@@ -175,6 +171,12 @@ modal-body{
 .delete{
 	width :50px;
 }
+
+#myTable1 {
+    border-collapse: collapse;
+    width: 100%;
+     margin-left : -90px;
+    }
 
 #col3{
 margin-left: 80px; 
@@ -1052,6 +1054,9 @@ var user2a;
     	});
        });
        
+       function goBack() {
+    	    window.history.back();
+    	}
        </script>
 
 </head>
@@ -1074,6 +1079,9 @@ var user2a;
        <li class=""><a id="nob" href="/HMS/nursetr/"  onclick=' return visible();' target="_blank">Nurse observations</a></li>
   -->
     </ul>
+    <br>
+         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px; color : #f0ad4e'  id="docback" onclick="goBack()"></i><!-- This is for doctor -->
+         
   </div>
 </nav>
   <center>
