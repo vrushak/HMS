@@ -94,10 +94,10 @@ a {
 	float : left;
 }
 .tab-pane{
-width : 1120px;
+width : 500px;
 border-style : groove;
 border-radius : 10px;
-height : 270px;
+height : 390px;
 overflow-y : auto;
 }
 
@@ -119,10 +119,15 @@ font-size:12px;
 .btn-block{
  width : 1270px;
 }
-.divot{
-width:10px;
-}
 
+#text1  
+{  
+   font-family:"Times New Roman", Times, serif;  
+    
+}
+.divin{
+margin-left:3px;
+}
 </style>
 <script type="text/javascript">
 function checkhome(user){
@@ -178,11 +183,14 @@ var didd;
 var flag;
 var fgr;
 var flagval;
-function checkdiv(id,val,tab){
+function checkdiv(val){
+	
 
-var title = $(val).attr("title");
-var value = $(val).val();
-var temp = title;
+var myname = $(val).attr('data-value'); 
+var title = $(val).attr("titlea").split('==');
+
+//var value = $(val).val();
+//var temp = title;
 
 
 /*
@@ -198,15 +206,25 @@ console.log(a)
 console.log(arr)
 	*/
 
-newrec = 	$("#tab"+tab).find(".main").find(".divin").eq(0).find(":checkbox[name='radio']:checked").val();
+newrec = 	$("#tab"+title[1]).find(".main").find(".divin").eq(0).find('select option:selected').val();
 
-pid =title;
+pid = $(val).attr('value');
 
-var pid1 = "." + title;
 
-if(val.checked == true){
+//var pid1 = "." + title;
+
+//if(val == true){
+
+if(newrec !='select' && $(val).attr('value')!='select'){
 if(newrec != prvrec){
+	
+if(title[0] ==0){
+	
 
+	$("#tab"+title[1]).find(".main").find('div.divin').not(':first').remove();
+	$("#tab"+title[1]).find(".main").find('div.divot').not(':first').remove();
+}
+	obj={};
 	obj[newrec] = [];
 
 }
@@ -215,27 +233,29 @@ var len = obj[newrec].length;
 
 obj[newrec].push({});
 
- obj[newrec][len][title]= value;
+ obj[newrec][len][$(val).attr('value')]= myname;
 
 
 
  prvrec = newrec;
 // activechk(tab)
+//
 }
-else if(newrec == undefined){
-	$("#tab"+tab).find(".main").find('div.divin').not(':first').remove();
-	$("#tab"+tab).find(".main").find('div.divot').not(':first').remove();
+if(newrec == "select"){
+	$("#tab"+title[1]).find(".main").find('div.divin').not(':first').remove();
+	$("#tab"+title[1]).find(".main").find('div.divot').not(':first').remove();
 }
-else{
+
+else if($(val).attr('value')!='select' && title[0] != 0){
 	
 	
     obj={};
 	
 	prvrec = 0;
-	newrec = 	$("#tab"+tab).find(".main").find(".divin").eq(0).find(":checkbox[name='radio']:checked").val();
+	newrec = 	$("#tab"+title[1]).find(".main").find(".divin").eq(0).find('select option:selected').val();
 	
 
-	
+	if($(val).attr('value')!='select'){
 	if(newrec != prvrec){
         
 		obj[newrec] = [];
@@ -246,30 +266,32 @@ else{
 	
 	
 //obj[newrec].splice(obj[newrec].indexOf($(val).val()),1)
-	var diva = Number(id)+1;
-	var divb =  Number(id)+1;
-	var dic = Number(id) - 1;
-	var length = $("#tab"+tab).find(".main").find('.divin').eq(dic);
+	var diva = Number(title[0])+1;
+	var divb =  Number(title[0])+1;
+	var dic = Number(title[0]) - 1;
+	var length = $("#tab"+title[0]).find(".main").find('.divin').eq(dic);
   
-	for(var i=0; i<=dic;i++){
+	for(var i=0; i<=Number(title[0]);i++){
 		
-		var title = $("#tab"+tab).find(".main").find('div.divin').eq(i).find(":checkbox[name='radio']:checked").attr('title')
-		var rem = $("#tab"+tab).find(".main").find('div.divin').eq(i).find(":checkbox[name='radio']:checked").val()
+		var titlec = $("#tab"+title[1]).find(".main").find('div.divin').eq(i).find('select option:selected').attr('value')
+		var rem = $("#tab"+title[1]).find(".main").find('div.divin').eq(i).find('select option:selected').attr('data-value')
+		
 		var len = obj[newrec].length; 
 		obj[newrec].push({});
-	    obj[newrec][len][title]= rem;
+	    obj[newrec][len][titlec]= rem;
 	   	
 		//obj[newrec].splice(obj[newrec].indexOf(rem),1)
 //		$("#tab"+tab).find(".main").find('div.divin').eq(i).remove()
 //		$("#tab"+tab).find(".main").find(".divot").eq(i).remove()
 			}
 	 prvrec = newrec;
-	 var length1 = $("#tab"+tab).find(".main").find('div.divin').length;
 	
+	 var length1 = $("#tab"+title[1]).find(".main").find('div.divin').length;
+
 	 for(var i=length1-1; i >= diva;i--){
 	       		
-			$("#tab"+tab).find(".main").find('div.divin').eq(i).remove()
-			$("#tab"+tab).find(".main").find(".divot").eq(i).remove()
+			$("#tab"+title[1]).find(".main").find('div.divin').eq(i).remove()
+			$("#tab"+title[1]).find(".main").find("div.divot").eq(i).remove()
 				}
 //$("#tab"+tab).find(".main").find(pid1).prev('br').remove();
 //$("#tab"+tab).find(".main").find(pid1).next("span").andSelf().remove();
@@ -280,39 +302,45 @@ else{
     //$(".divin").eq(diva).find(":checkbox[name='radio']").next("span").andSelf().remove();
     
 }
+}
+else{}
 
 var json = JSON.stringify(obj);
 console.log(json)
 //arr.push(obj)
-
-if ($("#tab"+tab).find(".main").find(".divin").eq(id).find(":checkbox[name='radio']:checked").length == 1){
-	$("#tab"+tab).find(".main").find(".divin").eq(id).find(":checkbox[name='radio']:not(:checked)").prop('disabled', true);
+/*
+if ($("#tab"+title[1]).find(".main").find(".divin").eq(title[0]).find('select option:selected').length == 1){
+	$("#tab"+title[1]).find(".main").find(".divin").eq(title[0]).find('select option:selected').prop('disabled', true);
 	 }  
 	else{
-		$("#tab"+tab).find(".main").find(".divin").eq(id).find(":checkbox[name='radio']:not(:checked)").prop('disabled', false);
+		$("#tab"+title[0]).find(".main").find(".divin").eq(title[0]).find("select option:selected").prop('disabled', false);
 		}
 //	$(":radio[name='radio']:not(:checked)").prop('disabled', true);  
-
-		var diva = Number(id)+1;
-		var divb =  Number(id)+1;
+*/
+		var diva = Number(title[0])+1;
+		var divb =  Number(title[0])+1;
 	//if(id.length != 0){
-		if(val.checked == true){
+
 	    //  if(diva < 4 && divb < 4){
 	    	
-	    	if($("#tab"+tab).find(".main").find(".divin").length < 4 ){
-	    		if($("#tab"+tab).find(".main").find(".divin").eq(diva).length < 1){
+	    	if($("#tab"+title[1]).find(".main").find(".divin").length < 4 && pid != "select" ){
+	    		if($("#tab"+title[1]).find(".main").find(".divin").eq(diva).length < 1){
                       			
-	    			creatediv(tab)
+	    			creatediv(title[1])
 	    		}
-	    		else if($("#tab"+tab).find(".main").find(".divin").eq(diva).length == 1){
-	    			loadval(diva,tab)
+	    		else if($("#tab"+title[1]).find(".main").find(".divin").eq(diva).length == 1){
+	    			$("#tab"+title[1]).find(".main").find(".divin").eq(diva).find('select').find('option').not(':first').remove().end();
+	    		    
+	    		   
+	    		  
+	    			loadval(diva,title[1])
 	    		}
 	    		else{
-	    	
-	    			loadval(id,tab)
+	    			$("#tab"+title[1]).find(".main").find(".divin").eq(diva).find('select').find('option').not(':first').remove().end();
+		    		   loadval(title[0],title[1])
 	    		}
 	    	  
-	  }
+	  
 	     
 	  }	
 //	} 
@@ -335,6 +363,9 @@ if ($("#tab"+tab).find(".main").find(".divin").eq(id).find(":checkbox[name='radi
 	}*/
 }
 
+	function remove(){
+		
+	}
 function addcheck(div,tab){
 	
     var s = $("#tab"+tab).find(".main").find('.divin').eq(div).find(".header").text();
@@ -386,7 +417,7 @@ function addcheck(div,tab){
  		
  		 var divc = div;
  	 	   divc = Number(divc) - 1;
- 	 	 pid =  $("#tab"+tab).find(".main").find('.divin').eq(divc).find(":checkbox[name='radio']:checked").attr("title");
+ 	 	 pid =  $("#tab"+tab).find(".main").find('.divin').eq(divc).find("select option:selected").attr("title");
  	 	
  	 	  if(divc == -1){
  	 		pid = 0;  
@@ -401,8 +432,8 @@ function addcheck(div,tab){
   	 
   	  loadval(div,tab)
   	  
-  	if ($("#tab"+tab).find(".main").find(".divin").eq(div).find(":checkbox[name='radio']:checked").length == 1){
-  			$("#tab"+tab).find(".main").find(".divin").eq(div).find(":checkbox[name='radio']:not(:checked)").prop('disabled', true);
+  	if ($("#tab"+tab).find(".main").find(".divin").eq(div).find("select option:selected").length == 1){
+  			$("#tab"+tab).find(".main").find(".divin").eq(div).find("select option:selected").prop('disabled', true);
   	}  
   		
   	  
@@ -530,15 +561,26 @@ function createTabs(){
 //creatediv(fgr)
 }
 }
+
+var $select;
 function creatediv(main){
 	
 var	divid =  $('#tab'+main).find(".main").find(".divin" ).length;
-var	divid1 = $('#tab'+main).find(".main").find(".divot" ).length;
-	var div = "<div class='col-xs-1 divot'></div><div class='col-xs-2 divin' title='"+divid+"' id='"+divid+"' style='border:1px solid;height:200px;overflow-Y:auto;'><center><font onclick='return updheader("+divid+","+main+")' class='header' id='' size='4' style='text-align:center;'></font><i class='fa fa-plus button2 plus' style='font-size:20px;color:#ff9900;' aria-hidden='true' onclick='return addcheck("+divid+","+main+")'></i></center></div>";
 
+var	divid1 = $('#tab'+main).find(".main").find(".divot" ).length;
+var div = "<div class='form-group row divot' id='"+divid1+"' style='height:70px;'><div class='col-xs-7 divin' title='"+divid+"' id='"+divid+"' style='height:60px;'><p class='header' id=''></p></div></div>";
+$('#tab'+main).find(".main").append(div);
+$select = $('<select/>', {
+     'class':"selectpicker form-control input-sm",
+     'data-live-search':'true',
+     'data-size':'5',
+     'onchange':'return checkdiv(this.options[this.selectedIndex])'
+});
+
+$select.append('<option value="select" titlea="'+divid+'=='+main+'" data-value="select" selected disabled>Select</option>')
 	
- 
-	$('#tab'+main).find(".main").append(div);
+
+$select.appendTo($('#tab'+main).find(".main").find("#"+Number(divid+1))).selectpicker('refresh');
   openmd(cu)
     
  //console.log(div)  
@@ -585,7 +627,7 @@ function loadtabvalues(){
     	$('<li><a href="#tab'+datec.tabid+'" id="li'+no+'" class='+datec.tabid+' data-toggle="tab" onclick="checkempty('+datec.tabid+',this)">'+datec.tabvalue+'</a></li>').appendTo('#pills');
 		
     	// create the tab content
-    	$('<div class="tab-pane fade" id="tab'+datec.tabid+'"><div class="form-group row main"></div></div>').appendTo('.tab-content');
+    	$('<div class="tab-pane fade" id="tab'+datec.tabid+'"><div class="main"></div></div>').appendTo('.tab-content');
 		  }	
 
          });    
@@ -608,7 +650,7 @@ function datasuccess(data){
 	if(data != "null"){
 		
 		alert(data)
-window.location = "/HMS/diagnose/user";
+window.location = "/HMS/diagnose";
 	}
 }
 /*
@@ -688,16 +730,20 @@ function loadval(div,min){
 	
      $.each(response.list, function(index, datec) {
 
-    	 var checkva = $("#tab"+min).find(".main").find('.divin').eq(div).find(":checkbox[name='radio']:checked").attr("title");
-       	if(checkva != datec.did){
-    	 var div1 = "<br><input type='checkbox' value='"+datec.checkval+"' name='radio' title='"+datec.did+"' class='"+datec.pid+"' onchange='return checkdiv("+div+",this,"+min+")'><span>"+datec.checkval+"</span></input>";
-      //  console.log(div1)      
-        $("#tab"+min).find(".main").find('.divin').eq(div).append(div1);
-       	}
+    	// var checkva = $("#tab"+min).find(".main").find('.divin').eq(div).find(":checkbox[name='radio']:checked").attr("title");
+       //	if(checkva != datec.did){
+    //	 var div1 = "<br><input type='checkbox' value='"+datec.checkval+"' name='radio' title='"+datec.did+"' class='"+datec.pid+"' onchange='return checkdiv("+div+",this,"+min+")'><span>"+datec.checkval+"</span></input>";
+      
+    	 $select.append('<option value='+datec.did+' titlea="'+div+'=='+min+'" oid='+datec.pid+' data-value="'+datec.checkval+'">'+datec.checkval+'</option>');
+         $select.appendTo($("#tab"+min).find(".main").find('.divin').eq(div)).selectpicker('refresh');
+    	 //  console.log(div1)      
+     //   $("#tab"+min).find(".main").find('.divin').eq(div).append(div1);
+       //	}
    	 	$("#tab"+min).find(".main").find(".header").eq(div).text(datec.header);
         $("#tab"+min).find(".main").find(".header").eq(div).attr("id",datec.hid);
        
           });
+     
      
      $.each(response.list1, function(index, datec) {
 
@@ -706,29 +752,22 @@ function loadval(div,min){
       	
         
           });
+     
     
-     if($("#tab"+min).find(".main").find('.divin').eq(div).contents().length == 1 && cu == 'user'){
- 
-       	
-     if($("#tab"+min).find(".main").find('.divin').eq(div).contents().text()==''){
-    	 
+    
+     if($("#tab"+min).find(".main").find('.divin').eq(div).contents().length == 1){
+      	
+    	 $("#tab"+min).find(".main").find('.divin').eq(div).find(".header").remove();
     	 $("#tab"+min).find(".main").find('.divin').eq(div).remove(); 
     	 $("#tab"+min).find(".main").find(".divot").eq(div).remove();
+    	
     	// alert("No data found")
     	// $("#tab"+min).find(".main").find('.divin').eq(Number(div)-1).find(":checkbox[name='radio']:checked").prop("checked",false)
-    	 $("#tab"+min).find(".main").find('.divin').eq(Number(div)-1).find(":checkbox[name='radio']:not(:checked)").prop("disabled",false)
-    	   
-     }
+    
      }
    	
 
-    if ($("#tab"+min).find(".main").find(".divin").eq(div).find(":checkbox[name='radio']:checked").length == 1){
-  		$("#tab"+min).find(".main").find(".divin").eq(div).find(":checkbox[name='radio']:not(:checked)").prop('disabled', true);
-  	}  
- 	else{
- 		$("#tab"+min).find(".main").find(".divin").eq(div).find(":checkbox[name='radio']:not(:checked)").prop('disabled', false);
- 		  
- 	}
+    
       }
 	    
 	  var errorFn = function(e){
@@ -743,8 +782,10 @@ function loadval(div,min){
        </script>
        <script type="text/javascript">
        function preview(){
+    	
     	   var i,j,x
-    	   $("#tab"+flag).find(".main").find(".divin").eq(0).find(":checkbox[name='radio']").each(function() {
+    	   
+    	  $("#tab"+flag).find(".main").find(".divin").eq(0).find("select").each(function() {
     		   
     	if(obj.hasOwnProperty($(this).val())){
     			   var retobj = $(this).val();
@@ -789,6 +830,9 @@ function loadval(div,min){
 	       
 	       $('select[name=pname]').val('select');
 	       $('#vpid').selectpicker('refresh');
+	      
+	       $('select[name=ppid]').val('select');
+	       $('#vpid2').selectpicker('refresh');
 	       
 			document.getElementById("id").innerHTML = "Id";
  			document.getElementById("nm").innerHTML = "Name";
@@ -797,31 +841,36 @@ function loadval(div,min){
     	   if($("#check").prop("checked") == true){
     		$('#fg').hide();
     		$('#fg1').show();
-    		 //  $('#vpid').selectpicker('show');
-    		 //  $("#pname").selectpicker('hide');
+    		$('#id1').hide();
+    		$('#id2').show();
+    		
+    		
     		   
     	   }
     	   else{
     		   $('#fg1').hide();
        		   $('#fg').show();
-    	      // $('#vpid').selectpicker('hide');
-    		  // $("#pname").selectpicker('show');
+       		   $('#id2').hide();
+     		   $('#id1').show();
+    	      
+     		  
+     		 
     	   }
        }
     
        function createbr(retobj){
-    	       var head = document.getElementById("text1").value;
-    	      // var head2 = document.getElementById("text1").innerHTML; 
-    	      // var spl = head2.split('\n');
-    	
-    	   //   for(var  i= 0;i<spl.length;i++){
-    	    //	  if(retobj != spl[i]){
-    	    		 
-    	    //	  }
-    	   //   }
-	           $('#text1').val(head + retobj);  //document.createTextNode(retobj);
-	          // head.appendChild(head1);
-       }
+	       var head = document.getElementById("text1").value;
+	      // var head2 = document.getElementById("text1").innerHTML; 
+	      // var spl = head2.split('\n');
+	
+	   //   for(var  i= 0;i<spl.length;i++){
+	    //	  if(retobj != spl[i]){
+	    		 
+	    //	  }
+	   //   }
+           $('#text1').val(head + retobj);  //document.createTextNode(retobj);
+          // head.appendChild(head1);
+   }
        
        function addcname(getval){
     		
@@ -876,17 +925,17 @@ function loadval(div,min){
    		
    		// var res5 = $('select[name=pname1]').val();
    	 	   $('select[name=ppid]').val(str[0]);
-   		   $('#ppid').selectpicker('refresh');
-   		   
+   		   $('#vpid2').selectpicker('refresh');
+   		   /*
    		   $('select[name=pname]').val(str[1]);
 		   $('#pname').selectpicker('refresh');
-   		   
+   		   */
 //   		document.getElementById("pid").value=str;
 
    			document.getElementById("id").innerHTML = str[0];
    			document.getElementById("nm").innerHTML = str[1];
    			document.getElementById("flno").innerHTML = str[2];
-    			document.getElementById("fileno").value = str[2];
+    	    document.getElementById("fileno").value = str[2];
 
    			$("#docid").val(str[3]); 
    			$("#datetime").val(str[5]);
@@ -919,7 +968,7 @@ var cu;
     		   
     	   }
     	   else{
-    		   document.getElementById("adb").style.display = "none";
+    		  // document.getElementById("adb").style.display = "none";
     		   $(".plus").hide();  
     	   }
        }
@@ -942,7 +991,7 @@ var cu;
   </div>
 </nav>
  <div id ="form2">
-    <h1><button id="adb" class="btn btn-warning btn-sm button1" class="form-control input-sm" onclick="return createTabs()">Add New Tab</button>
+    <h1><button id ="bouton-contact" form="formc" class="btn btn-warning btn-sm button1" class="form-control input-sm" >Save</button>
   <font size="5" id="cd"> Clinical Diagnosis </font><button class="btn btn-warning btn-sm button2" id="preview" class="form-control input-sm" onclick="preview()">ADD</button>
   </h1>
 <br>
@@ -953,24 +1002,24 @@ var cu;
          <ul class="nav nav-pills nav-stacked col-md-2 reduce" id="pills" style="height:auto;width:140px;max-height:270px;overflow : auto;">
         <li class="active"><a data-toggle="pill"  id="home" href="#home1">Patient Details</a></li>
         </ul>
-        
-        <div class="tab-content col-md-10" style="height:auto;">
+         <div class="form-group row" >
+        <div class="tab-content col-xs-4" style="height:auto;">
         <!-- Home1-->
    <div id="home1" class="tab-pane fade in active">
      <div class="form-group row" >
-        <div class="col-xs-9"></div>
-    <div class="col-xs-2">Diagnosed Patients : <input type="checkbox" name="check" id="check" onchange = "change()" ></div>
+        <div class="col-xs-6"></div>
+    <div class="col-xs-6">Diagnosed Patients : <input type="checkbox" name="check" id="check" onchange = "change()" ></div>
    
     </div>
     <br>
    
     <div class="form-group row" >
-    <div class="col-xs-1"></div>
+      <div class="col-xs-1"></div>
      <div class="col-xs-1">
       <input type="" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Patient Name">
      </div>
-     <div class="col-xs-2"></div>
-      <div class="col-xs-4">
+     <div class="col-xs-4"></div>
+      <div class="col-xs-5">
        <div class="form-group" id="fg">
       
        <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="pname" onchange="addcname(this.options[this.selectedIndex])"   >
@@ -994,44 +1043,53 @@ var cu;
       </div>
       </div>
       <div class="form-group row" >
-      <div class="col-xs-1"></div>
+       <div class="col-xs-1"></div>
       <div class="col-xs-1">
       <button type="button" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" >Patient Id</button>
      </div>
-     <div class="col-xs-2"></div>
-      <div class="col-xs-4">
-       <div class="form-group">
-      
-             <select class="selectpicker form-control" data-width="100%" data-size="5" form="formc" data-live-search="true"  name = "ppid" id ="ppid" onchange="addcid(this.options[this.selectedIndex])" required>
+     <div class="col-xs-4"></div>
+      <div class="col-xs-5">
+       <div class="form-group" id="id1">
+      <select class="selectpicker form-control btn btn" data-width="100%" data-size="5" form="formc" data-live-search="true"  name = "ppid" id ="ppid" onchange="addcid(this.options[this.selectedIndex])" >
       <option value="select" disabled selected>Select</option>
         <c:forEach var="p"  items="${model.list1}">
         <option value = "${p.pid}" data-value="${p.pid},${p.pname},${p.fileno},${p.docid}">${p.pid}</option>
         </c:forEach>
       </select>
+     </div>
       
- 
+        <div class="form-group" id="id2">
+        <select class="selectpicker form-control btn btn" data-width="100%" data-size="5" form="formc" data-live-search="true"  name = "ppid" id ="vpid2" >
+      <option value="select" disabled selected>Select</option>
+      <c:forEach var="p"  items="${model.list3}">
+        <option value ="${p.ppid}"  data-value="${p.ppid},${p.pname},${p.fileno},${p.docid},${p.diagnose},${p.datetime}">${p.ppid}</option>
+        </c:forEach>
+      </select>
       </div>
+     
+     
       </div>
       </div>
       <div class="form-group row" >
       <div class="col-xs-1"></div>
-       <div class="col-xs-2">
+       <div class="col-xs-1">
       <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="Date">
      </div>
-     <div class="col-xs-1"></div>
-      <div class="col-xs-4">
+     <div class="col-xs-4"></div>
+      <div class="col-xs-5">
        <div class="form-group">
        
          <input type="text" name="datetime" id="datetime" class="form-control input-sm" form="formc" readonly="readonly" required>
         </div>
       </div></div>
+      
       <div class="form-group row" >
       <div class="col-xs-1"></div>
-       <div class="col-xs-2">
+       <div class="col-xs-1">
       <input class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;" value="File No">
      </div>
-     <div class="col-xs-1"></div>
-      <div class="col-xs-4">
+     <div class="col-xs-4"></div>
+      <div class="col-xs-5">
        <div class="form-group">
        <input type="text" name="fileno" id="fileno" readonly class="form-control input-sm" form="formc"  required>
        </div>
@@ -1047,25 +1105,21 @@ var cu;
      
         </div>
       
-</div>
- <div class="form-group row" >
-    
-    <div class="col-xs-10">
-    <p id="tx" style="margin-left:12px;"><b>Diagnosis Details</b></p>
-    <textarea name='diagnose' id='text1' rows='3' cols='178' form="formc" style="margin-left:12px;"></textarea>
+
+
+    <div class="col-xs-1"></div>
+    <div class="col-xs-4">
+    <p id="tx" style="margin-top:-10px;"><b>Diagnosis Details</b></p>
+    <textarea name='diagnose' id='text1' required rows='18' cols='78' form="formc" ></textarea>
     </div>
     
     
-    
+</div>    
   </div> 
- <button type="submit" class="bouton-contact" id ="bouton-contact" form="formc" ><span id="save">Save</span></button>
+ <button type="submit" class="bouton-contact"  ><span id="save"></span></button>
      
  </div>
 </div>
-<script>
-openmd('<c:out value='${model.use}'/>')
- $('.nav-pills a:first').tab('show');
-</script>
 
 <script>
 datasuccess('<%=request.getParameter("message")%>')

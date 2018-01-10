@@ -255,6 +255,19 @@ window.location = "/HMS/doctor1.html";
       </figure>
     </div>
     
+     <div class="col-xs-2">
+      <figure>
+     
+       <img src="<c:url value='/Images/GCH.png'/>"/><br><br>
+      <figcaption><input type="button" onclick="location.href='/HMS/diagnose'" value="Clinical Diagnosis"></figcaption>
+     
+      </figure>
+    </div> 
+   
+    </div>
+    <br>
+   <div class="row text-center">
+   
    <div class="col-xs-2" id="hided">
       <figure>
      
@@ -265,17 +278,8 @@ window.location = "/HMS/doctor1.html";
      
       </figure>
     </div> 
-    </div>
-    <br>
-   <div class="row text-center">
-      <div class="col-xs-2">
-      <figure>
+   
      
-       <img src="<c:url value='/Images/GCH.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='/HMS/diagnose/user'" value="Clinical Diagnosis"></figcaption>
-     
-      </figure>
-    </div> 
    
    </div>
 

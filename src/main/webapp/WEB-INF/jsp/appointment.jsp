@@ -339,13 +339,29 @@ $(document).ready(function () {
 		 if(m < 10) m = '0' + m; 
 		 var time = h + ':' + m;
 		 
-		     var currentTime = new Date();
-		     var userTime = $("#time").val().split(":"); 
+		 var currentTime = new Date();
+	     var userTime = $("#time").val().split(":"); 
+	    
+	     var dt = new Date();
+	 	 var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+	 	 
+	 	 var currenttime  = dt.getHours() + ":" + dt.getMinutes();
+	 	
+	 	 
+if(currenttime > $("#time").val())
+	 	{
+	 	 	 alert("Appointments can be scheduled only for future time")
+		   	 $( "#time" ).val(currenttime);
+		         $(this).focus();         
+	 	}
+		/*   
 		     if(currentTime.getHours() > parseInt(userTime[0]) || (currentTime.getMinutes()>parseInt(userTime[1]))){
 		   	 alert("Appointments can be scheduled only for future time")
 		   	 $( "#time" ).val(time);
 		         $(this).focus();                
 		     }
+		     
+		  */   
 		     
 		     /*
 		     if(currentTime.getHours() <= parseInt(userTime[0])){

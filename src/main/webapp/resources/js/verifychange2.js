@@ -34,12 +34,12 @@ var tpin;
      
     
         // Monitor dynamic inputs
-        $(document).on('change', ':input', function(){ //triggers change in all input fields including text type
+        
+        
+        $(document).on('input', ':input', function(){ //triggers change in all input fields including text type
             
         	unsaved = true;
         });
-        
-      
         
       $(document).on('change', '#myInp', function(){ //triggers change in all input fields including text type
             
