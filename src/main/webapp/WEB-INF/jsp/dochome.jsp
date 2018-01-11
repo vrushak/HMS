@@ -62,15 +62,17 @@ function checkhome(user){
 		
 		 var url = "/HMS/doctor1" ;
 			
-		 var element = document.getElementById('ho');
-		 element.setAttribute("href",url)
+		// var element = document.getElementById('ho');
+		// element.setAttribute("href",url)
+		 $("#hided").remove();
+		$("#back").hide();
 	}
 	
 	else{
 		 var url = "/HMS/home" ;
 			
-		 var element = document.getElementById('ho');
-		 element.setAttribute("href",url)
+	//	 var element = document.getElementById('ho');
+	//	 element.setAttribute("href",url)
 	}
 }
 
@@ -97,13 +99,13 @@ window.location = "/HMS/doctor1.html";
 
 </script>
 </head>
-<sec:authentication property="principal.authorities" var="userroles" />
-<body>
+<sec:authentication property="principal.authorities" var="username" />
+<body onload = "checkhome('<c:out value="${username}" />')">
 <div class= "wrapper">
 <br>
 <font color="#228B22" class="left" >Welcome : ${pageContext.request.userPrincipal.name}</font>  <i style="font-size:20px; align: right;color : #228B22" class="fa fa-cog" ></i> 
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
-<i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #228B22'  onclick="window.location.href='/HMS/admin';"></i>
+<i class='fa fa-arrow-left button2 rightspace' id="back" style='font-size:20px;color : #228B22'  onclick="window.location.href='/HMS/admin';"></i>
 
 <div class="well well-lg" id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
 
@@ -253,7 +255,20 @@ window.location = "/HMS/doctor1.html";
       </figure>
     </div>
     
-   <div class="col-xs-2">
+     <div class="col-xs-2">
+      <figure>
+     
+       <img src="<c:url value='/Images/GCH.png'/>"/><br><br>
+      <figcaption><input type="button" onclick="location.href='/HMS/diagnose'" value="Clinical Diagnosis"></figcaption>
+     
+      </figure>
+    </div> 
+   
+    </div>
+    <br>
+   <div class="row text-center">
+   
+   <div class="col-xs-2" id="hided">
       <figure>
      
        <img src="<c:url value='/Images/GCH.png'/>"/><br><br>
@@ -263,17 +278,8 @@ window.location = "/HMS/doctor1.html";
      
       </figure>
     </div> 
-    </div>
-    <br>
-   <div class="row text-center">
-      <div class="col-xs-2">
-      <figure>
+   
      
-       <img src="<c:url value='/Images/GCH.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='/HMS/diagnose/user'" value="Clinical Diagnosis"></figcaption>
-     
-      </figure>
-    </div> 
    
    </div>
 

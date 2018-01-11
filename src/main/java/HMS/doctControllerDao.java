@@ -197,6 +197,49 @@ public class doctControllerDao {
 			}
 		}
 		
+public List<Prescription> getDocIDdiag(String username,String userrole) {
+			
+			if(userrole.contains("[ROLE_DOCTOR]")){
+				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID where ap.fileno not in (select fileno from diagnose) and ap.docid in (select userid from userrole where username = '"+username+"')  and ap.active = 'on'",new RowMapper<Prescription>(){  
+		        public Prescription mapRow(ResultSet rs, int row) throws SQLException {   
+		        	 System.out.println("code re");
+			       Prescription p = new Prescription();
+			     
+			      p.setDocid(rs.getString(1));
+			      p.setDname(rs.getString(2));
+			    
+			      p.setPid(rs.getString(3));
+			      p.setPname(rs.getString(4));
+			      p.setAppointment(rs.getString(5));
+			      p.setSpecialization(rs.getString(6));
+			      p.setFileno(rs.getString(7));
+			      p.setIdc("");
+			      return p;
+		        }
+			});
+			}
+			else{
+				System.out.println("inside else of docid");
+				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID where ap.fileno not in (select fileno from diagnose) and ap.active = 'on'",new RowMapper<Prescription>(){  
+			        public Prescription mapRow(ResultSet rs, int row) throws SQLException {   
+				       Prescription p = new Prescription();
+				      
+				      p.setDocid(rs.getString(1));
+				      p.setDname(rs.getString(2));
+				    
+				   
+				      p.setPid(rs.getString(3));
+				      p.setPname(rs.getString(4));
+				      p.setAppointment(rs.getString(5));
+				      p.setSpecialization(rs.getString(6));
+				      p.setFileno(rs.getString(7));
+				      p.setIdc("Admin");
+				      System.out.println("getid" + p.getIdc());
+				      return p;
+			        }
+				});
+			}
+		}
 		
 	// lab patients list for both inpatient as well as outpatient	
 	public List<Prescription> getDocID3(String username,String userrole) {
@@ -1177,6 +1220,18 @@ public class doctControllerDao {
 				});
 			}
 			
+			public List<Diagnose> getHeaderVal1(int tab,int level) {
+				
+				return template.query("select hid,header from diagheader where tid ='"+tab+"' and level = '"+level+"'",new RowMapper<Diagnose>(){  
+			        public Diagnose mapRow(ResultSet rs, int row) throws SQLException {   
+				       Diagnose p = new Diagnose();
+				   		p.setHid(rs.getInt(1));
+				   		p.setHeader(rs.getString(2));
+				   		
+				       return p;
+			        }
+				});
+			}
 			// load header data on tabclick
 			
 			
@@ -1200,7 +1255,8 @@ public class doctControllerDao {
 			
 			// save diagnose data
 			public int savediagnose(Diagnose b) {
-				   String sql="insert into diagnose(pid,fileno,docid,datetime,diagnose) values('"+b.getPpid()+"','"+b.getFileno()+"','"+b.getDocid()+"','"+b.getDatetime()+"','"+b.getDiagnose()+"') on duplicate key update docid = '"+b.getDocid()+"',diagnose = '"+b.getDiagnose()+"',datetime = '"+b.getDatetime()+"'";  
+				System.out.println("ppid"+b.getPpid());
+				   String sql="insert into diagnose(pid,fileno,docid,datetime,diagnose) values('"+b.getPpid()+"','"+b.getFileno()+"','"+b.getDocid()+"','"+b.getDatetime()+"','"+b.getDiagnose()+"') on duplicate key update pid = '"+b.getPpid()+"' ,docid = '"+b.getDocid()+"',diagnose = '"+b.getDiagnose()+"',datetime = '"+b.getDatetime()+"'";  
 				    return template.update(sql);  
 				} 
 			// save tab header
@@ -1211,14 +1267,14 @@ public class doctControllerDao {
 			
 			// save tab header
 
-			public int savediagheader(int tabid,String header) {
-					String sql="insert into diagheader(tid,header) values('"+tabid+"','"+header+"') on duplicate key update header = '"+header+"',tid = '"+tabid+"'";  
+			public int savediagheader(int tabid,String header,int level) {
+					String sql="insert into diagheader(tid,header,level) values('"+tabid+"','"+header+"','"+level+"') on duplicate key update header = '"+header+"',tid = '"+tabid+"'";  
 					return template.update(sql);  
 							} 
 		//update header
 			
-			public int upddiagheader(int hid,String header) {
-				String sql="update diagheader set header = '"+header+"' where hid = '"+hid+"'";  
+			public int upddiagheader(int hid,String header,int level) {
+				String sql="update diagheader set header = '"+header+"',level='"+level+"' where hid = '"+hid+"'";  
 				return template.update(sql);  
 						} 
 	

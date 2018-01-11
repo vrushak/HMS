@@ -28,7 +28,7 @@
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-datetimepicker.min.js"></script>
-<script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/verifychange2.js"></script>
 
 
 <style type="text/css">
@@ -153,8 +153,7 @@ function checkhome2(user){
 	
 		var url = "/HMS/hmspharma1" ;
 		
-		 var element = document.getElementById('ho');
-		 element.setAttribute("href",url)
+	
 		
 		 document.getElementById("bouton-contact").disabled = true; 
 			document.getElementById("mm").style.display = "none"; 
@@ -169,8 +168,6 @@ function checkhome2(user){
 	
 		 var url = "/HMS/hmspharma" ;
 			
-		 var element = document.getElementById('ho');
-		 element.setAttribute("href",url)
 		
 		 
 	
@@ -182,7 +179,7 @@ function checkhome2(user){
 		 var url = "/HMS/hmspharma" ;
 		
 		 var element = document.getElementById('ho');
-		 element.setAttribute("href",url)
+
 	}
 }
 
@@ -281,8 +278,7 @@ function add1(getval){
 		// document.getElementById("eans").value = strSplit[0];
 	       
 		   
-	    disbut();
-	      
+	   
 		   
 	   
 	   
@@ -303,8 +299,7 @@ function add2(getval){
 		   p = strSplit[2];
 		//   document.getElementById("eans").value = strSplit[0];
 	       }
-	     disbut();
-		 
+	   
 	 
 	
 }
@@ -633,8 +628,15 @@ window.location = "/HMS/orderho.html";
 	}
 }
 function disp(){
+	console.log(unsaved)
+	   
+	   
 	if(document.getElementById("sinvoice").value == "Select"){
 		alert("Please select Order Id")
+		return false;
+	}
+	if(unsaved == true){
+		alert("Please save the data")
 		return false;
 	}
 	$("#col3").css("border-style","none");
@@ -738,6 +740,7 @@ function doAjaxdel(r){
 
        function doAjaxPost(order) {
     	   // get the form values
+    	   
     	 
     	   //  var order = $('#sinvoice').val();
         document.getElementById("saveo").reset();
@@ -757,6 +760,7 @@ function doAjaxdel(r){
 		            
 		        	unsaved = false;
 		        });
+			   
 			   window.location.reload();
 			   
 			  return false;
@@ -785,13 +789,16 @@ function doAjaxdel(r){
         		   document.getElementById("count").value = datec.count;
         		   document.getElementById("orderDate").value = datec.orderDate;
         		  
-        		  
+        		 
         		   var markup = "<tr><td style='width:100px;' class='pc'><input type='text'  class='form-control input-sm' id = 'ean' name= 'ean' form ='saveo' value = '"+datec.ean+"' required></td><td style='width:400px;' class='pc1'><textarea rows = '1' form ='saveo' class='form-control input-sm' id = 'productName' name= 'productName' oninput='auto_grow(this)' required>"+datec.productName+"</textarea></td><td style='width:160px;' class='pc2'><input id = 'unit' class='form-control input-sm' form ='saveo' type='text' name= 'unit' value='"+decodeURI(datec.unit)+"' required></td><td style='width:100px;' class='pc'><input form ='saveo'  type='number' onkeypress='return onlyNos(event,this);' id = 'quantity' name= 'quantity' min = '1' value = '"+datec.quantity+"' class='form-control input-sm'  required></td><td style='width:100px;'class='pc'><input type = 'text' form ='saveo'   type='text'  id = 'stks' name='stks' value="+Number(datec.stks)+"  readonly='readonly' class='form-control input-sm' required></td><td style='width:70px;'><i class='fa fa-trash-o' id='"+encodeURI(datec.ean)+"' style='font-size:20px' onclick=doAjaxdel(this)></i></td></tr>"
 
         		   $('#myTable tbody').append(markup);
         		
         		   $('select[name=Supplier]').val(datec.Supplier);
         		   $('#Supplier').selectpicker('refresh');
+        		
+        		  
+        	        
 	                   });    
 	           },
 	           error: function(e){
@@ -800,7 +807,8 @@ function doAjaxdel(r){
 	        	  
 	        	           }
 	        	           });
-	        	        	   
+    	unsaved = false;
+		 
     	        	        }
 
 
@@ -812,7 +820,9 @@ function doAjaxdel(r){
        <script>
        $('input').keypress(function(e){ 
     	   if (this.value.length == 0 && e.which == 48 ){
-    	      return false;
+    	    
+    		   return false;
+    	      
     	   }
     	});
        
@@ -832,11 +842,12 @@ $('#datetimepicker1').datetimepicker({
 
 });
 
+
 </script>  
 
 </head>
 <sec:authentication property="principal.authorities" var="username" />
-<body onload="disbut(),checkhome2('<c:out value="${username}" />')">
+<body onload="checkhome2('<c:out value="${username}" />')">
 <div class = "wrapper">
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -871,7 +882,7 @@ $('#datetimepicker1').datetimepicker({
   <div id="form1" >  
   
      <h1><button type="submit"  form="saveo" onclick="return verifypro();" id="bouton-contact" class="btn btn-warning button1">Save</button> 
-       <font size="5">Order & Reorder</font><span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i> <button type="button" id="close" class="btn btn-warning button2" onclick="return disp()">Print</button> 
+       <font size="5">Order & Reorder</font><span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i> <button type="button" id="close" class="btn btn-warning button2 rmt" onclick="return disp()">Print</button> 
        
 	 
 	

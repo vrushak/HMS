@@ -107,41 +107,52 @@ p {
 <script type="text/javascript">
 
 function checkhome(user){
-	document.getElementById("bc").style.display = "none";
+	//document.getElementById("bc").style.display = "none";
+
 	if(user.includes("dbfdesk")){
 		 var url = "/HMS/frontdesk" ;
 			
-		 //var element = document.getElementById('ho');
-		 //element.setAttribute("href",url)
+	//	 var element = document.getElementById('ho');
+	//	 element.setAttribute("href",url)
+
 	}
 	else if(user.includes("[ROLE_FDESK]")){
 		
 		var url = "/HMS/frontdesk" ;
-		$("#frontback").hide();
-		 //var element = document.getElementById('ho');
-		 //element.setAttribute("href",url)
+
+		
+	//	 var element = document.getElementById('ho');
+	//	 element.setAttribute("href",url)
+
 	}
 	else if(user.includes("[ROLE_ASSISTANT]")){
 	
 		 var url = "/HMS/frontdesk" ;
-		 $("#frontback").hide();	
-		 //var element = document.getElementById('ho');
-		 //element.setAttribute("href",url)
+
+		 $('#sp').empty();
+			
+	//	 var element = document.getElementById('ho');
+	//	 element.setAttribute("href",url)
+
 	}
 	else if(user.includes("[ROLE_Accounts Admin]")){
 		
 		 var url = "/HMS/frontdesk" ;
-		 $("#frontback").hide();
-		 //var element = document.getElementById('ho');
-		// element.setAttribute("href",url)
+
+		 $('#sp').empty();
+	//	 var element = document.getElementById('ho');
+	//	 element.setAttribute("href",url)
+
 		 
 		 
 	}
 	else{
 		 var url = "/HMS/home" ;
 			
-		 //var element = document.getElementById('ho');
-		// element.setAttribute("href",url)
+
+	//	 var element = document.getElementById('ho');
+	//	 element.setAttribute("href",url)
+
 	}
 }
 function check(str){
@@ -276,13 +287,15 @@ function myconfirm()
 
 </head>
   <sec:authentication property="principal.authorities" var="username" />
-<body>
+<body onload = "checkhome('<c:out value="${username}" />')" >
 <div class= "wrapper">
 <br>
 <font color="#228B22" class="left" >Welcome : ${pageContext.request.userPrincipal.name}  </font>   <i style="font-size:20px; align: right;color : #228B22" class="fa fa-cog" ></i> 
 
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
-<i class="fa fa-arrow-left button2 rightspace" id="frontback" style="font-size:20px;color : #228B22" onclick="window.location.href='/HMS/home';"></i>
+
+<span id='sp'><i class="fa fa-arrow-left button2 rightspace" id="arr" style="font-size:20px;color : #228B22" onclick="window.location.href='/HMS/home';"></i></span>
+
 <div class="well well-lg" id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
 
  <div class ="container" >
