@@ -94,7 +94,7 @@ a {
 	float : left;
 }
 .tab-pane{
-width : 500px;
+width : 450px;
 border-style : groove;
 border-radius : 10px;
 height : 390px;
@@ -839,15 +839,22 @@ function loadval(div,min){
  			document.getElementById("flno").innerHTML = "Fileno";
 	   
     	   if($("#check").prop("checked") == true){
+    		   
+    	   $('#vpid2').attr('name','ppid')
+    	   $('#ppid2').removeAttr('name')
     		$('#fg').hide();
     		$('#fg1').show();
     		$('#id1').hide();
     		$('#id2').show();
-    		
-    		
+    	
     		   
     	   }
     	   else{
+    		   
+    		  
+    		 $('#ppid2').attr('name','ppid2')
+       		
+       		
     		   $('#fg1').hide();
        		   $('#fg').show();
        		   $('#id2').hide();
@@ -876,7 +883,7 @@ function loadval(div,min){
     		
     		var myname = getval.getAttribute('data-value'); 	
 //    		var cid = document.getElementById("pname").value; 
-    		var str = myname.split(',');
+    		var str = myname.split('==');
     		
     		// var res5 = $('select[name=pname1]').val();
     	 	   $('select[name=ppid]').val(str[0]);
@@ -898,7 +905,7 @@ function loadval(div,min){
     		var myname = getval.getAttribute('data-value'); 	
 
     		//var cid = document.getElementById("pid").value; 
-    		var str = myname.split(',');
+    		var str = myname.split('==');
 
 //    		var res4 = $('select[name=pid1]').val();
     		  
@@ -921,8 +928,8 @@ function loadval(div,min){
    		
    		var myname = getval.getAttribute('data-value'); 	
 //   		var cid = document.getElementById("pname").value; 
-   		var str = myname.split(',');
-   		
+   		var str = myname.split('==');
+   
    		// var res5 = $('select[name=pname1]').val();
    	 	   $('select[name=ppid]').val(str[0]);
    		   $('#vpid2').selectpicker('refresh');
@@ -938,8 +945,9 @@ function loadval(div,min){
     	    document.getElementById("fileno").value = str[2];
 
    			$("#docid").val(str[3]); 
-   			$("#datetime").val(str[5]);
-   			$("#text1").val(str[4]);
+   			$("#datetime").val(str[4]);
+   			
+   			$("#text1").val(str[5]);
    			
    		    $(document).on('change', ':input', function(){ //triggers change in all input fields including text type
    	            
@@ -992,7 +1000,7 @@ var cu;
 </nav>
  <div id ="form2">
     <h1><button id ="bouton-contact" form="formc" class="btn btn-warning btn-sm button1" class="form-control input-sm" >Save</button>
-  <font size="5" id="cd"> Clinical Diagnosis </font><button class="btn btn-warning btn-sm button2" id="preview" class="form-control input-sm" onclick="preview()">ADD</button>
+  <font size="5" id="cd"> Clinical Diagnosis </font>
   </h1>
 <br>
  <form id = "formc" action="/HMS/savediag.html" method = "post"></form>
@@ -1025,7 +1033,7 @@ var cu;
        <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="pname" onchange="addcname(this.options[this.selectedIndex])"   >
           <option value="select" disabled selected>Select</option>
         <c:forEach var="p"  items="${model.list1}">
-        <option value ="${p.pname}" data-value="${p.pid},${p.pname},${p.fileno},${p.docid}">${p.pname}</option>
+        <option value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pid}==${p.pname}==${p.fileno}==${p.docid}">${p.pname}</option>
         </c:forEach>
       </select>
       </div>
@@ -1033,7 +1041,7 @@ var cu;
        <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="vpid" onchange="addcname1(this.options[this.selectedIndex])"   >
           <option value="select" disabled selected>Select</option>
         <c:forEach var="p"  items="${model.list3}">
-        <option value ="${p.pname}" data-value="${p.ppid},${p.pname},${p.fileno},${p.docid},${p.diagnose},${p.datetime}">${p.pname}</option>
+        <option value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}==${p.diagnose}">${p.pname}</option>
         </c:forEach>
       </select>
       
@@ -1053,16 +1061,17 @@ var cu;
       <select class="selectpicker form-control btn btn" data-width="100%" data-size="5" form="formc" data-live-search="true"  name = "ppid" id ="ppid" onchange="addcid(this.options[this.selectedIndex])" >
       <option value="select" disabled selected>Select</option>
         <c:forEach var="p"  items="${model.list1}">
-        <option value = "${p.pid}" data-value="${p.pid},${p.pname},${p.fileno},${p.docid}">${p.pid}</option>
+        <option value = "${p.pid}" data-subtext="${p.fileno}" data-value="${p.pid}==${p.pname}==${p.fileno}==${p.docid}">${p.pid}</option>
         </c:forEach>
       </select>
      </div>
       
         <div class="form-group" id="id2">
-        <select class="selectpicker form-control btn btn" data-width="100%" data-size="5" form="formc" data-live-search="true"  name = "ppid" id ="vpid2" >
+        <select class="selectpicker form-control btn btn" data-width="100%" data-size="5" form="formc" data-live-search="true" id ="vpid2" >
       <option value="select" disabled selected>Select</option>
       <c:forEach var="p"  items="${model.list3}">
-        <option value ="${p.ppid}"  data-value="${p.ppid},${p.pname},${p.fileno},${p.docid},${p.diagnose},${p.datetime}">${p.ppid}</option>
+     
+        <option value ="${p.ppid}" data-subtext="${p.fileno}" data-value="${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}==${p.diagnose}">${p.ppid}</option>
         </c:forEach>
       </select>
       </div>
@@ -1107,7 +1116,8 @@ var cu;
       
 
 
-    <div class="col-xs-1"></div>
+    <div class="col-xs-1" style="height:350px;width:50px;margin-left:50px;"><i class="fa fa-angle-double-right btn btn-warning btn-sm" onclick="preview()" style="margin-left:-13px;margin-top:150px;font-size:25px;" aria-hidden="true"></i></div>
+   
     <div class="col-xs-4">
     <p id="tx" style="margin-top:-10px;"><b>Diagnosis Details</b></p>
     <textarea name='diagnose' id='text1' required rows='18' cols='78' form="formc" ></textarea>

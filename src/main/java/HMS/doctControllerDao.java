@@ -1256,7 +1256,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole) {
 			// save diagnose data
 			public int savediagnose(Diagnose b) {
 				System.out.println("ppid"+b.getPpid());
-				   String sql="insert into diagnose(pid,fileno,docid,datetime,diagnose) values('"+b.getPpid()+"','"+b.getFileno()+"','"+b.getDocid()+"','"+b.getDatetime()+"','"+b.getDiagnose()+"') on duplicate key update pid = '"+b.getPpid()+"' ,docid = '"+b.getDocid()+"',diagnose = '"+b.getDiagnose()+"',datetime = '"+b.getDatetime()+"'";  
+				   String sql="insert into diagnose(pid,fileno,docid,datetime,diagnose) values('"+b.getPpid()+"','"+b.getFileno()+"','"+b.getDocid()+"','"+b.getDatetime()+"','"+b.getDiagnose()+"') on duplicate key update docid = '"+b.getDocid()+"',diagnose = '"+b.getDiagnose()+"',datetime = '"+b.getDatetime()+"'";  
 				    return template.update(sql);  
 				} 
 			// save tab header
