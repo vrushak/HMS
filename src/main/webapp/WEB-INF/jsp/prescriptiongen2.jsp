@@ -219,6 +219,35 @@ function copyval1(name){
 	}
 	
 }
+var sav;
+function copyval2(name){
+	
+	var a = $("#fileno").val();
+	var b = $("#pname1").val();
+	var c = $("#pid1").val();
+	var d = document.getElementById("pname").value;
+	var e = $('#docid').val();
+	
+	if(name == "menucd" && d =="Select"){
+		alert("Please select Patient Name")
+		return false;
+	
+	}
+	else if(name == "menucd" && d !="Select"){
+	
+		  var url = "/HMS/diagnosegc?location="+a+"&location1="+b+"&location2="+c+"&&location3="+e+"&&location4="+sav+"";
+		    var element = document.getElementById(name);
+			element.setAttribute("href",url);
+		
+			
+			return true;
+	}
+	
+	else{
+		
+	}
+	
+}
 function copyval(tabi){
 	tabid = tabi;
 	var a = $("#fileno").val();
@@ -367,8 +396,8 @@ function addcname(){
 	document.getElementById("flno").innerHTML = str[2];
 	document.getElementById("fileno").value = str[2];
 	
-	doAjaxPost(str[2],str[0])
-	
+	doAjaxPost(str[2],str[0], moment().format('DD-MM-YYYY'))
+	sav = 0;
 	
 	
 	
@@ -669,9 +698,16 @@ function doAjaxDelete(r,drug,type){
 
 
 
-       function doAjaxPost(fileno,pid) {
+       function doAjaxPost(fileno,pid,date) {
     	   // get the form values
-    	   
+    	
+    
+    	   if(new Date(date) >= new Date("2018-01-11")){
+    		   $('#ppc').hide();
+    		   $('#sr').hide();
+    		   $('#pe').hide();
+    	   }
+    	   sav = 1;
     	  var counter = 1;
     	 
     	         //  var name = $('#pname').val();
@@ -1070,7 +1106,7 @@ function doAjaxDelete(r,drug,type){
        
        function doAjaxPost2() {
     	   // get the form values
-    	   
+    	 sav = 0;  
     	  var counter = 1;
     	 
     	         //  var name = $('#pname').val();
@@ -1171,8 +1207,11 @@ function doAjaxDelete(r,drug,type){
     	             $('#myModal').modal({
     	     			backdrop: 'static'
     	     		});
- 	            	
+ 	            	$('#ppc').hide()
+ 	            	$('#pe').hide()
+ 	            	$('#sr').hide()
     	             unsaved = false;
+ 	            	sav = 0;
       	           }    
     	        	          
     	        	           
@@ -1334,7 +1373,7 @@ $('#form1').draggable();
     <td width="192px;">${p1.date}</td>
     <td width="192px;" class="trunk">${p1.dname}</td>
  
-    <td width="192px;"><i class="fa fa-eye" style="color:#00b300" onclick="doAjaxPost('${p1.fileno}','${p1.pid}')"></i></td>
+    <td width="192px;"><i class="fa fa-eye" style="color:#00b300" onclick="doAjaxPost('${p1.fileno}','${p1.pid}','${p1.date}')"></i></td>
   
  </tr>
     </c:forEach>
@@ -1370,9 +1409,10 @@ $('#form1').draggable();
   <ul class="nav nav-pills nav-stacked col-md-2">
     <li class="active"><a data-toggle="pill" onclick = "return copyval('home1')" href="#home1">Patient Details</a></li>
      <li><a data-toggle="pill" onclick = "return copyval('menu3a')" href="#menu3a">Patient Vitals</a></li>
-    <li><a data-toggle="pill"  onclick = "return copyval('home')" href="#home">Presenting Problems/Complaints</a></li>
-    <li><a data-toggle="pill" onclick = "return copyval('menu1')" href="#menu1">Systems Review</a></li>
-    <li><a data-toggle="pill" onclick = "return copyval('menu2')" href="#menu2">Patient Examination</a></li>
+    <li id="ppc"><a data-toggle="pill"  onclick = "return copyval('home')" href="#home">Presenting Problems/Complaints</a></li>
+    <li id="sr"><a data-toggle="pill" onclick = "return copyval('menu1')" href="#menu1">Systems Review</a></li>
+    <li id="pe"><a data-toggle="pill" onclick = "return copyval('menu2')" href="#menu2">Patient Examination</a></li>
+    <li><a onclick = "return copyval2('menucd')" id="menucd" href="" target="_blank">Clinical Diagnosis</a></li>
     <li><a data-toggle="pill" onclick = "return copyval('menu3')" href="#menu3">Provisional Diagnosis</a></li>
     <li><a onclick = "return copyval1('menu4a')" id="menu4a" href="" target="_blank">Lab</a></li>
     <li><a data-toggle="pill" onclick = "return copyval('menu4')" href="#menu4">Prescription</a></li>
@@ -1398,7 +1438,7 @@ $('#form1').draggable();
        <select class="selectpicker form-control btn btn" data-live-search="true" name = "pname1" id ="pname" onchange="addcname()"   >
           <option value = "Select" disabled selected>Select</option>
         <c:forEach var="p"  items="${model.list1}">
-        <option value="${p.pid},${p.pname},${p.fileno}">${p.pname}</option>
+        <option data-subtext="${p.fileno}" value="${p.pid},${p.pname},${p.fileno}">${p.pname}</option>
         </c:forEach>
       </select></div>
       </div>
@@ -1415,7 +1455,7 @@ $('#form1').draggable();
              <select class="selectpicker form-control" data-width="100%"  data-live-search="true"  name = "pid1" id ="pid"  required>
       <option disabled selected>Select</option>
         <c:forEach var="p"  items="${model.list1}">
-        <option value="${p.pid},${p.pname},${p.fileno}">${p.pid}</option>
+        <option data-subtext="${p.fileno}" value="${p.pid},${p.pname},${p.fileno}">${p.pid}</option>
         </c:forEach>
       </select></div>
       </div>

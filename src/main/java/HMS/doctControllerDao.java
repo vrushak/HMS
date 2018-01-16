@@ -402,7 +402,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole) {
 		}
 
 		public List<Discharge> getDischarge() {
-			return template.query("select ds.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) Patient,pat.age,pat.gender,concat(d.fname,' ',d.mname,' ',d.lname) Doctor,ds.docid,adm.admdate,ds.disdate,ds.investigation,ds.fileno,ds.admitno,concat(adm.wardno,'/',adm.bedno) from discharge ds join patient pat on ds.pid = pat.pid join doctor d on ds.docid = d.docID join admitpat adm on ds.fileno = adm.fileno order by CAST(SUBSTRING_INDEX(ds.pid,'-',-1) as decimal) desc",new RowMapper<Discharge>(){  
+			return template.query("select ds.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) Patient,pat.age,pat.gender,concat(d.fname,' ',d.mname,' ',d.lname) Doctor,ds.docid,adm.admdate,ds.disdate,ds.investigation,ds.fileno,ds.admitno,concat(adm.wardno,'/',adm.bedno) from discharge ds join patient pat on ds.pid = pat.pid join doctor d on ds.docid = d.docID join admitpat adm on ds.fileno = adm.fileno order by CAST(SUBSTRING_INDEX(ds.fileno,'-',-1) as decimal) desc",new RowMapper<Discharge>(){  
 		        public Discharge mapRow(ResultSet rs, int row) throws SQLException {   
 			       Discharge p = new Discharge();
 			       p.setPid(rs.getString(1));
@@ -1248,11 +1248,29 @@ public List<Prescription> getDocIDdiag(String username,String userrole) {
 				   	p.setDname(rs.getString(5));
 				   	p.setDiagnose(rs.getString(6));
 				   	p.setDatetime(rs.getString(7));
+				   	System.out.println(rs.getString(6));
 				    return p;
 			        }
 				});
 			}		
 			
+	//load values based on fileno for discharge screen
+			public List<Diagnose> getHistvalue1(String pid,String fileno) {
+				return template.query("select d.pid,d.fileno,concat(pat.fname,' ',pat.mname,' ',pat.lname) patient,doc.docid,concat(doc.fname,' ',doc.mname,' ',doc.lname) doctor,concat('Diagnose Details',d.diagnose,'\n\nProvisional Diagnosis\n',prep.pds) Diag,d.datetime from diagnose d join patient pat on pat.pid = d.pid join doctor doc on doc.docid = d.docid right outer join prescription prep on prep.fileno = d.fileno where d.pid = '"+pid+"' and d.fileno ='"+fileno+"'",new RowMapper<Diagnose>(){  
+				        public Diagnose mapRow(ResultSet rs, int row) throws SQLException {   
+					       Diagnose p = new Diagnose();
+					   	p.setPpid(rs.getString(1));
+					   	p.setFileno(rs.getString(2));
+					   	p.setPname(rs.getString(3));
+					   	p.setDocid(rs.getString(4));
+					   	p.setDname(rs.getString(5));
+					   	p.setDiagnose(rs.getString(6));
+					   	p.setDatetime(rs.getString(7));
+					    return p;
+				        }
+					});
+				}		
+				
 			// save diagnose data
 			public int savediagnose(Diagnose b) {
 				System.out.println("ppid"+b.getPpid());
@@ -1277,8 +1295,17 @@ public List<Prescription> getDocIDdiag(String username,String userrole) {
 				String sql="update diagheader set header = '"+header+"',level='"+level+"' where hid = '"+hid+"'";  
 				return template.update(sql);  
 						} 
+	//update checkbox
+			public int updChname(int cid,String header) {
+				String sql="update diagdata set checkval = '"+header+"' where did = '"+cid+"'";  
+				return template.update(sql);  
+						} 
 	
-			
+			public int updtab(int tabid,String tabvalue) {
+				String sql="update diagtab set tabvalue = '"+tabvalue+"' where tid = '"+tabid+"'";  
+				return template.update(sql);  
+						} 
+		
 			//save checkbox values
 			
 			public int saveChk(int tabid,String chkname,int pid,int hid,int level) {
@@ -1323,5 +1350,46 @@ public List<Prescription> getDocIDdiag(String username,String userrole) {
 				});
 			}
 
+public List<Diagnose> getChknameVal(int level) {
+				
+				return template.query("select did,checkval from diagdata where did ='"+level+"'",new RowMapper<Diagnose>(){  
+			        public Diagnose mapRow(ResultSet rs, int row) throws SQLException {   
+				       Diagnose p = new Diagnose();
+				   		p.setDid(rs.getInt(1));
+				   		p.setCheckval(rs.getString(2));
+				   		
+				       return p;
+			        }
+				});
+			}
+
+public List<Diagnose> getTabvalue(int level) {
+	
+	return template.query("select tid,tabvalue from diagtab where tid ='"+level+"'",new RowMapper<Diagnose>(){  
+        public Diagnose mapRow(ResultSet rs, int row) throws SQLException {   
+	       Diagnose p = new Diagnose();
+	   		p.setTabid(rs.getInt(1));
+	   		p.setTabvalue(rs.getString(2));
+	   		System.out.println("level"+rs.getInt(1));   		
+	       return p;
+        }
+	});
+}
+
+public List<Diagnose> getTxtval(String fileno) {
+	System.out.println("fno"+fileno);
+	return template.query("select fileno,datetime,diagnose,docid from diagnose where fileno ='"+fileno+"'",new RowMapper<Diagnose>(){  
+        public Diagnose mapRow(ResultSet rs, int row) throws SQLException {   
+	       Diagnose p = new Diagnose();
+	   	
+	   		p.setFileno(rs.getString(1));
+	   		p.setDatetime(rs.getString(2));
+	   		p.setDiagnose(rs.getString(3));
+	   		p.setDocid(rs.getString(4));
+	   			
+	       return p;
+        }
+	});
+}
 }  
 		

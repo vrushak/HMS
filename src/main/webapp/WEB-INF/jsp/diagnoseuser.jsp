@@ -17,12 +17,15 @@
 <link rel="stylesheet" href='<c:url value="/resources/css/font-awesome.min.css" />' >
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap.min.css" />' >
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-select.min.css" />' />
+<link rel="stylesheet" href='<c:url value="/resources/css/jquery-ui.css" />' >
+
 
 <script type="text/javascript" src="/HMS/resources/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/moment.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/jquery-ui.js"></script>
 
 <style>
 
@@ -126,13 +129,47 @@ font-size:12px;
     
 }
 .divin{
-margin-left:3px;
+margin-left:16px;
 }
+
+table.beta .tbody2{
+    height:300px;
+    overflow-y :auto;
+}
+
+table.beta .thead2 th{
+	background-color: #009999;
+    color: white;
+}
+
+table.gamma  .tbgamma{
+    height:300px;
+    overflow-y:auto;
+ }
+ 
+ table.gamma .thgamma,.tbgamma{
+  
+    display:block;
+  }
+  
+
+  table.alpha .thalpha th{
+    background-color: #009999;
+    color: white;
+}
+
+table.alpha .tbalpha{
+   height:200px;
+    overflow-y :auto;
+    
+    
+ }
 </style>
 <script type="text/javascript">
 function checkhome(user){
-	
-	
+
+	if(opm != true){
+
 	if(user.includes("[ROLE_FDESK]")){
 		
 		var url = "/HMS/frontdesk" ;
@@ -171,7 +208,23 @@ function checkhome(user){
 		 element.setAttribute("href",url)
 	}
 }
+}
+function deleteRow(r) {
+	
+    var i = r.parentNode.parentNode.rowIndex;
+    document.getElementById("myTable1").deleteRow(i);
+    disbut();
+    
+}
 
+function display(){
+	var tableRef = document.getElementById('myTable1').getElementsByTagName('tbody')[0];
+	var rowsAdd = tableRef.insertRow(tableRef.rows.length);  
+
+var markup = "<tr><td><input type='text'  form ='form1' class= 'form-control input-sm' value='NA' id = 'typeofdr' name= 'typeofdr' required ></td><td><input  form ='form1' class= 'form-control input-sm button1' value='NA' type='text' id = '"+tableRef.rows.length+"' name= 'drugname' required></td><td><input  form ='form1' class= 'form-control input-sm' value='NA' type='text' id = 'strdrug' name= 'strdrug' required ></td><td><input  form ='form1' class= 'form-control input-sm' value='NA' type='text' id = 'dosage' name= 'dosage' required></td><td><select  form ='form1' class= 'form-control input-sm'   id = 'dm'  name= 'dm'  ><option value='PRN'>PRN</option><option value='OD'>OD</option><option value='BD'>BD</option><option value='TDS'>TDS</option><option value='QID'>QID</option><option value='OTHERS'>OTHERS</option></select></td><td><input  form ='form1' class= 'form-control input-sm' value='NA' type='text' id ='totn' name='totn'></td><td><input  form ='form1' class= 'form-control input-sm' value='NA' type='text' id = 'totn' name= 'totn'></td><td><input  form ='form1' class= 'form-control input-sm' value='NA' type='text' id = 'nofdays' name= 'nofdays' ></td><td><i class='fa fa-trash-o' font-size:20px'  onclick='deleteRow(this)'></i></td></tr>";
+$('#myTable1 tbody').append(markup);   
+   	
+}
 var obj = {};
 
 var arr = [];
@@ -607,6 +660,21 @@ function checkempty(value,tval){
 		}
     
 }
+
+function minimize(id){
+  if(id == "pv" || id == "pd" || id == "pres"){
+	  $('#dd').hide();
+	  $('#text1').hide();
+	  $('#prv').hide();
+	  $(".tab-pane").width(1100)
+  }
+  else{
+	  $('#dd').show();
+	  $('#text1').show();
+	  $('#prv').show();
+	  $(".tab-pane").width(450) 
+  }
+}
 function loadtabvalues(){
 	var nextTab = $('#pills li').size()+1;
 	var no = $('#li').size();
@@ -624,19 +692,25 @@ function loadtabvalues(){
 		  var tab = 'tab'+nextTab;
 	    
 		  if($("."+datec.tabid).size() < 1){
-    	$('<li><a href="#tab'+datec.tabid+'" id="li'+no+'" class='+datec.tabid+' data-toggle="tab" onclick="checkempty('+datec.tabid+',this)">'+datec.tabvalue+'</a></li>').appendTo('#pills');
-		
+    	$('<li><a href="#tab'+datec.tabid+'" id="li'+no+'" class='+datec.tabid+' data-toggle="tab" onclick="checkempty('+datec.tabid+',this),minimize(this.id)">'+datec.tabvalue+'</a></li>').appendTo('#pills');
+    	
     	// create the tab content
     	$('<div class="tab-pane fade" id="tab'+datec.tabid+'"><div class="main"></div></div>').appendTo('.tab-content');
 		  }	
+	   
 
-         });    
+         });  
+	  $('<li><a href="#lb" id="lb" class="lb" data-toggle="tab">Lab</a></li>').appendTo('#pills');
+	  $('<li><a href="#pd1" id="pd" class="pd" data-toggle="tab" onclick="minimize(this.id)">Provisional Diagnosis</a></li>').appendTo('#pills');
+	  $('<li><a href="#pres1" id="pres" class="pres" data-toggle="tab" onclick="minimize(this.id)">Prescription</a></li>').appendTo('#pills');
      }
 	    
 	  var errorFn = function(e){
      	  alert('Error: ' + e);
 	  }
 	  
+	 
+		
 		var get = "POST";
   doAjaxPostNew(get,uri,data1,successFn,errorFn,"application/json; charset=UTF-8");
  //if(fgr == undefined){
@@ -820,7 +894,9 @@ function loadval(div,min){
     	}
        
        function change(){
-    	   
+    	   if(opm != true){
+    		   
+    	 
        $('#formc').trigger("reset");
            $('select[name=ppid]').val('select');
 		   $('#ppid').selectpicker('refresh');
@@ -837,7 +913,10 @@ function loadval(div,min){
 			document.getElementById("id").innerHTML = "Id";
  			document.getElementById("nm").innerHTML = "Name";
  			document.getElementById("flno").innerHTML = "Fileno";
-	   
+    	   }
+    	   else{
+    		   
+    	   }
     	   if($("#check").prop("checked") == true){
     		   
     	   $('#vpid2').attr('name','ppid')
@@ -925,9 +1004,10 @@ function loadval(div,min){
     	}
 
        function addcname1(getval){
-   		
+   	console.log(getval)
    		var myname = getval.getAttribute('data-value'); 	
-//   		var cid = document.getElementById("pname").value; 
+   	
+var cid = document.getElementById("pname").value; 
    		var str = myname.split('==');
    
    		// var res5 = $('select[name=pname1]').val();
@@ -954,6 +1034,11 @@ function loadval(div,min){
    	        	unsaved = false;
    	        });
    	}
+       
+       function sel(){
+    	   var kl = $('#vpid').val();
+    	   alert(kl)
+       }
 var cu;
        function openmd(value){
     	  cu = value;
@@ -981,7 +1066,172 @@ var cu;
     	   }
        }
        
+       var opm;
+       function openmd1(a,b,c,e,f){
+    
+    	   $('#close').click(function(){
+    			window.close();
+    			});
+    			
+    		if(a.length != 0 && b.length!= 0 && c.length != 0 && e.length != 0){
+    			opm = true;
+    			change()
+    			$("#datetime").val(moment().format("DD-MM-YYYY hh:mm"));
+    			$('#act').empty();
+    		/*
+    			   $('select[name=ppid]').val(c);
+    			   $('#ppid').selectpicker('refresh');
+    			   
+    			   $('select[name=pname]').val(b);
+    		       $('#pname').selectpicker('refresh');
+    	   	               
+    	   document.getElementById("docid").value = e;
+    	    document.getElementById("id").innerHTML = c;
+    		
+    		document.getElementById("nm").innerHTML = b;
+    		document.getElementById("flno").innerHTML = a;
+    		document.getElementById("fileno").value = a;
+    		$('#fileno').val(a);
+    		$('#docid').val(e);
+    		 */	
+    			if(f!=1){
+    				
+    		
+    		   		}
+    		
+    			else{
+    				/*
+    				  $('#check').prop('disabled','disabled')
+    				document.getElementById("nm").innerHTML = b;
+    	    		document.getElementById("flno").innerHTML = a;
+    	    		document.getElementById("fileno").value = a;
+    	    		$('#fileno').val(a);
+    	    		
+    			    $('#check').prop("checked",true)
+                     change()
+     			   $('select[name=ppid]').val(c);
+     			   $('#vpid2').selectpicker('refresh');
+     			   
+     			   $('select[name=pname]').val(b);
+     		       $('#vpid').selectpicker('refresh');
+     		     
+     		 	 var uri = "/HMS/loadtxtvalues?location6="+a+"";
+     			 var data1 = 0;
+     		    
+
+     			  var successFn =  function(response){
+     				 
+     			  $.each(response, function(index, datec) {
+     				 
+                   $('#datetime').val(datec.datetime);
+                   $('#text1').val(datec.diagnose);
+                   $('#docid').val(datec.docid);
+                   
+
+     		         });    
+     		     }
+     			    
+     			  var errorFn = function(e){
+     		     	  alert('Error: ' + e);
+     			  }
+     			  
+     				var get = "GET";
+     		  doAjaxPostNew(get,uri,data1,successFn,errorFn,"application/json; charset=UTF-8");
+     		  //    sel()
+     		  */
+    			}
+    		
+    		}
+    		else{
+    			$('#close').hide();
+    		}
+    	}
    
+       </script>
+       <script>
+       var addpe;
+       function addp(){
+    		if(document.getElementById("drugn").value == "select"){
+    			alert("Drug Name is not selected")
+    			return false;
+    		}
+    		else{
+    			
+    		
+    		document.getElementById(addpe).value = document.getElementById("drugn").value;
+    		  $('select[name=drugn]').val("select");
+    		   $('#drugn').selectpicker('refresh');
+    		   
+    		$('#myModal2').modal('hide');
+    		}
+    	}
+       $( function() {
+    		  $( "#vpv" ).dialog({
+    		      
+    		    	dialogClass: 'result',
+    		      autoOpen: false,
+    		      show: {
+    		        effect: "blind",
+    		        duration: 1000
+    		      },
+    		      hide: {
+    		        effect: "explode",
+    		        duration: 1000
+    		      }
+    		    });
+    		  
+    		  $( "#sad" ).dialog({
+    		      
+  		    	dialogClass: 'result',
+  		      autoOpen: false,
+  		      show: {
+  		        effect: "blind",
+  		        duration: 1000
+  		      },
+  		      hide: {
+  		        effect: "explode",
+  		        duration: 1000
+  		      }
+  		    });
+    		 
+    		 
+    		  $('.tbalpha').on( 'click','tr td:nth-child(2)', function() {
+    		    	var isOpen = $( "#sad" ).dialog( "isOpen" );
+    		    addpe = this.getElementsByTagName('input')[0].id;
+    		      if(isOpen == true){
+    		    	  
+    		    	  $( "#sad" ).dialog( "open" );
+    		      }
+    		      else{
+    		    	
+    		    
+    		    	 $( "#sad" ).dialog( "open" );
+    		      }
+    		    
+    		    });
+    		  
+    		  $('#sad').dialog({height: 300, width:300 });
+    		    $(".ui-dialog").find(".ui-widget-header").css("background", "#009999","text-align","center");
+    		    
+    		    $('#get').on( 'click',function() {
+    		    	var isOpen = $( "#vpv" ).dialog( "isOpen" );
+    		   // 	 addpe = this.getElementsByTagName('input')[0].id;
+    		      if(isOpen == true){
+    		    	  
+    		    	  $( "#vpv" ).dialog( "open" );
+    		      }
+    		      else{
+    		    	
+    		    
+    		    	 $( "#vpv" ).dialog( "open" );
+    		      }
+    		    
+    		    });
+    		  $('#vpv').dialog({height: 300, width:1000 });
+    		    $(".ui-dialog").find(".ui-widget-header").css("background", "#009999","text-align","center");
+    		    
+ 	  });
+       
        </script>
  
 </head>
@@ -994,13 +1244,14 @@ var cu;
       <a class="navbar-brand" >Clinical Diagnosis</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a id="ho" href="">Home</a></li>
+      <li class="active" id="act"><a id="ho" href="">Home</a></li>
     </ul>
   </div>
 </nav>
  <div id ="form2">
     <h1><button id ="bouton-contact" form="formc" class="btn btn-warning btn-sm button1" class="form-control input-sm" >Save</button>
   <font size="5" id="cd"> Clinical Diagnosis </font>
+      <button type="button" id="close" class="btn btn-warning button2" onclick="clos()">Close</button>    
   </h1>
 <br>
  <form id = "formc" action="/HMS/savediag.html" method = "post"></form>
@@ -1008,10 +1259,13 @@ var cu;
  <button type="button" class="btn btn-primary btn-block"><span id="pi" style="float:left">Patient Information</span><span id="flno" style="float:right">Fileno</span><span id="id" style="float:right;margin-right:15px;">Id</span><span style="float:right;margin-right:25px;" id="nm">Name</span></button>
  <br>
          <ul class="nav nav-pills nav-stacked col-md-2 reduce" id="pills" style="height:auto;width:140px;max-height:270px;overflow : auto;">
-        <li class="active"><a data-toggle="pill"  id="home" href="#home1">Patient Details</a></li>
+        <li class="active"><a data-toggle="pill"  id="home" href="#home1" onclick="minimize(this.id)">Patient Details</a></li>
+        <li><a data-toggle="pill"  id="pv" href="#pv1" onclick="minimize(this.id)">Vitals</a></li>
+        
         </ul>
+       
          <div class="form-group row" >
-        <div class="tab-content col-xs-4" style="height:auto;">
+        <div id="tabcontent" class="tab-content col-xs-4" style="height:auto;">
         <!-- Home1-->
    <div id="home1" class="tab-pane fade in active">
      <div class="form-group row" >
@@ -1041,7 +1295,8 @@ var cu;
        <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="vpid" onchange="addcname1(this.options[this.selectedIndex])"   >
           <option value="select" disabled selected>Select</option>
         <c:forEach var="p"  items="${model.list3}">
-        <option value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}==${p.diagnose}">${p.pname}</option>
+       
+        <option value ="${p.pname}" data-subtext="${p.fileno}" data-value='${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}==${p.diagnose}'>${p.pname}</option>
         </c:forEach>
       </select>
       
@@ -1111,15 +1366,232 @@ var cu;
  
    
      </div>
-     
-        </div>
+     <!-- Patient Vitals -->
+    <div id="pv1" class="tab-pane fade">
+    <div class="form-group row" >
+        <div class="col-xs-1"></div>
+       <div class="col-xs-3">
+  <div class="form-group">
+            <p>Height<span></span></p>
+             <input type="text" class="form-control" form="form1" onkeypress='return onlyNos(event,this);'  oninput="calculateBmi()" value="0" name="height" id="height" >
+	</div>
+  </div>
+  
+        <div class="col-xs-2">
+  <div class="form-group">
+            <p> Unit<span></span></p>
+            
+             <select class="form-control" form="form1" onchange="calculateBmi()" name="unith" id="unith" >
+             <option value="" selected disabled>Select Unit</option>
+             <option value="feet">feet</option>
+             <option value="inches">inches</option>
+             <option value="cm">cm</option>
+              <option value="meters">meters</option>
+             </select>
+	</div>
+  </div>
+  
+   <div class="col-xs-3">
+  <div class="form-group">
+            <p>Weight<span></span></p>
+           <input type="text" class="form-control" form="form1" onkeypress='return onlyNos(event,this);'  oninput="calculateBmi()"value="0" name="weight" id="weightw" >
+	</div>
+  </div>
+   <div class="col-xs-2">
+  <div class="form-group">
+            <p> Unit<span></span></p>
+         <select class="form-control" form="form1" onchange="calculateBmi()" name="unitw" id="unitw" >
+             <option value="" selected disabled>Select Unit</option>
+              <option value="kilogram">kilogram</option>
+             <option value="pounds">pounds</option>
+             
+             </select>
+	</div>
+  </div>
+  </div>
+  
+  <div class="form-group row" >
+        <div class="col-xs-1"></div>
+       <div class="col-xs-3">
+  <div class="form-group">
+            <p>Temperature<span></span></p>
+             <input type="text" class="form-control" form="form1" onkeypress='return onlyNos(event,this);'  name="temperature" id="temperature" >
+	</div>
+  </div>
+  
+        <div class="col-xs-2">
+  <div class="form-group">
+            <p>Unit<span></span></p>
+            
+             <select class="form-control" form="form1" name="unitt" id="unitt">
+             <option value="" selected disabled>Select Unit</option>
+             <option value="celsius">celsius</option>
+             <option value="fahrenheit">fahrenheit</option>
+           
+             </select>
+	</div>
+  </div>
+  
+   <div class="col-xs-5">
+  <div class="form-group">
+            <p>Abdominal Circumference<span></span></p>
+           <input type="text" form="form1" onkeypress='return onlyNos(event,this);' class="form-control"  name="ac" id="ac">
+	</div>
+  </div>
+   
+  </div>
+  <div class="form-group row" >
+        <div class="col-xs-1"></div>
+       <div class="col-xs-3">
+  <div class="form-group">
+            <p>Blood Pressure<span></span></p>
+             <input type="text" form="form1" class="form-control" size="2" onkeypress='return onlyNos1(event,this);' name="bp" id="bp" value="">
+	</div>
+  </div>
+  
+        <div class="col-xs-2">
+  <div class="form-group">
+           
+            <p>Pulse<span></span></p>
+             <input type="number" form="form1" class="form-control" min="0" name="pulse" id="pulse" value="72">
+           
+	</div>
+  </div>
+  
+     <div class="col-xs-5">
+  <div class="form-group">
+           
+            <p>Body Mass Index<span></span></p>
+             <input type="text" form="form1" class="form-control" onkeypress="return onlyAlphabets(event,this);" readonly="readonly" name="bmi" id="bmi" value="">
+           
+	</div>
+  </div>
+  </div>
+  
+  
+  <div class="form-group row" >
+        <div class="col-xs-1"></div>
+   <div class="col-xs-7">
+  <div class="form-group">
+            <p>Chest Circumference<span></span></p>
+           <input type="text" form="form1" class="" size="10" onkeypress='return onlyNos(event,this);' placeholder="Full Inspiration" name="fi" id="fi">
+            <input type="text" form="form1" class="" size="10" onkeypress='return onlyNos(event,this);' placeholder="Full Expiration" name="fe" id="fe">
+             <input type="text" form="form1" class="" size="8" onkeypress='return onlyNos(event,this);' placeholder="At Rest" name="rest" id="rest">
+	</div>
+  </div>
+  <div class="col-xs-1">
+  <br>
+  <button id="get" type="button" class="btn btn-warning btn-sm"  >View Previous Records</button>
+  
+  </div>
+  </div>
+    </div> 
+    
+    <!-- Provisional Diagnosis -->
+      <div id="pd1" class="tab-pane fade">
+     <div class="form-group row" >
+    <div class="col-xs-1"></div>
+     <div class="col-xs-1">
+      <input readonly="readonly" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="Provisional Diagnosis">
+     </div>
+     <div class="col-xs-2"></div>
+      <div class="col-xs-4">
+       <div class="form-group">
+      
+      <textarea name="pds" id="pds" rows="5" form="form1" data-rule="" data-msg="address1" ></textarea></div>
+      </div>
+      </div>
+      <div class="form-group row" >
+      <div class="col-xs-1"></div>
+      <div class="col-xs-1">
+      <button type="button" class="btn btn" style="width: 170px;height:45x;background-color:#dcdcdc;color:black;cursor: default;" >Pathology Investigation <br> Recommended</button>
+     </div>
+     <div class="col-xs-2"></div>
+      <div class="col-xs-4">
+       <div class="form-group">
+      
+      <textarea name="pir" id="pir" rows="5" form="form1" data-rule="" data-msg="address1" ></textarea></div>
+      </div>
+      </div>
+      
+  
+      <div class="form-group row" >
+    <div class="col-xs-1"></div>
+     <div class="col-xs-1">
+      <input readonly="readonly" class="btn btn" style="width: 170px;background-color:#dcdcdc;color:black;cursor: default;" value="Admit Patient">
+     </div>
+     <div class="col-xs-2"></div>
+      <div class="col-xs-4">
+      <div class="form-group">
+       <div class="btn-group" data-toggle="buttons">
+     <label class="btn btn-default"><input class="form-control input-sm"  style="width: 0px;" value="Yes" id="yes" type="radio" form="form1" name="admit" />Yes</label>
+ 		<label class="btn btn-default"><input class="form-control input-sm" style="width: 0px;" type="radio" value="No" id="no" form="form1" name="admit" />No</label>
+ 		</div>
+      </div>
+      </div></div>
+      
+    </div>
+    
+      <div id="pres1" class="tab-pane fade">
+    <div class="table-responsive"> 
+	      
+	     
+	     
+	     	    
+  <table class="table table-striped table-bordered table-fixed table-hover table-condensed alpha"  id="myTable1">
+    <thead class="thalpha">
+      <tr>
+        <th style="">Category of Drug</th>
+        <th style="">Name of Drug</th>
+        <th style="">Strength of Drug</th>
+        <th style="">Dosage</th>
+        <th  style="" >Frequency</th>
+        
+        <th  style="">Remarks</th>
+        <th> Number of Quantity dispensed</th>
+        <th >No. of Days</th>
+        <th >Delete Row</th>
+        
+      </tr>
+    </thead>
+   
+    <tbody  class="tbalpha">
+
+   
+    </tbody>
+<!-- 
+     <tr id="hide">
+		    <td><i class='fa fa-plus' style='font-size:20px; color : #ff9900;'  onclick="display()"></i></td>
+		  </tr>
+		 -->  
+    </table>
+  </div>
+    <div class="form-group row" >
+  
+    <div class="col-xs-1">
+    <p><b>Advice</b></p>
+    <textarea name="advice" id="advice" form="formc"></textarea>
+    </div>
+     <div class="col-xs-3"></div>
+     <div class="col-xs-7">
+     <br><br>
+    <input type='button' class="btn btn-info btn-sm"  value='Add Row' onclick="display()" id='adr'>
+    <a class="btn btn-info btn-sm" id ="print" onclick="return verpr();" href="prprs1" target="_blank" >Print Prescription</a>
+          
+    
+    </div>
+  </div>
+      </div>
+      
+      
+    </div>
       
 
 
-    <div class="col-xs-1" style="height:350px;width:50px;margin-left:50px;"><i class="fa fa-angle-double-right btn btn-warning btn-sm" onclick="preview()" style="margin-left:-13px;margin-top:150px;font-size:25px;" aria-hidden="true"></i></div>
+    <div class="col-xs-1" style="height:350px;width:50px;margin-left:50px;"><i class="fa fa-angle-double-right btn btn-warning btn-sm" id="prv" onclick="preview()" style="margin-left:-13px;margin-top:150px;font-size:25px;" aria-hidden="true"></i></div>
    
     <div class="col-xs-4">
-    <p id="tx" style="margin-top:-10px;"><b>Diagnosis Details</b></p>
+    <p id="tx" style="margin-top:-10px;"><b id='dd'>Diagnosis Details</b></p>
     <textarea name='diagnose' id='text1' required rows='18' cols='78' form="formc" ></textarea>
     </div>
     
@@ -1130,7 +1602,54 @@ var cu;
      
  </div>
 </div>
+<!-- View Previous Vitals -->
+<div id="vpv" title="View Previous Vitals">
+ <div class="table-responsive">  
+     
+        <table class="table table-striped table-bordered table-fixed table-hover table-condensed beta"  id="myTable3">
+    <thead class="thead2">
+      <tr>
+        <th width="">FileNo</th>
+        <th width="">Height</th>
+        <th width="">Weight</th>
+        <th width="">Temperature</th>
+        <th width="">Abdominal Circumference</th>
+        <th width="">Blood Pressure</th>
+        <th width="">Pulse</th>
+        <th width="">BMI</th>
+        <th width="">Chest Circumference<br>(Full Inspiration/Full Expiration/At Rest)</th>
+        <th width="">Time Recorded</th>
+       
+      </tr>
+    </thead>
+    <tbody class="tbody2">
+   
+    </tbody>
+    </table>
+    </div>
+</div>
 
+<div id="sad" title="Pharmacy Products">
+  <div class="form-group row" >
+        <div class="col-xs-8">
+        <p>Drug Name<span></span></p>
+       <div class="form-group">
+      
+       <select class="selectpicker form-control input-sm" data-size="5" data-live-search="true" name = "drugn" id ="drugn" onchange=""   >
+          <option value="select" disabled selected>Select</option>
+        <c:forEach var="p"  items="${model.list4}">
+        <option data-subtext="Stocks -${p.pstock1}" value="${p.drugn}">${p.drugn}</option>
+        </c:forEach>
+      </select></div>
+      </div>
+       <div class="col-xs-2">
+       <br><br>
+      <button type="button" class="btn btn-warning" onclick="return addp()">ADD</button></div>
+      </div>
+</div>
+<script>
+openmd1('<c:out value='${model.fileno}'/>','<c:out value='${model.pname}'/>','<c:out value='${model.pid}'/>','<c:out value='${model.docid}'/>','<c:out value='${model.sav}'/>')
+</script>
 <script>
 datasuccess('<%=request.getParameter("message")%>')
 </script>
