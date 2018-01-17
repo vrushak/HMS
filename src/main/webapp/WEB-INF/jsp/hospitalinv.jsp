@@ -66,7 +66,7 @@ margin-left:10px;
 <font color="#228B22" class="left" >Welcome : ${pageContext.request.userPrincipal.name}</font>  <i style="font-size:20px; align: right;color : #228B22" class="fa fa-cog" ></i> 
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="location.href='/HMS/logout';"></i>
 
-    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.location.href='/HMS/frontdesk';"></i>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  id="back" onclick="window.location.href='/HMS/frontdesk';"></i>
 
 
 <div class="well well-lg" id="well"> <center><h4><font color="white">Hospital Inventory</font></h4></center></div>

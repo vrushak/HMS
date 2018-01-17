@@ -218,21 +218,21 @@ function checkhome(user){
 	if(user.includes("[ROLE_FDESK]")){
 		
 		var url = "/HMS/frontdesk" ;
-		
+		$("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 	}
 	else if(user.includes("[ROLE_ASSISTANT]")){
 	
 		 var url = "/HMS/frontdesk" ;
-			
+		 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 	}
 	else if(user.includes("[ROLE_DOCTOR]")){
 		
 		 var url = "/HMS/doctor1" ;
-			
+		 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 	}
@@ -240,7 +240,7 @@ function checkhome(user){
 	else if(user.includes("[ROLE_Accounts Admin]")){
 		
 		 var url = "/HMS/frontdesk" ;
-			
+		 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 
@@ -248,7 +248,7 @@ function checkhome(user){
 	else if(user.includes("[ROLE_NURSE]")){
 		
 		 var url = "/HMS/nursedesk" ;
-			
+		 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 
@@ -262,7 +262,7 @@ function checkhome(user){
 	else if(user.includes("[ROLE_CHIEFNURSE]")){
 		
 		 var url = "/HMS/nursedesk" ;
-			
+		 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 
@@ -497,7 +497,7 @@ function AutoGrowTextArea(textField)
   -->
     </ul>
      <br>
-    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back"  onclick="goBack()"></i>
 
   </div>
 </nav>

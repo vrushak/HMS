@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>CMS Wedge</title>
+<title>CMS Wedge </title>
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -79,28 +79,28 @@ function checkhome(user){
 	document.getElementById("bc").style.display = "none";
 	if(user.includes("dbfdesk")){
 		 var url = "/HMS/frontdesk" ;
-			
+			$("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 	}
 	else if(user.includes("[ROLE_FDESK]")){
 		
 		var url = "/HMS/frontdesk" ;
-		
+		$("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 	}
 	else if(user.includes("[ROLE_ASSISTANT]")){
 	
 		 var url = "/HMS/frontdesk" ;
-			
+		 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 	}
 	else if(user.includes("[ROLE_Accounts Admin]")){
 		
 		 var url = "/HMS/frontdesk" ;
-			
+		 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 
@@ -394,7 +394,7 @@ if(currenttime > $("#time").val())
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
     <br>
-    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.location.href='/HMS/frontdesk';"></i>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back" onclick="window.location.href='/HMS/frontdesk';"></i>
     
   </div>
 </nav>

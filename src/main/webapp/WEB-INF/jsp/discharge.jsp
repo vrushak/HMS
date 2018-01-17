@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>CMS Wedge</title>
+<title>CMS Wedge </title>
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -186,7 +186,7 @@ function clos(){
     	        	        		   else if(user.includes("A-")){
    	        	        				
    	        	        				var url = "/HMS/frontdesk" ;
-   	        	        				
+   	        	        				$("#back").hide();
    	        	        				 var element = document.getElementById('ho');
    	        	        				 element.setAttribute("href",url)	
    	        	        				 
@@ -197,6 +197,7 @@ function clos(){
     	        	        			else if(user.includes("D-")){
     	        	        				
     	        	        				var url = "/HMS/doctor1" ;
+    	        	        				 $("#back").hide();
     	        	        				
     	        	        				 var element = document.getElementById('ho');
     	        	        				 element.setAttribute("href",url)
@@ -499,7 +500,7 @@ function clos(){
  <li class=""><a id="m2" href="">Treatment Records</a></li> -->
             </ul>
             <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
+         <i class='fa fa-arrow-left button2 rightspace'  style='font-size:20px;color : #f0ad4e' id="back"  onclick="goBack()"></i>
   </div>
 </nav>
   <center>

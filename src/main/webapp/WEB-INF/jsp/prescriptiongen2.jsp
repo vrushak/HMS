@@ -90,9 +90,9 @@ document.getElementById("adr").style.visibility ="hidden";
 	
 		if(user.includes("[ROLE_DOCTOR]")){
 			var url = "/HMS/doctor1" ;
-			
-			 var element = document.getElementById('ho');
-			 element.setAttribute("href",url);
+			 $("#back").hide();
+		 var element = document.getElementById('ho');
+			 element.setAttribute("href",url); 
 			 
 			 var url1 = "/HMS/myapps" ;
 	
@@ -1293,7 +1293,7 @@ $('#form1').draggable();
          
     </ul>
     <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.location.href='/HMS/doctor1';"></i>
+         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px; color : #f0ad4e' id="back"  onclick="window.location.href='/HMS/doctor1';"></i>
     <!-- 
     <ul class="nav navbar-nav navbar-right">
        <li style ="color:#ff9900;"><span class="glyphicon glyphicon-log-in">Welcome : ${pageContext.request.userPrincipal.name}</span></li>

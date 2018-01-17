@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>CMS Wedge</title>
+<title>CMS Wedge </title>
 
 <link rel='stylesheet' href='<c:url value="/resources/css/lab.css" />' type='text/css' media='all' />
 <link rel="stylesheet" href='<c:url value="/resources/css/font-awesome.css" />' >
@@ -87,7 +87,7 @@ $("#myTable .tbody tr").each(function(){
 });
 		if(user.includes("[ROLE_DOCTOR]")){
 			var url = "/HMS/doctor1" ;
-			
+			$("#back").hide();
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url);
 			 document.getElementById("samplea").style.display = "block";
@@ -96,7 +96,7 @@ $("#myTable .tbody tr").each(function(){
 		else if(user.includes("[ROLE_NURSE]")){
 			
 			 var url = "/HMS/nursedesk" ;
-				
+			 $("#back").hide();
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
 			 document.getElementById("samplea").style.display = "none";
@@ -106,7 +106,7 @@ $("#myTable .tbody tr").each(function(){
 		else if(user.includes("[ROLE_CHIEFNURSE]")){
 			
 			 var url = "/HMS/nursedesk" ;
-				
+			 $("#back").hide();
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
 			 
@@ -116,7 +116,7 @@ $("#myTable .tbody tr").each(function(){
 		else if(user.includes("[ROLE_ASSISTANT]")){
 			
 			 var url = "/HMS/frontdesk" ;
-				
+			 $("#back").hide();
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
 			 document.getElementById("samplea").style.display = "none";
@@ -126,7 +126,7 @@ $("#myTable .tbody tr").each(function(){
 		else if(user.includes("[ROLE_Accounts Admin]")){
 			
 			 var url = "/HMS/frontdesk" ;
-				
+			 $("#back").hide();
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
 			 document.getElementById("samplea").style.display = "none";
@@ -699,7 +699,7 @@ $('#form1').draggable();
          
     </ul>
     <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="goBack()"></i>
+         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back" onclick="goBack()"></i>
     <!-- 
     <ul class="nav navbar-nav navbar-right">
        <li style ="color:#ff9900;"><span class="glyphicon glyphicon-log-in">Welcome : ${pageContext.request.userPrincipal.name}</span></li>
