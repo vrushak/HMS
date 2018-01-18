@@ -6,12 +6,17 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 
+import com.mysql.cj.jdbc.PreparedStatement;
+
 import java.sql.ResultSet;  
 import java.sql.SQLException;
 
 import org.apache.taglibs.standard.tag.common.core.NullAttributeException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;  
-import org.springframework.jdbc.core.JdbcTemplate;  
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCallback;  
+
 import org.springframework.jdbc.core.RowMapper;  
 import java.util.*;  
 
@@ -556,9 +561,9 @@ public List<Prescription> getDocIDdiag(String username,String userrole) {
 		}
 		//io-chart
 
-			public int savePrs1(Prescription p, String var1, String var1a, String var1b, String var1c, /*String var1d, String var1e,  String var1g,*/ String var1h, String var1i, String var1j,String dosage) {
+			public int savePrs1(Diagnose p, String var1, String var1a, String var1b, String var1c, /*String var1d, String var1e,  String var1g,*/ String var1h, String var1i, String var1j,String dosage) {
 				// TODO Auto-generated method stub
-				String sql = "insert into prescriptiontab(pid,pname,fileno,typeofdr,drugname,strdrug,dm,baf,totn,nofdays,dosage,advice) values('"+p.getPid()+"','"+p.getPname()+"','"+p.getFileno()+"','"+var1+"','"+var1a+"','"+var1b+"','"+var1c+"','"+var1h+"','"+var1i+"','"+var1j+"','"+dosage+"','"+p.getAdvice()+"')on duplicate key update typeofdr='"+var1+"',drugname='"+var1a+"',strdrug='"+var1b+"',dm='"+var1c+"',baf='"+var1h+"',totn='"+var1i+"',nofdays='"+var1j+"',dosage='"+dosage+"',advice = '"+p.getAdvice()+"'";
+				String sql = "insert into prescriptiontab(pid,pname,fileno,typeofdr,drugname,strdrug,dm,baf,totn,nofdays,dosage,advice) values('"+p.getPpid()+"','"+p.getPname()+"','"+p.getFileno()+"','"+var1+"','"+var1a+"','"+var1b+"','"+var1c+"','"+var1h+"','"+var1i+"','"+var1j+"','"+dosage+"','"+p.getAdvice()+"')on duplicate key update typeofdr='"+var1+"',drugname='"+var1a+"',strdrug='"+var1b+"',dm='"+var1c+"',baf='"+var1h+"',totn='"+var1i+"',nofdays='"+var1j+"',dosage='"+dosage+"',advice = '"+p.getAdvice()+"'";
 				return template.update(sql);
 			}
 
@@ -683,7 +688,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole) {
 				});
 			}
 			public List<Prescription> getDocID3(String user) {
-			return template.query("select distinct pr.pid,concat(p.fname,' ',p.mname,' ',p.lname) patient,pr.fileno,concat(d.fname,' ',d.mname,' ',d.lname) doctor,p.age,prd.pds from prescription1 pr join patient p on p.pid=pr.pid left outer join doctor d on d.docID = pr.docid join prescription prd on prd.fileno = pr.fileno  where pr.docid in (select userid from users where username = '"+user+"') and pr.fileno in (select fileno from prescriptiontab) ",new RowMapper<Prescription>(){  
+			return template.query("select distinct pr.pid,concat(p.fname,' ',p.mname,' ',p.lname) patient,pr.fileno,concat(d.fname,' ',d.mname,' ',d.lname) doctor,p.age,prd.pds from diagnose pr join patient p on p.pid=pr.pid left outer join doctor d on d.docID = pr.docid join prescription prd on prd.fileno = pr.fileno  where pr.docid in (select userid from users where username = '"+user+"') and pr.fileno in (select fileno from prescriptiontab) ",new RowMapper<Prescription>(){  
 		        public Prescription mapRow(ResultSet rs, int row) throws SQLException {   
 			       Prescription p = new Prescription();
 			       p.setPid(rs.getString(1));
@@ -701,7 +706,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole) {
 			}
 			// for frontdesk and others
 			public List<Prescription> getDocID3() {
-				return template.query("select distinct pr.pid,concat(p.fname,' ',p.mname,' ',p.lname) patient,pr.fileno,pr.docid,concat(d.fname,' ',d.mname,' ',d.lname) doctor,p.age,prd.pds from prescription1 pr join patient p on p.pid=pr.pid left outer join doctor d on d.docID = pr.docid join prescription prd on prd.fileno = pr.fileno and pr.fileno in (select fileno from prescriptiontab)",new RowMapper<Prescription>(){  
+				return template.query("select distinct pr.pid,concat(p.fname,' ',p.mname,' ',p.lname) patient,pr.fileno,pr.docid,concat(d.fname,' ',d.mname,' ',d.lname) doctor,p.age,prd.pds from diagnose pr join patient p on p.pid=pr.pid left outer join doctor d on d.docID = pr.docid join prescription prd on prd.fileno = pr.fileno and pr.fileno in (select fileno from prescriptiontab)",new RowMapper<Prescription>(){  
 			        public Prescription mapRow(ResultSet rs, int row) throws SQLException {   
 				       Prescription p = new Prescription();
 				       p.setPid(rs.getString(1));
@@ -1277,6 +1282,13 @@ public List<Prescription> getDocIDdiag(String username,String userrole) {
 				   String sql="insert into diagnose(pid,fileno,docid,datetime,diagnose) values('"+b.getPpid()+"','"+b.getFileno()+"','"+b.getDocid()+"','"+b.getDatetime()+"','"+b.getDiagnose()+"') on duplicate key update docid = '"+b.getDocid()+"',diagnose = '"+b.getDiagnose()+"',datetime = '"+b.getDatetime()+"'";  
 				    return template.update(sql);  
 				} 
+			
+			public int savediagnose21(Diagnose b) {
+				   String sql="insert into diagnose(pid,fileno,docid,datetime,diagnose) values(?,?,?,?,?) on duplicate key update docid = values(docid),diagnose = values(diagnose),datetime = values(datetime)";  
+				  return template.update(sql, new Object[] { b.getPpid(),b.getFileno(),b.getDocid(),b.getDatetime(),b.getDiagnose()}); 
+				 } 
+			
+		
 			// save tab header
 			public int savediagtab(String b) {
 				   String sql="insert into diagtab(tabvalue) values('"+b+"') on duplicate key update tabvalue = '"+b+"'";  

@@ -508,7 +508,7 @@ function copy(pid,sym,treat,diag,ka,pm,systemic,gtest,gvalue){
  //  document.getElementById("pid").value= strSplit[3];
    
    document.getElementById("pname").value = strSplit[4];
-   
+   alert(strSplit[5])
    if( strSplit[5] == "Yes"){
 	     $('#yes').click();
 	     

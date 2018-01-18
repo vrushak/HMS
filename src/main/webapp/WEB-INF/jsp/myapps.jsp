@@ -300,33 +300,12 @@ function display(){
 }
 
 var tabid;
-function copyval1(name){
-	
-	var a = $("#fileno").val();
-	var b = $("#pname1").val();
-	var c = $("#pid1").val();
-	var d = document.getElementById("pname").value;
-	
-	if(name == "menu4a" && d =="Select"){
-		alert("Please select Patient Name")
-		return false;
-	
+function copyval1(id,name,fileno,docid,val){
+	alert(docid)
+	  var url = "/HMS/diagnosegc?location="+fileno+"&location1="+name+"&location2="+id+"&&location3="+docid+"";
+	console.log(url)
+	  $(val).attr("href",url);
 	}
-	else if(name == "menu4a" && d !="Select"){
-	
-		  var url = "/HMS/labup2?location="+a+"&location1="+b+"&location2="+c+"";
-		    var element = document.getElementById(name);
-			element.setAttribute("href",url);
-		
-			
-			return true;
-	}
-	
-	else{
-		
-	}
-	
-}
 function copyval(tabi){
 	tabid = tabi;
 	var a = $("#fileno").val();
@@ -471,7 +450,7 @@ function clos(){
 }
 function autodisp(pid,pname,specialization,fileno){
 
-
+/*
 $("#pid").append('<option value="'+pid+'"selected="">'+pid+'</option>');
 $("#pid").selectpicker("refresh");
 
@@ -487,13 +466,14 @@ $("#pname").selectpicker("refresh");
 	document.getElementById("flno").innerHTML = fileno;
 	document.getElementById("fileno").value = fileno;
 	
-	
-	
-	
-	
 	document.getElementById("rdate").valueAsDate = new Date();
 	doAjaxPost2();
 	doAjaxPost(fileno,pid)
+
+	
+*/	
+	
+	
 }
 function copy(pid){
 
@@ -1259,7 +1239,7 @@ $('#form1').draggable();
 
 </head>
 <sec:authentication property="principal.authorities" var="username" />
-<body onload="checkhome('<c:out value="${username}" />',admnme='<c:out value="${pageContext.request.userPrincipal.name}" />'),hide('<c:out value="${username}" />'),disbut(),copyval('home1')">
+<body onload="checkhome('<c:out value="${username}" />',admnme='<c:out value="${pageContext.request.userPrincipal.name}" />'),hide('<c:out value="${username}" />')">
 
 <div class = "wrapper">
 <nav class="navbar navbar-default">
@@ -1309,7 +1289,7 @@ $('#form1').draggable();
    
     <c:forEach var="p1"  items="${model.list1}">
     <tr>
-    <td width="240px;" ><a href="#" onclick="autodisp('${p1.pid}','${p1.pname}','${p1.specialization}','${p1.fileno}')" >${p1.pid}</a></td>
+    <td width="240px;" ><a href="" target="_blank" onclick="copyval1('${p1.pid}','${p1.pname}','${p1.fileno}','${p1.docid}',this)" >${p1.pid}</a></td>
     <td width="240px;">${p1.pname}</td>
     <td width="240px;" class="trunk">${p1.dname}</td>
     <td width="240px;">${p1.appointment}</td>

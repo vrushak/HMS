@@ -3,6 +3,8 @@
  <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
@@ -152,23 +154,56 @@ table.gamma  .tbgamma{
     display:block;
   }
   
-
+.table-responsive{
+  height:220px;
+  overflow-y :auto;
+}
   table.alpha .thalpha th{
     background-color: #009999;
     color: white;
 }
 
 table.alpha .tbalpha{
-   height:200px;
+ 
     overflow-y :auto;
     
     
  }
 </style>
 <script type="text/javascript">
+function calculateBmi() {
+	var weight = document.getElementById("weightw").value;
+	var height = document.getElementById("height").value;
+	
+	if(weight > 0 && height > 0){	
+		
+		if(document.getElementById("unitw").value == "pounds"){
+			weight = weight/0.0022046;
+		}
+		else if(document.getElementById("unith").value == "feet"){
+		
+			height = 	height/0.032808;
+		}
+		else if(document.getElementById("unith").value == "inches"){
+			height = height/0.39370;
+		}
+		else if(document.getElementById("unith").value == "meters"){
+			height = height/0.01;
+		}
+		else{
+		//	alert("please select the correct unit");
+		}
+		  var BMI = Math.round(weight / Math.pow(height, 2) * 10000);
+
+		var finalBmi = Math.round(BMI * 100) / 100
+	document.getElementById("bmi").value = finalBmi;
+	}
+	
+	}
+	
 function checkhome(user){
 
-	if(opm != true){
+	
 
 	if(user.includes("[ROLE_FDESK]")){
 		
@@ -207,7 +242,41 @@ function checkhome(user){
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 	}
+
 }
+
+function copyval1(name){
+	
+	var a = $("#fileno").val();
+	var b; 
+	var c;
+	  if($("#check").prop("checked") == true){
+		  b = $("#vpid").val();
+		  c = $("#vpid2").val();
+	  }else{
+		  b = $("#pname").val();
+		  c = $("#ppid").val();
+	  }
+
+	if(name == "lb" && b == null){
+		alert("Please select Patient Name")
+		return false;
+	
+	}
+	else if(name == "lb" && b !="select"){
+	
+		  var url = "/HMS/labup2?location="+a+"&location1="+b+"&location2="+c+"";
+		
+			$('#'+name).attr("href",url);
+		
+			
+			return true;
+	}
+	
+	else{
+		
+	}
+	
 }
 function deleteRow(r) {
 	
@@ -219,9 +288,8 @@ function deleteRow(r) {
 
 function display(){
 	var tableRef = document.getElementById('myTable1').getElementsByTagName('tbody')[0];
-	var rowsAdd = tableRef.insertRow(tableRef.rows.length);  
-
-var markup = "<tr><td><input type='text'  form ='form1' class= 'form-control input-sm' value='NA' id = 'typeofdr' name= 'typeofdr' required ></td><td><input  form ='form1' class= 'form-control input-sm button1' value='NA' type='text' id = '"+tableRef.rows.length+"' name= 'drugname' required></td><td><input  form ='form1' class= 'form-control input-sm' value='NA' type='text' id = 'strdrug' name= 'strdrug' required ></td><td><input  form ='form1' class= 'form-control input-sm' value='NA' type='text' id = 'dosage' name= 'dosage' required></td><td><select  form ='form1' class= 'form-control input-sm'   id = 'dm'  name= 'dm'  ><option value='PRN'>PRN</option><option value='OD'>OD</option><option value='BD'>BD</option><option value='TDS'>TDS</option><option value='QID'>QID</option><option value='OTHERS'>OTHERS</option></select></td><td><input  form ='form1' class= 'form-control input-sm' value='NA' type='text' id ='totn' name='totn'></td><td><input  form ='form1' class= 'form-control input-sm' value='NA' type='text' id = 'totn' name= 'totn'></td><td><input  form ='form1' class= 'form-control input-sm' value='NA' type='text' id = 'nofdays' name= 'nofdays' ></td><td><i class='fa fa-trash-o' font-size:20px'  onclick='deleteRow(this)'></i></td></tr>";
+	
+var markup = "<tr><td><input type='text'  form ='formc' class= 'form-control input-sm' value='NA' id = 'typeofdr' name= 'typeofdr' ></td><td><input  form ='formc' class= 'form-control input-sm button1' value='NA' type='text' id = '"+tableRef.rows.length+"' name= 'drugname'></td><td><input  form ='formc' class= 'form-control input-sm' value='NA' type='text' id = 'strdrug' name= 'strdrug'></td><td><input  form ='formc' class= 'form-control input-sm' value='NA' type='text' id = 'dosage' name= 'dosage'></td><td><select  form ='formc' class= 'form-control input-sm'   id = 'dm'  name= 'dm'  ><option value='PRN'>PRN</option><option value='OD'>OD</option><option value='BD'>BD</option><option value='TDS'>TDS</option><option value='QID'>QID</option><option value='OTHERS'>OTHERS</option></select></td><td><input  form ='formc' class= 'form-control input-sm' value='NA' type='text' id ='baf' name='baf'></td><td><input  form ='formc' class= 'form-control input-sm' value='NA' type='text' id = 'totn' name= 'totn'></td><td><input  form ='formc' class= 'form-control input-sm' value='NA' type='text' id = 'nofdays' name= 'nofdays' ></td><td><i class='fa fa-trash-o' font-size:20px'  onclick='deleteRow(this)'></i></td></tr>";
 $('#myTable1 tbody').append(markup);   
    	
 }
@@ -542,6 +610,8 @@ function updheader(div,tab){
   	    }
 	
 }
+
+
 function createTabs(){
 	var person = prompt("Please enter the Tab Name:");
 
@@ -700,7 +770,8 @@ function loadtabvalues(){
 	   
 
          });  
-	  $('<li><a href="#lb" id="lb" class="lb" data-toggle="tab">Lab</a></li>').appendTo('#pills');
+	  
+	  $('<li><a href="" id="lb" class="lb" target="_blank" onclick = "return copyval1(this.id);">Lab</a></li>').appendTo('#pills');
 	  $('<li><a href="#pd1" id="pd" class="pd" data-toggle="tab" onclick="minimize(this.id)">Provisional Diagnosis</a></li>').appendTo('#pills');
 	  $('<li><a href="#pres1" id="pres" class="pres" data-toggle="tab" onclick="minimize(this.id)">Prescription</a></li>').appendTo('#pills');
      }
@@ -894,11 +965,12 @@ function loadval(div,min){
     	}
        
        function change(){
-    	   if(opm != true){
+    	
     		   
-    	 
+   	 if(opm != true){
        $('#formc').trigger("reset");
-           $('select[name=ppid]').val('select');
+     
+          $('select[name=ppid]').val('select');
 		   $('#ppid').selectpicker('refresh');
 		   
 		   $('select[name=pname]').val('select');
@@ -909,18 +981,16 @@ function loadval(div,min){
 	      
 	       $('select[name=ppid]').val('select');
 	       $('#vpid2').selectpicker('refresh');
-	       
+   	 
 			document.getElementById("id").innerHTML = "Id";
  			document.getElementById("nm").innerHTML = "Name";
  			document.getElementById("flno").innerHTML = "Fileno";
-    	   }
-    	   else{
-    		   
-    	   }
+   	 } 	  
     	   if($("#check").prop("checked") == true){
-    		   
+    
     	   $('#vpid2').attr('name','ppid')
-    	   $('#ppid2').removeAttr('name')
+    	   $('#ppid').removeAttr('name')
+
     		$('#fg').hide();
     		$('#fg1').show();
     		$('#id1').hide();
@@ -931,7 +1001,8 @@ function loadval(div,min){
     	   else{
     		   
     		  
-    		 $('#ppid2').attr('name','ppid2')
+    		 $('#ppid').attr('name','ppid')
+    		 $('#vpid2').removeAttr('name')
        		
        		
     		   $('#fg1').hide();
@@ -978,7 +1049,7 @@ function loadval(div,min){
 
     			$("#docid").val(str[3]); 
     			$("#datetime").val(moment().format("DD-MM-YYYY hh:mm"));
-    			
+    			getData(str[2],str[0])
     	}
        function addcid(getval){
     		var myname = getval.getAttribute('data-value'); 	
@@ -1000,16 +1071,17 @@ function loadval(div,min){
 
      			$("#docid").val(str[3]); 
      			$("#datetime").val(moment().format("DD-MM-YYYY hh:mm"));
-    			
+     			getData(str[2],str[0])		
     	}
 
+    
        function addcname1(getval){
-   	console.log(getval)
-   		var myname = getval.getAttribute('data-value'); 	
+    	   var myname = getval.getAttribute('data-value'); 	
    	
-var cid = document.getElementById("pname").value; 
-   		var str = myname.split('==');
-   
+  
+           var cid = document.getElementById("pname").value; 
+   		   var str = myname.split("==");
+   	
    		// var res5 = $('select[name=pname1]').val();
    	 	   $('select[name=ppid]').val(str[0]);
    		   $('#vpid2').selectpicker('refresh');
@@ -1027,8 +1099,8 @@ var cid = document.getElementById("pname").value;
    			$("#docid").val(str[3]); 
    			$("#datetime").val(str[4]);
    			
-   			$("#text1").val(str[5]);
-   			
+   			$("#text1").val(getval.getAttribute('dv'));
+   			getData(str[2],str[0])	   			
    		    $(document).on('change', ':input', function(){ //triggers change in all input fields including text type
    	            
    	        	unsaved = false;
@@ -1067,18 +1139,16 @@ var cu;
        }
        
        var opm;
-       function openmd1(a,b,c,e,f){
+       function openmd1(a,b,c,e){
     
     	   $('#close').click(function(){
     			window.close();
     			});
-    			
-    		if(a.length != 0 && b.length!= 0 && c.length != 0 && e.length != 0){
     			opm = true;
-    			change()
+    		if(a.length != 0 && b.length!= 0 && c.length != 0 && e.length != 0){
+    			    			
     			$("#datetime").val(moment().format("DD-MM-YYYY hh:mm"));
-    			$('#act').empty();
-    		/*
+    			    		
     			   $('select[name=ppid]').val(c);
     			   $('#ppid').selectpicker('refresh');
     			   
@@ -1093,7 +1163,7 @@ var cu;
     		document.getElementById("fileno").value = a;
     		$('#fileno').val(a);
     		$('#docid').val(e);
-    		 */	
+    		
     			if(f!=1){
     				
     		
@@ -1233,6 +1303,136 @@ var cu;
  	  });
        
        </script>
+       <script type="text/javascript">
+       
+       function getData(fileno,pid){
+    	   
+       
+    		  var uri = "/HMS/prescription1/"+fileno+"/"+pid+"";
+    		  
+    		  var data = 0;
+    		 
+    	   var successFn =  function(response){
+    		   $.each(response.list5, function(index, drug) {
+    			   document.getElementById("advice").value = drug.advice;
+  var tableRef = document.getElementById('myTable1').getElementsByTagName('tbody')[0];
+  var cnt = tableRef.rows.length;
+var dmc = "dm"+cnt;
+var baf = "baf"+cnt;
+var id = Math.random();  
+     
+  var markup = "<tr><td><input type='text' class='form-control input-sm'  form ='formc'   id = '"+id+"' value='"+drug.typeofdr+"' name= 'typeofdr'></td><td><input  form ='formc' class= 'form-control input-sm button1' value='"+drug.drugname+"' type='text' id = '"+tableRef.rows.length+"' name= 'drugname'></td><td><input  form ='formc' class= 'form-control input-sm' value='"+drug.strdrug+"' type='text' id = 'strdrug' name= 'strdrug'></td><td><input  form ='formc' class= 'form-control input-sm' value='"+drug.dosage+"' type='text' id = 'dosage' name= 'dosage'></td><td><select  form ='formc' class= 'form-control input-sm'   id = '"+dmc+"'  name= 'dm'  ><option value='PRN'>PRN</option><option value='OD'>OD</option><option value='BD'>BD</option><option value='TDS'>TDS</option><option value='QID'>QID</option><option value='OTHERS'>OTHERS</option></select></td><td><input  form ='formc' class= 'form-control input-sm'  type='text' id = '"+baf+"' name= 'baf' value='"+drug.baf+"'></td><td><input  form ='formc' class= 'form-control input-sm' value='"+drug.totn+"' type='text' id = 'totn' name= 'totn'></td><td><input  form ='formc' class= 'form-control input-sm' value='"+drug.nofdays+"' type='text' id = 'nofdays' name= 'nofdays' ></td><td><i class='fa fa-trash-o' font-size:20px'  onclick='doAjaxDelete(this,"+tableRef.rows.length+","+id+")'></i></td></tr>";
+  $('#myTable1 tbody').append(markup);   
+  document.getElementById(dmc).value = drug.dm; 			 	   	   			 	
+    			   
+    		   });
+    		
+    		   $.each(response.list6, function(index, addn) {
+    			$('#pds').val(addn.pds)
+    			$('#pir').val(addn.pir)
+    			   if( addn.admit == "Yes"){
+   	   		          $('#yes').click();
+   	   		        }
+   	   	          else{
+   	   		           $('#no').click();
+   	   		          } 
+    		   });
+	                    //to print name of employee
+  	         if(response.list17.length == 0){
+             	
+          	       document.getElementById("height").value = document.getElementById("height").defaultValue;
+        	       document.getElementById("unith").value =  document.getElementById("unith").defaultValue;
+        		   document.getElementById("weightw").value = document.getElementById("weightw").defaultValue;
+        		   document.getElementById("unitw").value =  document.getElementById("unitw").defaultValue;
+        		   document.getElementById("temperature").value = document.getElementById("temperature").defaultValue;
+        		   document.getElementById("unitt").value =  document.getElementById("unitt").defaultValue;
+        		   document.getElementById("ac").value =  document.getElementById("ac").defaultValue;
+        		   document.getElementById("bp").value = document.getElementById("bp").defaultValue;
+        		   document.getElementById("bmi").value = document.getElementById("bmi").defaultValue;
+        		   document.getElementById("fi").value = document.getElementById("fi").defaultValue;
+        		   document.getElementById("fe").value =  document.getElementById("fe").defaultValue;
+        		   document.getElementById("rest").value =  document.getElementById("rest").defaultValue;
+        		   document.getElementById("pulse").value = document.getElementById("pulse").defaultValue;
+        	}
+    		   $.each(response.list17, function(index, datec) {
+        	  		 
+        	  		 
+          	  	   document.getElementById("height").value = datec.height;
+           	       document.getElementById("unith").value = datec.unith;
+           		   document.getElementById("weightw").value = datec.weight;
+           		   document.getElementById("unitw").value = datec.unitw;
+           		   document.getElementById("temperature").value = datec.temperature;
+           		   document.getElementById("unitt").value = datec.unitt;
+           		   document.getElementById("ac").value =datec.ac;
+           		   document.getElementById("bp").value =datec.bp;
+           		   document.getElementById("bmi").value = datec.bmi;
+           		   document.getElementById("fi").value = datec.fi;
+           		   document.getElementById("fe").value = datec.fe;
+           		   document.getElementById("rest").value = datec.rest;
+           		   document.getElementById("pulse").value = datec.pulse;
+           		   
+          	  		   
+          	  	   });
+  	  	   
+  	  	   var rows ="";	   	
+  	  	 $.each(response.list18, function(index, drug) {
+    		   if(response.list18.length == 0){
+    	  		   alert("Selected patient does not have previous records")
+    	  	   }
+rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + drug.weight + "</td><td>" + drug.temperature + "</td><td>"+drug.ac+"</td><td>"+drug.bp+"</td><td>"+drug.pulse+"</td><td>"+drug.bmi+"</td><td>"+drug.fi+"</td><td>"+drug.time+"</td></tr>";
+      	 });
+  	  	 
+  	   $(rows).appendTo( "#myTable3 tbody" );  	  	 
+    	   }   		    
+    		  var errorFn = function(e){
+    	      	  alert('Error: ' + e);
+    		  }
+    		  
+    		 
+    			var get = "GET";
+    	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8");
+    	   
+    	   unsaved = false;
+       }
+       
+       
+       
+       </script>
+       <script>
+       
+       function doAjaxDelete(r,drug,type){
+    	   
+    	   var a = document.getElementById(drug).value;
+    		var b = document.getElementById(type).value;
+    		var file = $('#fileno').val();
+    		
+    	   var uri = "/HMS/delpr/"+a+"/"+b+"/"+file+"";
+ 		  
+ 		  var data = 0;
+ 		 
+ 	   var successFn =  function(response){
+ 		  if(response.toString() == "success")   
+          {
+      	  alert("Record deleted Successfully")
+          }
+      	  unsaved = false;
+          };
+          
+
+     	
+         var errorFn =  function(e){
+       	  
+       	           alert('Error: ' + e);
+       	  
+                }
+       	         
+ var i = r.parentNode.parentNode.rowIndex;
+ document.getElementById("myTable1").deleteRow(i);
+ var get = "GET";
+ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8"); 	  
+       }
+       
+       </script>
  
 </head>
 <sec:authentication property="principal.authorities" var="username" />
@@ -1258,9 +1458,9 @@ var cu;
  <div class="container" style="width:auto;height:auto;">
  <button type="button" class="btn btn-primary btn-block"><span id="pi" style="float:left">Patient Information</span><span id="flno" style="float:right">Fileno</span><span id="id" style="float:right;margin-right:15px;">Id</span><span style="float:right;margin-right:25px;" id="nm">Name</span></button>
  <br>
-         <ul class="nav nav-pills nav-stacked col-md-2 reduce" id="pills" style="height:auto;width:140px;max-height:270px;overflow : auto;">
+         <ul class="nav nav-pills nav-stacked col-md-2 reduce" id="pills" style="height:auto;width:140px;max-height:390px;overflow : auto;">
         <li class="active"><a data-toggle="pill"  id="home" href="#home1" onclick="minimize(this.id)">Patient Details</a></li>
-        <li><a data-toggle="pill"  id="pv" href="#pv1" onclick="minimize(this.id)">Vitals</a></li>
+        <li><a data-toggle="pill"  id="pv" href="#pv1" onclick="minimize(this.id)">Patient Vitals</a></li>
         
         </ul>
        
@@ -1284,19 +1484,19 @@ var cu;
       <div class="col-xs-5">
        <div class="form-group" id="fg">
       
-       <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="pname" onchange="addcname(this.options[this.selectedIndex])"   >
-          <option value="select" disabled selected>Select</option>
+       <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="pname" onchange="addcname(this.options[this.selectedIndex])">
+          <option value="select" selected disabled >Select</option>
         <c:forEach var="p"  items="${model.list1}">
         <option value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pid}==${p.pname}==${p.fileno}==${p.docid}">${p.pname}</option>
         </c:forEach>
       </select>
       </div>
       <div class="form-group" id="fg1">
-       <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="vpid" onchange="addcname1(this.options[this.selectedIndex])"   >
-          <option value="select" disabled selected>Select</option>
+       <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="vpid" onchange='addcname1(this.options[this.selectedIndex])'>
+          <option value="select" selected disabled >Select</option>
         <c:forEach var="p"  items="${model.list3}">
-       
-        <option value ="${p.pname}" data-subtext="${p.fileno}" data-value='${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}==${p.diagnose}'>${p.pname}</option>
+      
+       <option value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}" dv="${fn:escapeXml(p.diagnose)}" >${p.pname}</option>
         </c:forEach>
       </select>
       
@@ -1326,7 +1526,7 @@ var cu;
       <option value="select" disabled selected>Select</option>
       <c:forEach var="p"  items="${model.list3}">
      
-        <option value ="${p.ppid}" data-subtext="${p.fileno}" data-value="${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}==${p.diagnose}">${p.ppid}</option>
+        <option value ="${p.ppid}" data-subtext="${p.fileno}" data-value='${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}' dv="${fn:escapeXml(p.diagnose)}">${p.ppid}</option>
         </c:forEach>
       </select>
       </div>
@@ -1373,7 +1573,7 @@ var cu;
        <div class="col-xs-3">
   <div class="form-group">
             <p>Height<span></span></p>
-             <input type="text" class="form-control" form="form1" onkeypress='return onlyNos(event,this);'  oninput="calculateBmi()" value="0" name="height" id="height" >
+             <input type="text" class="form-control" form="formc" onkeypress='return onlyNos(event,this);'  oninput="calculateBmi()" value="0" name="height" id="height" >
 	</div>
   </div>
   
@@ -1381,7 +1581,7 @@ var cu;
   <div class="form-group">
             <p> Unit<span></span></p>
             
-             <select class="form-control" form="form1" onchange="calculateBmi()" name="unith" id="unith" >
+             <select class="form-control" form="formc" onchange="calculateBmi()" name="unith" id="unith" >
              <option value="" selected disabled>Select Unit</option>
              <option value="feet">feet</option>
              <option value="inches">inches</option>
@@ -1394,13 +1594,13 @@ var cu;
    <div class="col-xs-3">
   <div class="form-group">
             <p>Weight<span></span></p>
-           <input type="text" class="form-control" form="form1" onkeypress='return onlyNos(event,this);'  oninput="calculateBmi()"value="0" name="weight" id="weightw" >
+           <input type="text" class="form-control" form="formc" onkeypress='return onlyNos(event,this);'  oninput="calculateBmi()"value="0" name="weight" id="weightw" >
 	</div>
   </div>
    <div class="col-xs-2">
   <div class="form-group">
             <p> Unit<span></span></p>
-         <select class="form-control" form="form1" onchange="calculateBmi()" name="unitw" id="unitw" >
+         <select class="form-control" form="formc" onchange="calculateBmi()" name="unitw" id="unitw" >
              <option value="" selected disabled>Select Unit</option>
               <option value="kilogram">kilogram</option>
              <option value="pounds">pounds</option>
@@ -1415,7 +1615,7 @@ var cu;
        <div class="col-xs-3">
   <div class="form-group">
             <p>Temperature<span></span></p>
-             <input type="text" class="form-control" form="form1" onkeypress='return onlyNos(event,this);'  name="temperature" id="temperature" >
+             <input type="text" class="form-control" form="formc" onkeypress='return onlyNos(event,this);'  name="temperature" id="temperature" >
 	</div>
   </div>
   
@@ -1423,7 +1623,7 @@ var cu;
   <div class="form-group">
             <p>Unit<span></span></p>
             
-             <select class="form-control" form="form1" name="unitt" id="unitt">
+             <select class="form-control" form="formc" name="unitt" id="unitt">
              <option value="" selected disabled>Select Unit</option>
              <option value="celsius">celsius</option>
              <option value="fahrenheit">fahrenheit</option>
@@ -1435,7 +1635,7 @@ var cu;
    <div class="col-xs-5">
   <div class="form-group">
             <p>Abdominal Circumference<span></span></p>
-           <input type="text" form="form1" onkeypress='return onlyNos(event,this);' class="form-control"  name="ac" id="ac">
+           <input type="text" form="formc" onkeypress='return onlyNos(event,this);' class="form-control"  name="ac" id="ac">
 	</div>
   </div>
    
@@ -1445,7 +1645,7 @@ var cu;
        <div class="col-xs-3">
   <div class="form-group">
             <p>Blood Pressure<span></span></p>
-             <input type="text" form="form1" class="form-control" size="2" onkeypress='return onlyNos1(event,this);' name="bp" id="bp" value="">
+             <input type="text" form="formc" class="form-control" size="2" onkeypress='return onlyNos1(event,this);' name="bp" id="bp" value="">
 	</div>
   </div>
   
@@ -1453,7 +1653,7 @@ var cu;
   <div class="form-group">
            
             <p>Pulse<span></span></p>
-             <input type="number" form="form1" class="form-control" min="0" name="pulse" id="pulse" value="72">
+             <input type="number" form="formc" class="form-control" min="0" name="pulse" id="pulse" value="72">
            
 	</div>
   </div>
@@ -1462,7 +1662,7 @@ var cu;
   <div class="form-group">
            
             <p>Body Mass Index<span></span></p>
-             <input type="text" form="form1" class="form-control" onkeypress="return onlyAlphabets(event,this);" readonly="readonly" name="bmi" id="bmi" value="">
+             <input type="text" form="formc" class="form-control" onkeypress="return onlyAlphabets(event,this);" readonly="readonly" name="bmi" id="bmi" value="">
            
 	</div>
   </div>
@@ -1474,9 +1674,9 @@ var cu;
    <div class="col-xs-7">
   <div class="form-group">
             <p>Chest Circumference<span></span></p>
-           <input type="text" form="form1" class="" size="10" onkeypress='return onlyNos(event,this);' placeholder="Full Inspiration" name="fi" id="fi">
-            <input type="text" form="form1" class="" size="10" onkeypress='return onlyNos(event,this);' placeholder="Full Expiration" name="fe" id="fe">
-             <input type="text" form="form1" class="" size="8" onkeypress='return onlyNos(event,this);' placeholder="At Rest" name="rest" id="rest">
+           <input type="text" form="formc" class="" size="10" onkeypress='return onlyNos(event,this);' placeholder="Full Inspiration" name="fi" id="fi">
+            <input type="text" form="formc" class="" size="10" onkeypress='return onlyNos(event,this);' placeholder="Full Expiration" name="fe" id="fe">
+             <input type="text" form="formc" class="" size="8" onkeypress='return onlyNos(event,this);' placeholder="At Rest" name="rest" id="rest">
 	</div>
   </div>
   <div class="col-xs-1">
@@ -1498,7 +1698,7 @@ var cu;
       <div class="col-xs-4">
        <div class="form-group">
       
-      <textarea name="pds" id="pds" rows="5" form="form1" data-rule="" data-msg="address1" ></textarea></div>
+      <textarea name="pds" id="pds" rows="3" cols="90" form="formc" data-rule="" data-msg="address1" ></textarea></div>
       </div>
       </div>
       <div class="form-group row" >
@@ -1510,7 +1710,7 @@ var cu;
       <div class="col-xs-4">
        <div class="form-group">
       
-      <textarea name="pir" id="pir" rows="5" form="form1" data-rule="" data-msg="address1" ></textarea></div>
+      <textarea name="pir" id="pir" rows="3" cols="90" form="formc" data-rule="" data-msg="address1" ></textarea></div>
       </div>
       </div>
       
@@ -1524,8 +1724,8 @@ var cu;
       <div class="col-xs-4">
       <div class="form-group">
        <div class="btn-group" data-toggle="buttons">
-     <label class="btn btn-default"><input class="form-control input-sm"  style="width: 0px;" value="Yes" id="yes" type="radio" form="form1" name="admit" />Yes</label>
- 		<label class="btn btn-default"><input class="form-control input-sm" style="width: 0px;" type="radio" value="No" id="no" form="form1" name="admit" />No</label>
+     <label class="btn btn-default"><input class="form-control input-sm"  style="width: 0px;" value="Yes" id="yes" type="radio" form="formc" name="admit" />Yes</label>
+ 		<label class="btn btn-default"><input class="form-control input-sm" style="width: 0px;" type="radio" value="No" id="no" form="formc" name="admit" />No</label>
  		</div>
       </div>
       </div></div>
@@ -1570,10 +1770,10 @@ var cu;
   
     <div class="col-xs-1">
     <p><b>Advice</b></p>
-    <textarea name="advice" id="advice" form="formc"></textarea>
+    <textarea name="advice" rows="3" cols="80" id="advice" form="formc"></textarea>
     </div>
-     <div class="col-xs-3"></div>
-     <div class="col-xs-7">
+     <div class="col-xs-7"></div>
+     <div class="col-xs-4">
      <br><br>
     <input type='button' class="btn btn-info btn-sm"  value='Add Row' onclick="display()" id='adr'>
     <a class="btn btn-info btn-sm" id ="print" onclick="return verpr();" href="prprs1" target="_blank" >Print Prescription</a>

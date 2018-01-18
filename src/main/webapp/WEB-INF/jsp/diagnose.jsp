@@ -739,7 +739,7 @@ function loadval(div,min){
 		
 	$("#tab"+min).find(".main").find('.divin').eq(div).find(":checkbox[name='radio']").prev("br").remove();		
 	$("#tab"+min).find(".main").find('.divin').eq(div).find(":checkbox[name='radio']").not(":checked").next("span").next("i").andSelf().remove();
-	$("#tab"+min).find(".main").find('.divin').eq(div).find(":checkbox[name='radio']").remove();
+	$("#tab"+min).find(".main").find('.divin').eq(div).find(":checkbox[name='radio']").not(":checked").remove();
 	// var m =  $("#tab"+min).find(".main").find(".header").eq(div).text();
 		//  $("#tab"+min).find(".main").find("#"+div).not('.header').empty();
 		 

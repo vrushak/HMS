@@ -222,7 +222,7 @@ public class dcontroller {
 		   
 		 	return new ModelAndView("myapps","model",model); 
 		 	}
-		   
+		 /*  
 		   @RequestMapping(value="/saveprs", method = RequestMethod.POST)
 		 	public ModelAndView  savePrs(@ModelAttribute("s") Prescription s,HttpServletRequest request) {
 		 	 
@@ -329,7 +329,7 @@ public class dcontroller {
  				
  				}
 		 		String var1g[] =varg.split(",");
-		 		*/
+		 		
 		 		String varh = s.getBaf();
 		 		if(varh == null){
  					varh = "before";
@@ -352,7 +352,7 @@ public class dcontroller {
 		 		
 		 		for(int i =0;i<var1.length;i++ ){
 		             
-		        savep1 = ddao.savePrs1(s,var1[i],var1a[i],var1b[i],var1c[i],/*var1d[i],var1e[i],var1g[i]*/var1h[i],var1i[i],var1j[i],dosage[i]);
+		        savep1 = ddao.savePrs1(s,var1[i],var1a[i],var1b[i],var1c[i],/*var1d[i],var1e[i],var1g[i]//var1h[i],var1i[i],var1j[i],dosage[i]);
 		              
 		    }
 		 		
@@ -380,7 +380,7 @@ public class dcontroller {
 		 	     redirectView.setUrl("/HMS/doctor1.html");
 		         return mav; 
 		 		}
-
+*/
 		   @RequestMapping(value="/treatment", method = RequestMethod.GET)
 		 public ModelAndView treatmentrecord(@ModelAttribute("p") Admitpat p,Principal principal,Authentication authentication) {
 			   
@@ -1076,19 +1076,22 @@ public class dcontroller {
 									public  @ResponseBody String  savebill(@ModelAttribute("s") Prescription s,@PathVariable String drug,@PathVariable String type,@PathVariable String fileno) {
 									 int bsave = 0;
 									 String jsonFormatData = "";
-									 System.out.println("drt"+drug);
+									
 									bsave = ddao.deletepr(drug,type,fileno);
 									
 									ModelAndView  mav = new ModelAndView();
+									 Gson gson = new Gson();
+									 gson.toJson(bsave);
 									if(bsave > 0){
-										jsonFormatData = "success";
+										jsonFormatData =  gson.toJson("success");
 													    
 									}
 
 									else{
-										jsonFormatData = "failure";
+										jsonFormatData =gson.toJson("failure");
 									}
-									System.out.println(bsave);
+								
+								
 									     return jsonFormatData;
 										}
 								  
@@ -1137,7 +1140,7 @@ public class dcontroller {
 				  authentication.getAuthorities();
 				  Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 				  String b = var.toString();
-				 	List<Prescription> list1= ddao.getDocIDdiag(principal.getName(),b);
+				 	List<Prescription> list1= ddao.getDocID2(principal.getName(),b);
 				 	if(list1.isEmpty()){
 				 		s.setDocid(b);
 				 	list1.add(s);
@@ -1169,7 +1172,7 @@ public class dcontroller {
 				  authentication.getAuthorities();
 				  Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 				  String b = var.toString();
-				 	List<Prescription> list1= ddao.getDocIDdiag(principal.getName(),b);
+				 	List<Prescription> list1= ddao.getDocID2(principal.getName(),b);
 				 	if(list1.isEmpty()){
 				 		s.setDocid(b);
 				 	list1.add(s);
@@ -1190,8 +1193,8 @@ public class dcontroller {
 				       model.put("fileno",req.getParameter("location").toString());
 				       model.put("pname",req.getParameter("location1").toString());
 				       model.put("pid",req.getParameter("location2").toString());
-				        model.put("docid",req.getParameter("location3").toString()); 
-				        model.put("sav",req.getParameter("location4").toString()); 
+				       model.put("docid",req.getParameter("location3").toString()); 
+				    //    model.put("sav",req.getParameter("location4").toString()); 
 				      
 
 				 	return new ModelAndView("diagnoseuser","model",model);  
@@ -1293,11 +1296,87 @@ public class dcontroller {
 }
 		  
 		  @RequestMapping(value="/savediag", method = RequestMethod.POST)
-		 	public ModelAndView  savediag(@ModelAttribute("r") Diagnose r) {
+		 	public ModelAndView  savediag(@ModelAttribute("r") Diagnose s) {
 		 	 int sav=0;
-		 		sav=ddao.savediagnose(r);
+		 	  int savep1 = 0;
+		 	  int savep2 = 0;
+		 	  int savep3 = 0;
+		      int savep4 = 0;
+		 	  int savepa = 0;	
+		 	 int savev = 0;	
+		 	savepa= dao.saveact(s);
+		 	
+	 		
+	 		String var = s.getTypeofdr();
+	 		if(var == null){
+					var = "null";
+					
+				}
+	 		String var1[] = var.split(",");
+	 		String vara = s.getDrugname();
+	 		if(vara == null){
+					vara = "null";
+					
+				}
+	 		String var1a[] = vara.split(",");
+	 		
+	 		String varb = s.getStrdrug();
+	 		if(varb == null){
+					varb = "null";
+					
+				}
+	 		String var1b[] = varb.split(",");
+	 		
+	 		String dos = s.getDosage();
+	 		if(dos == null){
+	 			dos = "null";
+	 		}
+	 		
+	 		String dosage[] = dos.split(",");
+	 		
+	 		String varc = s.getDm();
+	 		if(varc == null){
+					varc = "off";
+				
+				}
+	 		
+	 		
+	 		String var1c[] = varc.split(",");
+
+	 		String varh = s.getBaf();
+	 		if(varh == null){
+					varh = "before";
+					
+				}
+	 		String var1h[] =varh.split(",");
+	 		
+	 		String vari = s.getTotn();
+	 		if(vari == null){
+					vari = "null";
+					
+				}
+	 		String var1i[] =vari.split(",");
+	 		String varj = s.getNofdays();
+	 		if(varj == null){
+					varj = "null";
+					
+				}
+	 		String var1j[] =varj.split(",");
+	 		
+	 		for(int i =0;i<var1.length;i++ ){
+	             
+	        savep1 = ddao.savePrs1(s,var1[i],var1a[i],var1b[i],var1c[i],/*var1d[i],var1e[i],var1g[i]*/var1h[i],var1i[i],var1j[i],dosage[i]);
+	              
+	    }
+	 		
+	 		
+	 	
+	 		
+	 		savep3 = dao.savePrs(s);
+			savev= ndao.saveVital(s);
+		 	sav=ddao.savediagnose21(s);
 		 		ModelAndView  mav = new ModelAndView();
-		 		if(sav > 0){
+		 		if(sav > 0 && savev >0 ){
 		 		mav.addObject("message", "The record has been saved sucessfully");
 
 		 		mav.setViewName("redirect:diagnose");		    
