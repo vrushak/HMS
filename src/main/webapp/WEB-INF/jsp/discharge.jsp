@@ -78,7 +78,7 @@ function addcname(getval){
 	   document.getElementById("age").value = str[9];
 	   
 	   document.getElementById("gender").value = str[10];
-	   doAjaxPostfl(str[0])
+	   doAjaxPostfl(str[0],str[5])
 }
 function datasuccess(data){
 	
@@ -135,10 +135,9 @@ function copy(pid){
 	  
 	   document.getElementById("investigation").value = strSplit[11];
 	   
-	   doAjaxPostfl(strSplit[0]);
+	   doAjaxPostfl(strSplit[0],strSplit[7]);
 	   
-	    $('select[name = fileid]').val(strSplit[7]);
-		 $('#fileid').selectpicker('refresh');
+	   
 	   
 	   $( "#myModal" ).dialog( "open" );
 }
@@ -250,7 +249,7 @@ function clos(){
 
        </script>
        <script type="text/javascript">
-       function doAjaxPostfl(pid) {
+       function doAjaxPostfl(pid,file) {
     	   // get the form values
     	   
     	          // var pid = $('#pid').val();
@@ -270,14 +269,16 @@ function clos(){
     	        	        		   var user = datec.username;
     	        	        		   if ($("#fileid option[value="+datec.fileno+"]").length == 0){
     	        	     	               
-    	        	                	   $("#fileid").append('<option value="'+datec.fileno+'" data-subtext="'+datec.date+'" selected="">'+datec.fileno+'</option>');
+    	        	                	   $("#fileid").append('<option value="'+datec.fileno+'" data-subtext="'+datec.date+'" >'+datec.fileno+'</option>');
     	        	                   
     	        	                   $("#fileid").selectpicker("refresh");
     	        	                  
     	        	                   }
+    	        	        		   
 
     	   	                    });
-    	        	        	   
+    	        	        	   $('select[name =fileid]').val(file);
+    	        	      		 $('#fileid').selectpicker('refresh');
     	        	           },
     	        	           error: function(e){
     	        	        	  
@@ -290,6 +291,7 @@ function clos(){
 
        </script>
  <script>
+ /*
   $( function() {
 	  var url = "HMS/prescription";
     $( "#result" ).dialog({
@@ -323,6 +325,7 @@ function clos(){
    
     
   });
+ */
   </script>
    <script>
   $( function() {
@@ -394,7 +397,7 @@ function clos(){
                      counter++;
 	            	  
 	                    }),
-      	               
+      	               /*
       	             $.each(response.list6, function(index, addn) {
       	            	 
       	            	 document.getElementById("pc").value =addn.pc;
@@ -426,11 +429,13 @@ function clos(){
   	            	   
   	            	   unsaved = false;
       	           });
-       	          
+       	          */
       	               
-      	            
-  	            	  
-	            	  
+       	       $.each(response.list19, function(index, addn) {
+  	            	  $('#investigation').text(addn.diagnose)
+       	    	  unsaved = false;
+       	       });
+       	        
       	        
       	           },
       	           error: function(e){
@@ -473,7 +478,15 @@ function clos(){
 	   //     $(this).addClass('success');
 	        
 	        var x=this.cells;
-	        document.getElementById("investigation").value = x[6].innerHTML;
+	    
+	        var encodedStr = x[6].innerHTML;
+	        var as1 = decodeURI(encodedStr);
+	        var parser = new DOMParser;
+	        var dom = parser.parseFromString(as1,'text/html');
+	        var decodedString = dom.body.textContent;
+	        
+	        
+	        document.getElementById("investigation").value = decodedString;
 	    
         
 	       
@@ -679,7 +692,7 @@ function clos(){
    <div class="col-xs-1"></div>
     <div class="col-xs-3">
    <div class="form-group">
-    <button  id="opener" style="color:#fff;" class="btn btn-warning button1">Fetch Patient Records</button>
+    <button  id="opener" style="color:#fff;" class="btn btn-warning button1" onclick="doAjaxPost1()">Fetch Patient Records</button>
   
    </div>
    </div>
@@ -725,7 +738,7 @@ function clos(){
   
  
 
- 
+<!--
 <div id="result"  title="OPD Details">
 
   
@@ -823,6 +836,7 @@ function clos(){
     </div>
                 
 </div>
+  --> 
 </div>
  
  <script type="text/javascript">

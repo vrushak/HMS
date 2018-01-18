@@ -258,9 +258,9 @@ public List<Vitals> getVitalinfo1(String id) {
 		
 	}
 	//to load from doctor screen
-public int saveVital(Prescription s) {
+public int saveVital(Diagnose s) {
 		
-		String sql = "insert into vital(pid,fileno,height,unitheight,weight,weightunit,temperature,tunit,abdominalc,bp,pulse,bmi,fi,fe,arest,timestamp,nid,docid) values('"+s.getPid()+"','"+s.getFileno()+"','"+s.getHeight()+"','"+s.getUnith()+"','"+s.getWeight()+"','"+s.getUnitw()+"','"+s.getTemperature()+"','"+s.getUnitt()+"','"+s.getAc()+"','"+s.getBp()+"','"+s.getPulse()+"','"+s.getBmi()+"','"+s.getFi()+"','"+s.getFe()+"','"+s.getRest()+"',NOW(),'"+s.getNid()+"','"+s.getDocid()+"') on duplicate key update height = '"+s.getHeight()+"',unitheight='"+s.getUnith()+"',weight='"+s.getWeight()+"',weightunit='"+s.getUnitw()+"',temperature='"+s.getTemperature()+"',tunit='"+s.getUnitt()+"',abdominalc='"+s.getAc()+"',bp='"+s.getBp()+"',pulse='"+s.getPulse()+"',bmi='"+s.getBmi()+"',fi='"+s.getFi()+"',fe='"+s.getFe()+"',arest='"+s.getRest()+"',timestamp =NOW(),nid = '"+s.getNid()+"',docid='"+s.getDocid()+"'";
+		String sql = "insert into vital(pid,fileno,height,unitheight,weight,weightunit,temperature,tunit,abdominalc,bp,pulse,bmi,fi,fe,arest,timestamp,nid,docid) values('"+s.getPpid()+"','"+s.getFileno()+"','"+s.getHeight()+"','"+s.getUnith()+"','"+s.getWeight()+"','"+s.getUnitw()+"','"+s.getTemperature()+"','"+s.getUnitt()+"','"+s.getAc()+"','"+s.getBp()+"','"+s.getPulse()+"','"+s.getBmi()+"','"+s.getFi()+"','"+s.getFe()+"','"+s.getRest()+"',NOW(),'"+s.getNid()+"','"+s.getDocid()+"') on duplicate key update height = '"+s.getHeight()+"',unitheight='"+s.getUnith()+"',weight='"+s.getWeight()+"',weightunit='"+s.getUnitw()+"',temperature='"+s.getTemperature()+"',tunit='"+s.getUnitt()+"',abdominalc='"+s.getAc()+"',bp='"+s.getBp()+"',pulse='"+s.getPulse()+"',bmi='"+s.getBmi()+"',fi='"+s.getFi()+"',fe='"+s.getFe()+"',arest='"+s.getRest()+"',timestamp =NOW(),nid = '"+s.getNid()+"',docid='"+s.getDocid()+"'";
 		return template.update(sql);// TODO Auto-generated method stub";
 		// TODO Auto-generated method stub
 		

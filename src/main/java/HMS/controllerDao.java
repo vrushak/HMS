@@ -630,7 +630,7 @@ public List<Prescription> getDocID2(String username ,String userrole) {
 
 //admit patient based on doctor advice
 public List<Prescription> getpreadm() {
-	return template.query("select distinct pr.docid,concat(d.fname,' ',d.mname,' ',d.lname) doctor,pr.pid,concat(p.fname,' ',p.mname,' ',p.lname) Patient,admit,date,fileno from prescription1 pr left outer join doctor d on d.docID = pr.docid join patient p on p.pid=pr.pid where admit='yes' and pr.fileno not in (select fileno from admitpat where admitpat.fileno = pr.fileno )",new RowMapper<Prescription>(){  
+	return template.query("select distinct pr.docid,concat(d.fname,' ',d.mname,' ',d.lname) doctor,pr.pid,concat(p.fname,' ',p.mname,' ',p.lname) Patient,presc.admit,date,presc.fileno from diagnose pr left outer join doctor d on d.docID = pr.docid join patient p on p.pid=pr.pid join prescription presc on presc.fileno = pr.fileno where admit='yes' and pr.fileno not in (select fileno from admitpat where admitpat.fileno = pr.fileno )",new RowMapper<Prescription>(){  
         public Prescription mapRow(ResultSet rs, int row) throws SQLException {   
 	       Prescription p = new Prescription();
 	       
@@ -696,14 +696,14 @@ public List<Prescription> getDocID2(){
         }
 	});
 }
-public int savePrs(Prescription p) {
+public int savePrs(Diagnose p) {
 	// TODO Auto-generated method stub
 	
-	String sql = "insert into prescription(docid,dname,pid,pname,admit,date,fileno,pc,pmsh,ph,dh,fh,ogh,psh,sge,scv,sres,sgas,smusc,sgenit,sendoc,sskin,scns,pge,poc,pns,pcv,prs,pas,pds,pir) values('"+p.getDocid()+"','"+p.getDname()+"','"+p.getPid()+"','"+p.getPname()+"','"+p.getAdmit()+"','"+p.getDate()+"','"+p.getFileno()+"','"+p.getPc()+"','"+p.getPmsh()+"','"+p.getPh()+"','"+p.getDh()+"','"+p.getFh()+"','"+p.getOgh()+"','"+p.getPsh()+"','"+p.getSge()+"','"+p.getScv()+"','"+p.getSres()+"','"+p.getSgas()+"','"+p.getSmusc()+"','"+p.getSgenit()+"','"+p.getSendoc()+"','"+p.getSskin()+"','"+p.getScns()+"','"+p.getPge()+"','"+p.getPoc()+"','"+p.getPns()+"','"+p.getPcv()+"','"+p.getPrs()+"','"+p.getPas()+"','"+p.getPds()+"','"+p.getPir()+"') on duplicate key update admit='"+p.getAdmit()+"',date='"+p.getDate()+"',fileno='"+p.getFileno()+"',pc='"+p.getPc()+"',pmsh='"+p.getPmsh()+"',ph='"+p.getPh()+"',dh='"+p.getDh()+"',fh='"+p.getFh()+"',ogh='"+p.getOgh()+"',psh='"+p.getPsh()+"',sge='"+p.getSge()+"',scv='"+p.getScv()+"',sres='"+p.getSres()+"',sgas='"+p.getSgas()+"',smusc='"+p.getSmusc()+"',sgenit='"+p.getSgenit()+"',sendoc='"+p.getSendoc()+"',sskin='"+p.getSskin()+"',scns='"+p.getScns()+"',pge='"+p.getPge()+"',poc='"+p.getPoc()+"',pns='"+p.getPns()+"',pcv='"+p.getPcv()+"',prs='"+p.getPrs()+"',pas='"+p.getPas()+"',pds='"+p.getPds()+"',pir='"+p.getPir()+"'";
+	String sql = "insert into prescription(docid,dname,pid,pname,admit,date,fileno,pds,pir) values('"+p.getDocid()+"','"+p.getDname()+"','"+p.getPpid()+"','"+p.getPname()+"','"+p.getAdmit()+"','"+p.getDatetime()+"','"+p.getFileno()+"','"+p.getPds()+"','"+p.getPir()+"') on duplicate key update admit='"+p.getAdmit()+"',date='"+p.getDatetime()+"',pds='"+p.getPds()+"',pir='"+p.getPir()+"'";
 	return template.update(sql);
 }
 
-public int saveact(Prescription p) {
+public int saveact(Diagnose p) {
 	// TODO Auto-generated method stub
 	
 	String sql = "update appointment set active ='off' where fileno = '"+p.getFileno()+"'";

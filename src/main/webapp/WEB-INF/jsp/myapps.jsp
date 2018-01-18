@@ -217,6 +217,34 @@ function callevent(e){
 	addpe = e;
 	  $('#myModal2').modal('show');
 }
+var sav;
+function copyval2(name){
+	
+	var a = $("#fileno").val();
+	var b = $("#pname1").val();
+	var c = $("#pid1").val();
+	var d = document.getElementById("pname").value;
+	var e = $('#docid').val();
+	if(name == "menucd" && d =="Select"){
+		alert("Please select Patient Name")
+		return false;
+	
+	}
+	else if(name == "menucd" && d !="Select"){
+	
+		  var url = "/HMS/diagnosegc?location="+a+"&location1="+b+"&location2="+c+"&&location3="+e+"&&location4="+sav+"";
+		    var element = document.getElementById(name);
+			element.setAttribute("href",url);
+		
+			
+			return true;
+	}
+	
+	else{
+		
+	}
+	
+}
 function display(){ 
 	
 	
@@ -272,33 +300,12 @@ function display(){
 }
 
 var tabid;
-function copyval1(name){
-	
-	var a = $("#fileno").val();
-	var b = $("#pname1").val();
-	var c = $("#pid1").val();
-	var d = document.getElementById("pname").value;
-	
-	if(name == "menu4a" && d =="Select"){
-		alert("Please select Patient Name")
-		return false;
-	
+function copyval1(id,name,fileno,docid,val){
+	alert(docid)
+	  var url = "/HMS/diagnosegc?location="+fileno+"&location1="+name+"&location2="+id+"&&location3="+docid+"";
+	console.log(url)
+	  $(val).attr("href",url);
 	}
-	else if(name == "menu4a" && d !="Select"){
-	
-		  var url = "/HMS/labup2?location="+a+"&location1="+b+"&location2="+c+"";
-		    var element = document.getElementById(name);
-			element.setAttribute("href",url);
-		
-			
-			return true;
-	}
-	
-	else{
-		
-	}
-	
-}
 function copyval(tabi){
 	tabid = tabi;
 	var a = $("#fileno").val();
@@ -443,7 +450,7 @@ function clos(){
 }
 function autodisp(pid,pname,specialization,fileno){
 
-
+/*
 $("#pid").append('<option value="'+pid+'"selected="">'+pid+'</option>');
 $("#pid").selectpicker("refresh");
 
@@ -459,13 +466,14 @@ $("#pname").selectpicker("refresh");
 	document.getElementById("flno").innerHTML = fileno;
 	document.getElementById("fileno").value = fileno;
 	
-	
-	
-	
-	
 	document.getElementById("rdate").valueAsDate = new Date();
 	doAjaxPost2();
 	doAjaxPost(fileno,pid)
+
+	
+*/	
+	
+	
 }
 function copy(pid){
 
@@ -1026,7 +1034,7 @@ function verpr(){
        
        function doAjaxPost2() {
     	   // get the form values
-    	   
+    	   sav = 0;
     	  var counter = 1;
     	 
     	         //  var name = $('#pname').val();
@@ -1124,6 +1132,11 @@ function verpr(){
     	             $('#myModal').modal({
 	     	     			backdrop: 'static'
 	     	     		});
+    	             
+    	             
+    	             $('#ppe').hide()
+  	            	$('#pe').hide()
+  	            	$('#sr').hide()
  	            	
       	           }    
     	        	          
@@ -1226,7 +1239,7 @@ $('#form1').draggable();
 
 </head>
 <sec:authentication property="principal.authorities" var="username" />
-<body onload="checkhome('<c:out value="${username}" />',admnme='<c:out value="${pageContext.request.userPrincipal.name}" />'),hide('<c:out value="${username}" />'),disbut(),copyval('home1')">
+<body onload="checkhome('<c:out value="${username}" />',admnme='<c:out value="${pageContext.request.userPrincipal.name}" />'),hide('<c:out value="${username}" />')">
 
 <div class = "wrapper">
 <nav class="navbar navbar-default">
@@ -1276,7 +1289,7 @@ $('#form1').draggable();
    
     <c:forEach var="p1"  items="${model.list1}">
     <tr>
-    <td width="240px;" ><a href="#" onclick="autodisp('${p1.pid}','${p1.pname}','${p1.specialization}','${p1.fileno}')" >${p1.pid}</a></td>
+    <td width="240px;" ><a href="" target="_blank" onclick="copyval1('${p1.pid}','${p1.pname}','${p1.fileno}','${p1.docid}',this)" >${p1.pid}</a></td>
     <td width="240px;">${p1.pname}</td>
     <td width="240px;" class="trunk">${p1.dname}</td>
     <td width="240px;">${p1.appointment}</td>
@@ -1317,9 +1330,10 @@ $('#form1').draggable();
   <ul class="nav nav-pills nav-stacked col-md-2">
     <li class="active"><a data-toggle="pill" onclick = "return copyval('home1')" href="#home1">Patient Details</a></li>
     <li><a data-toggle="pill" onclick = "return copyval('menu3a')" href="#menu3a">Patient Vitals</a></li>
-    <li><a data-toggle="pill"  onclick = "return copyval('home')" href="#home">Presenting Problems/Complaints</a></li>
-    <li><a data-toggle="pill" onclick = "return copyval('menu1')" href="#menu1">Systems Review</a></li>
-    <li><a data-toggle="pill" onclick = "return copyval('menu2')" href="#menu2">Patient Examination</a></li>
+    <li id="ppe"><a data-toggle="pill"  onclick = "return copyval('home')" href="#home">Presenting Problems/Complaints</a></li>
+    <li id="sr"><a data-toggle="pill" onclick = "return copyval('menu1')" href="#menu1">Systems Review</a></li>
+    <li id="pe"><a data-toggle="pill" onclick = "return copyval('menu2')" href="#menu2">Patient Examination</a></li>
+    <li><a onclick = "return copyval2('menucd')" id="menucd" href="" target="_blank">Clinical Diagnosis</a></li>
     <li><a data-toggle="pill" onclick = "return copyval('menu3')" href="#menu3">Provisional Diagnosis</a></li>
   <li><a onclick = "return copyval1('menu4a')" id="menu4a" href="" target="_blank">Lab</a></li>
     <li><a data-toggle="pill" onclick = "return copyval('menu4')" href="#menu4">Prescription</a></li>
