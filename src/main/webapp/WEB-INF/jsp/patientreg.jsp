@@ -79,7 +79,7 @@ function checkhome(user){
 
 	if(user.includes("dbfdesk")){
 		 var url = "/HMS/frontdesk" ;
-			
+		 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 
@@ -89,14 +89,14 @@ function checkhome(user){
 	else if(user.includes("[ROLE_FDESK]")){
 		
 		var url = "/HMS/frontdesk" ;
-		
+		$("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 	}
 	else if(user.includes("[ROLE_ASSISTANT]")){
 	
 		 var url = "/HMS/frontdesk" ;
-			
+		 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 	}
@@ -774,13 +774,13 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" >Patient Details</a>
+      <a class="navbar-brand" >Patient Details </a>
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
     <br>
-    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' onclick="window.location.href='/HMS/frontdesk';""></i>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back" onclick="window.location.href='/HMS/frontdesk';"></i>
     
   </div>
 </nav>

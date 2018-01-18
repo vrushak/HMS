@@ -171,7 +171,7 @@ function checkhome2(user){
 
 	if(user.includes("N-")){
 		 var url = "/HMS/nursedesk" ;
-			
+			$("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		
@@ -320,7 +320,7 @@ function clos(){
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
     <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' onclick="window.location.href='/HMS/nursedesk';"></i>
+         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back" onclick="window.location.href='/HMS/nursedesk';"></i>
   </div>
 </nav>
   <center>

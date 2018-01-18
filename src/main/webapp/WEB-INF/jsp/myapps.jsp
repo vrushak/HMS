@@ -37,7 +37,6 @@ border-radius : 10px;
 height : 400px;
 overflow-y : auto;
 
-
 }
 
 #menu4{
@@ -96,10 +95,11 @@ if(adminusr.includes("[ROLE_ADMIN]")){
     	
 		if(user.includes("[ROLE_DOCTOR]") ){
 		 var url = "/HMS/doctor1" ;
+		 $("#back").hide();
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
-		 
+		
 		  var url1 = "/HMS/prescription" ;
 			
 		 var element1 = document.getElementById('hc');
@@ -1255,7 +1255,7 @@ $('#form1').draggable();
          
          </ul>
          <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' onclick="window.location.href='/HMS/doctor1';"></i>
+         <i class='fa fa-arrow-left button2 rightspace' id="back" style='font-size:20px;color : #f0ad4e' onclick="window.location.href='/HMS/doctor1';"></i>
      <!--      
       <ul class="nav navbar-nav navbar-right">
        <li style ="color:#ff9900;"><span class="glyphicon glyphicon-log-in"></span> Welcome : ${pageContext.request.userPrincipal.name}</li>

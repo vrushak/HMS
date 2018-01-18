@@ -46,8 +46,10 @@ function checkhome1(user){
 	userrf = user;
 	//alert(user);
 	if(user.includes("[ROLE_DOCTOR]")){
+		
 		 var url = "/HMS/doctor1" ;
 			
+		 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 
@@ -335,7 +337,7 @@ function setline(id){
     --> 
     </ul>
     <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.location.href='/HMS/doctor1';"></i>
+         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back"  onclick="window.location.href='/HMS/doctor1';"></i>
   </div>
 </nav>
   <center>

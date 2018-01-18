@@ -38,6 +38,7 @@ var cuser;
 		 if(user.includes("[ROLE_FDESK]")){
 		
 			var url = "/HMS/frontdesk" ;
+			$("#back").hide();
 			
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
@@ -50,7 +51,7 @@ var cuser;
 		else if(user.includes("[ROLE_ASSISTANT]")){
 	
 			 var url = "/HMS/frontdesk" ;
-				
+			 $("#back").hide();
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
 			
@@ -820,7 +821,7 @@ input .ftype{
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
     <br>
-    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.location.href='/HMS/frontdesk';"></i>
+    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back"  onclick="window.location.href='/HMS/frontdesk';"></i>
   </div>
 </nav>
   <center>
