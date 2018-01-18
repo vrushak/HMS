@@ -701,7 +701,7 @@ function doAjaxDelete(r,drug,type){
        function doAjaxPost(fileno,pid,date) {
     	   // get the form values
     	
-    
+    $('#bouton-contact').hide();
     	   if(new Date(date) >= new Date("2018-01-11")){
     		   $('#ppc').hide();
     		   $('#sr').hide();
@@ -1344,8 +1344,8 @@ $('#form1').draggable();
 </center>
  <form id="form2">  
   <h1>
-	  <button type="button" class="btn btn-warning button1" onclick="doAjaxPost2()">
-	  <span class="glyphicon glyphicon-plus"></span>General Checkup</button>
+	<!--   <button type="button" class="btn btn-warning button1" onclick="doAjaxPost2()">
+	  <span class="glyphicon glyphicon-plus"></span>General Checkup</button> -->
 <font size="5">Patient History</font><span class="button2"><i class="glyphicon glyphicon-search" style="color:#ff9900;margin: 4px 8px;"></i>
 		<input type="text" id="myInp" class="form-control input-sm button2" placeholder="Search by Patient Name or Id"  style="width:150px"/></span>
 	</h1>
@@ -1412,9 +1412,9 @@ $('#form1').draggable();
     <li id="ppc"><a data-toggle="pill"  onclick = "return copyval('home')" href="#home">Presenting Problems/Complaints</a></li>
     <li id="sr"><a data-toggle="pill" onclick = "return copyval('menu1')" href="#menu1">Systems Review</a></li>
     <li id="pe"><a data-toggle="pill" onclick = "return copyval('menu2')" href="#menu2">Patient Examination</a></li>
-    <li><a onclick = "return copyval2('menucd')" id="menucd" href="" target="_blank">Clinical Diagnosis</a></li>
+   <!--   <li><a onclick = "return copyval2('menucd')" id="menucd" href="" target="_blank">Clinical Diagnosis</a></li>-->
     <li><a data-toggle="pill" onclick = "return copyval('menu3')" href="#menu3">Provisional Diagnosis</a></li>
-    <li><a onclick = "return copyval1('menu4a')" id="menu4a" href="" target="_blank">Lab</a></li>
+    <!-- <li><a onclick = "return copyval1('menu4a')" id="menu4a" href="" target="_blank">Lab</a></li> -->
     <li><a data-toggle="pill" onclick = "return copyval('menu4')" href="#menu4">Prescription</a></li>
     
     
