@@ -143,6 +143,7 @@ public class dcontroller {
 		       List<Prescription>list5 = ddao.getPrescriptionTab(docid);
 		   	  List<Vitals> list17= ndao.getVitalinfo(docid);
 		   	List<Vitals> list18= ndao.getVitalinfo1(pid);
+			List<Diagnose> list19= ddao.getHistvalue1(pid,docid);
 		   Map<String, Object> model = new HashMap<String, Object>();
 		        
 		     //    model.put("list1", list1);
@@ -153,6 +154,7 @@ public class dcontroller {
 		        model.put("list6", list6);
 		        model.put("list17", list17);
 		        model.put("list18", list18);
+		        model.put("list19", list19);
 		        Gson gson = new Gson(); 
 
 		   	    jsonFormatData = gson.toJson(model);
@@ -220,7 +222,7 @@ public class dcontroller {
 		   
 		 	return new ModelAndView("myapps","model",model); 
 		 	}
-		   
+		 /*  
 		   @RequestMapping(value="/saveprs", method = RequestMethod.POST)
 		 	public ModelAndView  savePrs(@ModelAttribute("s") Prescription s,HttpServletRequest request) {
 		 	 
@@ -327,7 +329,7 @@ public class dcontroller {
  				
  				}
 		 		String var1g[] =varg.split(",");
-		 		*/
+		 		
 		 		String varh = s.getBaf();
 		 		if(varh == null){
  					varh = "before";
@@ -350,7 +352,7 @@ public class dcontroller {
 		 		
 		 		for(int i =0;i<var1.length;i++ ){
 		             
-		        savep1 = ddao.savePrs1(s,var1[i],var1a[i],var1b[i],var1c[i],/*var1d[i],var1e[i],var1g[i]*/var1h[i],var1i[i],var1j[i],dosage[i]);
+		        savep1 = ddao.savePrs1(s,var1[i],var1a[i],var1b[i],var1c[i],/*var1d[i],var1e[i],var1g[i]//var1h[i],var1i[i],var1j[i],dosage[i]);
 		              
 		    }
 		 		
@@ -378,7 +380,7 @@ public class dcontroller {
 		 	     redirectView.setUrl("/HMS/doctor1.html");
 		         return mav; 
 		 		}
-
+*/
 		   @RequestMapping(value="/treatment", method = RequestMethod.GET)
 		 public ModelAndView treatmentrecord(@ModelAttribute("p") Admitpat p,Principal principal,Authentication authentication) {
 			   
@@ -1074,19 +1076,22 @@ public class dcontroller {
 									public  @ResponseBody String  savebill(@ModelAttribute("s") Prescription s,@PathVariable String drug,@PathVariable String type,@PathVariable String fileno) {
 									 int bsave = 0;
 									 String jsonFormatData = "";
-									 System.out.println("drt"+drug);
+									
 									bsave = ddao.deletepr(drug,type,fileno);
 									
 									ModelAndView  mav = new ModelAndView();
+									 Gson gson = new Gson();
+									 gson.toJson(bsave);
 									if(bsave > 0){
-										jsonFormatData = "success";
+										jsonFormatData =  gson.toJson("success");
 													    
 									}
 
 									else{
-										jsonFormatData = "failure";
+										jsonFormatData =gson.toJson("failure");
 									}
-									System.out.println(bsave);
+								
+								
 									     return jsonFormatData;
 										}
 								  
@@ -1135,7 +1140,7 @@ public class dcontroller {
 				  authentication.getAuthorities();
 				  Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 				  String b = var.toString();
-				 	List<Prescription> list1= ddao.getDocIDdiag(principal.getName(),b);
+				 	List<Prescription> list1= ddao.getDocID2(principal.getName(),b);
 				 	if(list1.isEmpty()){
 				 		s.setDocid(b);
 				 	list1.add(s);
@@ -1160,6 +1165,41 @@ public class dcontroller {
 								}
 		  
 	
+		  @RequestMapping(value="/diagnosegc", method = RequestMethod.GET)
+			 public ModelAndView  diagnosegc(Prescription s,Principal principal,Authentication authentication,HttpServletRequest req, HttpServletResponse response) {
+
+		 
+				  authentication.getAuthorities();
+				  Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
+				  String b = var.toString();
+				 	List<Prescription> list1= ddao.getDocID2(principal.getName(),b);
+				 	if(list1.isEmpty()){
+				 		s.setDocid(b);
+				 	list1.add(s);
+				 	}
+				     List<Patient> list2= dao.getPatientId1();
+				     List<Diagnose>list3 = ddao.getHistvalue();
+				     List<Vitals> list15= ndao.getVitals(principal.getName());
+					 List<Appointment> list16 = ddao.getAppointment1();
+					 //List<Appointment> list3= dao.getAppointment();
+				     List<Prescription>list4 = dao.search();
+				 
+				     Map<String, Object> model = new HashMap<String, Object>();
+				       model.put("list1", list1);
+				       model.put("list2", list2);
+				       model.put("list3", list3);
+				       model.put("list4", list4);
+				       model.put("list16", list16);
+				       model.put("fileno",req.getParameter("location").toString());
+				       model.put("pname",req.getParameter("location1").toString());
+				       model.put("pid",req.getParameter("location2").toString());
+				       model.put("docid",req.getParameter("location3").toString()); 
+				    //    model.put("sav",req.getParameter("location4").toString()); 
+				      
+
+				 	return new ModelAndView("diagnoseuser","model",model);  
+								}
+		  
 		  @RequestMapping(value="/loaddiv1", method = RequestMethod.GET)
 				public @ResponseBody String loaddiv1(HttpServletRequest req,@ModelAttribute("s") Diagnose s) {
 						String jsonFormatData = "";
@@ -1229,19 +1269,114 @@ public class dcontroller {
 			       
 			 return jsonFormatData;
 			
+		  }
 			
+			 @RequestMapping(value="/loadtxtvalues", method = RequestMethod.GET)
+				public @ResponseBody String loadtxt(HttpServletRequest req,@ModelAttribute("s") Diagnose s) {
+						String jsonFormatData = "";
+					 int res = 0;
 					
+					 List<Diagnose> list6 = null;
+					String fileno = req.getParameter("location6");
+					 list6 = ddao.getTxtval(fileno);
+					 
+					 Map<String, Object> model = new HashMap<String, Object>();
+				       model.put("list6", list6);
+					
+					 Gson gson = new Gson(); 
+
+					jsonFormatData = gson.toJson(list6);
+
+			       
+			 return jsonFormatData;
+					 
 		 //get previous records
 	 		
 		  
 }
 		  
 		  @RequestMapping(value="/savediag", method = RequestMethod.POST)
-		 	public ModelAndView  savediag(@ModelAttribute("r") Diagnose r) {
+		 	public ModelAndView  savediag(@ModelAttribute("r") Diagnose s) {
 		 	 int sav=0;
-		 		sav=ddao.savediagnose(r);
+		 	  int savep1 = 0;
+		 	  int savep2 = 0;
+		 	  int savep3 = 0;
+		      int savep4 = 0;
+		 	  int savepa = 0;	
+		 	 int savev = 0;	
+		 	savepa= dao.saveact(s);
+		 	
+	 		
+	 		String var = s.getTypeofdr();
+	 		if(var == null){
+					var = "null";
+					
+				}
+	 		String var1[] = var.split(",");
+	 		String vara = s.getDrugname();
+	 		if(vara == null){
+					vara = "null";
+					
+				}
+	 		String var1a[] = vara.split(",");
+	 		
+	 		String varb = s.getStrdrug();
+	 		if(varb == null){
+					varb = "null";
+					
+				}
+	 		String var1b[] = varb.split(",");
+	 		
+	 		String dos = s.getDosage();
+	 		if(dos == null){
+	 			dos = "null";
+	 		}
+	 		
+	 		String dosage[] = dos.split(",");
+	 		
+	 		String varc = s.getDm();
+	 		if(varc == null){
+					varc = "off";
+				
+				}
+	 		
+	 		
+	 		String var1c[] = varc.split(",");
+
+	 		String varh = s.getBaf();
+	 		if(varh == null){
+					varh = "before";
+					
+				}
+	 		String var1h[] =varh.split(",");
+	 		
+	 		String vari = s.getTotn();
+	 		if(vari == null){
+					vari = "null";
+					
+				}
+	 		String var1i[] =vari.split(",");
+	 		String varj = s.getNofdays();
+	 		if(varj == null){
+					varj = "null";
+					
+				}
+	 		String var1j[] =varj.split(",");
+	 		
+	 		for(int i =0;i<var1.length;i++ ){
+	             
+	        savep1 = ddao.savePrs1(s,var1[i],var1a[i],var1b[i],var1c[i],/*var1d[i],var1e[i],var1g[i]*/var1h[i],var1i[i],var1j[i],dosage[i]);
+	              
+	    }
+	 		
+	 		
+	 	
+	 		
+	 		savep3 = dao.savePrs(s);
+			savev= ndao.saveVital(s);
+		 	sav=ddao.savediagnose21(s);
 		 		ModelAndView  mav = new ModelAndView();
-		 		if(sav > 0){
+		 		if(sav > 0 && savev >0 ){
 		 		mav.addObject("message", "The record has been saved sucessfully");
 
 		 		mav.setViewName("redirect:diagnose");		    
@@ -1313,6 +1448,60 @@ public class dcontroller {
 				
 		 return jsonFormatData;
 }
+		  //update checkbox values
+		  @RequestMapping(value="/updchname", method = RequestMethod.POST)
+			public @ResponseBody String updhch(HttpServletRequest req,@ModelAttribute("s") Diagnose s) {
+					String jsonFormatData = "";
+				 int res = 0;
+				 int tabid = Integer.parseInt(req.getParameter("cid"));
+				 
+			
+				 		
+				 res = ddao.updChname(tabid,req.getParameter("header"));
+				 List<Diagnose> list5de = null;
+					
+				
+			 if(res > 0){
+				 list5de = ddao.getChknameVal(tabid);  
+			 }
+			 Map<String, Object> model = new HashMap<String, Object>();
+		       model.put("list5de", list5de);
+			
+			 Gson gson = new Gson(); 
+
+			jsonFormatData = gson.toJson(list5de);
+
+				
+		 return jsonFormatData;
+}
+		  
+		  //update Tab values
+		  @RequestMapping(value="/updtabs", method = RequestMethod.POST)
+			public @ResponseBody String updtab(HttpServletRequest req,@ModelAttribute("s") Diagnose s) {
+					String jsonFormatData = "";
+				 int res = 0;
+				 int tabid = Integer.parseInt(req.getParameter("tabid"));
+				 
+			
+				 		
+				 res = ddao.updtab(tabid,req.getParameter("tabvalue"));
+				 List<Diagnose> list5f = null;
+					
+				
+			 if(res > 0){
+				 list5f = ddao.getTabvalue(tabid);  
+			 }
+			 Map<String, Object> model = new HashMap<String, Object>();
+		       model.put("list5f", list5f);
+			
+			 Gson gson = new Gson(); 
+
+			jsonFormatData = gson.toJson(list5f);
+
+				
+		 return jsonFormatData;
+}
+	
 		  //save checkbox values
 		  @RequestMapping(value="/loadchk", method = RequestMethod.POST)
 			public @ResponseBody String loadtab4(HttpServletRequest req,@ModelAttribute("s") Diagnose s) {

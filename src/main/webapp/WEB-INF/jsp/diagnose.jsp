@@ -22,7 +22,7 @@
 <script type="text/javascript" src="/HMS/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/moment.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-select.min.js"></script>
-<script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
+
 
 <style>
 
@@ -122,7 +122,9 @@ font-size:12px;
 .divot{
 width:10px;
 }
-
+.divin{
+width:240px;
+}
 </style>
 <script type="text/javascript">
 function checkhome(user){
@@ -341,7 +343,7 @@ function addcheck(div,tab){
     var i;
     var level = Number(div) + 1;
   if(s.length == 0){
-	var head =  prompt("Please enter the header name:");
+	var head =  prompt("Please enter the Header name:");
 	if (head == null || head == " " || head.length == "0") {
 	      return false;
   	    } 
@@ -432,7 +434,7 @@ function rebuildjs(){
 function updheader(div,tab){
 	
 	var hid =  $("#tab"+tab).find(".main").find('.divin').eq(div).find(".header").attr("id");
-	var head =  prompt("Please enter the header name:");
+	var head =  prompt("Update the Header name");
 	if (head == null || head == " " || head.length == "0") {
 	      return false;
   	    } 
@@ -446,6 +448,72 @@ function updheader(div,tab){
 	         
 	    	 $("#tab"+tab).find(".main").find('.divin').eq(div).find(".header").text(datec.header);
 	    	 $("#tab"+tab).find(".main").find('.divin').eq(div).find(".header").attr("id",datec.hid);
+	          });    
+	      }
+		    
+		  var errorFn = function(e){
+	      	  alert('Error: ' + e);
+		  }
+		  
+			var get = "POST";
+	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8");	         
+  	    }
+	
+}
+
+function updchname(val,div,tab,value){
+	
+	var cid =  value;
+	var head =  prompt("Update the Field name:");
+	
+	if (head == null || head == " " || head.length == 0) {
+	      return false;
+  	    } 
+	else {
+  	    var uri = "/HMS/updchname?cid="+cid+"&&header="+head+"";
+		var data = "0";
+		 
+	   var successFn =  function(response){
+	     $.each(response, function(index, datec) {
+	       
+	      
+	    
+	    	 $(val).prev('span').text(datec.checkval);
+	          });    
+	      }
+		    
+		  var errorFn = function(e){
+	      	  alert('Error: ' + e);
+		  }
+		  
+			var get = "POST";
+	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8");	         
+  	    }
+	
+}
+
+function updTabs(){
+	
+	var activeTab = $(".tab-content").find(".active");
+	var cid = activeTab.attr('titlea');
+if(cid == undefined || cid == " " || cid.length == 0){
+	alert("Please select the tab you want to edit!")
+	return false;
+}
+	var head =  prompt('Update Tab name');
+	if (head == null || head == " " || head.length == "0") {
+	      return false;
+  	    } 
+	else {
+  	    var uri = "/HMS/updtabs?tabid="+cid+"&&tabvalue="+head+"";
+		var data = "0";
+		 
+	   var successFn =  function(response){
+	     $.each(response, function(index, datec) {
+	       
+	      
+	    
+	    	 $("ul.nav-pills li.active").find('a').text(datec.tabvalue);
 	          });    
 	      }
 		    
@@ -534,7 +602,7 @@ function creatediv(main){
 	
 var	divid =  $('#tab'+main).find(".main").find(".divin" ).length;
 var	divid1 = $('#tab'+main).find(".main").find(".divot" ).length;
-	var div = "<div class='col-xs-1 divot'></div><div class='col-xs-2 divin' title='"+divid+"' id='"+divid+"' style='border:1px solid;height:200px;overflow-Y:auto;'><center><font onclick='return updheader("+divid+","+main+")' class='header' id='' size='4' style='text-align:center;'></font><i class='fa fa-plus button2 plus' style='font-size:20px;color:#ff9900;' aria-hidden='true' onclick='return addcheck("+divid+","+main+")'></i></center></div>";
+	var div = "<div class='col-xs-1 divot'></div><div class='col-xs-3 divin' title='"+divid+"' id='"+divid+"' style='border:1px solid;height:200px;overflow-Y:auto;'><center><font onclick='return updheader("+divid+","+main+")' class='header' id='' size='4' style='text-align:center;'></font><i class='fa fa-plus button2 plus' style='font-size:20px;color:#ff9900;' aria-hidden='true' onclick='return addcheck("+divid+","+main+")'></i></center></div>";
 
 	
  
@@ -585,7 +653,7 @@ function loadtabvalues(){
     	$('<li><a href="#tab'+datec.tabid+'" id="li'+no+'" class='+datec.tabid+' data-toggle="tab" onclick="checkempty('+datec.tabid+',this)">'+datec.tabvalue+'</a></li>').appendTo('#pills');
 		
     	// create the tab content
-    	$('<div class="tab-pane fade" id="tab'+datec.tabid+'"><div class="form-group row main"></div></div>').appendTo('.tab-content');
+    	$('<div class="tab-pane fade" titlea='+datec.tabid+' id="tab'+datec.tabid+'"><div class="form-group row main"></div></div>').appendTo('.tab-content');
 		  }	
 
          });    
@@ -670,7 +738,8 @@ function loadval(div,min){
 	 if(cu == "config"){
 		
 	$("#tab"+min).find(".main").find('.divin').eq(div).find(":checkbox[name='radio']").prev("br").remove();		
-	$("#tab"+min).find(".main").find('.divin').eq(div).find(":checkbox[name='radio']").not(":checked").next("span").andSelf().remove();
+	$("#tab"+min).find(".main").find('.divin').eq(div).find(":checkbox[name='radio']").not(":checked").next("span").next("i").andSelf().remove();
+	$("#tab"+min).find(".main").find('.divin').eq(div).find(":checkbox[name='radio']").not(":checked").remove();
 	// var m =  $("#tab"+min).find(".main").find(".header").eq(div).text();
 		//  $("#tab"+min).find(".main").find("#"+div).not('.header').empty();
 		 
@@ -690,8 +759,8 @@ function loadval(div,min){
 
     	 var checkva = $("#tab"+min).find(".main").find('.divin').eq(div).find(":checkbox[name='radio']:checked").attr("title");
        	if(checkva != datec.did){
-    	 var div1 = "<br><input type='checkbox' value='"+datec.checkval+"' name='radio' title='"+datec.did+"' class='"+datec.pid+"' onchange='return checkdiv("+div+",this,"+min+")'><span>"+datec.checkval+"</span></input>";
-      //  console.log(div1)      
+    	 var div1 = "<br><input type='checkbox' value='"+datec.checkval+"' name='radio' title='"+datec.did+"' class='"+datec.pid+"' onchange='return checkdiv("+div+",this,"+min+")'><span id='"+datec.did+"'>"+datec.checkval+"</span><i class='fa fa-pencil button2 '  aria-hidden='true' style='color:orange;' onclick='return updchname(this,"+div+","+min+","+datec.did+")'></i></input>";
+           
         $("#tab"+min).find(".main").find('.divin').eq(div).append(div1);
        	}
    	 	$("#tab"+min).find(".main").find(".header").eq(div).text(datec.header);
@@ -944,6 +1013,7 @@ var cu;
  <div id ="form2">
     <h1><button id="adb" class="btn btn-warning btn-sm button1" class="form-control input-sm" onclick="return createTabs()">Add New Tab</button>
   <font size="5" id="cd"> Clinical Diagnosis </font><button class="btn btn-warning btn-sm button2" id="preview" class="form-control input-sm" onclick="preview()">ADD</button>
+  <button id="adb" class="btn btn-warning btn-sm button2" class="form-control input-sm" onclick="return updTabs()">Edit Tab</button>
   </h1>
 <br>
  <form id = "formc" action="/HMS/savediag.html" method = "post"></form>
