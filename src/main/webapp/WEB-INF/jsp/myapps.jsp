@@ -301,7 +301,7 @@ function display(){
 
 var tabid;
 function copyval1(id,name,fileno,docid,val){
-	alert(docid)
+	
 	  var url = "/HMS/diagnosegc?location="+fileno+"&location1="+name+"&location2="+id+"&&location3="+docid+"";
 	console.log(url)
 	  $(val).attr("href",url);
