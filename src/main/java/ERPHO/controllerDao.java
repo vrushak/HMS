@@ -307,7 +307,7 @@ public class controllerDao {
 	
 	public List<Product> search(){
 		//System.out.println("name:" +p.getName());
-		return template.query("select name,descr,pc,prc,manufacturer,composition,sp,bc,mc,rl,rq,doc,dsc,supplier,(select sum(quantity) from purchase where purchase.productName = product.name ) from product where active =  'active'",new RowMapper<Product>(){  
+		return template.query("select name,descr,pc,prc,manufacturer,composition,sp,bc,mc,rl,rq,doc,dsc,supplier,(select sum(quantity) from purchase where purchase.productName = product.name ) from product where active =  'active' order by name",new RowMapper<Product>(){  
 	        public Product mapRow(ResultSet rs, int row) throws SQLException {  
 	            Product s=new Product();  
 	      //      System.out.println(rs.getString(2));
@@ -333,7 +333,7 @@ public class controllerDao {
 	}
 	public List<Product> search1(){
 		//System.out.println("name:" +p.getName());
-		return template.query("select name,descr,pc,prc,manufacturer,composition,sp,bc,mc,rl,rq,doc,dsc,supplier,(select sum(currentstock) from productstock where product.name = productstock.name group by name),active,pid from product",new RowMapper<Product>(){  
+		return template.query("select name,descr,pc,prc,manufacturer,composition,sp,bc,mc,rl,rq,doc,dsc,supplier,(select sum(currentstock) from productstock where product.name = productstock.name group by name),active,pid from product order by name",new RowMapper<Product>(){  
 	        public Product mapRow(ResultSet rs, int row) throws SQLException {  
 	            Product s=new Product();  
 	      //      System.out.println(rs.getString(2));

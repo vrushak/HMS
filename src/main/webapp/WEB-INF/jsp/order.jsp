@@ -835,6 +835,7 @@ $('#datetimepicker1').datetimepicker({
 	 
 	format: "dd-mm-yyyy  hh:ii",
     autoclose: true,
+    endDate: '+0d',
     todayBtn: true
    
 	

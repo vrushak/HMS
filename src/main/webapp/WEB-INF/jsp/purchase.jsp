@@ -459,11 +459,11 @@ var str = text.split(',');
          
           //total purchase price
           newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><input  class='form-control input-sm caluclate' form ='purchasesave' type='text' id = '"+discount+"' name='discount1[]' required  value ='0'></td></tr>";
+          newCell.innerHTML="<tr><td><input  class='form-control input-sm caluclate' form ='purchasesave' type='text' id = '"+discount+"' name='discount1[]' required  value ='0.00'></td></tr>";
         
         //unit price  
           newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><input  class='form-control input-sm' form ='purchasesave'  type='text' id = '"+up+"'  name= 'up2[]'  value = '0' required ></td></tr>";
+          newCell.innerHTML="<tr><td><input  class='form-control input-sm' form ='purchasesave'  type='text' id = '"+up+"'  name= 'up2[]'  value = '0.00' required ></td></tr>";
         
           //stockno
           newCell = rowsAdd.insertCell();
@@ -837,7 +837,7 @@ $('#datetimepicker1').datetimepicker({
 	format: "dd-mm-yyyy  hh:ii",
     autoclose: true,
     todayBtn: true,
-    maxDate: moment().format("DD-MM-YYYY hh:mm")
+    endDate: '+0d'
 });
 
 });
