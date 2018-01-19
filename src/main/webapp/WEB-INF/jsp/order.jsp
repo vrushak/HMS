@@ -642,6 +642,7 @@ function disp(){
 	$("#col3").css("border-style","none");
 	 document.getElementById("myTable").style.width = "890px"; 	
 	document.getElementById("re").style.visibility = "hidden";
+	$("#myTable th:eq(4), #myTable td:nth-child(5)").hide();
 	$("#myTable th:eq(5), #myTable td:nth-child(6)").hide();
 	$("#myTable th:eq(6), #myTable td:nth-child(7)").hide();
 

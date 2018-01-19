@@ -364,13 +364,12 @@ public class controllerDao {
 	
 	public List<Purchase> search3(){
 		//System.out.println("name:" +p.getName());
-		return template.query("select name,prc from product",new RowMapper<Purchase>(){  
+		return template.query("select name,prc from product where active =  'active'",new RowMapper<Purchase>(){  
 	        public Purchase mapRow(ResultSet rs, int row) throws SQLException {  
 	            Purchase s=new Purchase();  
 	      //      System.out.println(rs.getString(2));
 	            s.setProductName(rs.getString(1));
 	            s.setEan(rs.getString(2));
-	           
 	          return s;
 		
 	}
@@ -799,7 +798,7 @@ public class controllerDao {
 
 	public List<Purchase> getsupplyorder(String s) {
 		
-		return template.query("select name,prc from product where supplier like '%"+s+"%'",new RowMapper<Purchase>(){  
+		return template.query("select name,prc from product where supplier like '%"+s+"%' and active =  'active' ",new RowMapper<Purchase>(){  
 	        public Purchase mapRow(ResultSet rs, int row) throws SQLException {
 	        	Purchase o = new Purchase();
 	        System.out.println("inj"+rs.getString(1));

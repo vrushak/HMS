@@ -838,6 +838,7 @@ $('#datetimepicker1').datetimepicker({
     autoclose: true,
     todayBtn: true,
     endDate: '+0d'
+    
 });
 
 });
@@ -852,7 +853,7 @@ $('#datetimepicker1').datetimepicker({
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-    <a class="navbar-brand" >Purchase Entry</a>
+    <a class="navbar-brand" >Purchase Entry </a>
     </div>
      <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
