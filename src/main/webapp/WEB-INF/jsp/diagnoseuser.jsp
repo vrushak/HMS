@@ -965,29 +965,11 @@ function loadval(div,min){
     	}
        
        function change(){
-    	
-    		   
-   	 if(opm != true){
-       $('#formc').trigger("reset");
-     
-          $('select[name=ppid]').val('select');
-		   $('#ppid').selectpicker('refresh');
-		   
-		   $('select[name=pname]').val('select');
-	       $('#pname').selectpicker('refresh');
-	       
-	       $('select[name=pname]').val('select');
-	       $('#vpid').selectpicker('refresh');
-	      
-	       $('select[name=ppid]').val('select');
-	       $('#vpid2').selectpicker('refresh');
-   	 
-			document.getElementById("id").innerHTML = "Id";
- 			document.getElementById("nm").innerHTML = "Name";
- 			document.getElementById("flno").innerHTML = "Fileno";
-   	 } 	  
+    	   
+    	   	refresh()
+   		  
     	   if($("#check").prop("checked") == true){
-    
+ 
     	   $('#vpid2').attr('name','ppid')
     	   $('#ppid').removeAttr('name')
 
@@ -999,7 +981,7 @@ function loadval(div,min){
     		   
     	   }
     	   else{
-    		   
+    	
     		  
     		 $('#ppid').attr('name','ppid')
     		 $('#vpid2').removeAttr('name')
@@ -1014,7 +996,28 @@ function loadval(div,min){
      		 
     	   }
        }
-    
+
+function refresh(){
+	
+	  $('#formc').trigger("reset");
+	     
+      $('select[name=ppid]').val('select');
+	   $('#ppid').selectpicker('refresh');
+	   
+	   $('select[name=pname]').val('select');
+       $('#pname').selectpicker('refresh');
+       
+       $('select[name=pname]').val('select');
+       $('#vpid').selectpicker('refresh');
+      
+       $('select[name=ppid]').val('select');
+       $('#vpid2').selectpicker('refresh');
+	 
+		document.getElementById("id").innerHTML = "Id";
+			document.getElementById("nm").innerHTML = "Name";
+			document.getElementById("flno").innerHTML = "Fileno";
+	
+	}
        function createbr(retobj){
 	       var head = document.getElementById("text1").value;
 	      // var head2 = document.getElementById("text1").innerHTML; 
@@ -1144,9 +1147,18 @@ var cu;
     	   $('#close').click(function(){
     			window.close();
     			});
-    			opm = true;
+    		
     		if(a.length != 0 && b.length!= 0 && c.length != 0 && e.length != 0){
-    			    			
+    			  
+       		 $('#ppid').attr('name','ppid')
+       		 $('#vpid2').removeAttr('name')
+          		
+          		
+       		   $('#fg1').hide();
+          		   $('#fg').show();
+          		   $('#id2').hide();
+        		   $('#id1').show();
+       	      
     			$("#datetime").val(moment().format("DD-MM-YYYY hh:mm"));
     			    		
     			   $('select[name=ppid]').val(c);
@@ -1213,6 +1225,8 @@ var cu;
     		
     		}
     		else{
+    			
+    	        change()
     			$('#close').hide();
     		}
     	}
@@ -1306,14 +1320,16 @@ var cu;
        <script type="text/javascript">
        
        function getData(fileno,pid){
-    	   
-       
+    
     		  var uri = "/HMS/prescription1/"+fileno+"/"+pid+"";
     		  
     		  var data = 0;
     		 
     	   var successFn =  function(response){
+    		   
+    		   $("#myTable1 .tbalpha tr").remove();
     		   $.each(response.list5, function(index, drug) {
+    			  
     			   document.getElementById("advice").value = drug.advice;
   var tableRef = document.getElementById('myTable1').getElementsByTagName('tbody')[0];
   var cnt = tableRef.rows.length;
@@ -1436,7 +1452,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
  
 </head>
 <sec:authentication property="principal.authorities" var="username" />
-<body onload="checkhome('<c:out value="${username}" />'),loadtabvalues(),change()">
+<body onload="checkhome('<c:out value="${username}" />'),loadtabvalues()">
 <div class = "wrapper">
 <nav class="navbar navbar-default">
   <div class="container-fluid">

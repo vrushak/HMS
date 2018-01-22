@@ -520,7 +520,7 @@ public class dcontroller {
 		   @RequestMapping(value="/saveds", method = RequestMethod.POST)
 		 	public ModelAndView  saveds(@ModelAttribute("s") Dslip s) {
 		 	 int saveds = 0;
-		 	 System.out.println("docids" +s.getDocid());
+		 	 
 		 		saveds = ddao.saveds(s);
 		 		ModelAndView  mav = new ModelAndView();
 		 		if(saveds > 0){

@@ -32,6 +32,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 import com.google.gson.Gson;
 
@@ -1718,6 +1720,25 @@ public class controller {
 											     redirectView.setUrl("/HMS/labconfig.html");
 										        return mav; 
 												}
+						 
+						 
+						 @RequestMapping(value="/pdf", method = RequestMethod.GET)
+							
+							public ModelAndView billgen(@ModelAttribute("s") Appointment s,ModelAndView modelAndView) {
+							
+								
+								List<Appointment> list3= dao.getAppointment();
+								   Map<String,Object> parameterMap = new HashMap<String,Object>();
+								   JRDataSource JRdataSource = new JRBeanCollectionDataSource(list3);
+								   
+							        parameterMap.put("datasource", JRdataSource);
+							 
+							        //xlsReport bean has ben declared in the jasper-views.xml file
+							        modelAndView = new ModelAndView("pdfReport", parameterMap);
+							 
+							        return modelAndView;
+							 
+								}
 }
 
 

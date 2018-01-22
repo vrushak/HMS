@@ -56,6 +56,9 @@ function ch(){
 	}
 }
 function addcname(getval){
+	  $("#formd").trigger("reset");
+	
+	
 	var myname = getval.getAttribute('data-value');
 	var str = myname.split('=');
 	
@@ -78,6 +81,7 @@ function addcname(getval){
 	   document.getElementById("age").value = str[9];
 	   
 	   document.getElementById("gender").value = str[10];
+
 	   doAjaxPostfl(str[0],str[5])
 }
 function datasuccess(data){
@@ -97,11 +101,11 @@ function copy(pid){
 	   
 	  
 	   
-	 //  $("#pname").append('<option value="'+strSplit[1]+'"selected="">'+strSplit[1]+'</option>');
-	  // $("#pname").selectpicker("refresh");
+	   $("#pname").append('<option value="'+strSplit[1]+'"selected="">'+strSplit[1]+'</option>');
+	   $("#pname").selectpicker("refresh");
 	   
-	   $('select[name=pname]').val(strSplit[1]);
-		 $('#pname').selectpicker('refresh');
+	//   $('select[name=pname]').val(strSplit[1]);
+	//	 $('#pname').selectpicker('refresh');
 	 
 	 //document.getElementById("pname1").disabled = true; 
 	// document.getElementById("bouton-contact").disabled = true; 
@@ -251,9 +255,9 @@ function clos(){
        <script type="text/javascript">
        function doAjaxPostfl(pid,file) {
     	   // get the form values
-    	   
+    	
     	          // var pid = $('#pid').val();
-    	   
+    
     	           $.ajax({
     	        	  
     	        	           type: "GET",
@@ -366,7 +370,7 @@ function clos(){
 <script>
         function doAjaxPost1() {
     	   // get the form values
-    	   
+    	    $('#investigation').val("");
     	  var counter = 1;
     	 
     	          var pid = $('#pid2').val();
@@ -386,7 +390,7 @@ function clos(){
     	        	          
     	             
     	             success: function(response){
-      	        	  
+      	        	  /*
     	             $.each(response.list3, function(index, addn) {
       	                    //to print name of employee
       	                  
@@ -397,6 +401,7 @@ function clos(){
                      counter++;
 	            	  
 	                    }),
+	                    */
       	               /*
       	             $.each(response.list6, function(index, addn) {
       	            	 
@@ -432,7 +437,8 @@ function clos(){
        	          */
       	               
        	       $.each(response.list19, function(index, addn) {
-  	            	  $('#investigation').text(addn.diagnose)
+  	            	
+       	    	   $('#investigation').val(addn.diagnose)
        	    	  unsaved = false;
        	       });
        	        
@@ -473,7 +479,7 @@ function clos(){
    <script>
    
    $(function () {
-	    $(document).on('click','#myTable .tbody tr', function () {
+	    $('#myTable .tbody tr').on('click', function () {
 	   // 	$('.success').removeClass('success');
 	   //     $(this).addClass('success');
 	        

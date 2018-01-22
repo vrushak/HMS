@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="appointment" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c9c4365-017f-496e-995d-33b81384cc93">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="My Sql"/>
+	<queryString language="SQL">
+		<![CDATA[select ap.pid,concat(p.fname,' ',p.mname,' ',p.lname)patientn,CONCAT(ap.appointment,' ',ap.time),ap.fileno from appointment ap join patient p on p.pid = ap.pid order by appointment desc,time;]]>
+	</queryString>
+	<field name="pid" class="java.lang.String"/>
+	<field name="pname" class="java.lang.String"/>
+	<field name="appointment" class="java.lang.String"/>
+	<field name="fileno" class="java.lang.String"/>
+	<group name="pid">
+		<groupExpression><![CDATA[$F{pid}]]></groupExpression>
+	</group>
+	<group name="patient">
+		<groupExpression><![CDATA[$F{pname}]]></groupExpression>
+	</group>
+	<group name="CONCAT(ap.appointment,&apos; &apos;,ap.time)">
+		<groupExpression><![CDATA[$F{appointment}]]></groupExpression>
+	</group>
+	<group name="fileno">
+		<groupExpression><![CDATA[$F{fileno}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="-20" y="0" width="595" height="79" uuid="af3adf59-3965-42ec-a10e-fe96c4d3ab75"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[                                                      Appointment Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="45" uuid="b84b6802-2bf4-4ea7-a681-41602c98a38d"/>
+				<text><![CDATA[Patient Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="-1" width="100" height="46" uuid="60993fcf-975a-4dd5-8866-556cc554eea4"/>
+				<text><![CDATA[Patient Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="0" width="100" height="46" uuid="4b13ffba-c157-4563-bbc7-52c2e7be0a70"/>
+				<text><![CDATA[File No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="0" width="160" height="45" uuid="8639adc9-040a-4eb5-9273-05cc53bc4a39"/>
+				<text><![CDATA[Appointment]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="77" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="20" width="100" height="57" uuid="1d7d6609-0fc3-4b65-b24b-d737616768a6"/>
+				<textFieldExpression><![CDATA[$F{pid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="20" width="100" height="57" uuid="6944f6bc-9489-48ae-8a50-a5524d87135b"/>
+				<textFieldExpression><![CDATA[$F{pname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="20" width="100" height="57" uuid="2b5a98f9-6d9a-41fd-bb08-ce939cd59ef5"/>
+				<textFieldExpression><![CDATA[$F{fileno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="20" width="160" height="57" uuid="07f1dfa5-e853-44d8-8658-139c0d3e1d9e"/>
+				<textFieldExpression><![CDATA[$F{appointment}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

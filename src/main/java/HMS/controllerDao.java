@@ -568,7 +568,7 @@ public List<Prescription> getPrescription(String docid) {
 	        public Prescription mapRow(ResultSet rs, int row) throws SQLException {   
 		       Prescription p = new Prescription();
 		       
-		       System.out.println("Inside "+rs.getString(1) );
+		   
 		       p.setPid(rs.getString(1));
 		       p.setPname(rs.getString(2));
 		       p.setDate(rs.getString(3));
@@ -606,7 +606,7 @@ public List<Prescription> getDocID2(String username ,String userrole) {
 	});
 	}
 	else{
-		System.out.println("inside else of docid");
+		
 		return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID",new RowMapper<Prescription>(){  
 	        public Prescription mapRow(ResultSet rs, int row) throws SQLException {   
 		       Prescription p = new Prescription();
@@ -621,7 +621,7 @@ public List<Prescription> getDocID2(String username ,String userrole) {
 		      p.setSpecialization(rs.getString(6));
 		      p.setFileno(rs.getString(7));
 		      p.setIdc("Admin");
-		      System.out.println("getid" + p.getIdc());
+		      
 		      return p;
 	        }
 		});
@@ -643,7 +643,7 @@ public List<Prescription> getpreadm() {
 	     //  p.setSymptoms(rs.getString(5));
 	      
            p.setAdmit(rs.getString(6));
-           System.out.println(rs.getString(7));
+        
            p.setFileno(rs.getString(7));
 	       return p;
         }
@@ -696,12 +696,18 @@ public List<Prescription> getDocID2(){
         }
 	});
 }
+/*
 public int savePrs(Diagnose p) {
 	// TODO Auto-generated method stub
 	
 	String sql = "insert into prescription(docid,dname,pid,pname,admit,date,fileno,pds,pir) values('"+p.getDocid()+"','"+p.getDname()+"','"+p.getPpid()+"','"+p.getPname()+"','"+p.getAdmit()+"','"+p.getDatetime()+"','"+p.getFileno()+"','"+p.getPds()+"','"+p.getPir()+"') on duplicate key update admit='"+p.getAdmit()+"',date='"+p.getDatetime()+"',pds='"+p.getPds()+"',pir='"+p.getPir()+"'";
 	return template.update(sql);
 }
+*/
+public int savePrs(Diagnose b) {
+	   String sql="insert into prescription(docid,dname,pid,pname,admit,date,fileno,pds,pir) values(?,?,?,?,?,?,?,?,?) on duplicate key update admit = values(admit),date = values(date),pds = values(pds),pir= values(pir)";  
+	  return template.update(sql, new Object[] { b.getDocid(),b.getDname(),b.getPpid(),b.getPname(),b.getAdmit(),b.getDatetime(),b.getFileno(),b.getPds(),b.getPir()}); 
+	 } 
 
 public int saveact(Diagnose p) {
 	// TODO Auto-generated method stub
@@ -716,7 +722,7 @@ public int saveTre(Treatment p) {
 }
 
 public List<Treatment> getTreatment(Treatment p) {
-	System.out.println("pn" +p.getAdmitno());
+
 	return template.query("select (SELECT pname from admitpat where admitno='"+p.getAdmitno()+"'),pid,admdate,datetime,dailychart,dname,comments,ncomments,admitno,fileno from treatment where admitno='"+p.getAdmitno()+"' ",new RowMapper<Treatment>(){  
         public Treatment mapRow(ResultSet rs, int row) throws SQLException {   
 	       Treatment p = new Treatment();
@@ -825,13 +831,13 @@ public List<Billgen> getBill2(Billgen p) {
 	       p.setAdmitno(rs.getString(18));
 	       p.setMid(rs.getString(19));
 	       p.setPolicyholder(rs.getString(20));
-	       System.out.println(rs.getString(21));
+	   
 	       p.setPolicyno(rs.getString(21));
 	       p.setInsurancec(rs.getString(22));
 	       p.setType(rs.getString(23));
 	       p.setFileno(rs.getString(24));
 	       p.setQuantity(rs.getString(25));
-	       System.out.println(rs.getString(25));
+	      
 		return p;
         }
 	});
@@ -846,8 +852,8 @@ public int savebill(Billgen s) {
 public int saved(Discharge s) {
 	// TODO Auto-generated method stub
 	
-	String sql = "insert into discharge(pid,pname,dname,docid,admdate,disdate,investigation,fileno,admitno) values('"+s.getPid()+"','"+s.getPname()+"', '"+s.getDname()+"','"+s.getDocid()+"','"+s.getAdmdate()+"','"+s.getDisdate()+"','"+s.getInvestigation()+"','"+s.getFileno()+"','"+s.getAdmitno()+"') on duplicate key update disdate ='"+s.getDisdate()+"',investigation='"+s.getInvestigation()+"'";
-	return template.update(sql);
+	String sql = "insert into discharge(pid,pname,dname,docid,admdate,disdate,investigation,fileno,admitno) values(?,?,?,?,?,?,?,?,?) on duplicate key update disdate =values(disdate),investigation=values(investigation)";
+	  return template.update(sql, new Object[] {s.getPid(),s.getPname(),s.getDname(),s.getDocid(),s.getAdmdate(),s.getDisdate(),s.getInvestigation(),s.getFileno(),s.getAdmitno()}); 
 }
 
 public List<Discharge> getDischarge() {
