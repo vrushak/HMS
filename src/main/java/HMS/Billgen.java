@@ -29,6 +29,15 @@ public class Billgen {
 	private String policyno;
 	private String type;
 	private String quantity;
+	private String prch;
+	
+	
+	public String getPrch() {
+		return prch;
+	}
+	public void setPrch(String prch) {
+		this.prch = prch;
+	}
 	public String getQuantity() {
 		return quantity;
 	}

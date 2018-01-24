@@ -1,6 +1,12 @@
 package HMS;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.security.Principal;
 import java.util.ArrayList;
@@ -18,6 +24,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +39,18 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
+
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
 import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.HtmlExporter;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.OutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
+import net.sf.jasperreports.view.JasperViewer;
 
 import com.google.gson.Gson;
 
@@ -45,10 +62,23 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 
 import org.springframework.web.bind.annotation.ResponseBody;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 
-
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
 @Controller
 public class controller {
+	private JasperReport jr;
+	private static final String UPLOAD_DIRECTORY ="c:\\Docs\\";
 	@Autowired  
 	controllerDao dao;
 	@Autowired  
@@ -390,8 +420,8 @@ public class controller {
 	 
 	  List<Billgen> list2= dao.getBill();
 	  List<Billgen> list3= dao.getBill1();
-	 System.out.println(p.getPname());
-	  List<Billgen> list4= dao.getBill2(p);
+	
+	  List<Billgen> list4= dao.getBill2(p.getPid(),p.getPname(),"");
 	 
   Map<String,Object> model = new HashMap<String, Object>();
   model.put("list1", list1);
@@ -1722,23 +1752,123 @@ public class controller {
 												}
 						 
 						 
-						 @RequestMapping(value="/pdf", method = RequestMethod.GET)
+						 
+						@RequestMapping(value="/pdf", method = RequestMethod.GET)
 							
-							public ModelAndView billgen(@ModelAttribute("s") Appointment s,ModelAndView modelAndView) {
-							
+							public void billgen(@ModelAttribute("s") Billgen s,ModelAndView modelAndView,HttpServletRequest req, HttpServletResponse response) throws JRException, IOException {
 								
-								List<Appointment> list3= dao.getAppointment();
-								   Map<String,Object> parameterMap = new HashMap<String,Object>();
-								   JRDataSource JRdataSource = new JRBeanCollectionDataSource(list3);
-								   
-							        parameterMap.put("datasource", JRdataSource);
+							 response.setContentType("application/pdf");
+							 response.setHeader("Content-Disposition",  "inline"); 
+							 
+							  List<Billgen> list4= dao.getBill3();
+							  List<Appointment> list3= dao.getAppointment();
+							  
+									
+							
+							
+							  Map<String,Object> parameterMap = new HashMap<String,Object>();
+							
+							    JasperReport report = getReport("/billreport.jrxml");
+							      //fill the report with data source objects
+							     JRDataSource JRdataSource = new JRBeanCollectionDataSource(list4);
+							     JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, JRdataSource);
+								      
+							     OutputStream out = response.getOutputStream();
+							       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
+							/*       
+							     
+						//	     JasperViewer jasperViewer = new JasperViewer(jasperPrint);
+						//	     jasperViewer.setVisible(true); 
+							     
+							     //  parameterMap.put("datasource", JRdataSource);
 							 
 							        //xlsReport bean has ben declared in the jasper-views.xml file
 							        modelAndView = new ModelAndView("pdfReport", parameterMap);
+							   //     JRPdfExporter exporter = new JRPdfExporter();
+							    
+							     
+							     
+							      // String pdfReport = "D:/docs/pdfreport.pdf";
+							     //  JasperExportManager.exportReportToPdfFile(jasperPrint,pdfReport);
+							        
+								//	exporter.exportReport();
+							        
+							        /*
+							        HtmlExporter exporter = new HtmlExporter(DefaultJasperReportsContext.getInstance());
+							        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
+							        exporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));
+							        exporter.exportReport();
+							  
+							      //  return modelAndView;
 							 
-							        return modelAndView;
-							 
+							       
+							       
+							       
+							      //  FileInputStream fin=new FileInputStream(pdfReport);    
+								//	 BufferedInputStream bin=new BufferedInputStream(fin);  
+								//	 IOUtils.copy(fin, response.getOutputStream());
+								*/
 								}
+						 
+						 public JasperReport getReport(String op) throws JRException {
+						      
+						          InputStream stream = getClass().getResourceAsStream(op);
+						          jr = JasperCompileManager.compileReport(stream);
+						      
+						      return jr;
+						  }
+						 
+	                  @RequestMapping(value="/appdf", method = RequestMethod.GET)
+							public void appdf(@ModelAttribute("s") Appointment s,ModelAndView modelAndView,HttpServletRequest req, HttpServletResponse response) throws JRException, IOException {
+								
+							 response.setContentType("application/pdf");
+							 response.setHeader("Content-Disposition",  "inline"); 
+							 
+							 List<Appointment> list3= dao.getAppointment(req.getParameter("location"));
+							 JasperReport report = getReport("/appointment.jrxml");
+							      //fill the report with data source objects
+							     JRDataSource JRdataSource = new JRBeanCollectionDataSource(list3);
+							     JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, JRdataSource);
+								      
+							     OutputStream out = response.getOutputStream();
+							       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
+							
+								}
+	                  @RequestMapping(value="/adpdf", method = RequestMethod.GET)
+						public void adpdf(@ModelAttribute("s") Admitpat s,ModelAndView modelAndView,HttpServletRequest req, HttpServletResponse response) throws JRException, IOException {
+							
+						 response.setContentType("application/pdf");
+						 response.setHeader("Content-Disposition",  "inline"); 
+						 
+						  
+						  List<Admitpat> list3= dao.getAdmitpat(req.getParameter("location"));
+						  
+						JasperReport report = getReport("/Admitcard.jrxml");
+						      //fill the report with data source objects
+						     JRDataSource JRdataSource = new JRBeanCollectionDataSource(list3);
+						     JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, JRdataSource);
+							      
+						     OutputStream out = response.getOutputStream();
+						       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
+						
+							}
+	                  @RequestMapping(value="/billpdf", method = RequestMethod.GET)
+						public void billpdf(@ModelAttribute("s") Billgen s,ModelAndView modelAndView,HttpServletRequest req, HttpServletResponse response) throws JRException, IOException {
+							
+						 response.setContentType("application/pdf");
+						 response.setHeader("Content-Disposition",  "inline"); 
+						 
+						 List<Billgen> list4= dao.getBill2("","","Fileno-13");
+						  
+						 JasperReport report = getReport("/Bill.jrxml");
+						      //fill the report with data source objects
+						     JRDataSource JRdataSource = new JRBeanCollectionDataSource(list4);
+						     JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, JRdataSource);
+							      
+						     OutputStream out = response.getOutputStream();
+						       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
+						
+							}  
 }
 
 

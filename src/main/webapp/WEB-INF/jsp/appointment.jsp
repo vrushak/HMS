@@ -412,13 +412,14 @@ if(currenttime > $("#time").val())
 
 	    <br>
 	    <div class="container">
-   <table class="table table-striped table-bordered table-fixed table-hover table-condensed" style="width: 960px; " id="myTable">
+   <table class="table table-striped table-bordered table-fixed table-hover table-condensed" style="width: 1060px; " id="myTable">
     <thead>
       <tr>
         <th width="240px;">Patient ID</th>
         <th  width="240px;">Patient Name</th>
         <th width="240px;">Doctor Name</th>
         <th  width="220px;">Appointment Date & Time</th>
+        <th  width="100px;">Print</th>
         <th  width="20px;"></th>
       </tr>
     </thead>
@@ -429,7 +430,7 @@ if(currenttime > $("#time").val())
     <td width="240px;">${p1.pname}</td>
     <td width="240px;">${p1.dname}</td>
     <td width="220px;">${p1.combine}</td>
-    
+    <td width="100px;"><a href="/HMS/appdf?location=${p1.fileno}"target="_blank">Print</a></td>
  </tr>
     </c:forEach>
     </tbody>

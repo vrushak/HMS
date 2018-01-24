@@ -318,7 +318,7 @@ $(document).ready(function () {
 
 	    <br>
 	    <div class="container">
-   <table class="table table-striped table-bordered table-fixed table-hover table-condensed" style="width: 950px; " id="myTable">
+   <table class="table table-striped table-bordered table-fixed table-hover table-condensed" style="width: 1150px; " id="myTable">
     <thead class="thead">
       <tr>
         <th class="">Patient Name</th>
@@ -326,6 +326,7 @@ $(document).ready(function () {
         <th class="">WardNo</th>
         <th class="">BedNo</th>
         <th class="">Cause</th>
+        <th>Print Admit Card</th>
         
       </tr>
     </thead>
@@ -337,7 +338,7 @@ $(document).ready(function () {
     <td width="200px;">${p1.wardno}</td>
     <td width="200px;">${p1.bedno}</td>
     <td width="200px;">${p1.cause}</td>
-   
+    <td width="200px;"><a href="/HMS/adpdf?location=${p1.fileno}" target="_blank">Print</a></td>
  </tr>
     </c:forEach>
     </tbody>
