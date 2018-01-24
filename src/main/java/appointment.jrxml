@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="appointment" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c9c4365-017f-496e-995d-33b81384cc93">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="My Sql"/>
+	<field name="pid" class="java.lang.String"/>
+	<field name="pname" class="java.lang.String"/>
+	<field name="docid" class="java.lang.String"/>
+	<field name="dname" class="java.lang.String"/>
+	<field name="appointment" class="java.lang.String"/>
+	<field name="fileno" class="java.lang.String"/>
+	<group name="pid">
+		<groupExpression><![CDATA[$F{pid}]]></groupExpression>
+	</group>
+	<group name="patient">
+		<groupExpression><![CDATA[$F{pname}]]></groupExpression>
+	</group>
+	<group name="CONCAT(ap.appointment,&apos; &apos;,ap.time)">
+		<groupExpression><![CDATA[$F{appointment}]]></groupExpression>
+	</group>
+	<group name="fileno">
+		<groupExpression><![CDATA[$F{fileno}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="110" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="100" height="79" uuid="5b667f2d-4f2f-476e-8d0e-53a22bc528f4"/>
+				<imageExpression><![CDATA["C:/Users/techwedge3/Desktop/workspace/HMS/src/main/webapp/Images/logocms.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="370" y="0" width="200" height="20" uuid="ea5afee0-5930-4968-8b2a-10ae5bd262c5"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[LILAYI FAMILY CLINIC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="20" width="200" height="54" uuid="09da0091-d5b7-4bae-ae78-aa5d4975d6c2"/>
+				<text><![CDATA[Plot 4014A,Lusaka-Zambia,P.O Box 32680,
+Contact: +260 962 151 935
+E-mail : lilayifamilyclinic@yahoo.com
+TPIN NO :LFC098]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="220" y="80" width="100" height="30" uuid="1265826d-070c-4e81-a59c-db43f4326008"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Appointment Slip]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="39" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="39" uuid="b84b6802-2bf4-4ea7-a681-41602c98a38d"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient Id :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="100" height="39" uuid="60993fcf-975a-4dd5-8866-556cc554eea4"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient Name :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="0" width="100" height="39" uuid="1d7d6609-0fc3-4b65-b24b-d737616768a6"/>
+				<textFieldExpression><![CDATA[$F{pid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="3" width="100" height="36" uuid="6944f6bc-9489-48ae-8a50-a5524d87135b"/>
+				<textFieldExpression><![CDATA[$F{pname}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="76" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="46" uuid="4b13ffba-c157-4563-bbc7-52c2e7be0a70"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[File No :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="100" height="45" uuid="8639adc9-040a-4eb5-9273-05cc53bc4a39"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Appointment :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="0" width="100" height="46" uuid="2b5a98f9-6d9a-41fd-bb08-ce939cd59ef5"/>
+				<textFieldExpression><![CDATA[$F{fileno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="0" width="100" height="46" uuid="07f1dfa5-e853-44d8-8658-139c0d3e1d9e"/>
+				<textFieldExpression><![CDATA[$F{appointment}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="45" width="79" height="30" uuid="48585f4c-b548-4e89-bb0c-3eaab82240bf"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Doctor :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="46" width="100" height="30" uuid="f6eb6529-d561-4b3e-95ad-81c1af0f514b"/>
+				<textFieldExpression><![CDATA[$F{dname}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="77" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

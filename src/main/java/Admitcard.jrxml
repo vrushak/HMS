@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Admitcard" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="380a5499-1709-4c25-a694-e3327c4ed8db">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="My Sql"/>
+	<field name="pid" class="java.lang.String"/>
+	<field name="pname" class="java.lang.String"/>
+	<field name="docid" class="java.lang.String"/>
+	<field name="wardno" class="java.lang.String"/>
+	<field name="bedno" class="java.lang.String"/>
+	<field name="discharge" class="java.lang.String"/>
+	<field name="cause" class="java.lang.String"/>
+	<field name="admdate" class="java.lang.String"/>
+	<field name="dname" class="java.lang.String"/>
+	<field name="fileno" class="java.lang.String"/>
+	<field name="admitno" class="java.lang.String"/>
+	<group name="pid">
+		<groupExpression><![CDATA[$F{pid}]]></groupExpression>
+	</group>
+	<group name="pname">
+		<groupExpression><![CDATA[$F{pname}]]></groupExpression>
+	</group>
+	<group name="docid">
+		<groupExpression><![CDATA[$F{docid}]]></groupExpression>
+	</group>
+	<group name="wardno">
+		<groupExpression><![CDATA[$F{wardno}]]></groupExpression>
+	</group>
+	<group name="bedno">
+		<groupExpression><![CDATA[$F{bedno}]]></groupExpression>
+	</group>
+	<group name="discharge">
+		<groupExpression><![CDATA[$F{discharge}]]></groupExpression>
+	</group>
+	<group name="cause">
+		<groupExpression><![CDATA[$F{cause}]]></groupExpression>
+	</group>
+	<group name="admdate">
+		<groupExpression><![CDATA[$F{admdate}]]></groupExpression>
+	</group>
+	<group name="dname">
+		<groupExpression><![CDATA[$F{dname}]]></groupExpression>
+	</group>
+	<group name="fileno">
+		<groupExpression><![CDATA[$F{fileno}]]></groupExpression>
+	</group>
+	<group name="admitno">
+		<groupExpression><![CDATA[$F{admitno}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="108" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="80" height="79" uuid="3f6c660c-8afc-465d-a7c3-dc6131857bad"/>
+				<imageExpression><![CDATA["C:/Users/techwedge3/Desktop/workspace/HMS/src/main/webapp/Images/logocms.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="370" y="0" width="200" height="30" uuid="43a0895f-9a3d-4603-92fe-fdc026ebac66"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LILAYI FAMILY CLINIC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="30" width="200" height="49" uuid="bb42af28-4fd4-4c97-8360-dc53778b81c3"/>
+				<text><![CDATA[Plot 4014A,Lusaka-Zambia,P.O Box 32680,
+Contact: +260 962 151 935
+E-mail : lilayifamilyclinic@yahoo.com
+TPIN NO :LFC098]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="227" y="4" width="100" height="30" uuid="6c1d58a1-f9a7-4939-a337-473d74fe9d49"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Admit Card]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="370" y="2" width="100" height="30" uuid="dd5dcb8d-b94c-4149-aafa-f32f12a3f096"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement x="470" y="2" width="100" height="30" uuid="d699b68c-07e0-4a5a-ab7e-69daedd06f2f"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="59" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="9" width="80" height="30" uuid="5285b970-9149-406d-94d2-53f2cbb3edda"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Admit No:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="9" width="100" height="30" uuid="94fd3cb5-c81f-4d02-9c93-5f3872f4e6d0"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[File No :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="9" width="100" height="30" uuid="ede30e52-1349-42eb-b344-8b1895cf1cf8"/>
+				<textFieldExpression><![CDATA[$F{admitno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="9" width="90" height="30" uuid="f94f69f7-453d-42de-a892-b5a61af66f23"/>
+				<textFieldExpression><![CDATA[$F{fileno}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<staticText>
+				<reportElement x="-10" y="10" width="90" height="30" uuid="b035cd4c-6232-4bab-8671-1700749dbef5"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient Name :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="10" width="100" height="30" uuid="65756c08-914a-4955-94ce-6c281f381107"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient Id :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="80" height="40" uuid="8782a5b6-0312-42ea-bc58-38f740abb7d4"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Admission Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="10" width="100" height="30" uuid="a72611aa-935b-419a-b3ab-1d49dab7a93c"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Doctor :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="60" width="100" height="30" uuid="fc065e27-73f8-48cc-8e01-d1bfbf0bf08e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Ward No :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="60" width="100" height="30" uuid="2b595000-8609-4585-9d9f-48824aee6163"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Bed No :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="10" width="100" height="30" uuid="fbcf34d4-a102-4257-806b-7dc63870f0c5"/>
+				<textFieldExpression><![CDATA[$F{pname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="10" width="100" height="30" uuid="5b44dedf-3505-4bbe-af99-36d63c41541b"/>
+				<textFieldExpression><![CDATA[$F{pid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="10" width="90" height="30" uuid="98a78894-9a24-457a-8b4f-7101fcf43273"/>
+				<textFieldExpression><![CDATA[$F{dname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="60" width="100" height="30" uuid="ccacfe39-4597-415f-b157-7f3208253267"/>
+				<textFieldExpression><![CDATA[$F{admdate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="60" width="100" height="30" uuid="546cd661-9379-4e43-8467-12c31914ead5"/>
+				<textFieldExpression><![CDATA[$F{wardno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="60" width="90" height="30" uuid="d8c6bb79-b1dc-49e3-a58f-6d155696cb73"/>
+				<textFieldExpression><![CDATA[$F{bedno}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Pharmacy</title>
+<title>Pharmacy </title>
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -655,7 +655,7 @@ var pnflag;
 
 </head>
 <sec:authentication property="principal.authorities" var="username" />
-<body onload="oncheck(),checkhome2('<c:out value="${username}" />')">
+<body onload="checkhome2('<c:out value="${username}" />')">
 <div class = "wrapper">
 <nav class="navbar navbar-default">
   <div class="container-fluid">
