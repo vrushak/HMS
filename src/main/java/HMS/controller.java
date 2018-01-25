@@ -266,12 +266,22 @@ public class controller {
 				if(app > 0){
 								    
 								    mav.addObject("message", "The record has been saved sucessfully");
-								    mav.setViewName("redirect:cappointment");
+							if(s.getFlag().contentEquals("doc")){
+								mav.setViewName("redirect:myapps");	
+							}
+							else{
+                                mav.setViewName("redirect:cappointment");
+					        }	
 							}
 
 					else{
 									    mav.addObject("message", "Record could not be saved successfully ");
+										if(s.getFlag().contentEquals("doc")){
+											mav.setViewName("redirect:myapps");	
+										}
+										else{
 									    mav.setViewName("redirect:cappointment");
+										}
 								}
 					 RedirectView redirectView = new RedirectView();
 				     redirectView.setUrl("/HMS/cappointment.html");
@@ -421,7 +431,7 @@ public class controller {
 	  List<Billgen> list2= dao.getBill();
 	  List<Billgen> list3= dao.getBill1();
 	
-	  List<Billgen> list4= dao.getBill2(p.getPid(),p.getPname(),"");
+	  List<Billgen> list4= dao.getBill2(p.getPid(),p.getPname());
 	 
   Map<String,Object> model = new HashMap<String, Object>();
   model.put("list1", list1);
@@ -1760,7 +1770,7 @@ public class controller {
 							 response.setContentType("application/pdf");
 							 response.setHeader("Content-Disposition",  "inline"); 
 							 
-							  List<Billgen> list4= dao.getBill3();
+							  List<Billgen> list4= dao.getBill3(req.getParameter("location1"),req.getParameter("location2"));
 							  List<Appointment> list3= dao.getAppointment();
 							  
 									
@@ -1858,7 +1868,7 @@ public class controller {
 						 response.setContentType("application/pdf");
 						 response.setHeader("Content-Disposition",  "inline"); 
 						 
-						 List<Billgen> list4= dao.getBill2("","","Fileno-13");
+						 List<Billgen> list4= dao.getBill3a(req.getParameter("location"));
 						  
 						 JasperReport report = getReport("/Bill.jrxml");
 						      //fill the report with data source objects

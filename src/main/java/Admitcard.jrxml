@@ -52,7 +52,7 @@
 	</background>
 	<title>
 		<band height="108" splitType="Stretch">
-			<image>
+			<image onErrorType="Blank">
 				<reportElement x="0" y="0" width="80" height="79" uuid="3f6c660c-8afc-465d-a7c3-dc6131857bad"/>
 				<imageExpression><![CDATA["C:/Users/techwedge3/Desktop/workspace/HMS/src/main/webapp/Images/logocms.jpg"]]></imageExpression>
 			</image>

@@ -202,7 +202,8 @@ public class dcontroller {
 		 	
 			   Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 		    	String b = var.toString();
-			 
+		    List<Appointment> list= dao.getFileno1(); 
+		    List<Patient> list2= dao.getPatientId1();
 		 	List<Prescription> list1= ddao.getDocID2(principal.getName(),b);
 		 	 List<Prescription>list4 = dao.search();
 		 	if(list1.isEmpty()){
@@ -212,14 +213,15 @@ public class dcontroller {
 		 	list1.add(s);
 		 	}
 		 	
-		 	System.out.println("doctu2" +list1);
+		 	
 
 		  
 		 	Map<String, Object> model = new HashMap<String, Object>();
 		      
 		       model.put("list1", list1);
 		       model.put("list4", list4);
-		   
+		       model.put("list", list);
+		       model.put("list2", list2);
 		 	return new ModelAndView("myapps","model",model); 
 		 	}
 		 /*  
