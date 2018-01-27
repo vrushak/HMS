@@ -781,7 +781,7 @@ public List<Billgen> getBill1() {
 	       p.setFileno(rs.getString(3));
 	       p.setWardno(rs.getString(4));
 	       p.setAdmdate(rs.getString(5));
-	       System.out.println(rs.getString(5));
+	     
 	      // p.setAddress(rs.getString(5));
 	       p.setDname(rs.getString(6));
 	       p.setAdmitno(rs.getString(7));

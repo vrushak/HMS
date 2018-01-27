@@ -287,20 +287,23 @@ public class controller {
 				     redirectView.setUrl("/HMS/cappointment.html");
 			        return mav; 
 					}
-				@RequestMapping(value="/cancelapp", method = RequestMethod.POST)
-				public ModelAndView  CancelAppointment(@ModelAttribute("s") Appointment s) {
+				@RequestMapping(value="/cancelapp/{path}", method = RequestMethod.GET)
+				public ModelAndView  CancelAppointment(@PathVariable String path,@ModelAttribute("s") Appointment s) {
 				 int capp = 0;
 				capp=dao.cancelApp(s);
 				ModelAndView  mav = new ModelAndView();
-				if(capp > 0){
-								    
-								    mav.addObject("message", "Appointment has been cancelled");
-								    mav.setViewName("redirect:cappointment");
-							}
+			   if(capp > 0){
+				   mav.addObject("message", "Appointment has been cancelled");
+				    if(path.contentEquals("doc")){
+						mav.setViewName("redirect:/myapps");	
+					}
+					else{
+						mav.setViewName("redirect:/cappointment.html");
+					}
+								
+	            }
 
 					
-					 RedirectView redirectView = new RedirectView();
-				     redirectView.setUrl("/HMS/cappointment.html");
 			        return mav; 
 					}
 				@RequestMapping(value="/admitpat", method = RequestMethod.GET)

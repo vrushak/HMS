@@ -486,6 +486,74 @@ function validDate() {
 	}
 
 
+
+
+function copy(pid){
+
+	var strSplit = pid.split('==');
+
+
+   document.getElementById("pid").value = strSplit[0];
+   
+   $("#pid").append('<option value="'+strSplit[0]+'"selected="">'+strSplit[0]+'</option>');
+   $("#pid").selectpicker("refresh");
+   
+   $("#pname").append('<option value="'+strSplit[1]+'"selected="">'+strSplit[1]+'</option>');
+   $("#pname").selectpicker("refresh");
+
+   
+  
+
+   document.getElementById("pid1").value = strSplit[0];
+
+   
+   document.getElementById("pname1").value = strSplit[1];
+   
+   document.getElementById("ch").innerHTML = "View Appointment";
+  
+   $("#docid").val(strSplit[2]);
+   $("#dname").val(strSplit[3]);
+   
+   document.getElementById("appointment").value = strSplit[4].split(" ")[0];
+   
+   document.getElementById("time").value = strSplit[4].split(" ")[1];
+   
+   document.getElementById("fileno").value = strSplit[5];
+   document.getElementById("bouton-contact").disabled = false;
+   document.getElementById("pid").disabled = true;
+   document.getElementById("pname").disabled = true;
+ 
+   document.getElementById("filenod").value = strSplit[5];
+    document.getElementById("bc").style.display = "block";
+   
+	
+ if(moment(document.getElementById("appointment").value).format("DD-MM-YYYY") ==  moment().format("DD-MM-YYYY")){
+	
+	if(document.getElementById("time").value >=  moment().format("HH:mm")){
+	
+	 document.getElementById("bouton-contact").disabled = false;
+	document.getElementById("bc").disabled = false;
+ }
+	else{
+		 document.getElementById("bouton-contact").disabled = true;
+			document.getElementById("bc").disabled = true;
+	}
+ }
+ else if(moment(document.getElementById("appointment").value).format("DD-MM-YYYY") <  moment().format("DD-MM-YYYY")){
+	 document.getElementById("bouton-contact").disabled = true;
+	 document.getElementById("bc").disabled = true;
+ }
+ else{
+	 
+ }
+
+ if(strSplit[6] == "off"){
+	 document.getElementById("bouton-contact").disabled = true;
+	 document.getElementById("bc").disabled = true;
+ }
+   $('#myModal').modal('show');
+
+}
 </script>
 
 
@@ -562,6 +630,7 @@ if(currenttime > $("#time").val())
 
 <script type="text/javascript">
 $(document).ready(function(){
+	$('#form1').draggable();
 	$('.modal-content').resizable({
 	    //alsoResize: ".modal-dialog",
 	    minHeight: 300,
@@ -575,12 +644,6 @@ $(document).ready(function(){
 	    });
 	});
 
-});
-
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){
 	$('#mc1').resizable({
 	    //alsoResize: ".modal-dialog",
 	   
@@ -593,15 +656,10 @@ $(document).ready(function(){
 	    	'max-height':'100%'
 	    });
 	});
-
 });
 
 </script>
-<script type="text/javascript">
-$(document).ready(function(){
-$('#form1').draggable();
-});
-</script>
+
 
 </head>
 <sec:authentication property="principal.authorities" var="username" />
@@ -655,7 +713,7 @@ $('#form1').draggable();
     <c:forEach var="p1"  items="${model.list1}">
     <tr>
     <td width="240px;" ><a href="" target="_blank" onclick="copyval1('${p1.pid}','${p1.pname}','${p1.fileno}','${p1.docid}',this)" >${p1.pid}</a></td>
-    <td width="240px;">${p1.pname}</td>
+    <td width="240px;"><a href="#"  onclick="copy('${p1.pid}==${p1.pname}==${p1.docid}==${p1.dname}==${p1.appointment}==${p1.fileno}==${p1.ac}')">${p1.pname}</a></td>
     <td width="240px;" class="trunk">${p1.dname}</td>
     <td width="240px;">${p1.appointment}</td>
 
@@ -685,7 +743,7 @@ $('#form1').draggable();
     <!--  <div class="modal-content"> --> 
        
     <!--<div class="modal-body">-->
-      <form id="formdel" action="cancelapp.html" method="post"> </form>
+      <form id="formdel" action="/HMS/cancelapp/doc" method="get"> </form>
        <form id="form1" action="saveApp.html" method="post">  
   
         <h1><button type="submit" id="bouton-contact" onclick=" return validmess()" class="btn btn-warning button1" >Save</button> 
@@ -732,7 +790,7 @@ $('#form1').draggable();
        <div class="col-xs-4">
   <div class="form-group">
                <p>Doctor Name<span>*</span></p>
-         <input type="text"  form="form1" id="dname" name="dname"  class="form-control input-sm" required>
+         <input type="text"  form="form1" id="dname" name="dname"  readonly class="form-control input-sm" required>
          <input type="hidden"  form="form1" id="docid" name="docid" class="form-control input-sm" required>
     
     </div>

@@ -29,6 +29,13 @@ public class Sale {
 	private String sdesc;
 	private String spsize;
 	private String sudesc;
+	private String fileno;
+	public String getFileno() {
+		return fileno;
+	}
+	public void setFileno(String fileno) {
+		this.fileno = fileno;
+	}
 	public String getSdesc() {
 		return sdesc;
 	}

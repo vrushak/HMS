@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoice" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6b0f73b8-2f1c-4056-903a-5e68f004b501">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="My Sql"/>
+	<queryString language="SQL">
+		<![CDATA[select * from erpho.saleho]]>
+	</queryString>
+	<field name="invoice" class="java.lang.String"/>
+	<field name="invoiceDate" class="java.lang.String"/>
+	<field name="author" class="java.lang.String"/>
+	<field name="cdiscount" class="java.lang.String"/>
+	<field name="custName" class="java.lang.String"/>
+	<field name="custPhone" class="java.lang.String"/>
+	<field name="gender" class="java.lang.String"/>
+	<field name="age" class="java.lang.String"/>
+	<field name="ean" class="java.lang.String"/>
+	<field name="pname" class="java.lang.String"/>
+	<field name="batch" class="java.lang.String"/>
+	<field name="expDate" class="java.lang.String"/>
+	<field name="unit" class="java.lang.String"/>
+	<field name="unitprice" class="java.lang.String"/>
+	<field name="quantity" class="java.lang.String"/>
+	<field name="free" class="java.lang.String"/>
+	<field name="stock" class="java.lang.String"/>
+	<field name="total" class="java.lang.String"/>
+	<field name="titems" class="java.lang.String"/>
+	<field name="subt" class="java.lang.String"/>
+	<field name="discount" class="java.lang.String"/>
+	<field name="tax" class="java.lang.String"/>
+	<field name="gtotal" class="java.lang.String"/>
+	<field name="custId" class="java.lang.String"/>
+	<field name="spack" class="java.lang.String"/>
+	<field name="spsize" class="java.lang.String"/>
+	<field name="sudesc" class="java.lang.String"/>
+	<field name="fileno" class="java.lang.String"/>
+	<group name="invoice">
+		<groupExpression><![CDATA[$F{invoice}]]></groupExpression>
+	</group>
+	<group name="invoiceDate">
+		<groupExpression><![CDATA[$F{invoiceDate}]]></groupExpression>
+	</group>
+	<group name="author">
+		<groupExpression><![CDATA[$F{author}]]></groupExpression>
+	</group>
+	<group name="cdiscount">
+		<groupExpression><![CDATA[$F{cdiscount}]]></groupExpression>
+	</group>
+	<group name="custName">
+		<groupExpression><![CDATA[$F{custName}]]></groupExpression>
+	</group>
+	<group name="custPhone">
+		<groupExpression><![CDATA[$F{custPhone}]]></groupExpression>
+	</group>
+	<group name="gender">
+		<groupExpression><![CDATA[$F{gender}]]></groupExpression>
+	</group>
+	<group name="age">
+		<groupExpression><![CDATA[$F{age}]]></groupExpression>
+	</group>
+	<group name="ean">
+		<groupExpression><![CDATA[$F{ean}]]></groupExpression>
+	</group>
+	<group name="pname">
+		<groupExpression><![CDATA[$F{pname}]]></groupExpression>
+	</group>
+	<group name="batch">
+		<groupExpression><![CDATA[$F{batch}]]></groupExpression>
+	</group>
+	<group name="expDate">
+		<groupExpression><![CDATA[$F{expDate}]]></groupExpression>
+	</group>
+	<group name="unit">
+		<groupExpression><![CDATA[$F{unit}]]></groupExpression>
+	</group>
+	<group name="unitprice">
+		<groupExpression><![CDATA[$F{unitprice}]]></groupExpression>
+	</group>
+	<group name="quantity">
+		<groupExpression><![CDATA[$F{quantity}]]></groupExpression>
+	</group>
+	<group name="free">
+		<groupExpression><![CDATA[$F{free}]]></groupExpression>
+	</group>
+	<group name="stock">
+		<groupExpression><![CDATA[$F{stock}]]></groupExpression>
+	</group>
+	<group name="total">
+		<groupExpression><![CDATA[$F{total}]]></groupExpression>
+	</group>
+	<group name="titems">
+		<groupExpression><![CDATA[$F{titems}]]></groupExpression>
+	</group>
+	<group name="subt">
+		<groupExpression><![CDATA[$F{subt}]]></groupExpression>
+	</group>
+	<group name="discount">
+		<groupExpression><![CDATA[$F{discount}]]></groupExpression>
+	</group>
+	<group name="tax">
+		<groupExpression><![CDATA[$F{tax}]]></groupExpression>
+	</group>
+	<group name="gtotal">
+		<groupExpression><![CDATA[$F{gtotal}]]></groupExpression>
+	</group>
+	<group name="custId">
+		<groupExpression><![CDATA[$F{custId}]]></groupExpression>
+	</group>
+	<group name="spack">
+		<groupExpression><![CDATA[$F{spack}]]></groupExpression>
+	</group>
+	<group name="spsize">
+		<groupExpression><![CDATA[$F{spsize}]]></groupExpression>
+	</group>
+	<group name="sudesc">
+		<groupExpression><![CDATA[$F{sudesc}]]></groupExpression>
+	</group>
+	<group name="fileno">
+		<groupExpression><![CDATA[$F{fileno}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image onErrorType="Blank">
+				<reportElement x="0" y="0" width="80" height="79" uuid="8bfe9047-b434-4876-86db-fb47eb1b656c"/>
+				<imageExpression><![CDATA["src/main/webapp/Images/logocms.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="360" y="3" width="200" height="27" uuid="9bac4695-3fc8-421a-ac63-420f5b0e9754"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LILAYI FAMILY CLINIC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="30" width="200" height="49" uuid="588fe372-cfb2-4b6a-98cb-a6bf1842b670"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Plot 4014A,Lusaka-Zambia,P.O Box 32680,
+Contact: +260 962 151 935
+E-mail : lilayifamilyclinic@yahoo.com
+TPIN NO :LFC098]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="33" splitType="Stretch">
+			<staticText>
+				<reportElement x="227" y="3" width="100" height="30" uuid="80d4c7c8-09f7-4994-9512-1c9d9703508b"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice Report]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="79" height="30" uuid="2ba77536-34fd-48c0-b2e8-9a6cf6b9cd08"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="100" height="30" uuid="16ff0456-3bb3-4aa5-bbee-4b4bfc85e121"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Patient Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="79" y="0" width="100" height="30" uuid="cdf6a9f4-9fcc-4552-8f5d-fea7c6a228e3"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Invoice Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="0" width="100" height="30" uuid="38884694-2a18-46b5-9f52-ff881587dab2"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Price]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="0" width="100" height="30" uuid="449cc03f-b8fd-4f5b-a652-1c77d9bf6327"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tax]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="0" width="90" height="30" uuid="9b52fdbc-c6c8-4ab1-acee-da7777eb0d32"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Discount]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="80" height="30" uuid="b010343f-84ae-45f2-86ed-a72406bc6736"/>
+				<textFieldExpression><![CDATA[$F{invoice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="0" width="100" height="30" uuid="7fca89e8-3570-4974-813a-367cff9386f8"/>
+				<textFieldExpression><![CDATA[$F{invoiceDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="0" width="100" height="30" uuid="888f4255-d97e-4152-8e1d-160eb4c5712c"/>
+				<textFieldExpression><![CDATA[$F{custName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="-1" width="100" height="30" uuid="9488c2e5-3c73-4c3d-802f-01b97100feca"/>
+				<textFieldExpression><![CDATA[$F{gtotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="-1" width="100" height="30" uuid="9611bb0a-f428-4958-a345-4709db2c269f"/>
+				<textFieldExpression><![CDATA[$F{tax}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="0" width="90" height="30" uuid="b43f3d37-492e-487d-bde6-070f397df735"/>
+				<textFieldExpression><![CDATA[$F{discount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
