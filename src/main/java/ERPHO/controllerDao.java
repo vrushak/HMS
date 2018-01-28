@@ -1466,7 +1466,7 @@ public List<Sale> getsaleReports(String frdate,String edate) {
 		            s.setCustName(rs.getString(3));
 		        	s.setDiscount(rs.getString(4));
 		        	s.setTax(rs.getString(5));
-		        	s.setGtotal(rs.getString(26));
+		        	s.setGtotal(rs.getString(6));
 		        
 		       
 			// TODO Auto-generated method stubinvoice,invoiceDate,author,cdiscount,custId,custName,custPhone,gender,age,ean,pname,batch,expDate,unit,unitprice,quantity,free,stock,total,titems,subt,discount,tax,gtotal

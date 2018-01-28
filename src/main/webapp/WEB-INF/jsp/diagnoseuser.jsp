@@ -1851,7 +1851,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
         <p>Drug Name<span></span></p>
        <div class="form-group">
       
-       <select class="selectpicker form-control input-sm" data-size="5" data-live-search="true" name = "drugn" id ="drugn" onchange=""   >
+       <select class="selectpicker form-control input-sm" data-size="5" data-live-search="true" data-dropup-auto="false" name = "drugn" id ="drugn" onchange=""   >
           <option value="select" disabled selected>Select</option>
         <c:forEach var="p"  items="${model.list4}">
         <option data-subtext="Stocks -${p.pstock1}" value="${p.drugn}">${p.drugn}</option>

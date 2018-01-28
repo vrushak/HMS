@@ -171,7 +171,7 @@ E-mail : lilayifamilyclinic@yahoo.com,TPIN NO :LFC098
 			</staticText>
 			<image onErrorType="Blank">
 				<reportElement x="0" y="0" width="110" height="60" uuid="f26fcccb-2cfa-4a7d-bf04-311e9edf40e9"/>
-				<imageExpression><![CDATA["C:/Users/techwedge3/Desktop/workspace/HMS/src/main/webapp/Images/logocms.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["src/main/webapp/Images/logocms.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

@@ -17,11 +17,17 @@
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap.min.css" />' >
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-select.min.css" />' />
 <link rel="stylesheet" href='<c:url value="/resources/css/google.css" />' />
+<link rel="stylesheet" href='<c:url value="/resources/css/jquery-ui.css" />' >
+<link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-datetimepicker.css" />' >
+<link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-datetimepicker.min.css" />' >
 
 <script type="text/javascript" src="/HMS/resources/js/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/moment.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/bootstrap-datetimepicker.min.js"></script>
 
 
 </head>
@@ -221,6 +227,74 @@ function myconfirm()
  }
 }
 
+
+function addp(id){
+	if($("#admdate").length == 0){
+		alert("Please select admission date")
+		return false;
+	}
+	else if($("#disdate").length == 0){
+		alert("Please select disacharge date")
+	}
+	else{
+		var url = "/HMS/salespdf?location="+$("#admdate").val()+"&location1="+$("#disdate").val()+"" ;
+		$(id).attr("href",url)
+		return true;
+	}
+}
+
+</script>
+<script>
+$( function() {
+	  $( "#result" ).dialog({
+	      
+	    	dialogClass: 'result',
+	      autoOpen: false,
+	      show: {
+	        effect: "blind",
+	        duration: 1000
+	      },
+	      hide: {
+	    	  
+	    
+	        effect: "explode",
+	        duration: 1000
+	      }
+	    });
+	   $('#result').dialog({height: 400, width:300 });
+	    $(".ui-dialog").find(".ui-widget-header").css("background", "#009999","text-align","center");
+	    
+	    $( "#opener" ).on( "click", function() {
+		  	  
+		  	  var isOpen = $( "#result" ).dialog( "isOpen" );
+		        
+		    	if(isOpen == true){
+		    	  
+		    	  $( "#result" ).dialog( "open" );
+		      }
+		      else{
+		    	
+		    
+		    	 $( "#result" ).dialog( "open" );
+		      }
+		    	
+		    	$('.dp1').datetimepicker({
+		   	   	 
+			    	defaultDate: new Date(),
+			    	useCurrent: false,
+			    	format: "yyyy-mm-dd",
+			        autoclose: true,
+			        todayBtn: true,
+			        minView: 2
+			       
+			    	
+			    });
+
+		  	  
+		    });  
+	    
+});
+
 </script>
 <body>
 <div class = "wrapper">
@@ -301,6 +375,12 @@ function myconfirm()
       </figure>
     </div>
     
+    <div class="col-xs-2">
+      <figure>
+       <img src="<c:url value='/Images/Print Prescription.png'/>"/><br><br>
+      <figcaption><input type="button" id="opener" onclick="" value="Bill Report"></figcaption>
+      </figure>
+    </div>
     <!--  
     <div class="col-xs-2">
       <figure>
@@ -414,6 +494,8 @@ function myconfirm()
       <figcaption><input type="button" onclick="location.href='/HMS/stopriceho.html';" value="Product Stocks and Pricing"></figcaption>
       </figure>
     </div>
+    
+    
  </div>
 
 </div>
@@ -785,6 +867,29 @@ function myconfirm()
       </div>
      
     </div>
+  </div>
+   <div id="result"  title="Bill Report">
+   <div class="form-group row" >
+        <div class="col-xs-10">
+        <p>From Date<span></span></p>
+       <div class="form-group">
+      <div class='input-group date dp1'>
+      <input type='text' name="admdate" id="admdate" class="form-control input-sm" required />
+      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+      </div></div>
+      </div>
+      </div>
+     <div class="form-group row" >
+        <div class="col-xs-10">
+        <p>To Date<span></span></p>
+       <div class="form-group">
+      <div class='input-group date dp1'>
+      <input type='text' name="disdate" id="disdate" class="form-control input-sm" required />
+      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+      </div></div>
+      </div>
+      </div>   
+      <a href="" target="_blank" class="btn btn-warning" onclick="return addp(this)">Bill Report</a></div>
   </div>
 </div>
 </body>

@@ -3,96 +3,20 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoice" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6b0f73b8-2f1c-4056-903a-5e68f004b501">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="My Sql"/>
-	<queryString language="SQL">
-		<![CDATA[select * from erpho.saleho]]>
-	</queryString>
 	<field name="invoice" class="java.lang.String"/>
 	<field name="invoiceDate" class="java.lang.String"/>
-	<field name="author" class="java.lang.String"/>
-	<field name="cdiscount" class="java.lang.String"/>
 	<field name="custName" class="java.lang.String"/>
-	<field name="custPhone" class="java.lang.String"/>
-	<field name="gender" class="java.lang.String"/>
-	<field name="age" class="java.lang.String"/>
-	<field name="ean" class="java.lang.String"/>
-	<field name="pname" class="java.lang.String"/>
-	<field name="batch" class="java.lang.String"/>
-	<field name="expDate" class="java.lang.String"/>
-	<field name="unit" class="java.lang.String"/>
-	<field name="unitprice" class="java.lang.String"/>
-	<field name="quantity" class="java.lang.String"/>
-	<field name="free" class="java.lang.String"/>
-	<field name="stock" class="java.lang.String"/>
-	<field name="total" class="java.lang.String"/>
-	<field name="titems" class="java.lang.String"/>
-	<field name="subt" class="java.lang.String"/>
 	<field name="discount" class="java.lang.String"/>
 	<field name="tax" class="java.lang.String"/>
 	<field name="gtotal" class="java.lang.String"/>
-	<field name="custId" class="java.lang.String"/>
-	<field name="spack" class="java.lang.String"/>
-	<field name="spsize" class="java.lang.String"/>
-	<field name="sudesc" class="java.lang.String"/>
-	<field name="fileno" class="java.lang.String"/>
 	<group name="invoice">
 		<groupExpression><![CDATA[$F{invoice}]]></groupExpression>
 	</group>
 	<group name="invoiceDate">
 		<groupExpression><![CDATA[$F{invoiceDate}]]></groupExpression>
 	</group>
-	<group name="author">
-		<groupExpression><![CDATA[$F{author}]]></groupExpression>
-	</group>
-	<group name="cdiscount">
-		<groupExpression><![CDATA[$F{cdiscount}]]></groupExpression>
-	</group>
 	<group name="custName">
 		<groupExpression><![CDATA[$F{custName}]]></groupExpression>
-	</group>
-	<group name="custPhone">
-		<groupExpression><![CDATA[$F{custPhone}]]></groupExpression>
-	</group>
-	<group name="gender">
-		<groupExpression><![CDATA[$F{gender}]]></groupExpression>
-	</group>
-	<group name="age">
-		<groupExpression><![CDATA[$F{age}]]></groupExpression>
-	</group>
-	<group name="ean">
-		<groupExpression><![CDATA[$F{ean}]]></groupExpression>
-	</group>
-	<group name="pname">
-		<groupExpression><![CDATA[$F{pname}]]></groupExpression>
-	</group>
-	<group name="batch">
-		<groupExpression><![CDATA[$F{batch}]]></groupExpression>
-	</group>
-	<group name="expDate">
-		<groupExpression><![CDATA[$F{expDate}]]></groupExpression>
-	</group>
-	<group name="unit">
-		<groupExpression><![CDATA[$F{unit}]]></groupExpression>
-	</group>
-	<group name="unitprice">
-		<groupExpression><![CDATA[$F{unitprice}]]></groupExpression>
-	</group>
-	<group name="quantity">
-		<groupExpression><![CDATA[$F{quantity}]]></groupExpression>
-	</group>
-	<group name="free">
-		<groupExpression><![CDATA[$F{free}]]></groupExpression>
-	</group>
-	<group name="stock">
-		<groupExpression><![CDATA[$F{stock}]]></groupExpression>
-	</group>
-	<group name="total">
-		<groupExpression><![CDATA[$F{total}]]></groupExpression>
-	</group>
-	<group name="titems">
-		<groupExpression><![CDATA[$F{titems}]]></groupExpression>
-	</group>
-	<group name="subt">
-		<groupExpression><![CDATA[$F{subt}]]></groupExpression>
 	</group>
 	<group name="discount">
 		<groupExpression><![CDATA[$F{discount}]]></groupExpression>
@@ -102,21 +26,6 @@
 	</group>
 	<group name="gtotal">
 		<groupExpression><![CDATA[$F{gtotal}]]></groupExpression>
-	</group>
-	<group name="custId">
-		<groupExpression><![CDATA[$F{custId}]]></groupExpression>
-	</group>
-	<group name="spack">
-		<groupExpression><![CDATA[$F{spack}]]></groupExpression>
-	</group>
-	<group name="spsize">
-		<groupExpression><![CDATA[$F{spsize}]]></groupExpression>
-	</group>
-	<group name="sudesc">
-		<groupExpression><![CDATA[$F{sudesc}]]></groupExpression>
-	</group>
-	<group name="fileno">
-		<groupExpression><![CDATA[$F{fileno}]]></groupExpression>
 	</group>
 	<background>
 		<band splitType="Stretch"/>

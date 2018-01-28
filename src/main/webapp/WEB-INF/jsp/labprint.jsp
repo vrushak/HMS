@@ -610,7 +610,7 @@ function AutoGrowTextArea(textField)
    <div class="col-xs-1"></div>
     <div class="col-xs-8">
   <p><h4>Recommended Tests</h4></p>   
-<pre class="tresult" id="investigation" contenteditable="true">
+<pre class="tresult" id="investigation" contenteditable="false" >
            
            
 </pre>

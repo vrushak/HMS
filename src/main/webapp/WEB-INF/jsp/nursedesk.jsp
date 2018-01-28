@@ -65,7 +65,7 @@ function chkuser(user){
 		 $("#nurseback").hide();
 	}
 	else if(user.includes("[ROLE_CHIEFNURSE]")){
-		
+		$("#back").hide();
 		 var url = "/HMS/nursedesk" ;
 		 $("#nurseback").hide();
 			

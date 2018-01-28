@@ -84,14 +84,14 @@ function checkhome(user){
 	if(user.includes("[ROLE_FDESK]")){
 		
 		var url = "/HMS/frontdesk" ;
-		$("#back").hide();
+	//	$("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 	}
 	else if(user.includes("[ROLE_ASSISTANT]")){
 	
 		 var url = "/HMS/frontdesk" ;
-		 $("#back").hide();
+	//	 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 
@@ -107,7 +107,7 @@ function checkhome(user){
 	else if(user.includes("[ROLE_Accounts Admin]")){
 		
 		 var url = "/HMS/frontdesk" ;
-		 $("#back").hide();
+		// $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		
@@ -171,6 +171,8 @@ $( function() {
 	        duration: 1000
 	      },
 	      hide: {
+	    	  
+	    
 	        effect: "explode",
 	        duration: 1000
 	      }
@@ -259,7 +261,7 @@ $( function() {
     <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/Print Prescription.png'/>"/><br><br>
-      <figcaption><input type="button" id="opener" onclick="" value="Generate Report"></figcaption>
+      <figcaption><input type="button" id="opener" onclick="" value="Bill Report"></figcaption>
       </figure>
     </div>
  </div>
@@ -291,7 +293,7 @@ $( function() {
       </div></div>
       </div>
       </div>   
-      <a href="" target="_blank" class="btn btn-warning" onclick="return addp(this)">Generate Report</a></div>
+      <a href="" target="_blank" class="btn btn-warning" onclick="return addp(this)">Bill Report</a></div>
   </div>
 </div>
 </body>
