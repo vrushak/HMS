@@ -369,6 +369,8 @@ function verifyproAdd(){
 			return false;
 		}
 	}
+	
+	
 
 	var x5 =document.getElementsByName("spsize");
 	for(var i = 0;i<x5.length;i++){
@@ -1133,7 +1135,7 @@ function highlightDuplicates() {
 	           success: function(response){
 	            
 	        	   if(response.length == 0){
-	        		   alert("Cannot add. No Stock");
+	        		   alert("Current Stock has expired");
 	        	   }
 	        	   $.each(response, function(index, datec) {
 	                   //to print name of employee
