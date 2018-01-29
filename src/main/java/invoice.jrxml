@@ -3,6 +3,9 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoice" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6b0f73b8-2f1c-4056-903a-5e68f004b501">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="My Sql"/>
+	<parameter name="realPath" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{realPath}+"/Images/logocms.jpg"]]></defaultValueExpression>
+	</parameter>
 	<field name="invoice" class="java.lang.String"/>
 	<field name="invoiceDate" class="java.lang.String"/>
 	<field name="custName" class="java.lang.String"/>
@@ -34,7 +37,7 @@
 		<band height="79" splitType="Stretch">
 			<image onErrorType="Blank">
 				<reportElement x="0" y="0" width="80" height="79" uuid="8bfe9047-b434-4876-86db-fb47eb1b656c"/>
-				<imageExpression><![CDATA["src/main/webapp/Images/logocms.jpg"]]></imageExpression>
+				<imageExpression><![CDATA[$P{realPath}+"/Images/logocms.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="360" y="3" width="200" height="27" uuid="9bac4695-3fc8-421a-ac63-420f5b0e9754"/>

@@ -3,6 +3,9 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Admitcard" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="380a5499-1709-4c25-a694-e3327c4ed8db">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="My Sql"/>
+	<parameter name="realPath" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{realPath}+"/Images/logocms.jpg"]]></defaultValueExpression>
+	</parameter>
 	<field name="pid" class="java.lang.String"/>
 	<field name="pname" class="java.lang.String"/>
 	<field name="docid" class="java.lang.String"/>
@@ -54,7 +57,7 @@
 		<band height="108" splitType="Stretch">
 			<image onErrorType="Blank">
 				<reportElement x="0" y="0" width="80" height="79" uuid="3f6c660c-8afc-465d-a7c3-dc6131857bad"/>
-				<imageExpression><![CDATA["src/main/webapp/Images/logocms.jpg"]]></imageExpression>
+				<imageExpression><![CDATA[$P{realPath}+"/Images/logocms.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="370" y="0" width="200" height="30" uuid="43a0895f-9a3d-4603-92fe-fdc026ebac66"/>

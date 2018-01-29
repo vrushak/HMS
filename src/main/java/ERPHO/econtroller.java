@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -61,6 +62,8 @@ public class econtroller {
 	@Autowired   
     patientControllerDao pdao;
 	//    ManufactDao dao;
+	@Autowired
+	ServletContext context;
 	
 	    //redirection to manufacture master
 	private JasperReport jr;
@@ -1031,8 +1034,12 @@ public void billpdf(@ModelAttribute("s") Sale s,ModelAndView modelAndView,HttpSe
   
  JasperReport report = getReport("/invoice.jrxml");
       //fill the report with data source objects
-     JRDataSource JRdataSource = new JRBeanCollectionDataSource(list2);
-     JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, JRdataSource);
+ String realPath = context.getRealPath("/");
+ Map<String,Object> parameterMap = new HashMap<String,Object>();
+ parameterMap.put("realPath", realPath);
+ 
+ JRDataSource JRdataSource = new JRBeanCollectionDataSource(list2);
+     JasperPrint jasperPrint = JasperFillManager.fillReport(report,  parameterMap, JRdataSource);
 	      
      OutputStream out = response.getOutputStream();
        JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly

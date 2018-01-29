@@ -378,7 +378,7 @@ $( function() {
     <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/Print Prescription.png'/>"/><br><br>
-      <figcaption><input type="button" id="opener" onclick="" value="Bill Report"></figcaption>
+      <figcaption><input type="button" id="opener" onclick="" value="Sales Report"></figcaption>
       </figure>
     </div>
     <!--  
@@ -889,7 +889,7 @@ $( function() {
       </div></div>
       </div>
       </div>   
-      <a href="" target="_blank" class="btn btn-warning" onclick="return addp(this)">Bill Report</a></div>
+      <a href="" target="_blank" class="btn btn-warning" onclick="return addp(this)">Sales Report</a></div>
   </div>
 </div>
 </body>

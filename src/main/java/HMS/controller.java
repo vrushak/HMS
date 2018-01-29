@@ -18,6 +18,7 @@ import java.util.Map;
 
 import javax.naming.ldap.Control;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -86,7 +87,8 @@ public class controller {
 	@Autowired  
 	doctControllerDao ddao;
 	//print docsillgen4
-	
+	@Autowired
+	ServletContext context;
 	@RequestMapping(value="/prdocs", method = RequestMethod.GET)
 	   public ModelAndView docs() {
 	 	 
@@ -1779,12 +1781,14 @@ public class controller {
 									
 							
 							
-							  Map<String,Object> parameterMap = new HashMap<String,Object>();
+							     String realPath = context.getRealPath("/");
+							     Map<String,Object> parameterMap = new HashMap<String,Object>();
+								 parameterMap.put("realPath", realPath);
 							
 							    JasperReport report = getReport("/billreport.jrxml");
 							      //fill the report with data source objects
 							     JRDataSource JRdataSource = new JRBeanCollectionDataSource(list4);
-							     JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, JRdataSource);
+							     JasperPrint jasperPrint = JasperFillManager.fillReport(report,  parameterMap, JRdataSource);
 								      
 							     OutputStream out = response.getOutputStream();
 							       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
@@ -1836,12 +1840,16 @@ public class controller {
 								
 							 response.setContentType("application/pdf");
 							 response.setHeader("Content-Disposition",  "inline"); 
+							 String realPath = context.getRealPath("/");
+							 
+							 Map<String,Object> parameterMap = new HashMap<String,Object>();
+							 parameterMap.put("realPath", realPath);
 							 
 							 List<Appointment> list3= dao.getAppointment(req.getParameter("location"));
 							 JasperReport report = getReport("/appointment.jrxml");
 							      //fill the report with data source objects
 							     JRDataSource JRdataSource = new JRBeanCollectionDataSource(list3);
-							     JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, JRdataSource);
+							     JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameterMap, JRdataSource);
 								      
 							     OutputStream out = response.getOutputStream();
 							       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
@@ -1852,14 +1860,17 @@ public class controller {
 							
 						 response.setContentType("application/pdf");
 						 response.setHeader("Content-Disposition",  "inline"); 
+						 String realPath = context.getRealPath("/");
 						 
+						 Map<String,Object> parameterMap = new HashMap<String,Object>();
+						 parameterMap.put("realPath", realPath);
 						  
 						  List<Admitpat> list3= dao.getAdmitpat(req.getParameter("location"));
 						  
 						JasperReport report = getReport("/Admitcard.jrxml");
 						      //fill the report with data source objects
 						     JRDataSource JRdataSource = new JRBeanCollectionDataSource(list3);
-						     JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, JRdataSource);
+						     JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameterMap, JRdataSource);
 							      
 						     OutputStream out = response.getOutputStream();
 						       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
@@ -1870,13 +1881,16 @@ public class controller {
 							
 						 response.setContentType("application/pdf");
 						 response.setHeader("Content-Disposition",  "inline"); 
-						 
+                         
+						 String realPath = context.getRealPath("/");
+					     Map<String,Object> parameterMap = new HashMap<String,Object>();
+						 parameterMap.put("realPath", realPath);
 						 List<Billgen> list4= dao.getBill3a(req.getParameter("location"));
 						  
 						 JasperReport report = getReport("/Bill.jrxml");
 						      //fill the report with data source objects
 						     JRDataSource JRdataSource = new JRBeanCollectionDataSource(list4);
-						     JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, JRdataSource);
+						     JasperPrint jasperPrint = JasperFillManager.fillReport(report,  parameterMap, JRdataSource);
 							      
 						     OutputStream out = response.getOutputStream();
 						       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
