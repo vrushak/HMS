@@ -10,7 +10,14 @@ private String time;
 private String combine;
 private String fileno;
 private String active;
+private String flag;
 
+public String getFlag() {
+	return flag;
+}
+public void setFlag(String flag) {
+	this.flag = flag;
+}
 private Patient p;
 
 public String getActive() {

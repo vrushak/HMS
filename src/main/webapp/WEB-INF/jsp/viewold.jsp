@@ -95,7 +95,8 @@ function deleteRow(r,fee,charge) {
     
 }
 
-function disp(){
+function disp(id){
+	/*
 	$("#htr").hide();
 	 document.getElementById("prgen").style.visibility = "hidden";
 	$("#items th:eq(5), #items td:last-child").hide();
@@ -107,6 +108,12 @@ function disp(){
 	$("#items th:eq(5), #items td:last-child").show();
 	 document.getElementById("prgen").style.visibility = "visible";
 	 $("#htr").show();
+*/
+
+	var url = "/HMS/billpdf?location="+$("#invoice").val()+"" ;
+	$(id).attr("href",url)
+
+
 }
 		
 	function check(str){
@@ -725,8 +732,8 @@ function doAjaxSave(id){
 </center>
 	<div id="page-wrap">
         <h1>
-	    <button type="submit" class="btn btn-warning button1" id="disp"  onclick="disp()" >
-	  <span class="glyphicon glyphicon-eye-open"></span> Print</button>
+  <a href="" target="_blank" class="btn btn-warning button2" id="disp"  onclick="disp(this)" >
+	  <span class="glyphicon glyphicon-eye-open"></span> Print</a> 
 <font size="5" color="#FFF">Invoice</font><span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i>
 		  </h1>
 		<div class="form-group row" >

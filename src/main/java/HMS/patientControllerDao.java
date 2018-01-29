@@ -179,5 +179,18 @@ public List<Patient> getAdditional(String pid) {
         }
 	});
 }
-
+public List<Patient> getPatients() {
+	return template.query("select p.pid,concat(p.fname,'',p.mname,'',p.lname),p.age,p.gender,p.landphone,ap.fileno from patient p right outer join appointment ap on p.pid = ap.pid",new RowMapper<Patient>(){  
+        public Patient mapRow(ResultSet rs, int row) throws SQLException {   
+	   Patient p = new Patient();
+	     p.setPid(rs.getString(1));
+	     p.setFname(rs.getString(2));
+	     p.setAge(rs.getString(3));
+	     p.setGender(rs.getString(4));
+	     p.setLandphone(rs.getString(5));
+	     p.setDob(rs.getString(6));
+	      return p;
+        }
+	});
+}
 }

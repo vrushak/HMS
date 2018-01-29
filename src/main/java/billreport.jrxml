@@ -142,7 +142,7 @@ TPIN NO :LFC098]]></text>
 			</staticText>
 			<image onErrorType="Blank">
 				<reportElement x="0" y="0" width="100" height="79" uuid="1f36c97c-6ada-4334-a79b-721b8490d8d0"/>
-				<imageExpression><![CDATA["C:/Users/techwedge3/Desktop/workspace/HMS/src/main/webapp/Images/logocms.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["src/main/webapp/Images/logocms.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

@@ -473,6 +473,12 @@ function addcid(){
 		   
 	   	   $('select[name=phone]').val(str);
 		   $('#phone').selectpicker('refresh');
+		   if(strSplit[5].includes("Fileno")){
+			   $("#fileno").val(strSplit[5])
+		   }
+		   else{
+			   
+		 
 		 var custDisc = strSplit[5].toLowerCase();
 		 
 		// alert(custDisc);
@@ -485,7 +491,7 @@ function addcid(){
 				// alert("in" +document.getElementById("med").value );
 				 document.getElementById("cdiscount").value = cust[i].value;
 		 }
-			
+		  }		
 	 
 		 }
 	
@@ -514,6 +520,10 @@ function addcname(){
 		   $('select[name=customer]').val(str);
 		   $('#customer').selectpicker('refresh');
 		
+		   if(strSplit[5].includes("Fileno")){
+			   $("#fileno").val(strSplit[5])
+		   }
+		   else{
 		var custDisc = strSplit[5].toLowerCase();
 		 
 	
@@ -529,7 +539,7 @@ function addcname(){
 			//	 alert("in" +document.getElementById("med").value );
 				 document.getElementById("cdiscount").value = cust[i].value;
 		 }
-			
+		 }
 	 
 		 }
 	
@@ -558,7 +568,10 @@ function addcphone(){
 		   $('select[name=customer]').val(str);
 		   $('#customer').selectpicker('refresh');
 		   
-		   
+		   if(strSplit[5].includes("Fileno")){
+			   $("#fileno").val(strSplit[5])
+		   }
+		   else{ 
 		var custDisc = strSplit[5].toLowerCase();
 		 
 		// alert(custDisc);
@@ -571,7 +584,7 @@ function addcphone(){
 				
 				 document.getElementById("cdiscount").value = cust[i].value;
 		 }
-			
+		 }
 	 
 		 }
 	
@@ -1272,7 +1285,7 @@ else{
 	     
 	     $("#myTable tbody tr").remove();
 	        	   $.each(response, function(index, datec) {
-                             	
+                             	document.getElementById("chbox").disabled = true;
 	        		   document.getElementById("invoicedate").value = datec.invoiceDate;
 	        
 	        		   document.getElementById("author").value = datec.author;
@@ -1453,12 +1466,55 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
 	    window.history.back();
 	}
 		
+   function disppat(){
+	   $(".sp").val($(".sp option:first").val());
+	   
+	   $("#age").val('');
+	   $("#sex").val('');
+	   $("#fileno").val('');
+	   
+	   if(document.getElementById("chbox").checked == true){
+	   $('#customer').find('.cust').hide();
+	   $('#customer').selectpicker('refresh');
+	   $('#name').find('.cust').hide();
+	   $('#name').selectpicker('refresh');
+	   $('#phone').find('.cust').hide();
+	   $('#phone').selectpicker('refresh');
+	   
+	   $('#customer').find('.pat').show();
+	   $('#customer').selectpicker('refresh');
+	   $('#name').find('.pat').show();
+	   $('#name').selectpicker('refresh');
+	   $('#phone').find('.pat').show();
+	   $('#phone').selectpicker('refresh');
+	   }
+	   
+	   else{
+		   
+	
+		   $('#customer').find('.pat').hide();
+		   $('#customer').selectpicker('refresh');
+		   $('#name').find('.pat').hide();
+		   $('#name').selectpicker('refresh');
+		   $('#phone').find('.pat').hide();
+		   $('#phone').selectpicker('refresh');
+		   
+		   $('#customer').find('.cust').show();
+		   $('#customer').selectpicker('refresh');	   
+		   $('#name').find('.cust').show();
+		   $('#name').selectpicker('refresh');
+		   $('#phone').find('.cust').show();
+		   $('#phone').selectpicker('refresh');	   
+		   
+		   
+	   }
+   }
    </script>    
 </head>
 
 
 <sec:authentication property="principal.authorities" var="username" />
-<body onload="date(),checkhome2('<c:out value="${username}" />')">
+<body onload="date(),checkhome2('<c:out value="${username}" />'),disppat()">
 
 <div class = "wrapper">
 <div class="container1">
@@ -1579,7 +1635,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
 </div>
   </div>
   
-  <div class="col-xs-3">
+  <div class="col-xs-2">
 	       <div class="form-group">
 
    <p>Cust Discount% : <span>*</span></p>
@@ -1588,7 +1644,10 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
      </div>
 	      </div>
   
-	      
+	  <div class="col-xs-2">
+	 <br></br>
+	  <input type="checkbox" id = "chbox" onclick="disppat(this)">Show Patients
+	  </div>      
 	  </div>
 	  
 	   <div class="form-group row" >
@@ -1599,10 +1658,14 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
 
    <form action="sale1.html" method = "get">
             <p>Customer Id:<span></span></p>
-       <select class="selectpicker form-control"  data-size="6" data-live-search="true" name = "customer" type="text" id ="customer" class="form-control input-sm"  onchange="addcid()">
-    <option>new</option>
+       <select class="selectpicker form-control sp"  data-size="6" data-live-search="true" name = "customer" type="text" id ="customer" class="form-control input-sm"  onchange="addcid()">
+    <option value="new">new</option>
   <c:forEach var="sale"  items="${model.list}">
-  <option value = "${sale.customer},${sale.name},${sale.phone},${sale.sex},${sale.age},${sale.medical}">${sale.customer}</option>
+  <option class="cust" value = "${sale.customer},${sale.name},${sale.phone},${sale.sex},${sale.age},${sale.medical}">${sale.customer}</option>
+ </c:forEach>
+ 
+  <c:forEach var="sale1"  items="${model.list11}">
+  <option class="pat" value = "${sale1.pid},${sale1.fname},${sale1.landphone},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.pid}</option>
  </c:forEach>
  </select>
  </form>
@@ -1613,11 +1676,16 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
 	      <div class="form-group">
 	      <form action="sale1.html" method = "get">
             <p>Customer Name:<span></span></p>
-   <select class="selectpicker form-control"  data-size="6" data-live-search="true" name = "name" type="text" id ="name" class="form-control input-sm"  onchange="addcname()">
-    <option>new</option>
+   <select class="selectpicker form-control sp"  data-size="6" data-live-search="true" name = "name" type="text" id ="name" class="form-control input-sm"  onchange="addcname()">
+    <option value="new">new</option>
   <c:forEach var="sale"  items="${model.list}">
- <option value = "${sale.customer},${sale.name},${sale.phone},${sale.sex},${sale.age},${sale.medical}">${sale.name}</option>
+ <option class="cust" value = "${sale.customer},${sale.name},${sale.phone},${sale.sex},${sale.age},${sale.medical}">${sale.name}</option>
  </c:forEach>
+ 
+   <c:forEach var="sale1"  items="${model.list11}">
+  <option class="pat" value = "${sale1.pid},${sale1.fname},${sale1.landphone},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.fname}</option>
+ </c:forEach>
+ 
  </select>
  </form>
      </div>
@@ -1628,10 +1696,14 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
 	    
    <form action="sale1.html" method = "get">
  <p>Customer Phone:<span></span></p>
-   <select class="selectpicker form-control"  data-size="6" data-live-search="true" name = "phone" type="text"  id ="phone"  class="form-control input-sm"  onchange="addcphone()">
-    <option>new</option>
+   <select class="selectpicker form-control sp"  data-size="6" data-live-search="true" name = "phone" type="text"  id ="phone"  class="form-control input-sm"  onchange="addcphone()">
+    <option value="new">new</option>
   <c:forEach var="sale"  items="${model.list}">
-   <option value = "${sale.customer},${sale.name},${sale.phone},${sale.sex},${sale.age},${sale.medical}">${sale.phone}</option>
+   <option class="cust" value = "${sale.customer},${sale.name},${sale.phone},${sale.sex},${sale.age},${sale.medical}">${sale.phone}</option>
+ </c:forEach>
+ 
+   <c:forEach var="sale1"  items="${model.list11}">
+  <option class="pat" value = "${sale1.pid},${sale1.fname},${sale1.landphone},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.landphone}</option>
  </c:forEach>
  </select>
  </form>
@@ -1643,7 +1715,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
  <input form ="saveSales" type = "hidden" name = "custName" id="saleCustName">
  <input form ="saveSales" type = "hidden" name = "custPhone" id="saleCustPhone">
  
-	      <div class="col-xs-2">
+	      <div class="col-xs-1">
 	      <div class="form-group">
 	      
             <p>Gender:<span></span></p>
@@ -1655,7 +1727,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
    
   
 	     
-	      <div class="col-xs-1">
+	      <div class="col-xs-2">
 	       <div class="form-group">
 
    
@@ -1717,11 +1789,13 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
 	       <button type="button" id="addbt" style="width:80px;" class="form-control input-sm button1 btn btn-warning"  onclick="return doAjaxPost1()"> ADD</button>
 	       </div>
 	       </div>
+	         
+	       <div class="col-xs-1"></div>
 	       <div class="col-xs-2">
 	      <div class="form-group">
 	       
-   
-
+   <p>File No:</p>
+   <input type="text" readonly name="fileno" id="fileno" form="saveSales" class="form-control input-sm">
     </div>
     </div>
 	       </div>

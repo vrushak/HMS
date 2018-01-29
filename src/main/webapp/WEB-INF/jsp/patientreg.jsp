@@ -1153,9 +1153,9 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
             <p>Marital Status<span></span></p>
    
     <select name="mstatus" id="mstatus" class="form-control input-sm">
-    <option value="Divorced">Divorced</option>
     <option value="Single">Single</option>
     <option value="Married">Married</option>
+       <option value="Divorced">Divorced</option>
     
     </select> 
 </div>

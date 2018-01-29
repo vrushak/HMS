@@ -99,7 +99,10 @@ $("#myTable .tbody tr").each(function(){
 			 $("#back").hide();
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
-			 document.getElementById("samplea").style.display = "none";
+	// document.getElementById("samplea").style.display = "none";
+			 $(".nav pills").not(":nth-child(1)").css("display", "none");
+			 $(".nav pills").not(":nth-child(2)").css("display", "none");
+			 $("#ch").text("Upload files");
 			 $('.hip').hide();
 			// document.getElementById("myInput").style.visibility ="hidden";
 		}
@@ -109,8 +112,10 @@ $("#myTable .tbody tr").each(function(){
 			 $("#back").hide();
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
-			 
-			 document.getElementById("samplea").style.display = "none";
+			 // document.getElementById("samplea").style.display = "none";
+			 $(".nav pills").not(":nth-child(1)").css("display", "none");
+			 $(".nav pills").not(":nth-child(2)").css("display", "none");
+			 $("#ch").text("Upload files");
 			 $('.hip').hide();
 		}
 		else if(user.includes("[ROLE_ASSISTANT]")){
@@ -119,7 +124,10 @@ $("#myTable .tbody tr").each(function(){
 			 $("#back").hide();
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
-			 document.getElementById("samplea").style.display = "none";
+		//	 document.getElementById("samplea").style.display = "none";
+			 $(".nav pills").not(":nth-child(1)").css("display", "none");
+			 $(".nav pills").not(":nth-child(2)").css("display", "none");
+			 $("#ch").text("Upload files");
 			 $('.hip').hide();
 			 
 		}
@@ -129,7 +137,10 @@ $("#myTable .tbody tr").each(function(){
 			 $("#back").hide();
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
-			 document.getElementById("samplea").style.display = "none";
+			// document.getElementById("samplea").style.display = "none";
+			 $(".nav pills").not(":nth-child(1)").css("display", "none");
+			 $(".nav pills").not(":nth-child(2)").css("display", "none");
+			 $("#ch").text("Upload files");
 			 $('.hip').hide();
 		}
 		
@@ -713,7 +724,7 @@ $('#form1').draggable();
   <h1>
   
 	  <button type="button" id="samplea" class="btn btn-warning button1" onclick="openm()">
-	  <span class="glyphicon glyphicon-plus"></span>Lab Tests</button>
+	  <span class="glyphicon glyphicon-plus"></span><span id="ch">Lab Tests</span></button>
 <font size="5">LAB</font><span class="button2"><i class="glyphicon glyphicon-search"  style="color:#ff9900;margin: 4px 8px;"></i>
 		<input type="text" id="myInp" class="form-control input-sm button2" placeholder="Search by Patient Name or Id"  style="width:150px"/></span>
 	</h1>
@@ -819,7 +830,7 @@ $('#form1').draggable();
        <select class="selectpicker form-control btn btn" data-live-search="true" name = "pname1" id ="pname" onchange="addcname()"   >
           <option value="select" disabled selected>Select</option>
         <c:forEach var="p"  items="${model.list1}">
-        <option value="${p.pid},${p.pname},${p.fileno}">${p.pname}</option>
+        <option  data-subtext="${p.fileno}" value="${p.pid},${p.pname},${p.fileno}">${p.pname}</option>
         </c:forEach>
       </select></div>
       </div>
@@ -836,7 +847,7 @@ $('#form1').draggable();
              <select class="selectpicker form-control" data-width="100%"  data-live-search="true"  name = "pid1" id ="pid"  required>
       <option disabled selected>Select</option>
         <c:forEach var="p"  items="${model.list1}">
-        <option value="${p.pid},${p.pname},${p.fileno}">${p.pid}</option>
+        <option data-subtext="${p.fileno}" value="${p.pid},${p.pname},${p.fileno}">${p.pid}</option>
         </c:forEach>
       </select></div>
       </div>

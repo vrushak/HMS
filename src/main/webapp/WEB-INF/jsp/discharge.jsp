@@ -157,6 +157,10 @@ for(var i =0;i<hid.length;i++){
 function clos(){
 	window.location.reload();
 }
+
+function refresh(){
+	$('#investigation').val('');
+}
 </script>
  <script type="text/javascript">
        function doAjaxPost(userid) {
@@ -258,7 +262,7 @@ function clos(){
     	
     	          // var pid = $('#pid').val();
     
-    	           $.ajax({
+    	    $.ajax({
     	        	  
     	        	           type: "GET",
     	        	   
@@ -637,7 +641,7 @@ function clos(){
        <div class="col-xs-3">
    <div class="form-group">
  <p>Patient File No<span>*</span></p>
-   <select class="selectpicker form-control" data-size="6" data-live-search="true" name = "fileid" id ="fileid" onchange=""    required>
+   <select class="selectpicker form-control" data-size="6" data-live-search="true" name = "fileid" id ="fileid" onchange="refresh()"  required>
           <option value="select" selected disabled>Select</option>
           </select>
           

@@ -161,9 +161,9 @@ public class doctControllerDao {
 		public List<Prescription> getDocID2(String username,String userrole) {
 			
 			if(userrole.contains("[ROLE_DOCTOR]")){
-				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID  where ap.docid in (select userid from userrole where username = '"+username+"')  and ap.active = 'on'",new RowMapper<Prescription>(){  
+				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno,ap.active from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID  where ap.docid in (select userid from userrole where username = '"+username+"')  and ap.active = 'on'",new RowMapper<Prescription>(){  
 		        public Prescription mapRow(ResultSet rs, int row) throws SQLException {   
-		        	 System.out.println("code re");
+		        	
 			       Prescription p = new Prescription();
 			     
 			      p.setDocid(rs.getString(1));
@@ -174,14 +174,15 @@ public class doctControllerDao {
 			      p.setAppointment(rs.getString(5));
 			      p.setSpecialization(rs.getString(6));
 			      p.setFileno(rs.getString(7));
+			      p.setAc(rs.getString(8));
 			      p.setIdc("");
 			      return p;
 		        }
 			});
 			}
 			else{
-				System.out.println("inside else of docid");
-				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID where ap.active = 'on'",new RowMapper<Prescription>(){  
+			
+				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno,ap.active from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID where ap.active = 'on'",new RowMapper<Prescription>(){  
 			        public Prescription mapRow(ResultSet rs, int row) throws SQLException {   
 				       Prescription p = new Prescription();
 				      
@@ -194,8 +195,9 @@ public class doctControllerDao {
 				      p.setAppointment(rs.getString(5));
 				      p.setSpecialization(rs.getString(6));
 				      p.setFileno(rs.getString(7));
+				      p.setAc(rs.getString(8));
 				      p.setIdc("Admin");
-				      System.out.println("getid" + p.getIdc());
+				    
 				      return p;
 			        }
 				});

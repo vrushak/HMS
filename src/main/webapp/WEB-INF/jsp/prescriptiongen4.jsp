@@ -638,7 +638,7 @@ function doAjaxPost2() {
 	
 	  var counter = 1;
 	          var fileno = $('#fileno').val();
-	         
+	          $("#myTable .tbody tr").remove();	         
 	            //var docid = $('#docid').val();
 	             $.ajax({
 	        	  
@@ -673,7 +673,7 @@ if(response.length == 0){
     document.getElementById("dname").value = drug.dname;
    //  document.getElementById("diagnosed").value = drug.diagnosed;
       
-$("#myTable .tbody tr").remove();
+
   	var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
   	var rowsAdd = tableRef.insertRow(tableRef.rows.length);  
   	
@@ -687,19 +687,19 @@ $("#myTable .tbody tr").remove();
        	     	   var baf = "baf"+cnt;
 
   	  var newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><input type='text' class='form-control input-sm'  form ='form1'    id = 'typeofdr' value='"+drug.typeofdr+"' name= 'typeofdr'  required> </td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea class='form-control input-sm'  form ='form1'    id = 'typeofdr' oninput ='AutoGrowTextArea(this)' name= 'typeofdr'  required>"+drug.typeofdr+"</textarea></td></tr>";
   	  newCell.style.width ='100px';
   		 
   	  newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm'  value='"+drug.drugname+"' type='text' id = '"+tableRef.rows.length+"' name= 'drugname'  required> </td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm' oninput='AutoGrowTextArea(this)' id = '"+tableRef.rows.length+"' name= 'drugname'  required>"+drug.drugname+"</textarea></td></tr>";
   	  newCell.style.width ='100px';
   		 
   	  newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value='"+drug.strdrug+"' type='text' id = 'strdrug' name= 'strdrug'  required> </td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm' oninput='AutoGrowTextArea(this)' id = 'strdrug' name= 'strdrug'  required>"+drug.strdrug+"</textarea></td></tr>";
   	  newCell.style.width ='65px';
   	  
   	  newCell = rowsAdd.insertCell();
- 	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value='"+drug.dosage+"' type='text' id = 'dosage' name= 'dosage'  required> </td></tr>";
+ 	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm' oninput='AutoGrowTextArea(this)' id = 'dosage' name= 'dosage'  required>"+drug.dosage+"</textarea></td></tr>";
  	  newCell.style.width ='65px';
   		 
  	 newCell = rowsAdd.insertCell();
@@ -711,15 +711,15 @@ $("#myTable .tbody tr").remove();
      newCell.style.width ='120px';
     	  */
      newCell = rowsAdd.insertCell();
-     newCell.innerHTML="<tr><td><textarea form ='form1' class= 'form-control input-sm baf'  id = 'baf' name= 'baf' onfocus='AutoGrowTextArea(this)'>"+drug.baf+"</textarea></td></tr>";
+     newCell.innerHTML="<tr><td><textarea form ='form1' class= 'form-control input-sm baf'  id = 'baf' name= 'baf' oninput='AutoGrowTextArea(this)'>"+drug.baf+"</textarea></td></tr>";
      newCell.style.width ='100px';
   		 
   	  newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm'  type='text' value='"+drug.totn+"' id = 'totn' name= 'totn'  required> </td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm'  type='text' oninput='AutoGrowTextArea(this)' id = 'totn' name= 'totn'  required>"+drug.totn+"</textarea></td></tr>";
   	  newCell.style.width ='70px';
   		 
   	  newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><input  form ='form1'  class= 'form-control input-sm'  type='text' id = 'nofdays' value='"+drug.nofdays+"'name= 'nofdays'  required> </td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea  form ='form1'  class= 'form-control input-sm' id = 'nofdays'oninput='AutoGrowTextArea(this)' name= 'nofdays'  required>"+drug.nofdays+"</textarea></td></tr>";
   	  newCell.style.width ='70px';
   		 
   	 

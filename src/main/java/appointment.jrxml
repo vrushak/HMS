@@ -26,9 +26,9 @@
 	</background>
 	<title>
 		<band height="110" splitType="Stretch">
-			<image>
+			<image onErrorType="Blank">
 				<reportElement x="0" y="0" width="100" height="79" uuid="5b667f2d-4f2f-476e-8d0e-53a22bc528f4"/>
-				<imageExpression><![CDATA["C:/Users/techwedge3/Desktop/workspace/HMS/src/main/webapp/Images/logocms.jpg"]]></imageExpression>
+				<imageExpression><![CDATA["src/main/webapp/Images/logocms.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="370" y="0" width="200" height="20" uuid="ea5afee0-5930-4968-8b2a-10ae5bd262c5"/>
