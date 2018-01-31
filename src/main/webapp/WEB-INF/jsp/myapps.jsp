@@ -129,13 +129,13 @@ adminusr = user;
 if(adminusr.includes("[ROLE_ADMIN]")){
 		document.getElementById("docid").value = admnme;
 		document.getElementById("dname").value = admnme;
-		
+	  $("#nap").hide();
 	}
     	
 		if(user.includes("[ROLE_DOCTOR]") ){
 		 var url = "/HMS/doctor1" ;
 		 $("#back").hide();
-			
+	  $('#dname').val(admnme)		
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		
@@ -596,11 +596,11 @@ $(document).ready(function () {
 	 	 var currenttime  = dt.getHours() + ":" + dt.getMinutes();
 	 	
 	 	 
-if(currenttime > $("#time").val())
+if($("#time").val() < currenttime)
 	 	{
-	 	 	 alert("Appointments can be scheduled only for future time")
-		   	 $( "#time" ).val(currenttime);
-		         $(this).focus();         
+	 	 //	 alert("Appointments can be scheduled only for future time")
+		   	 //$( "#time" ).val(currenttime);
+		      //   $(this).focus();         
 	 	}
 		/*   
 		     if(currentTime.getHours() > parseInt(userTime[0]) || (currentTime.getMinutes()>parseInt(userTime[1]))){
@@ -691,7 +691,7 @@ $(document).ready(function(){
 </center>
  <form id="formab" action="" method="post">  
   <h1>
-	  <button type="button" class="btn btn-warning button1" data-toggle="modal" data-target="#myModal">
+	  <button type="button" id="nap" class="btn btn-warning button1" data-toggle="modal" data-target="#myModal">
 	  <span class="glyphicon glyphicon-plus"></span>New Appointment</button><font size="5">My Appointments</font><span class="button2"><i class="glyphicon glyphicon-search" style="color:#ff9900;margin: 4px 8px;"></i>
 		<input type="text" id="myInp" class="form-control input-sm button2" placeholder="Search by Patient Name or Id"  style="width:150px"/></span>
 	</h1>
@@ -790,7 +790,7 @@ $(document).ready(function(){
        <div class="col-xs-4">
   <div class="form-group">
                <p>Doctor Name<span>*</span></p>
-         <input type="text"  form="form1" id="dname" name="dname"  readonly class="form-control input-sm" required>
+         <input type="text"  form="form1" id="dname" name="dname" readonly class="form-control input-sm" required>
          <input type="hidden"  form="form1" id="docid" name="docid" class="form-control input-sm" required>
     
     </div>
@@ -862,6 +862,14 @@ $(document).ready(function(){
 //check('<c:out value="${p.docid}" />','<c:out value="${p.dname}" />','<c:out value="${p.specialization}" />');
 check('<c:out value="${p.docid}" />','<c:out value="${p.dname}" />');
 //checkhome('<c:out value="${p.docid}" />','<c:out value="${p.idc}" />');
+
+</script>
+</c:forEach>
+
+<c:forEach var="p"  items="${model.list15}">
+<script>
+
+$('#docid').val('<c:out value="${p.docID}" />')
 
 </script>
 </c:forEach>

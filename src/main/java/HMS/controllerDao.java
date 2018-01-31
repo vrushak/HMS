@@ -479,7 +479,7 @@ public int returnStks(Transaction s) {
 // appointments history
 public List<Appointment> getAppointment() {
 	// TODO Auto-generated method stub
-	return template.query("select ap.pid,concat(p.fname,' ',p.mname,' ',p.lname)patient,ap.docid,CONCAT(d.fname,' ',d.mname,' ',d.lname) doctor,ap.appointment,ap.time,CONCAT(ap.appointment,' ',ap.time),ap.fileno,ap.active from appointment ap join patient p on p.pid = ap.pid join doctor d on d.docID = ap.docid order by appointment,time",new RowMapper<Appointment>(){  
+	return template.query("select ap.pid,concat(p.fname,' ',p.mname,' ',p.lname)patient,ap.docid,CONCAT(d.fname,' ',d.mname,' ',d.lname) doctor,ap.appointment,ap.time,CONCAT(ap.appointment,' ',ap.time),ap.fileno,ap.active from appointment ap join patient p on p.pid = ap.pid join doctor d on d.docID = ap.docid order by appointment desc,time",new RowMapper<Appointment>(){  
         public Appointment mapRow(ResultSet rs, int row) throws SQLException {   
 	       Appointment p = new Appointment();
 	     
@@ -2422,6 +2422,42 @@ public List<Admitpat> getAdmitpat(String fileno) {
 	});
 }
 
+//appointment dashboard
+
+//appointments history
+public List<Appointment> getAppointment1() {
+	// TODO Auto-generated method stub
+	return template.query("select count(fileno) from appointment where appointment = curdate() and active='on'",new RowMapper<Appointment>(){  
+     public Appointment mapRow(ResultSet rs, int row) throws SQLException {   
+	       Appointment p = new Appointment();
+	     p.setAppointment(rs.getString(1));
+	        return p;
+     }
+	});
+}
+
+public List<Billgen> getBd() {
+	
+	return template.query("select count(distinct fileno) from billgen where invoicedate =DATE_FORMAT(curdate(), '%d-%m-%Y')",new RowMapper<Billgen>(){  
+        public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
+        	
+	       Billgen p = new Billgen();
+	       p.setAdmdate(rs.getString(1));
+		return p;
+        }
+	});
+}
+public List<Billgen> getBm() {
+	
+	return template.query("select count(distinct fileno) from billgen where DATE_FORMAT(STR_TO_DATE(invoicedate, '%d-%m-%Y'),'%Y-%m') = DATE_FORMAT(curdate(),'%Y-%m')",new RowMapper<Billgen>(){  
+        public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
+        	
+	       Billgen p = new Billgen();
+	       p.setDisdate(rs.getString(1));
+		return p;
+        }
+	});
+}
 }
 
 

@@ -150,7 +150,7 @@ function display(){
 	  newCell.style.width ='240px';
 	
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td width ='';><input form ='form' class= 'form-control input-sm' type='text'  id = 'charges' name= 'charges'  required  ></td></tr>";
+	  newCell.innerHTML="<tr><td width ='';><input form ='form' class= 'form-control input-sm' type='text'  id = 'charges' name= 'charges' value='0.00' required  ></td></tr>";
 	  newCell.style.width ='240px';
 	  
 	  checkhome(cuser)

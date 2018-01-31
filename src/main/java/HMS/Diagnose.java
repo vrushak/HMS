@@ -45,6 +45,27 @@ public class Diagnose {
 	private String pir;
 	private String pds;
 	private String admit;
+	private String tablename;
+	private String teid;
+	private String teethval;
+	public String getTeid() {
+		return teid;
+	}
+	public void setTeid(String teid) {
+		this.teid = teid;
+	}
+	public String getTeethval() {
+		return teethval;
+	}
+	public void setTeethval(String teethval) {
+		this.teethval = teethval;
+	}
+	public String getTablename() {
+		return tablename;
+	}
+	public void setTablename(String tablename) {
+		this.tablename = tablename;
+	}
 	public String getAdmit() {
 		return admit;
 	}

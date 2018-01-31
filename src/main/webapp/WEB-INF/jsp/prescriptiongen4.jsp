@@ -328,6 +328,21 @@ var c = document.getElementsByClassName("baf");
 for(var i=0;i<c.length;i++){
 	AutoGrowTextArea(c[i])
 }
+
+var d = document.getElementsByClassName("drname");
+for(var i=0;i<d.length;i++){
+	AutoGrowTextArea(d[i])
+}
+
+var e = document.getElementsByClassName("strdrg");
+for(var i=0;i<e.length;i++){
+	AutoGrowTextArea(e[i])
+}
+
+var f = document.getElementsByClassName("name");
+for(var i=0;i<e.length;i++){
+	AutoGrowTextArea(f[i])
+}
 	
 	document.getElementById("close").style.display = "none";
 	//document.getElementById("di").style.display = "none";
@@ -450,12 +465,12 @@ function display(){
 	  newCell.style.width ='100px';
 		 
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value=' ' type='text' id = 'dosage' name= 'dosage'  required> </td></tr>";
+	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm baf' value=' ' type='text' id = 'dosage' name= 'dosage'  required> </td></tr>";
 	  newCell.style.width ='50px';
 		 
 	  
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><select  form ='form1' class= 'form-control input-sm'   id = 'dm'  name= 'dm'  ><option value='PRN'>PRN</option><option value='OD'>OD</option><option value='BD'>BD</option><option value='TDS'>TDS</option><option value='QID'>QID</option><option value='OTHERS'>OTHERS</option></select> </td></tr>";
+	  newCell.innerHTML="<tr><td><select  form ='form1' class= 'form-control input-sm baf'   id = 'dm'  name= 'dm'  ><option value='PRN'>PRN</option><option value='OD'>OD</option><option value='BD'>BD</option><option value='TDS'>TDS</option><option value='QID'>QID</option><option value='OTHERS'>OTHERS</option></select> </td></tr>";
 	  newCell.style.width ='20px';
 	  /*
 	  newCell = rowsAdd.insertCell();
@@ -469,11 +484,11 @@ function display(){
 	  newCell.style.width ='100px';
 	  
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value=' ' type='text' id = 'totn' name= 'totn'  required> </td></tr>";
+	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm baf' value=' ' type='text' id = 'totn' name= 'totn'  required> </td></tr>";
 	  newCell.style.width ='70px';
 		 
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value=' ' type='text' id = 'nofdays' name= 'nofdays'  required> </td></tr>";
+	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm baf' value=' ' type='text' id = 'nofdays' name= 'nofdays'  required> </td></tr>";
 	  newCell.style.width ='50px';
 		 
 	
@@ -687,15 +702,15 @@ if(response.length == 0){
        	     	   var baf = "baf"+cnt;
 
   	  var newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><textarea class='form-control input-sm'  form ='form1'    id = 'typeofdr' oninput ='AutoGrowTextArea(this)' name= 'typeofdr'  required>"+drug.typeofdr+"</textarea></td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea class='form-control input-sm name'  form ='form1'    id = 'typeofdr' oninput ='AutoGrowTextArea(this)'  name= 'typeofdr'  required>"+drug.typeofdr+"</textarea></td></tr>";
   	  newCell.style.width ='100px';
   		 
   	  newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm' oninput='AutoGrowTextArea(this)' id = '"+tableRef.rows.length+"' name= 'drugname'  required>"+drug.drugname+"</textarea></td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm drname' oninput ='AutoGrowTextArea(this)'  id = '"+tableRef.rows.length+"' name= 'drugname'  required>"+drug.drugname+"</textarea></td></tr>";
   	  newCell.style.width ='100px';
   		 
   	  newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm' oninput='AutoGrowTextArea(this)' id = 'strdrug' name= 'strdrug'  required>"+drug.strdrug+"</textarea></td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm strdrg' oninput='AutoGrowTextArea(this)' id = 'strdrug' name= 'strdrug'  required>"+drug.strdrug+"</textarea></td></tr>";
   	  newCell.style.width ='65px';
   	  
   	  newCell = rowsAdd.insertCell();
@@ -715,11 +730,11 @@ if(response.length == 0){
      newCell.style.width ='100px';
   		 
   	  newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm'  type='text' oninput='AutoGrowTextArea(this)' id = 'totn' name= 'totn'  required>"+drug.totn+"</textarea></td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm'  type='text' id = 'totn' oninput='AutoGrowTextArea(this)'  name= 'totn'  required>"+drug.totn+"</textarea></td></tr>";
   	  newCell.style.width ='70px';
   		 
   	  newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><textarea  form ='form1'  class= 'form-control input-sm' id = 'nofdays'oninput='AutoGrowTextArea(this)' name= 'nofdays'  required>"+drug.nofdays+"</textarea></td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea  form ='form1'  class= 'form-control input-sm' id = 'nofdays' oninput='AutoGrowTextArea(this)' name= 'nofdays'  required>"+drug.nofdays+"</textarea></td></tr>";
   	  newCell.style.width ='70px';
   		 
   	 
@@ -859,6 +874,7 @@ if(response.length == 0){
       
  	      // console.log(this.getElementsByTagName('input')[0].value);
  	     addpe = this.getElementsByTagName('input')[0].id;
+ 	 
 	    	var isOpen = $( "#myModal2" ).dialog( "isOpen" );
 	        
 	    	if(isOpen == true){

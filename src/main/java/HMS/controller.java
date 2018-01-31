@@ -1896,6 +1896,10 @@ public class controller {
 						       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
 						
 							}  
+	                  
+	                  //dash board reports
+	                 
+	                  
 }
 
 

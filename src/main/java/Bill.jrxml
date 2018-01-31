@@ -39,6 +39,121 @@
 			<groupExpression><![CDATA[$F{total}]]></groupExpression>
 		</group>
 	</subDataset>
+	<subDataset name="Dataset2" uuid="998f9d37-411c-464a-8a3d-65af9a776b82">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="My Sql"/>
+		<queryString language="SQL">
+			<![CDATA[select * from billgen]]>
+		</queryString>
+		<field name="invoice" class="java.lang.String"/>
+		<field name="invoicedate" class="java.lang.String"/>
+		<field name="pname" class="java.lang.String"/>
+		<field name="pid" class="java.lang.String"/>
+		<field name="address" class="java.lang.String"/>
+		<field name="wardno" class="java.lang.String"/>
+		<field name="admdate" class="java.lang.String"/>
+		<field name="doctor" class="java.lang.String"/>
+		<field name="disdate" class="java.lang.String"/>
+		<field name="cashier" class="java.lang.String"/>
+		<field name="feetype" class="java.lang.String"/>
+		<field name="charges" class="java.lang.String"/>
+		<field name="price" class="java.lang.String"/>
+		<field name="subtotal" class="java.lang.String"/>
+		<field name="tax" class="java.lang.String"/>
+		<field name="discount" class="java.lang.String"/>
+		<field name="total" class="java.lang.String"/>
+		<field name="docid" class="java.lang.String"/>
+		<field name="admitno" class="java.lang.String"/>
+		<field name="mid" class="java.lang.String"/>
+		<field name="policyholder" class="java.lang.String"/>
+		<field name="policyno" class="java.lang.String"/>
+		<field name="insurancec" class="java.lang.String"/>
+		<field name="type" class="java.lang.String"/>
+		<field name="quantity" class="java.lang.String"/>
+		<field name="fileno" class="java.lang.String"/>
+		<field name="prch" class="java.lang.String"/>
+		<group name="invoice">
+			<groupExpression><![CDATA[$F{invoice}]]></groupExpression>
+		</group>
+		<group name="invoicedate">
+			<groupExpression><![CDATA[$F{invoicedate}]]></groupExpression>
+		</group>
+		<group name="pname">
+			<groupExpression><![CDATA[$F{pname}]]></groupExpression>
+		</group>
+		<group name="pid">
+			<groupExpression><![CDATA[$F{pid}]]></groupExpression>
+		</group>
+		<group name="address">
+			<groupExpression><![CDATA[$F{address}]]></groupExpression>
+		</group>
+		<group name="wardno">
+			<groupExpression><![CDATA[$F{wardno}]]></groupExpression>
+		</group>
+		<group name="admdate">
+			<groupExpression><![CDATA[$F{admdate}]]></groupExpression>
+		</group>
+		<group name="doctor">
+			<groupExpression><![CDATA[$F{doctor}]]></groupExpression>
+		</group>
+		<group name="disdate">
+			<groupExpression><![CDATA[$F{disdate}]]></groupExpression>
+		</group>
+		<group name="cashier">
+			<groupExpression><![CDATA[$F{cashier}]]></groupExpression>
+		</group>
+		<group name="feetype">
+			<groupExpression><![CDATA[$F{feetype}]]></groupExpression>
+		</group>
+		<group name="charges">
+			<groupExpression><![CDATA[$F{charges}]]></groupExpression>
+		</group>
+		<group name="price">
+			<groupExpression><![CDATA[$F{price}]]></groupExpression>
+		</group>
+		<group name="subtotal">
+			<groupExpression><![CDATA[$F{subtotal}]]></groupExpression>
+		</group>
+		<group name="tax">
+			<groupExpression><![CDATA[$F{tax}]]></groupExpression>
+		</group>
+		<group name="discount">
+			<groupExpression><![CDATA[$F{discount}]]></groupExpression>
+		</group>
+		<group name="total">
+			<groupExpression><![CDATA[$F{total}]]></groupExpression>
+		</group>
+		<group name="docid">
+			<groupExpression><![CDATA[$F{docid}]]></groupExpression>
+		</group>
+		<group name="admitno">
+			<groupExpression><![CDATA[$F{admitno}]]></groupExpression>
+		</group>
+		<group name="mid">
+			<groupExpression><![CDATA[$F{mid}]]></groupExpression>
+		</group>
+		<group name="policyholder">
+			<groupExpression><![CDATA[$F{policyholder}]]></groupExpression>
+		</group>
+		<group name="policyno">
+			<groupExpression><![CDATA[$F{policyno}]]></groupExpression>
+		</group>
+		<group name="insurancec">
+			<groupExpression><![CDATA[$F{insurancec}]]></groupExpression>
+		</group>
+		<group name="type">
+			<groupExpression><![CDATA[$F{type}]]></groupExpression>
+		</group>
+		<group name="quantity">
+			<groupExpression><![CDATA[$F{quantity}]]></groupExpression>
+		</group>
+		<group name="fileno">
+			<groupExpression><![CDATA[$F{fileno}]]></groupExpression>
+		</group>
+		<group name="prch">
+			<groupExpression><![CDATA[$F{prch}]]></groupExpression>
+		</group>
+	</subDataset>
 	<parameter name="realPath" class="java.lang.String" isForPrompting="false">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[$P{realPath}+"/Images/logocms.jpg"]]></defaultValueExpression>
@@ -199,7 +314,7 @@ E-mail : lilayifamilyclinic@yahoo.com,TPIN NO :LFC098
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="91" splitType="Stretch">
+		<band height="89" splitType="Stretch">
 			<textField>
 				<reportElement x="71" y="0" width="70" height="31" uuid="0e730170-9e2a-44a6-9a30-1d3853d0c4c4"/>
 				<textFieldExpression><![CDATA[$F{pname}]]></textFieldExpression>
@@ -260,7 +375,7 @@ E-mail : lilayifamilyclinic@yahoo.com,TPIN NO :LFC098
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<box>
-					<pen lineWidth="1.0"/>
+					<pen lineWidth="0.7"/>
 				</box>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
@@ -270,7 +385,7 @@ E-mail : lilayifamilyclinic@yahoo.com,TPIN NO :LFC098
 			<staticText>
 				<reportElement x="251" y="60" width="79" height="28" uuid="de1573c9-3162-44db-a691-d7ce5067bda1"/>
 				<box>
-					<pen lineWidth="1.0"/>
+					<pen lineWidth="0.7"/>
 				</box>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
@@ -290,51 +405,61 @@ E-mail : lilayifamilyclinic@yahoo.com,TPIN NO :LFC098
 			<staticText>
 				<reportElement x="417" y="60" width="138" height="28" uuid="2dcd36f7-d652-47a0-a178-537303f8cf7e"/>
 				<box>
-					<pen lineWidth="1.0"/>
+					<pen lineWidth="0.7"/>
 				</box>
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Total Charges]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="50" height="30" uuid="2fd194bb-2eb7-4402-9b29-72df2df2abd5"/>
+				<text><![CDATA[Policy No:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="50" y="31" width="92" height="29" uuid="747a6303-5f07-4789-8cbf-0472b788355f"/>
+				<textFieldExpression><![CDATA[$F{policyno} +".00"]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="61" splitType="Stretch">
+		<band height="74" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" x="251" y="-3" width="79" height="13" uuid="cb33ac92-1119-45f8-b8ab-108c924d8e21">
-					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
-					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
-				</reportElement>
-				<box>
-					<pen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{charges}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="330" y="-3" width="87" height="13" uuid="f4331113-458e-4601-b77c-2d64fa0aaa46"/>
-				<box>
-					<pen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="417" y="-3" width="138" height="13" uuid="99825dd5-e596-4274-95bf-3bc75faa3654"/>
-				<box>
-					<pen lineWidth="1.0" lineStyle="Solid"/>
-				</box>
-				<textElement textAlignment="Right"/>
-				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
-			</textField>
-			<textField isStretchWithOverflow="true">
-				<reportElement x="0" y="-3" width="251" height="13" uuid="de42b711-702e-4bb5-9e91-536786d9ee84"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="251" height="13" uuid="de42b711-702e-4bb5-9e91-536786d9ee84"/>
 				<box>
 					<pen lineWidth="0.7"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{feetype}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#.00#">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="251" y="0" width="79" height="13" uuid="cb33ac92-1119-45f8-b8ab-108c924d8e21">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.7"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{charges}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="330" y="0" width="87" height="13" uuid="f4331113-458e-4601-b77c-2d64fa0aaa46"/>
+				<box>
+					<pen lineWidth="0.7"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00#;(#,##0.00#-)">
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="417" y="0" width="138" height="13" uuid="99825dd5-e596-4274-95bf-3bc75faa3654">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.7" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="Float" x="0" y="20" width="50" height="19" uuid="368ab89b-6114-4c42-81a5-884f2c43253a"/>
@@ -348,57 +473,57 @@ E-mail : lilayifamilyclinic@yahoo.com,TPIN NO :LFC098
 				<textFieldExpression><![CDATA[$F{subtotal}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="140" y="21" width="30" height="19" uuid="eaf4c91d-b4da-403c-a546-73ead89434c3"/>
-				<textElement>
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[Tax :]]></text>
-			</staticText>
-			<textField>
-				<reportElement positionType="Float" x="170" y="21" width="70" height="20" uuid="d005b3a1-fc3b-4272-b556-87115a6de0f2"/>
-				<textFieldExpression><![CDATA[$F{tax}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement positionType="Float" x="260" y="21" width="50" height="19" uuid="af913dda-8c27-45fc-9001-7d4a8b75eb1f"/>
-				<textElement>
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[Discount :]]></text>
-			</staticText>
-			<textField>
-				<reportElement positionType="Float" x="310" y="22" width="68" height="19" uuid="a09e219b-bc67-4f3d-8979-6db4fdfc9d8f"/>
-				<textFieldExpression><![CDATA[$F{discount}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement positionType="Float" x="400" y="22" width="61" height="20" uuid="832f75a5-18e6-400b-af5d-fe4d971047d1"/>
-				<textElement>
-					<font isBold="false"/>
-				</textElement>
-				<text><![CDATA[Total :]]></text>
-			</staticText>
-			<textField>
-				<reportElement positionType="Float" x="461" y="22" width="94" height="20" uuid="1602fe46-462b-4f8d-9dca-5d58df307f72"/>
-				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement positionType="Float" x="0" y="40" width="50" height="20" uuid="91049e22-7567-4b22-a9fa-e067b652f6d1"/>
+				<reportElement positionType="Float" x="0" y="50" width="50" height="20" uuid="91049e22-7567-4b22-a9fa-e067b652f6d1"/>
 				<textElement>
 					<font isBold="false"/>
 				</textElement>
 				<text><![CDATA[Cashier :]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="Float" x="50" y="40" width="92" height="20" uuid="0acef384-aa87-4929-81ac-19ba9b47330a"/>
+				<reportElement positionType="Float" x="50" y="50" width="92" height="20" uuid="0acef384-aa87-4929-81ac-19ba9b47330a"/>
 				<textFieldExpression><![CDATA[$F{cashier}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="Float" x="400" y="41" width="61" height="20" uuid="c7799eef-8c92-449c-923a-6758baa12b5c"/>
+				<reportElement positionType="Float" x="140" y="20" width="30" height="19" uuid="eaf4c91d-b4da-403c-a546-73ead89434c3"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Tax :]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="170" y="20" width="70" height="20" uuid="d005b3a1-fc3b-4272-b556-87115a6de0f2"/>
+				<textFieldExpression><![CDATA[$F{tax}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="252" y="21" width="50" height="19" uuid="af913dda-8c27-45fc-9001-7d4a8b75eb1f"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Discount :]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="300" y="21" width="68" height="19" uuid="a09e219b-bc67-4f3d-8979-6db4fdfc9d8f"/>
+				<textFieldExpression><![CDATA[$F{discount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="390" y="21" width="61" height="20" uuid="832f75a5-18e6-400b-af5d-fe4d971047d1"/>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Total :]]></text>
+			</staticText>
+			<textField>
+				<reportElement positionType="Float" x="450" y="21" width="94" height="20" uuid="1602fe46-462b-4f8d-9dca-5d58df307f72"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="390" y="50" width="61" height="20" uuid="c7799eef-8c92-449c-923a-6758baa12b5c"/>
 				<text><![CDATA[Signature:]]></text>
 			</staticText>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="40" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
 		<band height="54" splitType="Stretch"/>

@@ -185,11 +185,12 @@ $( function() {
 		  	  var isOpen = $( "#result" ).dialog( "isOpen" );
 		        
 		    	if(isOpen == true){
-		    	  
+		    	
 		    	  $( "#result" ).dialog( "open" );
 		      }
 		      else{
-		    	
+		    	  $("#admdate").val('');
+		    	  $("#disdate").val('');
 		    
 		    	 $( "#result" ).dialog( "open" );
 		      }

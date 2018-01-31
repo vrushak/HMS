@@ -65,6 +65,7 @@ function checkhome(user){
 		// var element = document.getElementById('ho');
 		// element.setAttribute("href",url)
 		 $("#hided").remove();
+		 $("#hidedd").remove()
 		$("#back").hide();
 	}
 	
@@ -277,8 +278,29 @@ window.location = "/HMS/doctor1.html";
 
      
       </figure>
+    </div>
+    
+     
+   <div class="col-xs-2">
+      <figure>
+     
+       <img src="<c:url value='/Images/GCH.png'/>"/><br><br>
+      <figcaption><input type="button" onclick="location.href='/HMS/cdiagnose'" value="Dental Diagnosis"></figcaption>
+     
+      </figure>
+    </div>
+    
+   <div class="col-xs-2" id="hidedd">
+      <figure>
+     
+       <img src="<c:url value='/Images/GCH.png'/>"/><br><br>
+
+      <figcaption><input type="button" onclick="location.href='/HMS/cdiagnose/config'" value="Dental Diagnosis Configuration"></figcaption>
+
+     
+      </figure>
     </div> 
-   
+     
      
    
    </div>
