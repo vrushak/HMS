@@ -84,7 +84,7 @@ public class controllerDao {
 		       pia.setDob(rs.getString(5));
 		       pia.setAge(rs.getString(6));
 		       pia.setGender(rs.getString(7));
-		       System.out.println(rs.getString(7));
+		    
 		       pia.setMstatus(rs.getString(8));
 		       pia.setPofvisit(rs.getString(9));
 		       pia.setLandphone(rs.getString(10));
@@ -105,7 +105,7 @@ public class controllerDao {
 		       pia.setFo(rs.getString(24));
 		       pia.setModate(rs.getString(25));
 		       pia.setFodate(rs.getString(26));
-		      System.out.println(pia.getFname());
+	
 		    
 		   return pia;
 	        }
@@ -479,7 +479,7 @@ public int returnStks(Transaction s) {
 // appointments history
 public List<Appointment> getAppointment() {
 	// TODO Auto-generated method stub
-	return template.query("select ap.pid,concat(p.fname,' ',p.mname,' ',p.lname)patient,ap.docid,CONCAT(d.fname,' ',d.mname,' ',d.lname) doctor,ap.appointment,ap.time,CONCAT(ap.appointment,' ',ap.time),ap.fileno,ap.active from appointment ap join patient p on p.pid = ap.pid join doctor d on d.docID = ap.docid order by appointment,time",new RowMapper<Appointment>(){  
+	return template.query("select ap.pid,concat(p.fname,' ',p.mname,' ',p.lname)patient,ap.docid,CONCAT(d.fname,' ',d.mname,' ',d.lname) doctor,ap.appointment,ap.time,CONCAT(ap.appointment,' ',ap.time),ap.fileno,ap.active from appointment ap join patient p on p.pid = ap.pid join doctor d on d.docID = ap.docid order by appointment desc,time",new RowMapper<Appointment>(){  
         public Appointment mapRow(ResultSet rs, int row) throws SQLException {   
 	       Appointment p = new Appointment();
 	     
@@ -781,7 +781,7 @@ public List<Billgen> getBill1() {
 	       p.setFileno(rs.getString(3));
 	       p.setWardno(rs.getString(4));
 	       p.setAdmdate(rs.getString(5));
-	       System.out.println(rs.getString(5));
+	     
 	      // p.setAddress(rs.getString(5));
 	       p.setDname(rs.getString(6));
 	       p.setAdmitno(rs.getString(7));
@@ -802,9 +802,9 @@ public List<Billgen> getBill() {
 	});
 }
 
-public List<Billgen> getBill2(String pid,String name,String fileno) {
+public List<Billgen> getBill2(String pid,String name) {
 	
-	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,quantity from billgen where pname = '"+name+"' or pid='"+pid+"' or fileno = '"+fileno+"'",new RowMapper<Billgen>(){  
+	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,quantity from billgen where pname = '"+name+"' or pid='"+pid+"'",new RowMapper<Billgen>(){  
         public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
        
 	       Billgen p = new Billgen();
@@ -842,11 +842,52 @@ public List<Billgen> getBill2(String pid,String name,String fileno) {
         }
 	});
 }
+//for printing induvidual report based on invoice id
 
-
-public List<Billgen> getBill3() {
+public List<Billgen> getBill3a(String invid) {
 	
-	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,quantity,prch from billgen",new RowMapper<Billgen>(){  
+	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,REPLACE(feetype, ',', '\n'),REPLACE(charges, ',', '\n'),REPLACE(price, ',', '\n'),subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,REPLACE(quantity, ',', '\n') from billgen where invoice = '"+invid+"'",new RowMapper<Billgen>(){  
+        public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
+       
+	       Billgen p = new Billgen();
+	       p.setInvoice(rs.getString(1));
+	       p.setInvoicedate(rs.getString(2));
+	       p.setPname(rs.getString(3));
+	       p.setPid(rs.getString(4));
+	       p.setAddress(rs.getString(5));
+	       p.setWardno(rs.getString(6));
+	       p.setDoctor(rs.getString(7));
+	       p.setAdmdate(rs.getString(8));
+	       p.setDisdate(rs.getString(9));
+	       p.setCashier(rs.getString(10));
+	       p.setFeetype(rs.getString(11));
+	       p.setCharges(rs.getString(12));
+	       p.setPrice(rs.getString(13));
+	       p.setSubtotal(rs.getString(14));
+	      
+	       p.setTax(rs.getString(15)); 
+	       
+	       
+	       p.setDiscount(rs.getString(16));
+	       p.setTotal(rs.getString(17));
+	       p.setAdmitno(rs.getString(18));
+	       p.setMid(rs.getString(19));
+	       p.setPolicyholder(rs.getString(20));
+	   
+	       p.setPolicyno(rs.getString(21));
+	       p.setInsurancec(rs.getString(22));
+	       p.setType(rs.getString(23));
+	       p.setFileno(rs.getString(24));
+	       p.setQuantity(rs.getString(25));
+	      
+		return p;
+        }
+	});
+}
+//for printing overall reports
+public List<Billgen> getBill3(String fdate,String edate) {
+	
+	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,quantity,prch from billgen where invoicedate between '"+fdate+"' and '"+edate+"'",new RowMapper<Billgen>(){  
         public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
        
 	       Billgen p = new Billgen();
@@ -969,10 +1010,10 @@ public List<Prescription> search(){
 	return template.query("select erpho.productstock.name,round(sum(currentstock),0) from erpho.productstock where  erpho.productstock.currentstock > 0 group by productstock.name",new RowMapper<Prescription>(){  
         public Prescription mapRow(ResultSet rs, int row) throws SQLException {  
             Prescription s=new Prescription();  
-           System.out.println(rs.getString(1));
+      
             s.setDrugn(rs.getString(1));
             s.setPstock1(rs.getInt(2));
-            System.out.println(rs.getInt(2));
+           
        return s;
 	
 }
@@ -2381,6 +2422,42 @@ public List<Admitpat> getAdmitpat(String fileno) {
 	});
 }
 
+//appointment dashboard
+
+//appointments history
+public List<Appointment> getAppointment1() {
+	// TODO Auto-generated method stub
+	return template.query("select count(fileno) from appointment where appointment = curdate() and active='on'",new RowMapper<Appointment>(){  
+     public Appointment mapRow(ResultSet rs, int row) throws SQLException {   
+	       Appointment p = new Appointment();
+	     p.setAppointment(rs.getString(1));
+	        return p;
+     }
+	});
+}
+
+public List<Billgen> getBd() {
+	
+	return template.query("select count(distinct fileno) from billgen where invoicedate =DATE_FORMAT(curdate(), '%d-%m-%Y')",new RowMapper<Billgen>(){  
+        public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
+        	
+	       Billgen p = new Billgen();
+	       p.setAdmdate(rs.getString(1));
+		return p;
+        }
+	});
+}
+public List<Billgen> getBm() {
+	
+	return template.query("select count(distinct fileno) from billgen where DATE_FORMAT(STR_TO_DATE(invoicedate, '%d-%m-%Y'),'%Y-%m') = DATE_FORMAT(curdate(),'%Y-%m')",new RowMapper<Billgen>(){  
+        public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
+        	
+	       Billgen p = new Billgen();
+	       p.setDisdate(rs.getString(1));
+		return p;
+        }
+	});
+}
 }
 
 

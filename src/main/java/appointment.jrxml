@@ -3,6 +3,9 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="appointment" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c9c4365-017f-496e-995d-33b81384cc93">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="My Sql"/>
+	<parameter name="realPath" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{realPath}+"/Images/logocms.jpg"]]></defaultValueExpression>
+	</parameter>
 	<field name="pid" class="java.lang.String"/>
 	<field name="pname" class="java.lang.String"/>
 	<field name="docid" class="java.lang.String"/>
@@ -25,10 +28,10 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="110" splitType="Stretch">
-			<image>
+		<band height="121" splitType="Stretch">
+			<image onErrorType="Blank">
 				<reportElement x="0" y="0" width="100" height="79" uuid="5b667f2d-4f2f-476e-8d0e-53a22bc528f4"/>
-				<imageExpression><![CDATA["C:/Users/techwedge3/Desktop/workspace/HMS/src/main/webapp/Images/logocms.jpg"]]></imageExpression>
+				<imageExpression><![CDATA[$P{realPath}+"/Images/logocms.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="370" y="0" width="200" height="20" uuid="ea5afee0-5930-4968-8b2a-10ae5bd262c5"/>
@@ -40,9 +43,9 @@
 			<staticText>
 				<reportElement x="370" y="20" width="200" height="54" uuid="09da0091-d5b7-4bae-ae78-aa5d4975d6c2"/>
 				<text><![CDATA[Plot 4014A,Lusaka-Zambia,P.O Box 32680,
-Contact: +260 962 151 935
+Contact: +260 962 151 935,
 E-mail : lilayifamilyclinic@yahoo.com
-TPIN NO :LFC098]]></text>
+]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="220" y="80" width="100" height="30" uuid="1265826d-070c-4e81-a59c-db43f4326008"/>
@@ -51,6 +54,14 @@ TPIN NO :LFC098]]></text>
 				</textElement>
 				<text><![CDATA[Appointment Slip]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="440" y="80" width="40" height="40" uuid="7962c097-83de-4f05-839b-b39e0e15c56d"/>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
+			<textField pattern="M/d/yy h:mm a">
+				<reportElement x="480" y="80" width="74" height="41" uuid="33fcc3ff-7263-4b03-b570-13b03e9b8bed"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<pageHeader>
@@ -58,14 +69,14 @@ TPIN NO :LFC098]]></text>
 			<staticText>
 				<reportElement x="0" y="0" width="80" height="39" uuid="b84b6802-2bf4-4ea7-a681-41602c98a38d"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Patient Id :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="0" width="100" height="39" uuid="60993fcf-975a-4dd5-8866-556cc554eea4"/>
+				<reportElement x="200" y="0" width="100" height="39" uuid="60993fcf-975a-4dd5-8866-556cc554eea4"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Patient Name :]]></text>
 			</staticText>
@@ -74,8 +85,19 @@ TPIN NO :LFC098]]></text>
 				<textFieldExpression><![CDATA[$F{pid}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="3" width="100" height="36" uuid="6944f6bc-9489-48ae-8a50-a5524d87135b"/>
+				<reportElement x="300" y="1" width="100" height="36" uuid="6944f6bc-9489-48ae-8a50-a5524d87135b"/>
 				<textFieldExpression><![CDATA[$F{pname}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="410" y="0" width="50" height="39" uuid="48585f4c-b548-4e89-bb0c-3eaab82240bf"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Doctor :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="1" width="100" height="38" uuid="f6eb6529-d561-4b3e-95ad-81c1af0f514b"/>
+				<textFieldExpression><![CDATA[$F{dname}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -84,14 +106,14 @@ TPIN NO :LFC098]]></text>
 			<staticText>
 				<reportElement x="0" y="0" width="80" height="46" uuid="4b13ffba-c157-4563-bbc7-52c2e7be0a70"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[File No :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="0" width="100" height="45" uuid="8639adc9-040a-4eb5-9273-05cc53bc4a39"/>
+				<reportElement x="200" y="1" width="100" height="45" uuid="8639adc9-040a-4eb5-9273-05cc53bc4a39"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Appointment :]]></text>
 			</staticText>
@@ -100,19 +122,8 @@ TPIN NO :LFC098]]></text>
 				<textFieldExpression><![CDATA[$F{fileno}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="380" y="0" width="100" height="46" uuid="07f1dfa5-e853-44d8-8658-139c0d3e1d9e"/>
+				<reportElement x="300" y="0" width="100" height="46" uuid="07f1dfa5-e853-44d8-8658-139c0d3e1d9e"/>
 				<textFieldExpression><![CDATA[$F{appointment}]]></textFieldExpression>
-			</textField>
-			<staticText>
-				<reportElement x="1" y="45" width="79" height="30" uuid="48585f4c-b548-4e89-bb0c-3eaab82240bf"/>
-				<textElement>
-					<font size="12" isBold="true"/>
-				</textElement>
-				<text><![CDATA[Doctor :]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="80" y="46" width="100" height="30" uuid="f6eb6529-d561-4b3e-95ad-81c1af0f514b"/>
-				<textFieldExpression><![CDATA[$F{dname}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>

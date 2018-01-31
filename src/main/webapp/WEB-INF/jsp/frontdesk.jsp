@@ -547,7 +547,7 @@ function myconfirm()
        
  
 </div>
-       <button type="" class="bouton-contact"></button>
+       <button type="" class="bouton-contact" disabled></button>
        </form>
 </div>
  

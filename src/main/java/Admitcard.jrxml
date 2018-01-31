@@ -3,6 +3,9 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Admitcard" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="380a5499-1709-4c25-a694-e3327c4ed8db">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="My Sql"/>
+	<parameter name="realPath" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{realPath}+"/Images/logocms.jpg"]]></defaultValueExpression>
+	</parameter>
 	<field name="pid" class="java.lang.String"/>
 	<field name="pname" class="java.lang.String"/>
 	<field name="docid" class="java.lang.String"/>
@@ -52,9 +55,9 @@
 	</background>
 	<title>
 		<band height="108" splitType="Stretch">
-			<image>
+			<image onErrorType="Blank">
 				<reportElement x="0" y="0" width="80" height="79" uuid="3f6c660c-8afc-465d-a7c3-dc6131857bad"/>
-				<imageExpression><![CDATA["C:/Users/techwedge3/Desktop/workspace/HMS/src/main/webapp/Images/logocms.jpg"]]></imageExpression>
+				<imageExpression><![CDATA[$P{realPath}+"/Images/logocms.jpg"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="370" y="0" width="200" height="30" uuid="43a0895f-9a3d-4603-92fe-fdc026ebac66"/>
@@ -73,7 +76,7 @@ TPIN NO :LFC098]]></text>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch">
+		<band height="50" splitType="Stretch">
 			<staticText>
 				<reportElement x="227" y="4" width="100" height="30" uuid="6c1d58a1-f9a7-4939-a337-473d74fe9d49"/>
 				<textElement>
@@ -81,29 +84,29 @@ TPIN NO :LFC098]]></text>
 				</textElement>
 				<text><![CDATA[Admit Card]]></text>
 			</staticText>
-			<textField pattern="MMMMM dd, yyyy">
-				<reportElement x="370" y="2" width="100" height="30" uuid="dd5dcb8d-b94c-4149-aafa-f32f12a3f096"/>
+			<textField pattern="M/d/yy h:mm a">
+				<reportElement x="480" y="4" width="90" height="30" uuid="dd5dcb8d-b94c-4149-aafa-f32f12a3f096"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<textField pattern="HH:mm">
-				<reportElement x="470" y="2" width="100" height="30" uuid="d699b68c-07e0-4a5a-ab7e-69daedd06f2f"/>
-				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-			</textField>
+			<staticText>
+				<reportElement x="450" y="4" width="30" height="30" uuid="b525301e-d505-4781-bba9-a3ec26ae8007"/>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="59" splitType="Stretch">
+		<band height="46" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="9" width="80" height="30" uuid="5285b970-9149-406d-94d2-53f2cbb3edda"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Admit No:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="9" width="100" height="30" uuid="94fd3cb5-c81f-4d02-9c93-5f3872f4e6d0"/>
+				<reportElement x="380" y="9" width="50" height="30" uuid="94fd3cb5-c81f-4d02-9c93-5f3872f4e6d0"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[File No :]]></text>
 			</staticText>
@@ -112,7 +115,7 @@ TPIN NO :LFC098]]></text>
 				<textFieldExpression><![CDATA[$F{admitno}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="480" y="9" width="90" height="30" uuid="f94f69f7-453d-42de-a892-b5a61af66f23"/>
+				<reportElement x="430" y="10" width="90" height="30" uuid="f94f69f7-453d-42de-a892-b5a61af66f23"/>
 				<textFieldExpression><![CDATA[$F{fileno}]]></textFieldExpression>
 			</textField>
 		</band>
@@ -120,69 +123,69 @@ TPIN NO :LFC098]]></text>
 	<detail>
 		<band height="100" splitType="Stretch">
 			<staticText>
-				<reportElement x="-10" y="10" width="90" height="30" uuid="b035cd4c-6232-4bab-8671-1700749dbef5"/>
+				<reportElement x="0" y="0" width="80" height="30" uuid="b035cd4c-6232-4bab-8671-1700749dbef5"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Patient Name :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="180" y="10" width="100" height="30" uuid="65756c08-914a-4955-94ce-6c281f381107"/>
+				<reportElement x="210" y="0" width="70" height="30" uuid="65756c08-914a-4955-94ce-6c281f381107"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Patient Id :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="60" width="80" height="40" uuid="8782a5b6-0312-42ea-bc58-38f740abb7d4"/>
+				<reportElement x="0" y="40" width="80" height="40" uuid="8782a5b6-0312-42ea-bc58-38f740abb7d4"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Admission Date:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="10" width="100" height="30" uuid="a72611aa-935b-419a-b3ab-1d49dab7a93c"/>
+				<reportElement x="380" y="0" width="50" height="30" uuid="a72611aa-935b-419a-b3ab-1d49dab7a93c"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Doctor :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="180" y="60" width="100" height="30" uuid="fc065e27-73f8-48cc-8e01-d1bfbf0bf08e"/>
+				<reportElement x="210" y="40" width="70" height="30" uuid="fc065e27-73f8-48cc-8e01-d1bfbf0bf08e"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Ward No :]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="380" y="60" width="100" height="30" uuid="2b595000-8609-4585-9d9f-48824aee6163"/>
+				<reportElement x="380" y="40" width="50" height="30" uuid="2b595000-8609-4585-9d9f-48824aee6163"/>
 				<textElement>
-					<font size="12" isBold="true"/>
+					<font size="12" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Bed No :]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="80" y="10" width="100" height="30" uuid="fbcf34d4-a102-4257-806b-7dc63870f0c5"/>
+				<reportElement x="90" y="0" width="100" height="30" uuid="fbcf34d4-a102-4257-806b-7dc63870f0c5"/>
 				<textFieldExpression><![CDATA[$F{pname}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="280" y="10" width="100" height="30" uuid="5b44dedf-3505-4bbe-af99-36d63c41541b"/>
+				<reportElement x="280" y="0" width="100" height="30" uuid="5b44dedf-3505-4bbe-af99-36d63c41541b"/>
 				<textFieldExpression><![CDATA[$F{pid}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="480" y="10" width="90" height="30" uuid="98a78894-9a24-457a-8b4f-7101fcf43273"/>
+				<reportElement x="430" y="0" width="140" height="30" uuid="98a78894-9a24-457a-8b4f-7101fcf43273"/>
 				<textFieldExpression><![CDATA[$F{dname}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="80" y="60" width="100" height="30" uuid="ccacfe39-4597-415f-b157-7f3208253267"/>
+				<reportElement x="80" y="40" width="100" height="30" uuid="ccacfe39-4597-415f-b157-7f3208253267"/>
 				<textFieldExpression><![CDATA[$F{admdate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="280" y="60" width="100" height="30" uuid="546cd661-9379-4e43-8467-12c31914ead5"/>
+				<reportElement x="280" y="40" width="100" height="30" uuid="546cd661-9379-4e43-8467-12c31914ead5"/>
 				<textFieldExpression><![CDATA[$F{wardno}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="480" y="60" width="90" height="30" uuid="d8c6bb79-b1dc-49e3-a58f-6d155696cb73"/>
+				<reportElement x="430" y="40" width="140" height="30" uuid="d8c6bb79-b1dc-49e3-a58f-6d155696cb73"/>
 				<textFieldExpression><![CDATA[$F{bedno}]]></textFieldExpression>
 			</textField>
 		</band>

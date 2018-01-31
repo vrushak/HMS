@@ -29,13 +29,36 @@ public class Logincontroller {
 	@Autowired 
 	staffControllerDao sdao;
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public String adminPage(Model model) {
-        return "Home";
+    public ModelAndView adminPage() {
+		    List<Appointment> list = dao.getAppointment1();
+			List<Diagnose> list1 = ddao.getOpd();
+			List<Prescription2> list2 = ddao.getIpd();
+			List<Billgen> list3 = dao.getBm();
+			List<Billgen> list4 = dao.getBd();
+	  Map<String, Object> model = new HashMap<String, Object>();
+	            model.put("list",list);
+	            model.put("list1",list1);
+	            model.put("list2",list2);
+	            model.put("list3",list3);
+	            model.put("list4",list4);
+	            return new ModelAndView("Home","model",model); 
+	  			
     }
 	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
-    public String homePage(Model model) {
-        return "Home";
+    public ModelAndView homePage() {
+	    List<Appointment> list = dao.getAppointment1();
+				List<Diagnose> list1 = ddao.getOpd();
+				List<Prescription2> list2 = ddao.getIpd();
+				List<Billgen> list3 = dao.getBm();
+				List<Billgen> list4 = dao.getBd();
+		  Map<String, Object> model = new HashMap<String, Object>();
+		            model.put("list",list);
+		            model.put("list1",list1);
+		            model.put("list2",list2);
+		            model.put("list3",list3);
+		            model.put("list4",list4);
+		            return new ModelAndView("Home","model",model); 
     }
  
     @RequestMapping(value = "/login", method = RequestMethod.GET)

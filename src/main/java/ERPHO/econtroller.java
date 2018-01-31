@@ -1,5 +1,7 @@
 package ERPHO;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -7,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -32,7 +35,18 @@ import ERPHO.Sale;
 import ERPHO.Spdiscount;
 import ERPHO.TaxB;
 import ERPHO.custDisc;
+import HMS.Billgen;
+import HMS.Patient;
 import HMS.Prescription;
+import HMS.patientControllerDao;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 //import controller.ManufactDao;
 import ERPHO.Order;
 import ERPHO.Customer;
@@ -45,10 +59,14 @@ import ERPHO.Supply;
 public class econtroller {
 	@Autowired   
 	    controllerDao hodao;
+	@Autowired   
+    patientControllerDao pdao;
 	//    ManufactDao dao;
+	@Autowired
+	ServletContext context;
 	
 	    //redirection to manufacture master
-	    
+	private JasperReport jr;
 	    @RequestMapping(value="/hmspharma", method = RequestMethod.GET)
 		public ModelAndView HMSpharma(@ModelAttribute("m") Manufacture m) {
 			
@@ -392,7 +410,7 @@ public class econtroller {
 			        List<TaxB>list6 = hodao.getTax();
 			        List<custDisc>list7 = hodao.getCustDis();
 			        List<Spdiscount>list8 = hodao.getSpdis();
-			       
+			        List<Patient>list11 = pdao.getPatients();
 				      
 			       
 			        Map<String, Object> model = new HashMap<String, Object>();
@@ -408,6 +426,7 @@ public class econtroller {
 			        model.put("list8",list8);
 			        model.put("list9", list9);
 			        model.put("list10",list10);
+			        model.put("list11", list11);
 			        return new ModelAndView("sales","model",model);
 			          
 			    }  
@@ -416,7 +435,7 @@ public class econtroller {
 				  public   @ResponseBody String getInvoice(@ModelAttribute("p") Sale p){
 			//		  List<Order> list1 = hodao.getOrderid();
 					String jsonFormatData = "";
-					System.out.println("Sd"+p.getInvoice());
+				
 					List<Sale> list2 = hodao.getsaleInv(p.getInvoice());
 					  Map<String, Object> model = new HashMap<String, Object>();
 				    //    model.put("list1",list1);
@@ -988,7 +1007,7 @@ public ModelAndView saveprPr(@ModelAttribute("ps") Productprice pr ){
 public  @ResponseBody String  savebill(@PathVariable String drug,@PathVariable String fileno) {
  int bsave = 0;
  String jsonFormatData = "";
- System.out.println("drt"+drug);
+
 bsave = hodao.deletepr(fileno,drug);
 
 
@@ -1000,8 +1019,37 @@ if(bsave > 0){
 else{
 	jsonFormatData = "failure";
 }
-System.out.println(jsonFormatData);
      return jsonFormatData;
 	}
 
+//to print sales reports
+
+@RequestMapping(value="/salespdf", method = RequestMethod.GET)
+public void billpdf(@ModelAttribute("s") Sale s,ModelAndView modelAndView,HttpServletRequest req, HttpServletResponse response) throws JRException, IOException {
+	
+ response.setContentType("application/pdf");
+ response.setHeader("Content-Disposition",  "inline"); 
+ 
+ List<Sale> list2 = hodao.getsaleReports(req.getParameter("location"),req.getParameter("location1"));
+  
+ JasperReport report = getReport("/invoice.jrxml");
+      //fill the report with data source objects
+ String realPath = context.getRealPath("/");
+ Map<String,Object> parameterMap = new HashMap<String,Object>();
+ parameterMap.put("realPath", realPath);
+ 
+ JRDataSource JRdataSource = new JRBeanCollectionDataSource(list2);
+     JasperPrint jasperPrint = JasperFillManager.fillReport(report,  parameterMap, JRdataSource);
+	      
+     OutputStream out = response.getOutputStream();
+       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
+
+	}  
+public JasperReport getReport(String op) throws JRException {
+    
+    InputStream stream = getClass().getResourceAsStream(op);
+    jr = JasperCompileManager.compileReport(stream);
+
+return jr;
+}
 }

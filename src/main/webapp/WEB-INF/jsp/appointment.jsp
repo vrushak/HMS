@@ -419,7 +419,7 @@ if(currenttime > $("#time").val())
         <th  width="240px;">Patient Name</th>
         <th width="240px;">Doctor Name</th>
         <th  width="220px;">Appointment Date & Time</th>
-        <th  width="100px;">Print</th>
+        <th  width="100px;">Print Slip</th>
         <th  width="20px;"></th>
       </tr>
     </thead>
@@ -537,7 +537,7 @@ if(currenttime > $("#time").val())
        <p>Patient File No<span>*</span></p>
 
     <input type="text" form="form1" id="fileno" value=""readonly="readonly" name="fileno" class="form-control input-sm" required>
-    
+    <input type="hidden" name="flag" form="form1" value="fdesk">
            
  </div>
  

@@ -553,7 +553,7 @@ public class controllerDao {
 	//sales save 
 	
 	public int savess(Sale s,String name,String batch,String expdate,String unit, String up, String qty1, String stk1, String price1, String mpack,String mdesc,String sudesc,String ean ) {
-		String sql = "insert into saleho(invoice,invoiceDate,author,cdiscount,custId,custName,custPhone,gender,age,ean,pname,batch,expDate,stock,unit,quantity,unitprice,total,titems,subt,discount,tax,gtotal,spack,spsize,sudesc) values('"+s.getInvoice()+"','"+s.getInvoiceDate()+"','"+s.getAuthor()+"','"+s.getCdiscount()+"','"+s.getCustId()+"','"+s.getCustName()+"','"+s.getCustPhone()+"','"+s.getGender()+"','"+s.getAge()+"','"+ean+"','"+name+"','"+batch+"','"+expdate+"','"+stk1+"','"+unit+"','"+qty1+"','"+up+"','"+price1+"','"+s.getTitems()+"','"+s.getSubt()+"','"+s.getDiscount()+"','"+s.getTax()+"','"+s.getGtotal()+"','"+mpack+"','"+mdesc+"','"+sudesc+"')"; 
+		String sql = "insert into saleho(invoice,invoiceDate,author,cdiscount,custId,custName,custPhone,gender,age,ean,pname,batch,expDate,stock,unit,quantity,unitprice,total,titems,subt,discount,tax,gtotal,spack,spsize,sudesc,fileno) values('"+s.getInvoice()+"','"+s.getInvoiceDate()+"','"+s.getAuthor()+"','"+s.getCdiscount()+"','"+s.getCustId()+"','"+s.getCustName()+"','"+s.getCustPhone()+"','"+s.getGender()+"','"+s.getAge()+"','"+ean+"','"+name+"','"+batch+"','"+expdate+"','"+stk1+"','"+unit+"','"+qty1+"','"+up+"','"+price1+"','"+s.getTitems()+"','"+s.getSubt()+"','"+s.getDiscount()+"','"+s.getTax()+"','"+s.getGtotal()+"','"+mpack+"','"+mdesc+"','"+sudesc+"','"+s.getFileno()+"')"; 
 	    return template.update(sql);
 	}
 	
@@ -1340,7 +1340,7 @@ public class controllerDao {
 */
 		public List<Sale> getsaleInv(String invoice) {
 			
-			return template.query("select s.invoice,s.invoiceDate,s.author,s.cdiscount,s.custId,s.custName,s.custPhone,s.gender,s.age,s.ean,s.pname,s.batch,s.expDate,s.unit,s.unitprice,s.quantity,s.free,ps.currentstock,s.total,s.titems,s.subt,s.discount,s.tax,s.gtotal,s.spack,s.spsize,s.sudesc from saleho s join productstock ps on s.pname = ps.name and  s.batch = ps.batch  where invoice ='"+invoice+"' and ps.batch = s.batch",new RowMapper<Sale>(){  
+			return template.query("select s.invoice,s.invoiceDate,s.author,s.cdiscount,s.custId,s.custName,s.custPhone,s.gender,s.age,s.ean,s.pname,s.batch,s.expDate,s.unit,s.unitprice,s.quantity,s.free,ps.currentstock,s.total,s.titems,s.subt,s.discount,s.tax,s.gtotal,s.spack,s.spsize,s.sudesc,s.fileno from saleho s join productstock ps on s.pname = ps.name and  s.batch = ps.batch  where invoice ='"+invoice+"' and ps.batch = s.batch",new RowMapper<Sale>(){  
 		        public Sale mapRow(ResultSet rs, int row) throws SQLException {
 		        	Sale s= new Sale();
 		        
@@ -1371,7 +1371,7 @@ public class controllerDao {
 		        	s.setSdesc(rs.getString(25));
 		        	s.setSpsize(rs.getString(26));
 		        	s.setSudesc(rs.getString(27)) ;
-		        	
+		        	s.setFileno(rs.getString(28));
 			// TODO Auto-generated method stubinvoice,invoiceDate,author,cdiscount,custId,custName,custPhone,gender,age,ean,pname,batch,expDate,unit,unitprice,quantity,free,stock,total,titems,subt,discount,tax,gtotal
 		            return s;
 		        }
@@ -1451,5 +1451,28 @@ public class controllerDao {
 			
 			String sql = "delete from orderho where orderid = '"+orderid+"' and ean like '%"+drug+"%'";
 			return template.update(sql);
+		}
+		
+		//display sales reports
+		
+public List<Sale> getsaleReports(String frdate,String edate) {
+			
+			return template.query("select s.invoice,s.invoiceDate,s.custName,s.discount,s.tax,s.gtotal from saleho s where s.invoicedate between '"+frdate+"' and '"+edate+"'",new RowMapper<Sale>(){  
+		        public Sale mapRow(ResultSet rs, int row) throws SQLException {
+		        	Sale s= new Sale();
+		        
+		        	s.setInvoice(rs.getString(1));
+		        	s.setInvoiceDate(rs.getString(2));
+		            s.setCustName(rs.getString(3));
+		        	s.setDiscount(rs.getString(4));
+		        	s.setTax(rs.getString(5));
+		        	s.setGtotal(rs.getString(6));
+		        
+		       
+			// TODO Auto-generated method stubinvoice,invoiceDate,author,cdiscount,custId,custName,custPhone,gender,age,ean,pname,batch,expDate,unit,unitprice,quantity,free,stock,total,titems,subt,discount,tax,gtotal
+		            return s;
+		        }
+			});
+		
 		}
 }

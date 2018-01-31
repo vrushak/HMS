@@ -18,6 +18,7 @@ import java.util.Map;
 
 import javax.naming.ldap.Control;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -86,7 +87,8 @@ public class controller {
 	@Autowired  
 	doctControllerDao ddao;
 	//print docsillgen4
-	
+	@Autowired
+	ServletContext context;
 	@RequestMapping(value="/prdocs", method = RequestMethod.GET)
 	   public ModelAndView docs() {
 	 	 
@@ -266,31 +268,44 @@ public class controller {
 				if(app > 0){
 								    
 								    mav.addObject("message", "The record has been saved sucessfully");
-								    mav.setViewName("redirect:cappointment");
+							if(s.getFlag().contentEquals("doc")){
+								mav.setViewName("redirect:myapps");	
+							}
+							else{
+                                mav.setViewName("redirect:cappointment");
+					        }	
 							}
 
 					else{
 									    mav.addObject("message", "Record could not be saved successfully ");
+										if(s.getFlag().contentEquals("doc")){
+											mav.setViewName("redirect:myapps");	
+										}
+										else{
 									    mav.setViewName("redirect:cappointment");
+										}
 								}
 					 RedirectView redirectView = new RedirectView();
 				     redirectView.setUrl("/HMS/cappointment.html");
 			        return mav; 
 					}
-				@RequestMapping(value="/cancelapp", method = RequestMethod.POST)
-				public ModelAndView  CancelAppointment(@ModelAttribute("s") Appointment s) {
+				@RequestMapping(value="/cancelapp/{path}", method = RequestMethod.GET)
+				public ModelAndView  CancelAppointment(@PathVariable String path,@ModelAttribute("s") Appointment s) {
 				 int capp = 0;
 				capp=dao.cancelApp(s);
 				ModelAndView  mav = new ModelAndView();
-				if(capp > 0){
-								    
-								    mav.addObject("message", "Appointment has been cancelled");
-								    mav.setViewName("redirect:cappointment");
-							}
+			   if(capp > 0){
+				   mav.addObject("message", "Appointment has been cancelled");
+				    if(path.contentEquals("doc")){
+						mav.setViewName("redirect:/myapps");	
+					}
+					else{
+						mav.setViewName("redirect:/cappointment.html");
+					}
+								
+	            }
 
 					
-					 RedirectView redirectView = new RedirectView();
-				     redirectView.setUrl("/HMS/cappointment.html");
 			        return mav; 
 					}
 				@RequestMapping(value="/admitpat", method = RequestMethod.GET)
@@ -421,7 +436,7 @@ public class controller {
 	  List<Billgen> list2= dao.getBill();
 	  List<Billgen> list3= dao.getBill1();
 	
-	  List<Billgen> list4= dao.getBill2(p.getPid(),p.getPname(),"");
+	  List<Billgen> list4= dao.getBill2(p.getPid(),p.getPname());
 	 
   Map<String,Object> model = new HashMap<String, Object>();
   model.put("list1", list1);
@@ -1760,18 +1775,20 @@ public class controller {
 							 response.setContentType("application/pdf");
 							 response.setHeader("Content-Disposition",  "inline"); 
 							 
-							  List<Billgen> list4= dao.getBill3();
+							  List<Billgen> list4= dao.getBill3(req.getParameter("location1"),req.getParameter("location2"));
 							  List<Appointment> list3= dao.getAppointment();
 							  
 									
 							
 							
-							  Map<String,Object> parameterMap = new HashMap<String,Object>();
+							     String realPath = context.getRealPath("/");
+							     Map<String,Object> parameterMap = new HashMap<String,Object>();
+								 parameterMap.put("realPath", realPath);
 							
 							    JasperReport report = getReport("/billreport.jrxml");
 							      //fill the report with data source objects
 							     JRDataSource JRdataSource = new JRBeanCollectionDataSource(list4);
-							     JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, JRdataSource);
+							     JasperPrint jasperPrint = JasperFillManager.fillReport(report,  parameterMap, JRdataSource);
 								      
 							     OutputStream out = response.getOutputStream();
 							       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
@@ -1823,12 +1840,16 @@ public class controller {
 								
 							 response.setContentType("application/pdf");
 							 response.setHeader("Content-Disposition",  "inline"); 
+							 String realPath = context.getRealPath("/");
+							 
+							 Map<String,Object> parameterMap = new HashMap<String,Object>();
+							 parameterMap.put("realPath", realPath);
 							 
 							 List<Appointment> list3= dao.getAppointment(req.getParameter("location"));
 							 JasperReport report = getReport("/appointment.jrxml");
 							      //fill the report with data source objects
 							     JRDataSource JRdataSource = new JRBeanCollectionDataSource(list3);
-							     JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, JRdataSource);
+							     JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameterMap, JRdataSource);
 								      
 							     OutputStream out = response.getOutputStream();
 							       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
@@ -1839,14 +1860,17 @@ public class controller {
 							
 						 response.setContentType("application/pdf");
 						 response.setHeader("Content-Disposition",  "inline"); 
+						 String realPath = context.getRealPath("/");
 						 
+						 Map<String,Object> parameterMap = new HashMap<String,Object>();
+						 parameterMap.put("realPath", realPath);
 						  
 						  List<Admitpat> list3= dao.getAdmitpat(req.getParameter("location"));
 						  
 						JasperReport report = getReport("/Admitcard.jrxml");
 						      //fill the report with data source objects
 						     JRDataSource JRdataSource = new JRBeanCollectionDataSource(list3);
-						     JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, JRdataSource);
+						     JasperPrint jasperPrint = JasperFillManager.fillReport(report, parameterMap, JRdataSource);
 							      
 						     OutputStream out = response.getOutputStream();
 						       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
@@ -1857,18 +1881,25 @@ public class controller {
 							
 						 response.setContentType("application/pdf");
 						 response.setHeader("Content-Disposition",  "inline"); 
-						 
-						 List<Billgen> list4= dao.getBill2("","","Fileno-13");
+                         
+						 String realPath = context.getRealPath("/");
+					     Map<String,Object> parameterMap = new HashMap<String,Object>();
+						 parameterMap.put("realPath", realPath);
+						 List<Billgen> list4= dao.getBill3a(req.getParameter("location"));
 						  
 						 JasperReport report = getReport("/Bill.jrxml");
 						      //fill the report with data source objects
 						     JRDataSource JRdataSource = new JRBeanCollectionDataSource(list4);
-						     JasperPrint jasperPrint = JasperFillManager.fillReport(report, null, JRdataSource);
+						     JasperPrint jasperPrint = JasperFillManager.fillReport(report,  parameterMap, JRdataSource);
 							      
 						     OutputStream out = response.getOutputStream();
 						       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
 						
 							}  
+	                  
+	                  //dash board reports
+	                 
+	                  
 }
 
 

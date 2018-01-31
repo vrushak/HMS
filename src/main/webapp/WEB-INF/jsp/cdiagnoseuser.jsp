@@ -304,6 +304,11 @@ var didd;
 var flag;
 var fgr;
 var flagval;
+var partab;
+var teethv;
+function copytethval(teeth){
+	teethv = $(teeth).attr("data-value"); 
+}
 function checkdiv(val){
 	
 
@@ -498,7 +503,7 @@ function addcheck(div,tab){
 	      return false;
   	    } 
 	else {
-  	    var uri = "/HMS/loadhead?tab="+tab+"&&header="+head+"&&level="+Number(div+1)+"";
+  	    var uri = "/HMS/cloadhead?tab="+tab+"&&header="+head+"&&level="+Number(div+1)+"";
 		var data = "0";
 		 
 	   var successFn =  function(response){
@@ -543,7 +548,7 @@ function addcheck(div,tab){
  	 	  if(divc == -1){
  	 		pid = 0;  
  	 	  }
-  	      var uri = "/HMS/loadchk?tab="+Number(tab)+"&&chkname="+person+"&&pid="+Number(pid)+"&&hid="+Number(i)+"&&level="+Number(level)+"";
+  	      var uri = "/HMS/cloadchk?tab="+Number(tab)+"&&chkname="+person+"&&pid="+Number(pid)+"&&hid="+Number(i)+"&&level="+Number(level)+"";
   		var data = "0";
   		 
   	   var successFn =  function(response){
@@ -589,7 +594,7 @@ function updheader(div,tab){
 	      return false;
   	    } 
 	else {
-  	    var uri = "/HMS/updhead?hid="+hid+"&&header="+head+"&&tabid="+tab+"&&level="+Number(div+1)+"";
+  	    var uri = "/HMS/cupdhead?hid="+hid+"&&header="+head+"&&tabid="+tab+"&&level="+Number(div+1)+"";
 		var data = "0";
 		 
 	   var successFn =  function(response){
@@ -633,7 +638,7 @@ function createTabs(){
 */
 
 
-	 var uri = "/HMS/loadtab1?lab="+person+"";
+	 var uri = "/HMS/cloadtab1?lab="+person+"";
 	 var data1 = person; 
     
 	 
@@ -686,11 +691,30 @@ function createTabs(){
 }
 
 var $select;
+var $select1;
 function creatediv(main){
 	
 var	divid =  $('#tab'+main).find(".main").find(".divin" ).length;
-
 var	divid1 = $('#tab'+main).find(".main").find(".divot" ).length;
+if(flagval.includes("Dental Observations")){
+	$select1 = $('<select/>', {
+	    'class':"selectpicker form-control input-sm select1",
+	    'data-live-search':'true',
+	    'data-size':'5',
+	    'onchange':'copytethval(this.options[this.selectedIndex])'
+	  	});
+	
+	var diva = "<div style='margin-left:16px;'><div class='form-group row' style='height:70px;'><div class='col-xs-7'  id='doh' style='height:60px;'><p>Tooth Number</p></div></div>";
+	if($('#tab'+main).find(".main").find("#doh" ).length < 1){
+	$('#tab'+main).find(".main").append(diva);
+	 $select1.append('<option value="select"  data-value="select" selected disabled>Select</option>')
+	 $select1.appendTo($('#tab'+main).find(".main").find("#doh")).selectpicker('refresh');
+	}
+	
+	 
+}
+
+
 var div = "<div class='form-group row divot' id='"+divid1+"' style='height:70px;'><div class='col-xs-7 divin' title='"+divid+"' id='"+divid+"' style='height:60px;'><p class='header' id=''></p></div></div>";
 $('#tab'+main).find(".main").append(div);
 $select = $('<select/>', {
@@ -705,7 +729,7 @@ $select.append('<option value="select" titlea="'+divid+'=='+main+'" data-value="
 
 $select.appendTo($('#tab'+main).find(".main").find("#"+Number(divid+1))).selectpicker('refresh');
   openmd(cu)
-    
+
  //console.log(div)  
  //console.log(divid)
      loadval(divid,main)
@@ -722,6 +746,7 @@ function loadval(div){
 function checkempty(value,tval){
     flag = value;
     flagval = $(tval).text();
+   
   // console.log($(tval).attr("href"))
     if ($('#tab'+value).find(".main").is(':empty')){
    pid = 0;
@@ -749,7 +774,7 @@ function loadtabvalues(){
 	var nextTab = $('#pills li').size()+1;
 	var no = $('#li').size();
 	
-	 var uri = "/HMS/loadtab";
+	 var uri = "/HMS/cloadtab";
 	 var data1 = 0;
     
 
@@ -762,6 +787,8 @@ function loadtabvalues(){
 		  var tab = 'tab'+nextTab;
 	    
 		  if($("."+datec.tabid).size() < 1){
+			  
+		  partab = datec.tabvalue;
     	$('<li><a href="#tab'+datec.tabid+'" id="li'+no+'" class='+datec.tabid+' data-toggle="tab" onclick="checkempty('+datec.tabid+',this),minimize(this.id)">'+datec.tabvalue+'</a></li>').appendTo('#pills');
     	
     	// create the tab content
@@ -795,7 +822,7 @@ function datasuccess(data){
 	if(data != "null"){
 		
 		alert(data)
-window.location = "/HMS/diagnose";
+window.location = "/HMS/cdiagnose";
 	}
 }
 /*
@@ -867,12 +894,25 @@ function loadval(div,min){
 	res = parseInt(min);
 
 
-	  var uri = "/HMS/loaddiv1?pid="+pid+"&&tab="+min+"&&level="+Number(div + 1)+"";
+	  var uri = "/HMS/cloaddiv1?pid="+pid+"&&tab="+min+"&&level="+Number(div + 1)+"";
 	  
 	  var data = div;
 	 
    var successFn =  function(response){
 	
+	   $.each(response.list5, function(index, datec) {
+		   
+	  
+if(flagval.includes("Dental Observation")){
+	
+
+    if($(".select1 option[value="+datec.teid+"]").length == 0){
+	$select1.append('<option value='+datec.teid+' data-value="'+datec.teethval+'">'+datec.teethval+'</option>');
+    $select1.appendTo($("#tab"+min).find(".main").find('#doh')).selectpicker('refresh');
+    }
+}
+  });
+	   
      $.each(response.list, function(index, datec) {
 
     	// var checkva = $("#tab"+min).find(".main").find('.divin').eq(div).find(":checkbox[name='radio']:checked").attr("title");
@@ -941,7 +981,14 @@ function loadval(div,min){
     		  }
     				   
     		  createbr(flagval)	
-    		
+    		if(flagval.includes("Dental Observations")){
+    			
+    			 createbr(">")
+    			createbr(">")
+    			createbr(">")
+    			createbr(teethv)
+    			
+    		}
     		  createbr(">")
     		          for(i in obj[retobj]){
     		           for(var key in obj[retobj][i]) {
@@ -1033,11 +1080,16 @@ function refresh(){
    }
        
        function addcname(getval){
-    		
+    	  
     		var myname = getval.getAttribute('data-value'); 	
 //    		var cid = document.getElementById("pname").value; 
+    		 
     		var str = myname.split('==');
     		
+    		
+            if(str[0] == ""){
+         	   return false;
+            }
     		// var res5 = $('select[name=pname1]').val();
     	 	   $('select[name=ppid]').val(str[0]);
     		   $('#ppid').selectpicker('refresh');
@@ -1059,7 +1111,9 @@ function refresh(){
 
     		//var cid = document.getElementById("pid").value; 
     		var str = myname.split('==');
-
+    		if(str[0] == ""){
+          	   return false;
+             }
 //    		var res4 = $('select[name=pid1]').val();
     		  
     		 $('select[name=pname]').val(str[1]);
@@ -1081,7 +1135,7 @@ function refresh(){
        function addcname1(getval){
     	   var myname = getval.getAttribute('data-value'); 	
    	
-  
+      
            var cid = document.getElementById("pname").value; 
    		   var str = myname.split("==");
    	
@@ -1131,8 +1185,8 @@ var cu;
     		   document.getElementById("bouton-contact").disabled = true;
     		   $("#save").text('');
     		   $("#preview").hide();
-    		   $('.navbar-brand').text('Clinical Diagnosis Configuration');
-    		   $('#cd').text('Clinical Diagnosis Configuration');
+    		   $('.navbar-brand').text('Dental Diagnosis Configuration');
+    		   $('#cd').text('Dental Diagnosis Configuration');
     		   
     	   }
     	   else{
@@ -1457,7 +1511,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" >Clinical Diagnosis</a>
+      <a class="navbar-brand" >Dental Diagnosis</a>
     </div>
     <ul class="nav navbar-nav">
       <li class="active" id="act"><a id="ho" href="">Home</a></li>
@@ -1466,11 +1520,11 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
 </nav>
  <div id ="form2">
     <h1><button id ="bouton-contact" form="formc" class="btn btn-warning btn-sm button1" class="form-control input-sm" >Save</button>
-  <font size="5" id="cd"> Clinical Diagnosis </font>
+  <font size="5" id="cd"> Dental Diagnosis </font>
       <button type="button" id="close" class="btn btn-warning button2" onclick="clos()">Close</button>    
   </h1>
 <br>
- <form id = "formc" action="/HMS/savediag.html" method = "post"></form>
+ <form id = "formc" action="/HMS/csavediag.html" method = "post"></form>
  <div class="container" style="width:auto;height:auto;">
  <button type="button" class="btn btn-primary btn-block"><span id="pi" style="float:left">Patient Information</span><span id="flno" style="float:right">Fileno</span><span id="id" style="float:right;margin-right:15px;">Id</span><span style="float:right;margin-right:25px;" id="nm">Name</span></button>
  <br>
@@ -1500,7 +1554,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
       <div class="col-xs-5">
        <div class="form-group" id="fg">
       
-       <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="pname" onchange="addcname(this.options[this.selectedIndex])">
+       <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="pname" onchange="return addcname(this.options[this.selectedIndex])">
           <option value="select" selected disabled >Select</option>
         <c:forEach var="p"  items="${model.list1}">
         <option value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pid}==${p.pname}==${p.fileno}==${p.docid}">${p.pname}</option>
@@ -1529,7 +1583,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
      <div class="col-xs-4"></div>
       <div class="col-xs-5">
        <div class="form-group" id="id1">
-      <select class="selectpicker form-control btn btn" data-width="100%" data-size="5" form="formc" data-live-search="true"  name = "ppid" id ="ppid" onchange="addcid(this.options[this.selectedIndex])" >
+      <select class="selectpicker form-control btn btn" data-width="100%" data-size="5" form="formc" data-live-search="true"  name = "ppid" id ="ppid" onchange="return addcid(this.options[this.selectedIndex])" >
       <option value="select" disabled selected>Select</option>
         <c:forEach var="p"  items="${model.list1}">
         <option value = "${p.pid}" data-subtext="${p.fileno}" data-value="${p.pid}==${p.pname}==${p.fileno}==${p.docid}">${p.pid}</option>

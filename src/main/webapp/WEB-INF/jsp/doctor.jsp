@@ -193,11 +193,14 @@ function myFunction() {
 	   document.getElementById("email").value=strSplit[15];
 	   document.getElementById("prnum").value=strSplit[16];
 	   document.getElementById("qualification").value= qualification;
-
+	   $('select[name=specialization]').val(strSplit[17]);
+	   $('#specialization').selectpicker('refresh');
+	   
 	   document.getElementById("specialization").value=strSplit[17];
 	   document.getElementById("shift").value=strSplit[18];
 	   document.getElementById("etype").value=strSplit[19];
-	   document.getElementById("department").value=strSplit[20];
+	   $('select[name=department]').val(strSplit[20]);
+	   $('#department').selectpicker('refresh');
 	   document.getElementById("designation").value=strSplit[21];
 	 
 	   document.getElementById("username").value=strSplit[22];
@@ -678,14 +681,18 @@ $(".open1").click(function() {
     
 	   <div class="form-group">
             <p>Department <span>*</span></p>
-    <select class="form-control" name="department" id="department" required>
-            <option disabled selected>Select Department</option>
+    <select class="selectpicker form-control" data-size="5" data-live-search="true" name="department" id="department" required>
+            <option value="select" disabled selected>Select Department</option>
+        <c:forEach var="p"  items="${model.list2}">
+        <option value="${p.department}">${p.department}</option>
+        </c:forEach>
+          <!-- 
             <option>General Care</option>
             <option>Gynaecology</option>
             <option>Haemotology</option>
             <option>Oncology</option>
             <option>Pediatrics</option>
-            <option>ENT</option>
+            <option>ENT</option> -->
     </select>
 </div>
 	</div>
@@ -1024,12 +1031,12 @@ $(".open1").click(function() {
    <div class="col-xs-3">
   <div class="form-group">
     <p>Specialization <span>*</span></p>
-          <select class="form-control" name="specialization" id="specialization" required>
-            <option value=""></option>
-            <option disabled selected>Select Specialization</option>
-            <option> Gynaecology</option>
-             <option> Pediatrics and Neonatal Care</option>
-            <option>ENT</option>
+          <select class="selectpicker form-control" data-size="5" data-live-search="true" name="specialization" id="specialization" required>
+           
+            <option value="select" disabled selected>Select Specialization</option>
+            <c:forEach var="p"  items="${model.list3}">
+        <option value="${p.specialization}">${p.specialization}</option>
+        </c:forEach>
     </select>
 	
 	</div>

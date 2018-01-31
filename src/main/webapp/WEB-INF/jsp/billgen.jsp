@@ -554,7 +554,7 @@ function cori1(value){
 }
 
 
-function disp(){
+function disp(id){
 	
 	
 	var tableRef = document.getElementById('items').getElementsByTagName('tbody')[0];
@@ -563,7 +563,14 @@ function disp(){
 		alert("Please select Fee type")
 		return false;
 	}
+	else{
+		var url = "/HMS/billpdf?location="+$("#invoice").val()+"" ;
+		$(id).attr("href",url)
+		return true;
+	}
+	/*
 	$("#htr").hide();
+	
 	$("#items th:eq(4), #items td:last-child").hide();
 	//$('#items tbody tr td').find ('input:text').replaceWith(function(){
 	//    return this.value;
@@ -582,6 +589,7 @@ function disp(){
 	$("#items th:eq(4), #items td:last-child").show();
 	  document.getElementById("prgen").style.visibility = "visible";
 	  $("#htr").show();
+	  */
 }
 
 function openmd(value){
@@ -831,8 +839,8 @@ input .ftype{
 	    <button type="submit" formtarget ="_blank" class="btn btn-warning button1" id="bc" form="bill" disabled>
 	  <span class="glyphicon glyphicon-eye-open"></span> View Previous Bills</button>
 <font size="5" color="#FFF" style="margin-left:-50px; "><span id="chb">Bill Generation</span></font><span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i>
-		  <button type="submit" class="btn btn-warning button2" id="disp"  onclick="disp()" >
-	  <span class="glyphicon glyphicon-eye-open"></span> Print</button> 
+		  <a href="" target="_blank" class="btn btn-warning button2" id="disp"  onclick="return disp(this)" >
+	  <span class="glyphicon glyphicon-eye-open"></span> Print</a> 
 		 </h1>
 		
 		
