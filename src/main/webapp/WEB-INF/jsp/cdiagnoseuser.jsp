@@ -308,7 +308,6 @@ var partab;
 var teethv;
 function copytethval(teeth){
 	teethv = $(teeth).attr("data-value"); 
-	checkdiv(teeth)
 }
 function checkdiv(val){
 	
@@ -910,7 +909,7 @@ if(flagval.includes("Dental Observation")){
 	
 
     if($(".select1 option[value="+datec.teid+"]").length == 0){
-	$select1.append('<option value='+datec.teid+' titlea="'+div+'=='+min+'" oid='+datec.pid+' data-value="'+datec.teethval+'">'+datec.teethval+'</option>');
+	$select1.append('<option value='+datec.teid+' data-value="'+datec.teethval+'">'+datec.teethval+'</option>');
     $select1.appendTo($("#tab"+min).find(".main").find('#doh')).selectpicker('refresh');
     }
 }
@@ -1009,9 +1008,13 @@ if(flagval.includes("Dental Observation")){
     		     }
     	      
     	     });
+    	   if(flagval.includes("Dental Observations")){
+    	 
+    	   }
+    	   else{
     	  obj = {};
     	  prvrec = 0;
-    	
+    	   }
     	}
        
        function change(){
