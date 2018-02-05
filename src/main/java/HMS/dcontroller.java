@@ -612,16 +612,16 @@ public class dcontroller {
 		    	List<Diagnose> list2;
 		    	if(b == "[ROLE_DOCTOR]"){
 		    	list1 = ddao.getDocID3(principal.getName());
-		    	//list2 = ddao.getDoccID3(principal.getName());
+		    	list2 = ddao.getDoccID3(principal.getName());
 		    	}
 		    	else{
 		    		list1 = ddao.getDocID3();
-		    //		list2 = ddao.getDoccID3();
+		    		list2 = ddao.getDoccID3();
 		    	}
 		    	
 		    	 Map<String, Object> model = new HashMap<String, Object>();
 			        model.put("list1",list1);
-			  //      model.put("list2",list2);
+			       model.put("list2",list2);
 			    //    model.put("pid", req.getParameter("location").toString());
 			//		model.put("fileno",req.getParameter("location1").toString());	
 				
@@ -1688,6 +1688,35 @@ return jsonFormatData;
 
 }
 
+@RequestMapping(value="/cloaddivv", method = RequestMethod.GET)
+public @ResponseBody String cloaddivv(HttpServletRequest req,@ModelAttribute("s") Diagnose s) {
+		String jsonFormatData = "";
+	int level = Integer.parseInt(req.getParameter("level"));
+	int tab = Integer.parseInt(req.getParameter("tab"));
+	
+	 List<Diagnose> list = ddao.getlval1(level,"cdiagdata","diagheader",tab);
+	 List<Diagnose> list1 = ddao.getHeaderVal1(tab,level,"cdiagheader");
+	 List<Diagnose> list5 = ddao.getTeethvalues("teethvalues");
+	 Map<String, Object> model = new HashMap<String, Object>();
+       model.put("list", list);
+       model.put("list1", list1);
+       model.put("list5", list5);
+
+     //  model.put("list1", list1);
+	 Gson gson = new Gson(); 
+
+	jsonFormatData = gson.toJson(model);
+
+   
+return jsonFormatData;
+
+
+	
+//get previous records
+
+
+}
+
 @RequestMapping(value="/cloadtab1", method = RequestMethod.POST)
 public @ResponseBody String cloadtab(HttpServletRequest req,@ModelAttribute("s") Diagnose s) {
 		String jsonFormatData = "";
@@ -1992,4 +2021,30 @@ jsonFormatData = gson.toJson(val);
 	
 return jsonFormatData;
 }		  
+
+//delete prescription tabs
+
+@RequestMapping(value="/idelpr/{drug}/{type}/{fileno}")
+	public  @ResponseBody String  deleteipd(@ModelAttribute("s") Prescription2 s,@PathVariable String drug,@PathVariable String type,@PathVariable String fileno) {
+	 int bsave = 0;
+	 String jsonFormatData = "";
+	
+	bsave = ddao.deleteipr(drug,type,fileno);
+	
+	ModelAndView  mav = new ModelAndView();
+	 Gson gson = new Gson();
+	 gson.toJson(bsave);
+	if(bsave > 0){
+		jsonFormatData =  gson.toJson("success");
+					    
+	}
+
+	else{
+		jsonFormatData =gson.toJson("failure");
+	}
+
+
+	     return jsonFormatData;
+		}
+ 
 }

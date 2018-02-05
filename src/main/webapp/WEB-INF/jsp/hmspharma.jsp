@@ -868,7 +868,7 @@ $( function() {
      
     </div>
   </div>
-   <div id="result"  title="Bill Report">
+   <div id="result"  title="Sales Report">
    <div class="form-group row" >
         <div class="col-xs-10">
         <p>From Date<span></span></p>

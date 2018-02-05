@@ -925,15 +925,15 @@ function doAjaxDelete(r,drug,type){
     	           	//    var m = moment().format('YYYY-MM-DD h:mm a');
 
     	           	  var newCell = rowsAdd.insertCell();
-    	           	  newCell.innerHTML="<tr><td><textarea class='form-control input-sm'  form ='form1' onfocus='AutoGrowTextArea(this)'  id = '"+id+"' value='"+drug.typeofdr+"' name= 'typeofdr'  required>'"+drug.typeofdr+"'</textarea></td></tr>";
+    	           	  newCell.innerHTML="<tr><td><textarea class='form-control input-sm'  form ='form1' onfocus='AutoGrowTextArea(this)'  id = '"+id+"' value='"+drug.typeofdr+"' name= 'typeofdr' readonly required>'"+drug.typeofdr+"'</textarea></td></tr>";
     	           	  newCell.style.width ='100px';
     	           		 
     	           	  newCell = rowsAdd.insertCell();
-    	           	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm button1' style='width: 100px;'  onfocus='AutoGrowTextArea(this)'  value='"+drug.drugname+"'  id = '"+tableRef.rows.length+"' name= 'drugname' required>'"+drug.drugname+"'</textarea><a title='Click to View Available drugs'><i class='glyphicon glyphicon-list-alt button2' style='font-size:20px'  onclick= callevent('"+tableRef.rows.length+"')></i></a> </td></tr>";
+    	           	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm button1' style='width: 100px;'  onfocus='AutoGrowTextArea(this)'  value='"+drug.drugname+"'  id = '"+tableRef.rows.length+"' name= 'drugname' readonly required>'"+drug.drugname+"'</textarea><a title='Click to View Available drugs'><i class='glyphicon glyphicon-list-alt button2' style='font-size:20px'  onclick= callevent('"+tableRef.rows.length+"')></i></a> </td></tr>";
     	           	  newCell.style.width ='140px';
     	           		 
     	           	  newCell = rowsAdd.insertCell();
-    	           	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value='"+drug.strdrug+"' type='text' id = 'strdrug' name= 'strdrug'  required> </td></tr>";
+    	           	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value='"+drug.strdrug+"' type='text' id = 'strdrug' name= 'strdrug' readonly required> </td></tr>";
     	           	  newCell.style.width ='80px';
     	           	  
     	           	 newCell = rowsAdd.insertCell();

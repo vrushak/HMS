@@ -14,20 +14,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 <link rel='stylesheet' href='<c:url value="/resources/css/ioochart.css" />' type='text/css' media='all' />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href='<c:url value="/resources/css/font-awesome.css" />' >
+<link rel="stylesheet" href='<c:url value="/resources/css/font-awesome.min.css" />' >
+<link rel="stylesheet" href='<c:url value="/resources/css/bootstrap.min.css" />' >
+<link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-select.min.css" />' />
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.14.1/moment.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.js"></script>
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/moment.min.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
 <style>
 .wrapper {

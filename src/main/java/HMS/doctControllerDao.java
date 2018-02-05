@@ -1241,10 +1241,14 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 				return template.update(sql);
 			}
 			
+			public int deleteipr(String drug, String type,String fileno) {
+				
+				String sql = "delete from ipdprescription where fileno = '"+fileno+"' and drugname like '%"+drug+"%' and typeofdr like '%"+type+"%'";
+				return template.update(sql);
+			}
+			
 			public List<Diagnose> getLoadvalue(int level,int pid,String tablename,String diagheader) {
 
-				System.out.println("lev"+level);
-				System.out.println("lev"+pid);
 				
 				return template.query("select d.did,d.checkval,d.parentid,dh.header,d.hid from "+tablename+" d right outer join "+diagheader+" dh on dh.hid = d.hid where parentid = '"+pid+"' and tabid = '"+level+"'",new RowMapper<Diagnose>(){  
 
@@ -1257,6 +1261,26 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 
 				   		p.setHid(rs.getInt(5));
 				   		System.out.println(rs.getInt(3));
+
+				       return p;
+			        }
+				});
+			}
+
+		public List<Diagnose> getlval1(int level,String tablename,String diagheader,int tab) {
+
+				
+				return template.query("select d.did,d.checkval,d.parentid,dh.header,d.hid from "+tablename+" d right outer join "+diagheader+" dh on dh.hid = d.hid where d.level='"+level+"' and d.tabid = '"+tab+"'",new RowMapper<Diagnose>(){  
+
+			        public Diagnose mapRow(ResultSet rs, int row) throws SQLException {   
+				       Diagnose p = new Diagnose();
+				   		p.setDid(rs.getInt(1));
+				   		p.setCheckval(rs.getString(2));
+				   		p.setPid(rs.getInt(3));
+				   		p.setHeader(rs.getString(4));
+
+				   		p.setHid(rs.getInt(5));
+				   		
 
 				       return p;
 			        }
@@ -1497,7 +1521,7 @@ public List<Diagnose> getOpd() {
 
 public List<Prescription2> getIpd() {
 	// TODO Auto-generated method stub
-	return template.query("select distinct count(distinct fileno) from ipdprescription",new RowMapper<Prescription2>(){  
+	return template.query("select count(distinct fileno) from admitpat where fileno not in (select fileno from discharge)",new RowMapper<Prescription2>(){  
         public Prescription2 mapRow(ResultSet rs, int row) throws SQLException {   
 	   Prescription2 p = new Prescription2();
 	   p.setDate(rs.getString(1));

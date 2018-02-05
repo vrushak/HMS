@@ -4,18 +4,7 @@
   font-family: 'Open Sans', sans-serif;
 }
 
-.info p {
-  text-align:center;
-  color: #999;
-  text-transform:none;
-  font-weight:600;
-  font-size:15px;
-  margin-top:2px
-}
 
-.info i {
-  color:#F6AA93;
-}
 form h1 {
   font-size: 18px;
   background: #009999 none repeat scroll 0% 0%;
@@ -95,28 +84,7 @@ textarea {
   font-size: 18px;
 }
 
-.leftcontact {
-  width:49.5%; 
-  float:left;
-  border-right: 1px dotted #CCC;
-  box-sizing: border-box;
-  padding: 0px 15px 0px 0px;
-}
 
-.rightcontact {
-  width:49.5%;
-  float:right;
-  box-sizing: border-box;
-  padding: 0px 0px 0px 15px;
-}
-
-.validation {
-  display:none;
-  margin: 0 0 10px;
-  font-weight:400;
-  font-size:13px;
-  color: #DE5959;
-}
 
 
 

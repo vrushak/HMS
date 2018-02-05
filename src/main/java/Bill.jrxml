@@ -418,7 +418,7 @@ E-mail : lilayifamilyclinic@yahoo.com,TPIN NO :LFC098
 			</staticText>
 			<textField isStretchWithOverflow="true">
 				<reportElement x="50" y="31" width="92" height="29" uuid="747a6303-5f07-4789-8cbf-0472b788355f"/>
-				<textFieldExpression><![CDATA[$F{policyno} +".00"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{policyno}]]></textFieldExpression>
 			</textField>
 		</band>
 	</columnHeader>

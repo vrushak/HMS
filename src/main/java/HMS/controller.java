@@ -1898,6 +1898,27 @@ public class controller {
 							}  
 	                  
 	                  //dash board reports
+	                  @RequestMapping(value="/billint", method = RequestMethod.GET)
+						public void billint(@ModelAttribute("s") Billgen s,ModelAndView modelAndView,HttpServletRequest req, HttpServletResponse response) throws JRException, IOException {
+							
+						 response.setContentType("application/pdf");
+						 response.setHeader("Content-Disposition",  "inline"); 
+                       
+						 String realPath = context.getRealPath("/");
+					     Map<String,Object> parameterMap = new HashMap<String,Object>();
+						 parameterMap.put("realPath", realPath);
+						 List<Billgen> list4= dao.getBillint(req.getParameter("location"));
+						  
+						 JasperReport report = getReport("/billint.jrxml");
+						      //fill the report with data source objects
+						     JRDataSource JRdataSource = new JRBeanCollectionDataSource(list4);
+						     JasperPrint jasperPrint = JasperFillManager.fillReport(report,  parameterMap, JRdataSource);
+							      
+						     OutputStream out = response.getOutputStream();
+						       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
+						
+							}  
+	                  
 	                 
 	                  
 }

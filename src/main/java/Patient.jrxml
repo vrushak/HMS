@@ -1,0 +1,779 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Patient" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="4b8dec2a-326b-40f1-a71e-970506160722">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="My Sql"/>
+	<parameter name="realPath" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{realPath}+"/Images/logocms.jpg"]]></defaultValueExpression>
+	</parameter>
+	<field name="pid" class="java.lang.String"/>
+	<field name="fname" class="java.lang.String"/>
+	<field name="lname" class="java.lang.String"/>
+	<field name="regdate" class="java.lang.String"/>
+	<field name="dob" class="java.lang.String"/>
+	<field name="age" class="java.lang.String"/>
+	<field name="gender" class="java.lang.String"/>
+	<field name="mstatus" class="java.lang.String"/>
+	<field name="pofvisit" class="java.lang.String"/>
+	<field name="landphone" class="java.lang.String"/>
+	<field name="mobile" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="ssn" class="java.lang.String"/>
+	<field name="address1" class="java.lang.String"/>
+	<field name="city" class="java.lang.String"/>
+	<field name="country" class="java.lang.String"/>
+	<field name="pcode" class="java.lang.String"/>
+	<field name="ethnicity" class="java.lang.String"/>
+	<field name="mname" class="java.lang.String"/>
+	<field name="state" class="java.lang.String"/>
+	<field name="child" class="java.lang.String"/>
+	<field name="mo" class="java.lang.String"/>
+	<field name="fo" class="java.lang.String"/>
+	<field name="modate" class="java.lang.String"/>
+	<field name="fodate" class="java.lang.String"/>
+	<field name="address2" class="java.lang.String"/>
+	<field name="personname" class="java.lang.String"/>
+	<field name="relationship" class="java.lang.String"/>
+	<field name="employer" class="java.lang.String"/>
+	<field name="rdateofbirth" class="java.lang.String"/>
+	<field name="ager" class="java.lang.String"/>
+	<field name="workphone" class="java.lang.String"/>
+	<field name="mobilephone" class="java.lang.String"/>
+	<field name="raddress" class="java.lang.String"/>
+	<field name="rprovince" class="java.lang.String"/>
+	<field name="rstate" class="java.lang.String"/>
+	<field name="rcountry" class="java.lang.String"/>
+	<field name="spname" class="java.lang.String"/>
+	<field name="spdate" class="java.lang.String"/>
+	<field name="nofon" class="java.lang.String"/>
+	<field name="nphone" class="java.lang.String"/>
+	<field name="refference" class="java.lang.String"/>
+	<field name="family" class="java.lang.String"/>
+	<field name="allergies" class="java.lang.String"/>
+	<field name="presurgery" class="java.lang.String"/>
+	<field name="testrelease" class="java.lang.String"/>
+	<field name="spouse" class="java.lang.String"/>
+	<field name="pins" class="java.lang.String"/>
+	<field name="sins" class="java.lang.String"/>
+	<field name="grp1" class="java.lang.String"/>
+	<field name="grp2" class="java.lang.String"/>
+	<field name="gid1" class="java.lang.String"/>
+	<field name="gid2" class="java.lang.String"/>
+	<field name="ph1" class="java.lang.String"/>
+	<field name="ph2" class="java.lang.String"/>
+	<field name="policyh1" class="java.lang.String"/>
+	<field name="policyh2" class="java.lang.String"/>
+	<field name="policyno1" class="java.lang.String"/>
+	<field name="policyno2" class="java.lang.String"/>
+	<field name="mid1" class="java.lang.String"/>
+	<field name="mid2" class="java.lang.String"/>
+	<field name="homephone" class="java.lang.String"/>
+	<group name="pid">
+		<groupExpression><![CDATA[$F{pid}]]></groupExpression>
+	</group>
+	<group name="fname">
+		<groupExpression><![CDATA[$F{fname}]]></groupExpression>
+	</group>
+	<group name="lname">
+		<groupExpression><![CDATA[$F{lname}]]></groupExpression>
+	</group>
+	<group name="regdate">
+		<groupExpression><![CDATA[$F{regdate}]]></groupExpression>
+	</group>
+	<group name="dob">
+		<groupExpression><![CDATA[$F{dob}]]></groupExpression>
+	</group>
+	<group name="age">
+		<groupExpression><![CDATA[$F{age}]]></groupExpression>
+	</group>
+	<group name="gender">
+		<groupExpression><![CDATA[$F{gender}]]></groupExpression>
+	</group>
+	<group name="mstatus">
+		<groupExpression><![CDATA[$F{mstatus}]]></groupExpression>
+	</group>
+	<group name="pofvisit">
+		<groupExpression><![CDATA[$F{pofvisit}]]></groupExpression>
+	</group>
+	<group name="landphone">
+		<groupExpression><![CDATA[$F{landphone}]]></groupExpression>
+	</group>
+	<group name="mobile">
+		<groupExpression><![CDATA[$F{mobile}]]></groupExpression>
+	</group>
+	<group name="email">
+		<groupExpression><![CDATA[$F{email}]]></groupExpression>
+	</group>
+	<group name="ssn">
+		<groupExpression><![CDATA[$F{ssn}]]></groupExpression>
+	</group>
+	<group name="address">
+		<groupExpression><![CDATA[$F{address1}]]></groupExpression>
+	</group>
+	<group name="city">
+		<groupExpression><![CDATA[$F{city}]]></groupExpression>
+	</group>
+	<group name="country">
+		<groupExpression><![CDATA[$F{country}]]></groupExpression>
+	</group>
+	<group name="pcode">
+		<groupExpression><![CDATA[$F{pcode}]]></groupExpression>
+	</group>
+	<group name="ethnicity">
+		<groupExpression><![CDATA[$F{ethnicity}]]></groupExpression>
+	</group>
+	<group name="mname">
+		<groupExpression><![CDATA[$F{mname}]]></groupExpression>
+	</group>
+	<group name="state">
+		<groupExpression><![CDATA[$F{state}]]></groupExpression>
+	</group>
+	<group name="child">
+		<groupExpression><![CDATA[$F{child}]]></groupExpression>
+	</group>
+	<group name="mo">
+		<groupExpression><![CDATA[$F{mo}]]></groupExpression>
+	</group>
+	<group name="fo">
+		<groupExpression><![CDATA[$F{fo}]]></groupExpression>
+	</group>
+	<group name="modate">
+		<groupExpression><![CDATA[$F{modate}]]></groupExpression>
+	</group>
+	<group name="fodate">
+		<groupExpression><![CDATA[$F{fodate}]]></groupExpression>
+	</group>
+	<group name="address2">
+		<groupExpression><![CDATA[$F{address2}]]></groupExpression>
+	</group>
+	<group name="personname">
+		<groupExpression><![CDATA[$F{personname}]]></groupExpression>
+	</group>
+	<group name="relationship">
+		<groupExpression><![CDATA[$F{relationship}]]></groupExpression>
+	</group>
+	<group name="employer">
+		<groupExpression><![CDATA[$F{employer}]]></groupExpression>
+	</group>
+	<group name="rdateofbirth">
+		<groupExpression><![CDATA[$F{rdateofbirth}]]></groupExpression>
+	</group>
+	<group name="ager">
+		<groupExpression><![CDATA[$F{ager}]]></groupExpression>
+	</group>
+	<group name="workphone">
+		<groupExpression><![CDATA[$F{workphone}]]></groupExpression>
+	</group>
+	<group name="mobilephone">
+		<groupExpression><![CDATA[$F{mobilephone}]]></groupExpression>
+	</group>
+	<group name="raddress">
+		<groupExpression><![CDATA[$F{raddress}]]></groupExpression>
+	</group>
+	<group name="rprovince">
+		<groupExpression><![CDATA[$F{rprovince}]]></groupExpression>
+	</group>
+	<group name="rstate">
+		<groupExpression><![CDATA[$F{rstate}]]></groupExpression>
+	</group>
+	<group name="rcountry">
+		<groupExpression><![CDATA[$F{rcountry}]]></groupExpression>
+	</group>
+	<group name="spname">
+		<groupExpression><![CDATA[$F{spname}]]></groupExpression>
+	</group>
+	<group name="spdate">
+		<groupExpression><![CDATA[$F{spdate}]]></groupExpression>
+	</group>
+	<group name="nofon">
+		<groupExpression><![CDATA[$F{nofon}]]></groupExpression>
+	</group>
+	<group name="nphone">
+		<groupExpression><![CDATA[$F{nphone}]]></groupExpression>
+	</group>
+	<group name="refference">
+		<groupExpression><![CDATA[$F{refference}]]></groupExpression>
+	</group>
+	<group name="family">
+		<groupExpression><![CDATA[$F{family}]]></groupExpression>
+	</group>
+	<group name="allergies">
+		<groupExpression><![CDATA[$F{allergies}]]></groupExpression>
+	</group>
+	<group name="presurgery">
+		<groupExpression><![CDATA[$F{presurgery}]]></groupExpression>
+	</group>
+	<group name="testrelease">
+		<groupExpression><![CDATA[$F{testrelease}]]></groupExpression>
+	</group>
+	<group name="spouse">
+		<groupExpression><![CDATA[$F{spouse}]]></groupExpression>
+	</group>
+	<group name="pins">
+		<groupExpression><![CDATA[$F{pins}]]></groupExpression>
+	</group>
+	<group name="sins">
+		<groupExpression><![CDATA[$F{sins}]]></groupExpression>
+	</group>
+	<group name="grp1">
+		<groupExpression><![CDATA[$F{grp1}]]></groupExpression>
+	</group>
+	<group name="grp2">
+		<groupExpression><![CDATA[$F{grp2}]]></groupExpression>
+	</group>
+	<group name="gid1">
+		<groupExpression><![CDATA[$F{gid1}]]></groupExpression>
+	</group>
+	<group name="gid2">
+		<groupExpression><![CDATA[$F{gid2}]]></groupExpression>
+	</group>
+	<group name="ph1">
+		<groupExpression><![CDATA[$F{ph1}]]></groupExpression>
+	</group>
+	<group name="ph2">
+		<groupExpression><![CDATA[$F{ph2}]]></groupExpression>
+	</group>
+	<group name="policyh1">
+		<groupExpression><![CDATA[$F{policyh1}]]></groupExpression>
+	</group>
+	<group name="policyh2">
+		<groupExpression><![CDATA[$F{policyh2}]]></groupExpression>
+	</group>
+	<group name="policyno1">
+		<groupExpression><![CDATA[$F{policyno1}]]></groupExpression>
+	</group>
+	<group name="policyno2">
+		<groupExpression><![CDATA[$F{policyno2}]]></groupExpression>
+	</group>
+	<group name="mid1">
+		<groupExpression><![CDATA[$F{mid1}]]></groupExpression>
+	</group>
+	<group name="mid2">
+		<groupExpression><![CDATA[$F{mid2}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="80" height="80" uuid="f9b37f7a-ddfb-452a-8967-f10fffedb4ce"/>
+				<imageExpression><![CDATA[$P{realPath}+"/Images/logocms.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="217" y="3" width="153" height="27" uuid="051cc790-9d65-4095-a9b6-50d9bda96da6"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[LILAYI FAMILY CLINIC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="379" y="20" width="191" height="60" uuid="9f52cdb7-a317-46cc-915b-bccde660d20f"/>
+				<text><![CDATA[Plot 4014A,Lusaka-Zambia,P.O Box 32680,
+Contact: +260 962 151 935,
+E-mail : lilayifamilyclinic@yahoo.com]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="110" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="130" height="18" uuid="c734553c-e5b2-43a8-ae12-7909543b2080"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PATIENT INFORMATION :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="0" width="70" height="20" uuid="ed3adfd0-8686-4563-bb1d-f1ad82b0f739"/>
+				<text><![CDATA[Today's Date :]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="480" y="0" width="91" height="20" uuid="7d42e627-27a0-42be-a42f-22b4c52ccf3a"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="85" height="20" uuid="c62e623f-c574-42f0-9580-46d935f22bb3"/>
+				<text><![CDATA[Name of patient :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="20" width="30" height="20" uuid="fd6aed6e-bfd4-475a-8711-2910a9d30b87"/>
+				<text><![CDATA[Age :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="20" width="41" height="20" uuid="601def21-0ca3-46ee-a5e4-9dc73ba0fd00"/>
+				<text><![CDATA[DOB :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="50" height="30" uuid="af983082-d597-493c-9d70-b6f3c0cbed96"/>
+				<text><![CDATA[Address1 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="70" width="30" height="20" uuid="81a2b508-470d-45cc-be19-5aa4f7de41ed"/>
+				<text><![CDATA[City :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="252" y="70" width="30" height="20" uuid="8a10e81c-47df-4587-9d51-1876e6e87dbf"/>
+				<text><![CDATA[St :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="70" width="50" height="20" uuid="bf2c1171-211d-429d-8be8-403d1c1249b1"/>
+				<text><![CDATA[Zip Code :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="90" width="70" height="20" uuid="83368523-d112-4551-afef-229d051107a8"/>
+				<text><![CDATA[Home Phone :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="252" y="90" width="60" height="20" uuid="164845d2-fa48-4d0e-af24-bfa722627d54"/>
+				<text><![CDATA[Cell Phone :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="90" width="45" height="20" uuid="34c28d7a-f51d-45af-a979-0f5dbe7d4083"/>
+				<text><![CDATA[Gender :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="40" width="52" height="20" uuid="e50ce7d2-0678-4be7-ad01-41d5e361ec11"/>
+				<text><![CDATA[Country :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="40" width="50" height="30" uuid="358ae30c-cc86-48e2-951a-5a774ad1b421"/>
+				<text><![CDATA[Address2 :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="85" y="19" width="125" height="22" uuid="bdc7dede-a31d-41af-b504-a0ad62a5c89a"/>
+				<textFieldExpression><![CDATA[$F{fname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="21" width="130" height="19" uuid="404ece74-1201-4f5e-8083-0b797447ac36"/>
+				<textFieldExpression><![CDATA[$F{age}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="451" y="21" width="120" height="19" uuid="ff25435d-0c5c-4215-bb2b-ce112c735404"/>
+				<textFieldExpression><![CDATA[$F{dob}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="41" width="150" height="29" uuid="47dacd5e-91f7-422f-8b44-4f8c36eca4e7"/>
+				<textFieldExpression><![CDATA[$F{address1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="40" width="142" height="29" uuid="65c7cecf-a1ca-4000-b895-df64c95a6b2c"/>
+				<textFieldExpression><![CDATA[$F{address2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="462" y="41" width="109" height="19" uuid="263cb2a8-49b5-42b5-854b-1a8783993fa6"/>
+				<textFieldExpression><![CDATA[$F{country}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="71" width="120" height="19" uuid="06d98f13-8958-45c6-bdf7-b0a071d40706"/>
+				<textFieldExpression><![CDATA[$F{city}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="282" y="70" width="118" height="19" uuid="be06d3ec-4219-4b0a-9679-015d2be60bb8"/>
+				<textFieldExpression><![CDATA[$F{state}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="458" y="70" width="113" height="19" uuid="c1805207-bd1d-4b93-bf25-526a6bad86cf"/>
+				<textFieldExpression><![CDATA[$F{pcode}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="91" width="120" height="19" uuid="9292fa53-b0d1-43b6-918b-d90b88e33384"/>
+				<textFieldExpression><![CDATA[$F{landphone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="312" y="91" width="88" height="19" uuid="3ecb974f-319e-4534-979e-d2c1f61bc1b5"/>
+				<textFieldExpression><![CDATA[$F{mobile}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="454" y="91" width="117" height="19" uuid="58c1d4b5-d317-43d6-a976-bb58954552af"/>
+				<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="108" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="200" height="18" uuid="f98f4220-57f3-4e64-8470-0e353836762e"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[RESPONSIBLE PART INFORMATION :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="18" width="80" height="20" uuid="cb8140e4-0ce3-405d-ab8f-34127f338bf7"/>
+				<text><![CDATA[Name of Person :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="20" width="110" height="20" uuid="91a9bdda-0382-4901-ab68-38c40c2045b7"/>
+				<text><![CDATA[Relationship to Patient :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="411" y="20" width="50" height="20" uuid="7c53228a-63bb-400c-921d-1e82c6f43e80"/>
+				<text><![CDATA[Employer :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="240" y="41" width="40" height="20" uuid="15e6c9c6-31d3-4fe9-9e75-c2f71e204020"/>
+				<text><![CDATA[DOB :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="38" width="50" height="20" uuid="7389ce65-5749-4b64-b84a-7448cb2c9907"/>
+				<text><![CDATA[Address :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="40" width="30" height="23" uuid="3be807b8-2310-4a91-a630-a59337fb644d"/>
+				<text><![CDATA[Age :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="70" height="20" uuid="edea5fe9-46f4-4566-8b72-630b3932085b"/>
+				<text><![CDATA[Mobile Phone :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="58" width="70" height="17" uuid="575ad722-c295-4f35-8748-2cbf1d16a737"/>
+				<text><![CDATA[Work Phone :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="63" width="70" height="19" uuid="403e9737-4bab-46e9-8525-be409b232caf"/>
+				<text><![CDATA[Home Phone :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="50" height="20" uuid="f6adec21-6049-4fa7-8fb3-5b577f892cc0"/>
+				<text><![CDATA[Country :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="201" y="80" width="51" height="19" uuid="7f133863-b748-4208-8622-ef49c7b1e05b"/>
+				<text><![CDATA[Province : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="85" width="30" height="14" uuid="55105d2a-c6b7-41b3-b6d9-e77021f7224d"/>
+				<text><![CDATA[City :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="18" width="110" height="20" uuid="686a5390-a653-489d-a8cd-fd2634845fde"/>
+				<textFieldExpression><![CDATA[$F{personname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="20" width="92" height="20" uuid="111e0e62-eab0-4c7b-bb8e-87dea6cc2251"/>
+				<textFieldExpression><![CDATA[$F{relationship}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="462" y="21" width="110" height="20" uuid="1a6be8a6-8f2a-4a57-82fa-2ad7a24238de"/>
+				<textFieldExpression><![CDATA[$F{employer}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="38" width="140" height="20" uuid="f777dc27-16f1-41bc-ae8f-5671d73297b6"/>
+				<textFieldExpression><![CDATA[$F{raddress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="276" y="41" width="123" height="16" uuid="28b3ac34-a82c-40da-a919-74ff3a7249a4"/>
+				<textFieldExpression><![CDATA[$F{rdateofbirth}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="41" width="130" height="20" uuid="42ad516b-df1c-497b-879e-cf6da324cf96"/>
+				<textFieldExpression><![CDATA[$F{ager}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="80" width="140" height="20" uuid="cb480525-ca78-4ce0-96ab-9e88e1c91cf5"/>
+				<textFieldExpression><![CDATA[$F{rcountry}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="56" width="129" height="20" uuid="ed464c52-caac-4ad1-8e4d-a42fd4977ba7"/>
+				<textFieldExpression><![CDATA[$F{workphone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="62" width="91" height="20" uuid="c6fd5bec-bbd8-42d7-81e9-ee1a49f6cc5f"/>
+				<textFieldExpression><![CDATA[$F{homephone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="80" width="149" height="20" uuid="ade5c963-6168-48ce-8acf-93057355c99e"/>
+				<textFieldExpression><![CDATA[$F{rprovince}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="85" width="130" height="14" uuid="32396f80-acd1-41d3-b253-7f3e70ae4901"/>
+				<textFieldExpression><![CDATA[$F{rstate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="71" y="60" width="119" height="20" uuid="d61c293e-075d-4673-9764-0b1fffbeaaa3"/>
+				<textFieldExpression><![CDATA[$F{mobilephone}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="396" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="214" height="20" uuid="257a012e-556d-4ba9-b3ff-c14fb80afc65"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SPOUSE OR PARENT INFORMATION :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="50" height="20" uuid="26423410-2259-4de2-a029-412c8c97a5c1"/>
+				<text><![CDATA[Name :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="411" y="20" width="35" height="17" uuid="7cd4aceb-c6ce-4e57-b198-246502531d89"/>
+				<text><![CDATA[DOB :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="37" width="150" height="23" uuid="f73b70a7-8fd0-4259-8bb9-1aaef8c63abe"/>
+				<text><![CDATA[IF A CHILD;MOTHER'S NAME :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="150" height="23" uuid="55bc89bc-2082-43b2-88e2-048428db0418"/>
+				<text><![CDATA[IF A CHILD;FATHER'S NAME :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="411" y="60" width="35" height="23" uuid="a2fde7f3-eea8-4677-b5c3-9d3caf7ec267"/>
+				<text><![CDATA[DOB :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="411" y="37" width="35" height="23" uuid="c705d4f9-a306-4018-a12f-a8b0845b8b71"/>
+				<text><![CDATA[DOB :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="83" width="150" height="17" uuid="f2df5edb-92b4-4122-85a7-15c7109d5742"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ADDITIONAL INFORMATION :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="200" height="20" uuid="699a2654-b92e-437c-b2a3-79022b49cc02"/>
+				<text><![CDATA[Name of nearest relative not living with you :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="101" width="41" height="18" uuid="b4bfb5d8-1fbd-4116-9787-733c91f14571"/>
+				<text><![CDATA[Phone :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="349" y="120" width="150" height="20" uuid="32d64d91-4c07-44c6-a6c8-c4487c302e73"/>
+				<text><![CDATA[Who referred you to our office :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="121" width="230" height="18" uuid="11af3a04-903c-4390-bc8c-9e339ac088eb"/>
+				<text><![CDATA[Name of nearest family who have been patients :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="139" width="200" height="21" uuid="5fee28e5-3ba4-457f-a15e-e5c76b0e0ffd"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[PATIENTS ALLERGIES TO MEDICINES :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="160" width="170" height="20" uuid="2eba16c0-f1b6-48ad-9f09-c12ffcbaf8c8"/>
+				<text><![CDATA[List of Patient's previous surgeries :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="351" y="160" width="89" height="22" uuid="72ad619e-f5ed-48ab-9a1b-25189a3ee724"/>
+				<text><![CDATA[Reason for visit :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="180" width="338" height="30" uuid="72f27b1a-19b3-4937-bdaa-7bb9f51944c3"/>
+				<text><![CDATA[IN MY ABSENCE, I GIVE PERMISSION  FOR D.R DESAI'S OFFICE TO RELEASE MY TEST TO FAMILY MEMBER(NAME) :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="190" width="60" height="19" uuid="f8209eaf-366a-4650-9ae4-00ddcbc0171b"/>
+				<text><![CDATA[Signature :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="210" width="179" height="20" uuid="7da62b75-201a-4181-bc2e-c050a9386398"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[INSURANCE INFORMATION :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="230" width="70" height="20" uuid="dddd5642-4960-4e4c-a2a1-f73bdbfe4f52"/>
+				<text><![CDATA[Primary Ins :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="250" width="50" height="20" uuid="63b43b8c-c9d7-4f32-a967-80af8cbed938"/>
+				<text><![CDATA[Group#  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="270" width="60" height="20" uuid="18d5bffd-b61b-40e4-a212-6827248d7b9d"/>
+				<text><![CDATA[Ins.Phone#  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="290" width="80" height="17" uuid="8e897fed-d659-405b-b1e9-7f6273dee8b7"/>
+				<text><![CDATA[Policy Holder :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="319" y="228" width="84" height="20" uuid="74692b82-bb99-4c9b-b399-77cf576c2b5e"/>
+				<text><![CDATA[Secondary Ins :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="319" y="248" width="51" height="20" uuid="5e6590b6-cd91-4691-b151-8764398fbf67"/>
+				<text><![CDATA[Group#  :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="319" y="268" width="60" height="20" uuid="51761e7b-ee0d-492c-a5c6-13ef7d914762"/>
+				<text><![CDATA[Ins.Phone# :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="288" width="80" height="17" uuid="a17cd546-038b-4bd8-93da-515328062140"/>
+				<text><![CDATA[Policy Holder :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="250" width="33" height="20" uuid="ce23c895-ddf1-412c-a473-24abd7c36924"/>
+				<text><![CDATA[Id's :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="447" y="250" width="33" height="20" uuid="950a524e-5d6c-42c1-b571-a79b5ed0f19a"/>
+				<text><![CDATA[Id's :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="337" width="571" height="39" uuid="45484a82-8154-4839-9e36-c428315cfc50"/>
+				<text><![CDATA[I hereby authorize Dr. Shailen Desai to furnish to my designated insurance carrier any information concerning previous illness or injury. I also authorize benefits under the claim to be made payable to Lilayi Family Clinic, I understand I am responsible financially to the physician for charges not covered by this authorization.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="376" width="70" height="20" uuid="06950359-ba3b-4dea-be3f-09e858c5c97c"/>
+				<text><![CDATA[SIGNATURE :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="307" width="50" height="20" uuid="f57d66e0-86a2-433e-8fdf-c22ea910685b"/>
+				<text><![CDATA[Policy No :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="307" width="80" height="22" uuid="1d709df5-22e6-4264-b47c-24c95e5cd0c3"/>
+				<text><![CDATA[Membership Id :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="305" width="50" height="20" uuid="da181950-ded7-493d-9622-452b9c64014b"/>
+				<text><![CDATA[Policy No :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="304" width="80" height="22" uuid="b0cdd8f3-29c4-488f-b38f-564921a30b9e"/>
+				<text><![CDATA[Membership Id :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="21" width="201" height="14" uuid="d3286652-1c9a-474b-96d3-299147427315"/>
+				<textFieldExpression><![CDATA[$F{spname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="40" width="150" height="20" uuid="f826c20d-057a-4713-89cc-94148f8f74cc"/>
+				<textFieldExpression><![CDATA[$F{mo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="61" width="150" height="20" uuid="24f108f7-b341-40fb-a46a-7bbeac451dd5"/>
+				<textFieldExpression><![CDATA[$F{fo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="446" y="20" width="124" height="16" uuid="04b195fb-d797-4554-a849-4cb75b705ad5"/>
+				<textFieldExpression><![CDATA[$F{spdate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="446" y="38" width="123" height="20" uuid="33c2c594-5cdd-40a3-a66e-04c808802dfc"/>
+				<textFieldExpression><![CDATA[$F{modate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="446" y="61" width="125" height="20" uuid="521c1755-30c6-458e-a57c-bc530f90e387"/>
+				<textFieldExpression><![CDATA[$F{fodate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="100" width="138" height="20" uuid="0cb3dd57-3c5b-4b8c-9526-15051b69531e"/>
+				<textFieldExpression><![CDATA[$F{nofon}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="452" y="100" width="120" height="20" uuid="6218665a-fda6-4878-8e11-3a275c8382a5"/>
+				<textFieldExpression><![CDATA[$F{nphone}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="120" width="110" height="20" uuid="231ed8fd-1504-4a51-a4ee-6204935f502a"/>
+				<textFieldExpression><![CDATA[$F{family}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="499" y="120" width="72" height="20" uuid="6ec51de4-5510-4216-87f6-b65179cf06ee"/>
+				<textFieldExpression><![CDATA[$F{refference}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="140" width="138" height="20" uuid="ce4f10ce-e884-4613-a6a5-9e6b6b44348a"/>
+				<textFieldExpression><![CDATA[$F{allergies}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="230" width="210" height="20" uuid="9601be9d-7187-4710-953f-447ad36780a0"/>
+				<textFieldExpression><![CDATA[$F{pins}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="171" y="161" width="166" height="20" uuid="7f55d469-f7f6-414d-af87-bbf71094d829"/>
+				<textFieldExpression><![CDATA[$F{presurgery}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="160" width="129" height="20" uuid="2a027be7-f849-46bc-b794-d5b82aad8d86"/>
+				<textFieldExpression><![CDATA[$F{pofvisit}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="190" width="99" height="20" uuid="29155293-a62d-4b6f-9ede-7d04641e8906"/>
+			</textField>
+			<textField>
+				<reportElement x="403" y="228" width="168" height="20" uuid="11de4433-9bf5-4acb-b07a-693e06078b4c"/>
+				<textFieldExpression><![CDATA[$F{sins}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="51" y="250" width="69" height="20" uuid="c0de8594-0062-4d30-9b57-731e3f7c7c2f"/>
+				<textFieldExpression><![CDATA[$F{grp1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="163" y="250" width="116" height="20" uuid="990c34eb-ead0-4096-80b8-3214481166c4"/>
+				<textFieldExpression><![CDATA[$F{gid1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="248" width="69" height="20" uuid="c1584141-fef2-4975-80be-e40849fd558a"/>
+				<textFieldExpression><![CDATA[$F{grp2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="250" width="91" height="20" uuid="3a802742-baa8-44a3-afe0-76a54f5acc72"/>
+				<textFieldExpression><![CDATA[$F{gid2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="270" width="219" height="20" uuid="a2384c87-461c-4b69-bc53-f896823fea32"/>
+				<textFieldExpression><![CDATA[$F{ph1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="268" width="194" height="20" uuid="1ae89208-22a4-4800-9b54-700232ca8d3e"/>
+				<textFieldExpression><![CDATA[$F{ph2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="290" width="199" height="16" uuid="6a82f4b9-6fa1-42ba-871d-8e4c91617eae"/>
+				<textFieldExpression><![CDATA[$F{policyh1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="288" width="169" height="16" uuid="23b719e8-1c22-4f41-add7-9419750f188a"/>
+				<textFieldExpression><![CDATA[$F{policyh2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="51" y="307" width="69" height="18" uuid="2223c19d-b8e4-45df-8abd-6ab16ba4b7eb"/>
+				<textFieldExpression><![CDATA[$F{policyno1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="307" width="69" height="18" uuid="e9224713-b5dd-4ca8-84fe-193b34351dec"/>
+				<textFieldExpression><![CDATA[$F{mid1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="337" y="304" width="69" height="18" uuid="4d2fdfb9-1ac6-4e8a-924d-a13f02d21177"/>
+				<textFieldExpression><![CDATA[$F{policyno2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="491" y="304" width="78" height="20" uuid="5ba4d9b9-e7fe-4e24-8276-85ea2a486d50"/>
+				<textFieldExpression><![CDATA[$F{mid2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="190" width="94" height="20" uuid="5c08a427-57c1-4db5-b852-aad47b8c286e"/>
+				<textFieldExpression><![CDATA[$F{testrelease}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="17" splitType="Stretch">
+			<staticText>
+				<reportElement x="201" y="0" width="153" height="15" forecolor="#E04441" uuid="d60672d6-5de9-49ef-802e-245ea6e61b33"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Healthy Family,Healty Nation]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

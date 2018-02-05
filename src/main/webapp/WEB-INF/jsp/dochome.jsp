@@ -65,7 +65,8 @@ function checkhome(user){
 		// var element = document.getElementById('ho');
 		// element.setAttribute("href",url)
 		 $("#hided").remove();
-		 $("#hidedd").remove()
+		 $("#hidedd").remove();
+		 $("#hdf").remove();
 		$("#back").hide();
 	}
 	
@@ -125,21 +126,25 @@ window.location = "/HMS/doctor1.html";
       </figure>
     </div>
  
-   <div class="col-xs-2">
+  <div class="col-xs-2">
       <figure>
-       <c:forEach var="p"  items="${list1}">
+     
        <img src="<c:url value='/Images/GCH.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='prescription'" value="General Checkup"></figcaption>
-      </c:forEach>
+      <figcaption><input type="button" onclick="location.href='/HMS/diagnose'" value="Clinical Diagnosis"></figcaption>
+     
+      </figure>
+    </div> 
+   
+          <div class="col-xs-2">
+      <figure>
+     
+       <img src="<c:url value='/Images/dd.png'/>"/><br><br>
+      <figcaption><input type="button" onclick="location.href='/HMS/cdiagnose'" value="Dental Diagnosis"></figcaption>
+     
       </figure>
     </div>
 
-    <div class="col-xs-2">
-      <figure>
-       <img src="<c:url value='/Images/Summary.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='/HMS/discharge'" value="Discharge Summary"></figcaption>
-      </figure>
-    </div>
+    
     
       <div class="col-xs-2">
       <figure>
@@ -175,10 +180,10 @@ window.location = "/HMS/doctor1.html";
       </figure>
     </div>
     
-     <div class="col-xs-2">
+    <div class="col-xs-2">
       <figure>
-       <img src="<c:url value='/Images/Vitals.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='vitals'" value="Check Vitals"></figcaption>
+       <img src="<c:url value='/Images/Summary.png'/>"/><br><br>
+      <figcaption><input type="button" onclick="location.href='/HMS/discharge'" value="Discharge Summary"></figcaption>
       </figure>
     </div>
     
@@ -256,44 +261,45 @@ window.location = "/HMS/doctor1.html";
       </figure>
     </div>
     
-     <div class="col-xs-2">
+   <div class="col-xs-2">
       <figure>
-     
-       <img src="<c:url value='/Images/GCH.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='/HMS/diagnose'" value="Clinical Diagnosis"></figcaption>
-     
+       <img src="<c:url value='/Images/Vitals.png'/>"/><br><br>
+      <figcaption><input type="button" onclick="location.href='vitals'" value="Check Vitals"></figcaption>
       </figure>
-    </div> 
+    </div>
+    
    
     </div>
     <br>
    <div class="row text-center">
    
+    <div class="col-xs-2">
+      <figure>
+       <c:forEach var="p"  items="${list1}">
+       <img src="<c:url value='/Images/Gc.png'/>"/><br><br>
+      <figcaption><input type="button" onclick="location.href='prescription'" value="General Checkup"></figcaption>
+      </c:forEach>
+      </figure>
+    </div>
+   
    <div class="col-xs-2" id="hided">
       <figure>
      
-       <img src="<c:url value='/Images/GCH.png'/>"/><br><br>
+       <img src="<c:url value='/Images/Cdc.png'/>"/><br><br>
 
       <figcaption><input type="button" onclick="location.href='/HMS/diagnose/config'" value="Clinical Diagnosis Configuration"></figcaption>
 
      
       </figure>
     </div>
-    
+    <div class="col-xs-1" id="hdf"></div>
      
-   <div class="col-xs-2">
-      <figure>
-     
-       <img src="<c:url value='/Images/GCH.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='/HMS/cdiagnose'" value="Dental Diagnosis"></figcaption>
-     
-      </figure>
-    </div>
+
     
    <div class="col-xs-2" id="hidedd">
       <figure>
      
-       <img src="<c:url value='/Images/GCH.png'/>"/><br><br>
+       <img src="<c:url value='/Images/ddc.png'/>"/><br><br>
 
       <figcaption><input type="button" onclick="location.href='/HMS/cdiagnose/config'" value="Dental Diagnosis Configuration"></figcaption>
 
@@ -301,6 +307,7 @@ window.location = "/HMS/doctor1.html";
       </figure>
     </div> 
      
+    
      
    
    </div>

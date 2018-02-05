@@ -604,7 +604,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
     	        	            	   document.getElementById("rdateofbirth").value= addn.rdateofbirth;
     	        	            	   document.getElementById("ager").value = addn.ager;
     	        	            	   document.getElementById("workphone").value = addn.workphone;
-    	        	            	   
+    	        	            	   document.getElementById("homephone").value = addn.homephone;   
     	        	            	   document.getElementById("mobilephone").value = addn.mobilephone;
     	        	            	   document.getElementById("raddress").value= addn.raddress;
     	        	            	   document.getElementById("rprovince").value = addn.rprovince;
@@ -807,8 +807,9 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
         <th style="width:150px;">Last Name</th>
         <th style="width:150px;">Registered Date</th>
         <th style="width:150px;">Purpose of visit</th>
-        <th style="width:150px;">Edit</th>
-         <th style="width:15px;"></th>
+        <th style="width:50px;">Edit</th>
+        <th style="width:100px;">Print</th>
+        <th style="width:15px;"></th>
       </tr>
     </thead>
     <tbody class="tbody">
@@ -817,10 +818,10 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
     <td width="150px;">${p1.pid}</td>
     <td width="150px;">${p1.fname}</td>
     <td width="150px;">${p1.lname}</td>
-     <td width="150px;">${p1.regdate}</td>
+    <td width="150px;">${p1.regdate}</td>
     <td width="150px;">${p1.pofvisit}</td>
-    <td width="150px;"><i class="fa fa-pencil" style="color:#00b300" onclick="copy('${p1.pid},${p1.fname},${p1.lname},${p1.regdate},${p1.pofvisit},${p1.dob},${p1.age},${p1.gender},${p1.mstatus},${p1.ethnicity},${p1.ssn},${p1.landphone},${p1.mobile},${p1.email},${p1.country},${p1.city},${p1.pcode},${p1.state},${p1.mname},${p1.child},${p1.mo},${p1.modate},${p1.fo},${p1.fodate}','${p1.address2 }'),copy1('${p1.address1}')"></i></td>
-   
+    <td width="50px;"><i class="fa fa-pencil" style="color:#00b300" onclick="copy('${p1.pid},${p1.fname},${p1.lname},${p1.regdate},${p1.pofvisit},${p1.dob},${p1.age},${p1.gender},${p1.mstatus},${p1.ethnicity},${p1.ssn},${p1.landphone},${p1.mobile},${p1.email},${p1.country},${p1.city},${p1.pcode},${p1.state},${p1.mname},${p1.child},${p1.mo},${p1.modate},${p1.fo},${p1.fodate}','${p1.address2 }'),copy1('${p1.address1}')"></i></td>
+    <td style="width:100px;"><a href="/HMS/patpdf?location=${p1.pid}" target="_blank">Print</a></td>
  </tr>
     </c:forEach>
     </tbody>

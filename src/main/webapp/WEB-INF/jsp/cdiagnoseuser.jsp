@@ -308,6 +308,7 @@ var partab;
 var teethv;
 function copytethval(teeth){
 	teethv = $(teeth).attr("data-value"); 
+	checkdiv(teeth)
 }
 function checkdiv(val){
 	
@@ -892,10 +893,12 @@ function loadval(div,min){
 	  }
 	  
 	res = parseInt(min);
-
-
-	  var uri = "/HMS/cloaddiv1?pid="+pid+"&&tab="+min+"&&level="+Number(div + 1)+"";
-	  
+var uri;
+	if(flagval.includes("Dental Observation")){
+	 uri  = "/HMS/cloaddivv?level="+Number(div + 1)+"&&tab="+min+"";
+	}else{
+	 uri = 	"/HMS/cloaddiv1?pid="+pid+"&&tab="+min+"&&level="+Number(div + 1)+"";
+	}
 	  var data = div;
 	 
    var successFn =  function(response){
@@ -907,7 +910,7 @@ if(flagval.includes("Dental Observation")){
 	
 
     if($(".select1 option[value="+datec.teid+"]").length == 0){
-	$select1.append('<option value='+datec.teid+' data-value="'+datec.teethval+'">'+datec.teethval+'</option>');
+	$select1.append('<option value='+datec.teid+' titlea="'+div+'=='+min+'" oid='+datec.pid+' data-value="'+datec.teethval+'">'+datec.teethval+'</option>');
     $select1.appendTo($("#tab"+min).find(".main").find('#doh')).selectpicker('refresh');
     }
 }

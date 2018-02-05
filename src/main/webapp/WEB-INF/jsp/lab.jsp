@@ -88,6 +88,7 @@ $("#myTable .tbody tr").each(function(){
 		if(user.includes("[ROLE_DOCTOR]")){
 			var url = "/HMS/doctor1" ;
 			$("#back").hide();
+			
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url);
 			 document.getElementById("samplea").style.display = "block";
@@ -97,12 +98,15 @@ $("#myTable .tbody tr").each(function(){
 			
 			 var url = "/HMS/nursedesk" ;
 			 $("#back").hide();
+			 $("#lt").text("Upload files")
+			 $("#lb").text("Upload files")
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
 	// document.getElementById("samplea").style.display = "none";
 			 $(".nav pills").not(":nth-child(1)").css("display", "none");
 			 $(".nav pills").not(":nth-child(2)").css("display", "none");
 			 $("#ch").text("Upload files");
+			 $(".navbar-brand").text("Upload files");
 			 $('.hip').hide();
 			// document.getElementById("myInput").style.visibility ="hidden";
 		}
@@ -110,18 +114,22 @@ $("#myTable .tbody tr").each(function(){
 			
 			 var url = "/HMS/nursedesk" ;
 			 $("#back").hide();
+			 $("#lt").text("Upload files")
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
 			 // document.getElementById("samplea").style.display = "none";
 			 $(".nav pills").not(":nth-child(1)").css("display", "none");
 			 $(".nav pills").not(":nth-child(2)").css("display", "none");
 			 $("#ch").text("Upload files");
+			 $("#lb").text("Upload files");
+			 $(".navbar-brand").text("Upload files");
 			 $('.hip').hide();
 		}
 		else if(user.includes("[ROLE_ASSISTANT]")){
 			
 			 var url = "/HMS/frontdesk" ;
 			 $("#back").hide();
+			 $("#lt").text("Upload files")
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
 		//	 document.getElementById("samplea").style.display = "none";
@@ -129,12 +137,14 @@ $("#myTable .tbody tr").each(function(){
 			 $(".nav pills").not(":nth-child(2)").css("display", "none");
 			 $("#ch").text("Upload files");
 			 $('.hip').hide();
-			 
+			 $("#lb").text("Upload files")
+			 $(".navbar-brand").text("Upload files");
 		}
 		else if(user.includes("[ROLE_Accounts Admin]")){
 			
 			 var url = "/HMS/frontdesk" ;
 			 $("#back").hide();
+			 $("#lt").text("Upload files")
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
 			// document.getElementById("samplea").style.display = "none";
@@ -142,6 +152,8 @@ $("#myTable .tbody tr").each(function(){
 			 $(".nav pills").not(":nth-child(2)").css("display", "none");
 			 $("#ch").text("Upload files");
 			 $('.hip').hide();
+			 $("#lb").text("Upload files");
+			 $(".navbar-brand").text("Upload files");
 		}
 		
 	else{
@@ -725,7 +737,7 @@ $('#form1').draggable();
   
 	  <button type="button" id="samplea" class="btn btn-warning button1" onclick="openm()">
 	  <span class="glyphicon glyphicon-plus"></span><span id="ch">Lab Tests</span></button>
-<font size="5">LAB</font><span class="button2"><i class="glyphicon glyphicon-search"  style="color:#ff9900;margin: 4px 8px;"></i>
+<font size="5" id="lb">LAB</font><span class="button2"><i class="glyphicon glyphicon-search"  style="color:#ff9900;margin: 4px 8px;"></i>
 		<input type="text" id="myInp" class="form-control input-sm button2" placeholder="Search by Patient Name or Id"  style="width:150px"/></span>
 	</h1>
 
@@ -767,7 +779,7 @@ $('#form1').draggable();
   <div class="modal fade" id="myModal" role="dialog">
  <!--   <div class="modal-dialog modal-lg">-->
  <form id="formc" action="/HMS/savefile.html" method="post" enctype="multipart/form-data"> 
-  <h1 id=""><button class="btn btn-warning btn-sm button1" form="formc" onclick="return validpf()" id ="bc" type="submit" >Save <span class="fa fa-save"></span></button>Lab Tests
+  <h1 id=""><button class="btn btn-warning btn-sm button1" form="formc" onclick="return validpf()" id ="bc" type="submit" >Save <span class="fa fa-save"></span></button><span id="lt">Lab Tests</span>
         <button type="button" id="close" class="btn btn-warning button2" onclick="clos()">Close</button>    
       
         </h1>
