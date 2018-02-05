@@ -704,7 +704,7 @@ if(flagval.includes("Dental Observations")){
 	    'onchange':'copytethval(this.options[this.selectedIndex])'
 	  	});
 	
-	var diva = "<div style='margin-left:16px;'><div class='form-group row' style='height:70px;'><div class='col-xs-7'  id='doh' style='height:60px;'><p>Tooth Number</p></div></div>";
+	var diva = "<div style='margin-left:16px;'><div class='form-group row' style='height:70px;'><div class='col-xs-7'  id='doh' style='height:60px;'><p>Tooth Name</p></div></div>";
 	if($('#tab'+main).find(".main").find("#doh" ).length < 1){
 	$('#tab'+main).find(".main").append(diva);
 	 $select1.append('<option value="select"  data-value="select" selected disabled>Select</option>')
