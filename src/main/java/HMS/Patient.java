@@ -40,6 +40,7 @@ public class Patient {
 	private String relationship;
 	private String employer;
 	private String rdateofbirth;
+	
 	private String ager;
 	private String workphone;
 	private String mobilephone;
@@ -63,7 +64,13 @@ public class Patient {
 	private String mid1;
 	private String mid2;
 	private String psis;
-	
+	private String homephone;
+	public String getHomephone() {
+		return homephone;
+	}
+	public void setHomephone(String homephone) {
+		this.homephone = homephone;
+	}
 	public String getPsis() {
 		return psis;
 	}

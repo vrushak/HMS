@@ -434,7 +434,7 @@ function disp(){
    <div class="col-xs-4">
    <div class="form-group">
 <p>Admission No<span></span></p>
-  <input type="text" name="admitno" id="admitno" form="formd" class="form-control input-sm"  required>
+  <input type="text" name="admitno" id="admitno" form="formd" class="form-control input-sm" readonly required>
   </div>
  
  </div>
@@ -442,7 +442,7 @@ function disp(){
     <div class="col-xs-3">
   <div class="form-group">
 <p>Ward No/Bed No<span></span></p>
-  <input type="text" name="wardno" id="wardno" form="formd" class="form-control input-sm"  required>
+  <input type="text" name="wardno" id="wardno" form="formd" class="form-control input-sm" readonly required>
   </div>
 </div>
  
@@ -461,7 +461,7 @@ function disp(){
    <div class="form-group">
 <p>Date of discharge<span></span></p>
 <div class='input-group date' id='datetimepicker1'>
-  <input type="text" name="disdate" id="disdate" form="formd" class="form-control input-sm"  required>
+  <input type="text" name="disdate" id="disdate" form="formd" readonly class="form-control input-sm"  required>
    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar cal"></span></span>
    </div>
    
@@ -484,7 +484,7 @@ function disp(){
    <div class="col-xs-1"></div>
     <div class="col-xs-8">
     <p>Diagnosis<span></span></p>  
-<pre class="textarea" id="treatment" contenteditable="true">
+<pre class="textarea" id="treatment" contenteditable="false">
            
            
 </pre>
@@ -498,7 +498,7 @@ function disp(){
    <div class="col-xs-1"></div>
     <div class="col-xs-8">
     <p>Results<span></span></p>  
-<pre class="textarea" id="investigation" contenteditable="true">
+<pre class="textarea" id="investigation" contenteditable="false">
            
            
 </pre>
@@ -512,7 +512,7 @@ function disp(){
    <div class="col-xs-1"></div>
     <div class="col-xs-8">
     <p>Advice<span></span></p>  
-<pre class="textarea" id="management" contenteditable="true">
+<pre class="textarea" id="management" contenteditable="false">
            
            
 </pre>
@@ -526,7 +526,7 @@ function disp(){
 <div class="form-group">
             <p>Revisit<span></span></p>
             <div class='input-group date' id='datetimepicker2'>
-            <input type="text" class="form-control input-sm" name="revisit" id="revisit" rows="4" form="formd" >
+            <input type="text" class="form-control input-sm" name="revisit" id="revisit" rows="4" readonly form="formd" >
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar cal"></span></span>
   </div>
 </div>
@@ -535,7 +535,7 @@ function disp(){
   <div class="col-xs-3">
 <div class="form-group">
             <p>Emergency Contact<span></span></p>
-            <input type="number" class="form-control input-sm" name="ec" id="ec" rows="4" form="formd">
+            <input type="number" class="form-control input-sm" name="ec" id="ec" rows="4" form="formd" readonly>
 </div>
 </div>
 
@@ -543,7 +543,7 @@ function disp(){
   <div class="col-xs-3">
 <div class="form-group">
             <p>Ambulance No<span></span></p>
-            <input type="number" maxlength="14" class="form-control input-sm" name="amno" id="amno" rows="4" form="formd" >
+            <input type="number" maxlength="14" class="form-control input-sm" name="amno" id="amno" rows="4" form="formd" readonly>
 </div>
 </div>
 

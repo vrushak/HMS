@@ -95,7 +95,7 @@ function deleteRow(r,fee,charge) {
     
 }
 
-function disp(id){
+function disp(id,fr){
 	/*
 	$("#htr").hide();
 	 document.getElementById("prgen").style.visibility = "hidden";
@@ -110,9 +110,18 @@ function disp(id){
 	 $("#htr").show();
 */
 
-	var url = "/HMS/billpdf?location="+$("#invoice").val()+"" ;
-	$(id).attr("href",url)
 
+
+	if(fr == "pr"){
+		var url = "/HMS/billpdf?location="+$("#invoice").val()+"" ;
+		$(id).attr("href",url)
+		return true;
+	}
+	else{
+		var url = "/HMS/billint?location="+$("#fileno").val()+"" ;
+		$(id).attr("href",url)
+		return true;
+	}
 
 }
 		
@@ -732,7 +741,7 @@ function doAjaxSave(id){
 </center>
 	<div id="page-wrap">
         <h1>
-  <a href="" target="_blank" class="btn btn-warning button2" id="disp"  onclick="disp(this)" >
+  <a href="" target="_blank" class="btn btn-warning button2" id="disp"  onclick="disp(this,'pr')" >
 	  <span class="glyphicon glyphicon-eye-open"></span> Print</a> 
 <font size="5" color="#FFF">Invoice</font><span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i>
 		  </h1>
@@ -924,6 +933,9 @@ function doAjaxSave(id){
 		      <td class="total-value balance"><input type="text"  readonly="readonly" id="total" style="width:200px" name="total" class="form-control input-sm due" form="billsave"></td>
 		  </tr>
 	</table>
+	 <div class="col-xs-1"></div>
+	<a href="#" id="intbill" target="_blank" class="btn btn-warning button1"  onclick="return disp(this,'ir')">Generate Integrated Bill</a>
+	
 	<br><br>
 
 <div class="form-group row" >

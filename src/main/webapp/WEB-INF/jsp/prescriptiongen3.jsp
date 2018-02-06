@@ -216,6 +216,9 @@ height: auto;
 
 border : none;
 }
+select{
+border : none;
+}
 }
 
 </style>
@@ -273,7 +276,7 @@ function disp(){
 		return false;
 	}
 	else{
-	
+	/*
 		var c = document.getElementsByClassName("baf");
 		for(var i=0;i<c.length;i++){
 			AutoGrowTextArea(c[i])
@@ -294,7 +297,7 @@ function disp(){
 			AutoGrowTextArea(f[i])
 		}
 			
-		
+	*/	
 	AutoGrowTextArea(document.getElementById("diagnosed"))
 	
 	document.getElementById("close").style.display = "none";
@@ -382,21 +385,22 @@ function doAjaxPost(fileno,pid) {
        	     	   var dec = "de"+cnt;
        	     	   var dnc = "dn"+cnt;
        	           var baf = "baf"+cnt;
+       	   	 var id = Math.random() 
 
   	  var newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><textarea class='form-control input-sm name'  form ='form1' disabled   onfocus='AutoGrowTextArea(this)'  id = 'typeofdr'  name= 'typeofdr'  required>"+drug.typeofdr+"</textarea></td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea class='form-control input-sm name'  form ='form1' readonly   oninput='AutoGrowTextArea(this)'  id = '"+dec+"'  name= 'typeofdr'  required>"+drug.typeofdr+"</textarea></td></tr>";
   	  newCell.style.width ='100px';
   		 
   	  newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm drname' disabled onfocus='AutoGrowTextArea(this)'  id = 'drugname' name= 'drugname'  required>"+drug.drugname+"</textarea> </td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm' readonly oninput='AutoGrowTextArea(this)'  id = '"+id+"' name= 'drugname'  required>"+drug.drugname+"</textarea> </td></tr>";
   	  newCell.style.width ='100px';
   		 
   	  newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm strdrg' disabled  onfocus='AutoGrowTextArea(this)'  id = 'strdrug' name= 'strdrug'  required>"+drug.strdrug+"</textarea> </td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm' readonly  oninput='AutoGrowTextArea(this)'  id = '"+dnc+"' name= 'strdrug'  required>"+drug.strdrug+"</textarea> </td></tr>";
   	  newCell.style.width ='65px';
   	  
   	  newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><textarea form ='form1' class= 'form-control input-sm' disabled onfocus='AutoGrowTextArea(this)'  id = 'strdrug' name= 'strdrug'  required>"+drug.dosage+"</textarea></td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea form ='form1' class= 'form-control input-sm' readonly oninput='AutoGrowTextArea(this)'  id = 'strdrug' name= 'strdrug'  required>"+drug.dosage+"</textarea></td></tr>";
   	  newCell.style.width ='65px';
   		 
   	      newCell = rowsAdd.insertCell();
@@ -410,19 +414,22 @@ function doAjaxPost(fileno,pid) {
     	 
     		 
           	  newCell = rowsAdd.insertCell();
-          	  newCell.innerHTML="<tr><td><textarea contenteditable='true' class='form-control input-sm baf' disabled onfocus='AutoGrowTextArea(this)'  id = '"+baf+"' name= 'baf' >"+drug.baf+"</textarea></td></tr>";
+          	  newCell.innerHTML="<tr><td><textarea  class='form-control input-sm baf' readonly oninput='AutoGrowTextArea(this)'  id = '"+baf+"' name= 'baf' >"+drug.baf+"</textarea></td></tr>";
           	  newCell.style.width ='100px';
           	  
   	  newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><textarea  form ='form1' disabled class= 'form-control input-sm' onfocus='AutoGrowTextArea(this)' id = 'totn' name= 'totn'  required>"+drug.totn+"</textarea></td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea  form ='form1' readonly class= 'form-control input-sm' oninput='AutoGrowTextArea(this)' id = 'totn' name= 'totn'  required>"+drug.totn+"</textarea></td></tr>";
   	  newCell.style.width ='70px';
   		 
   	  newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><textarea  form ='form1' disabled class= 'form-control input-sm' id = 'nofdays' onfocus='AutoGrowTextArea(this)' name= 'nofdays'  required>"+drug.nofdays+"</textarea></td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea  form ='form1' readonly class= 'form-control input-sm' id = 'nofdays' oninput='AutoGrowTextArea(this)' name= 'nofdays'  required>"+drug.nofdays+"</textarea></td></tr>";
   	  newCell.style.width ='70px';
   		 
   	 
-  	  
+ 	 document.getElementById(dec).oninput();
+   	 document.getElementById(id).oninput();
+   	 document.getElementById(dnc).oninput();
+   	 document.getElementById(baf).oninput(); 
   	 
   		 
   	// document.getElementById(baf).value = drug.baf;
@@ -576,7 +583,7 @@ function AutoGrowTextArea(textField)
 	      
 	      <div class="form-group">
             
-        Patient Name:<select class="selectpicker form-control" data-size="4" data-live-search="true" name = "pname" id ="pname" onchange="addname(this.options[this.selectedIndex])">
+        Patient Name:<select class="selectpicker form-control" data-size="4" data-live-search="true" name = "pname" id ="pname"  onchange="addname(this.options[this.selectedIndex])">
           <option value="Select" selected disabled>Select</option>
         <c:forEach var="p"  items="${model.list1}">
         <option value="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pname}=${p.fileno}=${p.dname}=${p.appointment}=${p.pds}=${p.pid}=${p.advice}">${p.pname}</option>

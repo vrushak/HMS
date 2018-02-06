@@ -712,7 +712,7 @@ $(document).ready(function(){
    
     <c:forEach var="p1"  items="${model.list1}">
     <tr>
-    <td width="240px;" ><a href="" target="_blank" onclick="copyval1('${p1.pid}','${p1.pname}','${p1.fileno}','${p1.docid}',this)" >${p1.pid}</a></td>
+    <td width="240px;" ><a href="" target="_self" onclick="copyval1('${p1.pid}','${p1.pname}','${p1.fileno}','${p1.docid}',this)" >${p1.pid}</a></td>
     <td width="240px;"><a href="#"  onclick="copy('${p1.pid}==${p1.pname}==${p1.docid}==${p1.dname}==${p1.appointment}==${p1.fileno}==${p1.ac}')">${p1.pname}</a></td>
     <td width="240px;" class="trunk">${p1.dname}</td>
     <td width="240px;">${p1.appointment}</td>

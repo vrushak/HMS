@@ -260,6 +260,7 @@ function checkhome(user){
 		
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $("#myTable th:eq(8), #myTable td:last-child").hide();
 	}
 	
 	else if(user.includes("[ROLE_DOCTOR]")){
@@ -276,7 +277,7 @@ function checkhome(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
-		 
+		 $("#myTable th:eq(8), #myTable td:last-child").hide();
 		
 	}
 	else if(user.includes("[ROLE_ASSISTANT]")){
@@ -287,6 +288,7 @@ function checkhome(user){
 		 element.setAttribute("href",url)
 		 
 		 document.getElementById("bc").disabled = true;
+		 $("#myTable th:eq(8), #myTable td:last-child").hide();
 	}
 
 	else{
@@ -323,7 +325,7 @@ function disp(){
 		return false;
 	}
 	else{
-
+/*
 var c = document.getElementsByClassName("baf");
 for(var i=0;i<c.length;i++){
 	AutoGrowTextArea(c[i])
@@ -343,7 +345,8 @@ var f = document.getElementsByClassName("name");
 for(var i=0;i<e.length;i++){
 	AutoGrowTextArea(f[i])
 }
-	
+	*/
+	$("#myTable th:eq(8), #myTable td:last-child").hide();
 	document.getElementById("close").style.display = "none";
 	//document.getElementById("di").style.display = "none";
 	document.getElementById("hds").style.display = "block";
@@ -354,7 +357,7 @@ for(var i=0;i<e.length;i++){
 	document.getElementById("close").style.display = "block";
 	document.getElementById("hds").style.display = "none";
 	document.getElementById("opener3").style.display = "block";
-
+	$("#myTable th:eq(8), #myTable td:last-child").show();
 	}
 //	document.getElementById("di").style.display = "block";
 }
@@ -491,7 +494,9 @@ function display(){
 	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm baf' value=' ' type='text' id = 'nofdays' name= 'nofdays'  required> </td></tr>";
 	  newCell.style.width ='50px';
 		 
-	
+	  newCell = rowsAdd.insertCell();
+	  newCell.innerHTML="<tr><td class='tds'><i class='fa fa-trash-o' font-size:20px'  onclick='deleteRow(this)'></i></td></tr>";
+	  newCell.style.width ='30px';
 	 
 
 	  
@@ -672,6 +677,7 @@ function doAjaxPost2() {
 	            	 
 
 if(response.length == 0){
+	
 	$("#myTable .tbody tr").remove();
 	var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
 	var rowsAdd = tableRef.insertRow(tableRef.rows.length);  
@@ -700,17 +706,18 @@ if(response.length == 0){
        	     	   var dec = "de"+cnt;
        	     	   var dnc = "dn"+cnt;
        	     	   var baf = "baf"+cnt;
+       	     	 var id = Math.random()  
 
   	  var newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><textarea class='form-control input-sm name'  form ='form1'    id = 'typeofdr' oninput ='AutoGrowTextArea(this)'  name= 'typeofdr'  required>"+drug.typeofdr+"</textarea></td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea class='form-control input-sm name'  form ='form1'    id = '"+id+"' oninput ='AutoGrowTextArea(this)'  name= 'typeofdr'  readonly required>"+drug.typeofdr+"</textarea></td></tr>";
   	  newCell.style.width ='100px';
   		 
   	  newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm drname' oninput ='AutoGrowTextArea(this)'  id = '"+tableRef.rows.length+"' name= 'drugname'  required>"+drug.drugname+"</textarea></td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm drname' oninput ='AutoGrowTextArea(this)'  id = '"+tableRef.rows.length+"' name= 'drugname' readonly required>"+drug.drugname+"</textarea></td></tr>";
   	  newCell.style.width ='100px';
   		 
   	  newCell = rowsAdd.insertCell();
-  	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm strdrg' oninput='AutoGrowTextArea(this)' id = 'strdrug' name= 'strdrug'  required>"+drug.strdrug+"</textarea></td></tr>";
+  	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm strdrg' oninput='AutoGrowTextArea(this)' id = '"+dac+"' name= 'strdrug' readonly required>"+drug.strdrug+"</textarea></td></tr>";
   	  newCell.style.width ='65px';
   	  
   	  newCell = rowsAdd.insertCell();
@@ -720,25 +727,26 @@ if(response.length == 0){
  	 newCell = rowsAdd.insertCell();
      newCell.innerHTML="<tr><td><select  form ='form1' class= 'form-control input-sm'   id = '"+dmc+"'  name= 'dm'  ><option value='PRN'>PRN</option><option value='OD'>OD</option><option value='BD'>BD</option><option value='TDS'>TDS</option><option value='QID'>QID</option><option value='OTHERS'>OTHERS</option></select> </td></tr>";
      newCell.style.width ='20px';
-    	  /*
+    	
      newCell = rowsAdd.insertCell();
-     newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm'  type='text' id = '"+dac+"'  name= 'da'  value='"+drug.da+"'</td></tr>";
-     newCell.style.width ='120px';
-    	  */
-     newCell = rowsAdd.insertCell();
-     newCell.innerHTML="<tr><td><textarea form ='form1' class= 'form-control input-sm baf'  id = 'baf' name= 'baf' oninput='AutoGrowTextArea(this)'>"+drug.baf+"</textarea></td></tr>";
+     newCell.innerHTML="<tr><td><textarea form ='form1' class= 'form-control input-sm baf'  id = '"+baf+"' name= 'baf' oninput='AutoGrowTextArea(this)'>"+drug.baf+"</textarea></td></tr>";
      newCell.style.width ='100px';
   		 
   	  newCell = rowsAdd.insertCell();
   	  newCell.innerHTML="<tr><td><textarea  form ='form1' class= 'form-control input-sm'  type='text' id = 'totn' oninput='AutoGrowTextArea(this)'  name= 'totn'  required>"+drug.totn+"</textarea></td></tr>";
-  	  newCell.style.width ='70px';
+  	
   		 
   	  newCell = rowsAdd.insertCell();
   	  newCell.innerHTML="<tr><td><textarea  form ='form1'  class= 'form-control input-sm' id = 'nofdays' oninput='AutoGrowTextArea(this)' name= 'nofdays'  required>"+drug.nofdays+"</textarea></td></tr>";
-  	  newCell.style.width ='70px';
-  		 
   	 
-  	  
+  		 
+	  newCell = rowsAdd.insertCell();
+   	  newCell.innerHTML="<tr><td><i class='fa fa-trash-o font-size:20px'  onclick='doAjaxDelete(this,"+tableRef.rows.length+","+id+")'></i></td></tr>";
+   	  
+   	 document.getElementById(id).oninput();
+   	 document.getElementById(tableRef.rows.length).oninput();
+   	 document.getElementById(dac).oninput();
+   	 document.getElementById(baf).oninput();
   	 /*
   		 
   	 if(drug.dm == "on"){
@@ -917,7 +925,46 @@ if(response.length == 0){
      
   });
   </script>
-  
+ <script>
+function doAjaxDelete(r,drug,type){
+
+	var a = document.getElementById(drug).value;
+	var b = document.getElementById(type).value;
+	var file = $('#fileno').val();
+		
+	 
+	    
+	   
+	   $.ajax({
+      	 
+           type: "GET",
+   
+           url: "/HMS/idelpr/"+a+"/"+b+"/"+file+"",
+           async : false,      
+           dataType: "JSON",
+           contentType: "application/json; charset=UTF-8",
+           
+         success: function(response){
+              	if(response.toString() == "success")   
+                 {
+             	  alert("Record deleted Successfully")
+                 }
+             	  unsaved = false;
+                 },
+                 
+
+            	
+               //  error: function(e){
+              	  
+              	 //          alert('Error: ' + e);
+              	  
+              	  //         }
+              	           });
+	    var i = r.parentNode.parentNode.rowIndex;
+	    document.getElementById("myTable").deleteRow(i);
+}
+
+</script> 
 
 
 </head>
@@ -1069,6 +1116,7 @@ if(response.length == 0){
         <th  style="">Remarks</th>
         <th> Number of Quantity dispensed</th>
         <th >No. of Days</th>
+        <th >Delete Row</th>
       </tr>
     </thead>
     <tbody class="tbody">
@@ -1144,6 +1192,7 @@ if(response.length == 0){
         <th  style="">Remarks</th>
         <th> Number of Quantity dispensed</th>
         <th >No. of Days</th>
+        
       </tr>
     </thead>
     <tbody class="tbody1">

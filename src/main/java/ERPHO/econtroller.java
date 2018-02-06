@@ -467,7 +467,7 @@ public class econtroller {
 				  public   @ResponseBody String getInvoiceprds(@ModelAttribute("p") Sale p){
 			//		  List<Order> list1 = hodao.getOrderid();
 					String jsonFormatData = "";
-					System.out.println("Sd"+ p.getPname());
+					
 					List<Sale> list1b = hodao.getinvprods(p.getPname());
 				
 					  Map<String, Object> model = new HashMap<String, Object>();
@@ -764,7 +764,7 @@ public class econtroller {
 				  public   @ResponseBody String Supply(@ModelAttribute("p") Purchase p){
 			//		  List<Order> list1 = hodao.getOrderid();
 					String jsonFormatData = "";
-					System.out.println("Sd"+p.getSupplier());
+				
 					List<Purchase> list2 = hodao.getsupplyorder(p.getSupplier());
 					  Map<String, Object> model = new HashMap<String, Object>();
 				    //    model.put("list1",list1);

@@ -34,7 +34,8 @@ var cuser;
 		document.getElementById("cdate").innerHTML = moment().format("DD-MM-YYYY hh:mm");
 		
 		    //   document.getElementById("adbar").innerHTML = tpin; 
-		
+		$(".dispr").attr("disabled",true)
+		$("#intbill").attr("disabled",true)
 		 if(user.includes("[ROLE_FDESK]")){
 		
 			var url = "/HMS/frontdesk" ;
@@ -57,7 +58,7 @@ var cuser;
 			
 			 
 			 $('.ftype').prop('readonly', true);
-			 document.getElementById("bouton-contact").disabled = false;
+		
 		}
 		 
 		else if(user.includes("[ROLE_Accounts Admin]")){
@@ -66,14 +67,14 @@ var cuser;
 				
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
-			 document.getElementById("bouton-contact").disabled = false;
+			
 		}
 		else{
 			 var url = "/HMS/home" ;
 			
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
-			 document.getElementById("bouton-contact").disabled = false;
+			
 		}
 	}
 	
@@ -236,7 +237,7 @@ var cuser;
 		  pricea = Number(document.getElementById(qant).value) *  Number(document.getElementById(tid).value);
 	
 		  
-		  document.getElementById(qty).value= Math.round(pricea);//isNaN(price)?"0.00":price.toFixed(2);
+		  document.getElementById(qty).value= Math.round(pricea).toFixed(2);//isNaN(price)?"0.00":price.toFixed(2);
 		 
 		  
 		}
@@ -554,7 +555,8 @@ function cori1(value){
 }
 
 
-function disp(id){
+function disp(id,fr){
+	
 	
 	
 	var tableRef = document.getElementById('items').getElementsByTagName('tbody')[0];
@@ -564,9 +566,18 @@ function disp(id){
 		return false;
 	}
 	else{
-		var url = "/HMS/billpdf?location="+$("#invoice").val()+"" ;
-		$(id).attr("href",url)
-		return true;
+		
+		if(fr == "pr"){
+			var url = "/HMS/billpdf?location="+$("#invoice").val()+"" ;
+			$(id).attr("href",url)
+			return true;
+		}
+		else{
+			var url = "/HMS/billint?location="+$("#fileno").val()+"" ;
+			$(id).attr("href",url)
+			return true;
+		}
+		
 	}
 	/*
 	$("#htr").hide();
@@ -781,10 +792,13 @@ function doAjaxSave(id){
          // contentType: "application/json; charset=UTF-8",
           
           success: function(response){
-       	if(response.toString() == "success")   
-          {
+       	if(response.toString() == "success") {
+       	
       	  alert("Data Saved Successfully")
+      
           }
+        $(".dispr").attr("disabled",false)
+         $("#intbill").attr("disabled",false)
       	  unsaved = false;
           },
           error: function(e){
@@ -839,7 +853,7 @@ input .ftype{
 	    <button type="submit" formtarget ="_blank" class="btn btn-warning button1" id="bc" form="bill" disabled>
 	  <span class="glyphicon glyphicon-eye-open"></span> View Previous Bills</button>
 <font size="5" color="#FFF" style="margin-left:-50px; "><span id="chb">Bill Generation</span></font><span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i>
-		  <a href="" target="_blank" class="btn btn-warning button2" id="disp"  onclick="return disp(this)" >
+		  <a href="" target="_blank" class="btn btn-warning button2 dispr" id="disp"  onclick="return disp(this,'pr')">
 	  <span class="glyphicon glyphicon-eye-open"></span> Print</a> 
 		 </h1>
 		
@@ -931,7 +945,7 @@ input .ftype{
 
             <table id="meta">
                 <tr>
-                    <td class="meta-head">Invoice #</td>
+                    <td class="meta-head">Invoice</td>
                     <td><textarea id="invoice" name="invoice" form="billsave" readonly></textarea></td>
                 </tr>
                 <tr>
@@ -1051,7 +1065,9 @@ input .ftype{
 	</table>
 	 <div class="col-xs-1"></div>
 	<button type="button" id="newt" class="btn btn-warning button1" onclick="clos()">New</button>
-<button type="button"  disabled id="bouton-contact" class="bouton-contact" onclick="return validchk();" form="billsave" ><span id="prgen">Generate Bill</span></button>
+	 <div class="col-xs-1"></div>
+	<a href="#" id="intbill" target="_blank" class="btn btn-warning button1"  onclick="return disp(this,'ir')">Generate Integrated Bill</a>
+<button type="button"   id="bouton-contact" class="bouton-contact" onclick="return validchk();" form="billsave" ><span id="prgen">Generate Bill</span></button>
 </div>
    
      <div class="container">

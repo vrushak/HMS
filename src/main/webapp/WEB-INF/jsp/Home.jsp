@@ -94,6 +94,8 @@ function addp(id){
 
 function addp1(id){
 	
+
+
 		var url = "/HMS/pdf?location1="+moment().format("DD-MM-YYYY")+"&location2="+moment().format("DD-MM-YYYY")+"" ;
 		$(id).attr("href",url)
 	
@@ -128,27 +130,40 @@ $( function() {
 		    	  $( "#result" ).dialog( "open" );
 		      }
 		      else{
+		    	  
+		    	  var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+		    	  var firstDay = new Date(y, m, 1);
 		    	  $("#admdate").val('');
-		    	  $("#disdate").val('');
-		    
+		    //	  $("#disdate").val('');
+		    	  $("#admdate").val(moment(firstDay).format("DD-MM-YYYY"))
+		    //      $("#disdate").val(moment().format("DD-MM-YYYY"));
 		    	 $( "#result" ).dialog( "open" );
 		      }
 		    	
 		    	$('.dp1').datetimepicker({
 		   	   	 
-			    	defaultDate: new Date(),
+		    		
 			    	useCurrent: false,
 			    	format: "dd-mm-yyyy",
 			        autoclose: true,
 			        todayBtn: true,
-			        minView: 2
+			        minView: 2,
 			       
-			    	
-			    });
-
-		  	  
-		    });  
+			       
+			       });
+		    	 });  
 	    
+	    
+	    $( "#admdate" ).on( "change", function() {
+	   var a = $("#admdate").val();
+
+	   $('#datetimepicker').datetimepicker({
+	   	
+		 
+		  
+		    	});
+	    	
+	    });
 });
 
 </script>
@@ -164,10 +179,10 @@ $( function() {
   	 <div class="col-lg-1"></div>
   	 <a href="/HMS/cappointment.html">
     	<div class="col-lg-2" >
-  	 <div  style="height: 85px; border: 2px solid;border-radius: 15px; background-color:#049be6;">
+  	 <div  style="height: 85px; border: 2px solid;border-radius: 15px; background-color:#f0ad4e;border-color:#f0ad4e">
   	 <div class="row">
   	 <div class="co col-lg-8" style="margin-top:20px;">
-  	 <div class="text" style="margin:0px 5px 0px; color:#ffff">Appoinments</div>
+  	 <div class="text" style="margin:0px 5px 0px; color:#ffff"> Appointments</div>
                     <div class="app" style="margin:0px 10px 0px; color:#ffff"></div>
   	 </div>
   	 <div class="logo col-lg-4" style="margin-top:25px;">
@@ -179,7 +194,7 @@ $( function() {
     	</a>
     	<a href="/HMS/diagnose.html">
    	<div class="col-lg-2" >
- 	 <div  style="height: 85px; border: 2px solid ;border-radius: 15px; background-color:#049be6;">
+ 	 <div  style="height: 85px; border: 2px solid ;border-radius: 15px; background-color:#C0C0C0;border-color:#C0C0C0">
  	 <div class="row">
   	 <div class="co col-lg-8" style="margin-top:20px;">
   	 <div class="text" style="margin:0px 5px 0px;color:#ffff">OPD</div>
@@ -192,9 +207,9 @@ $( function() {
  	 </div>
    	</div>
     	</a>
-    	<a href="/HMS/ipdpr.html">
+    	<a href="/HMS/treatment.html">
     	<div class="col-lg-2" >
-  	 <div  style="height: 85px; border: 2px solid ;border-radius: 15px; background-color:#049be6;">
+  	 <div  style="height: 85px; border: 2px solid ;border-radius: 15px; background-color:#f0ad4e;border-color:#f0ad4e">
   	 <div class="row">
   	 <div class="co col-lg-8" style="margin-top:20px;">
   	 <div class="text" style="margin:0px 5px 0px; color:#ffff">IPD</div>
@@ -209,10 +224,10 @@ $( function() {
     	</a>
     	<a  id = "opener" href="#">
     	<div class="col-lg-2" >
-  	 <div  style="height: 85px; border: 2px solid  ;border-radius: 15px; background-color:#049be6;">
+  	 <div  style="height: 85px; border: 2px solid  ;border-radius: 15px; background-color:#C0C0C0;border-color:#C0C0C0">
   	 <div class="row">
   	 <div class="co col-lg-8" style="margin-top:20px;">
-  	 <div class="text" style="margin:0px 5px 0px; color:#ffff">Billing for the month</div>
+  	 <div class="text" style="margin:0px 5px 0px; color:#ffff">Billing for the Month</div>
                     <div class="bm" style="margin:0px 10px 0px; color:#ffff"></div>
   	 </div>
   	 <div class="logo col-lg-4" style="margin-top:25px;">
@@ -224,10 +239,10 @@ $( function() {
     	</a>
     	<a id ="bod" target="_blank" onclick="addp1(this)" href="#">
     	<div class="col-lg-2" >
-  	 <div  style="height: 85px; border: 2px solid ;border-radius: 15px; background-color:#049be6;">
+  	 <div  style="height: 85px; border: 2px solid ;border-radius: 15px; background-color:#f0ad4e;border-color:#f0ad4e">
   	 <div class="row">
   	 <div class="co col-lg-8" style="margin-top:20px;">
-  	 <div class="text" style="margin:0px 5px 0px; color:#ffff">Billing for the day</div>
+  	 <div class="text" style="margin:0px 5px 0px; color:#ffff">Billing for the Day</div>
                     <div class="bd" style="margin:0px 10px 0px;color:#ffff"></div>
   	 </div>
   	 <div class="logo col-lg-4" style="margin-top:25px;">
@@ -330,7 +345,7 @@ $( function() {
         <div class="col-xs-10">
         <p>To Date<span></span></p>
        <div class="form-group">
-      <div class='input-group date dp1'>
+      <div class='input-group date dp1' id="datetimepicker">
       <input type='text' name="disdate" id="disdate" class="form-control input-sm" required />
       <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
       </div></div>
@@ -338,7 +353,7 @@ $( function() {
       </div>   
       <a href="" target="_blank" class="btn btn-warning" onclick="return addp(this)">Bill Report</a></div>
   </div>	  
-	  					
+	  				
 </div>
 
 </body>

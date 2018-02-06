@@ -884,10 +884,28 @@ public List<Billgen> getBill3a(String invid) {
         }
 	});
 }
+
+public List<Billgen> getBillint(String fileno) {
+	
+	return template.query("select p.invoice,p.invoicedate,p.pname,p.total from billgen p where p.fileno='"+fileno+"' union all select a.invoice,DATE_FORMAT(a.invoicedate,'%d-%m-%Y'),a.custName,a.gtotal from erpho.saleho a where a.fileno='"+fileno+"'",new RowMapper<Billgen>(){  
+        public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
+       
+	       Billgen p = new Billgen();
+	       p.setInvoice(rs.getString(1));
+	       p.setInvoicedate(rs.getString(2));
+	       p.setPname(rs.getString(3));
+	       p.setTotal(rs.getString(4));
+	     
+	      
+		return p;
+        }
+	});
+}
+//invoicedate between '"+fdate+"' and '"+edate+"'
 //for printing overall reports
 public List<Billgen> getBill3(String fdate,String edate) {
 	
-	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,quantity,prch from billgen where invoicedate between '"+fdate+"' and '"+edate+"'",new RowMapper<Billgen>(){  
+	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,quantity,prch from billgen where DATE_FORMAT(STR_TO_DATE(invoicedate, '%d-%m-%Y'),'%Y-%m-%d') >= DATE_FORMAT(STR_TO_DATE('"+fdate+"', '%d-%m-%Y'),'%Y-%m-%d') and DATE_FORMAT(STR_TO_DATE(invoicedate, '%d-%m-%Y'),'%Y-%m-%d') <= DATE_FORMAT(STR_TO_DATE('"+edate+"', '%d-%m-%Y'),'%Y-%m-%d')",new RowMapper<Billgen>(){  
         public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
        
 	       Billgen p = new Billgen();
@@ -2427,7 +2445,7 @@ public List<Admitpat> getAdmitpat(String fileno) {
 //appointments history
 public List<Appointment> getAppointment1() {
 	// TODO Auto-generated method stub
-	return template.query("select count(fileno) from appointment where appointment = curdate() and active='on'",new RowMapper<Appointment>(){  
+	return template.query("select count(fileno) from appointment where appointment = curdate()",new RowMapper<Appointment>(){  
      public Appointment mapRow(ResultSet rs, int row) throws SQLException {   
 	       Appointment p = new Appointment();
 	     p.setAppointment(rs.getString(1));

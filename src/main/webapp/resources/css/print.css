@@ -16,7 +16,7 @@
     }
     select[class=selectpicker]{
      display: inline-block;
-        border:none;
+        border-style:none;
     }
     
  #pr3{

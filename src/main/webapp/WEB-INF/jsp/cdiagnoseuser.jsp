@@ -307,7 +307,14 @@ var flagval;
 var partab;
 var teethv;
 function copytethval(teeth){
-	teethv = $(teeth).attr("data-value"); 
+	teethv = $(teeth).attr("data-value");
+	var title = $(teeth).attr("titlea").split('==');
+	$("#tab"+title[1]).find(".main").find('div.divin').not(':first').remove();
+	$("#tab"+title[1]).find(".main").find('div.divot').not(':first').remove();
+	obj = {};
+	  prvrec = 0;
+	 
+	
 }
 function checkdiv(val){
 	
@@ -704,7 +711,7 @@ if(flagval.includes("Dental Observations")){
 	    'onchange':'copytethval(this.options[this.selectedIndex])'
 	  	});
 	
-	var diva = "<div style='margin-left:16px;'><div class='form-group row' style='height:70px;'><div class='col-xs-7'  id='doh' style='height:60px;'><p>Tooth Number</p></div></div>";
+	var diva = "<div style='margin-left:16px;'><div class='form-group row' style='height:70px;'><div class='col-xs-7'  id='doh' style='height:60px;'><p>Tooth Name</p></div></div>";
 	if($('#tab'+main).find(".main").find("#doh" ).length < 1){
 	$('#tab'+main).find(".main").append(diva);
 	 $select1.append('<option value="select"  data-value="select" selected disabled>Select</option>')
@@ -892,10 +899,12 @@ function loadval(div,min){
 	  }
 	  
 	res = parseInt(min);
-
-
-	  var uri = "/HMS/cloaddiv1?pid="+pid+"&&tab="+min+"&&level="+Number(div + 1)+"";
-	  
+var uri;
+	if(flagval.includes("Dental Observation")){
+	 uri  = "/HMS/cloaddivv?level="+Number(div + 1)+"&&tab="+min+"";
+	}else{
+	 uri = 	"/HMS/cloaddiv1?pid="+pid+"&&tab="+min+"&&level="+Number(div + 1)+"";
+	}
 	  var data = div;
 	 
    var successFn =  function(response){
@@ -907,7 +916,7 @@ if(flagval.includes("Dental Observation")){
 	
 
     if($(".select1 option[value="+datec.teid+"]").length == 0){
-	$select1.append('<option value='+datec.teid+' data-value="'+datec.teethval+'">'+datec.teethval+'</option>');
+	$select1.append('<option value='+datec.teid+' titlea="'+div+'=='+min+'" data-value="'+datec.teethval+'">'+datec.teethval+'</option>');
     $select1.appendTo($("#tab"+min).find(".main").find('#doh')).selectpicker('refresh');
     }
 }
@@ -1006,9 +1015,10 @@ if(flagval.includes("Dental Observation")){
     		     }
     	      
     	     });
+    
     	  obj = {};
     	  prvrec = 0;
-    	
+    	 
     	}
        
        function change(){
