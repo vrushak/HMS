@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -53,6 +55,7 @@ import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
 import net.sf.jasperreports.view.JasperViewer;
 
+
 import com.google.gson.Gson;
 
 import HMS.controllerDao;
@@ -76,6 +79,9 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 @Controller
 public class controller {
 	private JasperReport jr;
@@ -89,6 +95,11 @@ public class controller {
 	//print docsillgen4
 	@Autowired
 	ServletContext context;
+	static String api_key ;
+    static String sender_id;
+	String mob_no;
+	String message;
+
 	@RequestMapping(value="/prdocs", method = RequestMethod.GET)
 	   public ModelAndView docs() {
 	 	 
@@ -259,7 +270,7 @@ public class controller {
 			  		return new ModelAndView("appointment","model",model); 
 					}
 				@RequestMapping(value="/saveApp", method = RequestMethod.POST)
-				public ModelAndView  saveAppointment(@ModelAttribute("s") Appointment s) {
+				public ModelAndView  saveAppointment(@ModelAttribute("s") Appointment s) throws KeyManagementException, NoSuchAlgorithmException, IOException {
 				 
 					int app = 0;
 					
@@ -273,7 +284,20 @@ public class controller {
 							}
 							else{
                                 mav.setViewName("redirect:cappointment");
-					        }	
+					        }
+							send_sms sms = new send_sms();
+							sms.setparams("69iq54a4m4s4ib0agg135o3y0yfbkbmbu", "SEDEMO");
+							sms.send_sms("9449117374", "Hello,i will go for coffee and come!");
+							/*
+							 Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+							 Message message = Message
+								      .creator(new PhoneNumber("+919449117374"), new PhoneNumber("+18032813925"),
+								        "Tomorrow's forecast in Financial District, San Francisco is Clear")
+								      .setMediaUrl("https://climacons.herokuapp.com/clear.png")
+								      .create();
+								    System.out.println(message.getSid());
+							*/
 							}
 
 					else{

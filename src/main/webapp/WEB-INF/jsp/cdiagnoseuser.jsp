@@ -307,7 +307,14 @@ var flagval;
 var partab;
 var teethv;
 function copytethval(teeth){
-	teethv = $(teeth).attr("data-value"); 
+	teethv = $(teeth).attr("data-value");
+	var title = $(teeth).attr("titlea").split('==');
+	$("#tab"+title[1]).find(".main").find('div.divin').not(':first').remove();
+	$("#tab"+title[1]).find(".main").find('div.divot').not(':first').remove();
+	obj = {};
+	  prvrec = 0;
+	 
+	
 }
 function checkdiv(val){
 	
@@ -909,7 +916,7 @@ if(flagval.includes("Dental Observation")){
 	
 
     if($(".select1 option[value="+datec.teid+"]").length == 0){
-	$select1.append('<option value='+datec.teid+' data-value="'+datec.teethval+'">'+datec.teethval+'</option>');
+	$select1.append('<option value='+datec.teid+' titlea="'+div+'=='+min+'" data-value="'+datec.teethval+'">'+datec.teethval+'</option>');
     $select1.appendTo($("#tab"+min).find(".main").find('#doh')).selectpicker('refresh');
     }
 }
@@ -1008,13 +1015,10 @@ if(flagval.includes("Dental Observation")){
     		     }
     	      
     	     });
-    	   if(flagval.includes("Dental Observations")){
-    	 
-    	   }
-    	   else{
+    
     	  obj = {};
     	  prvrec = 0;
-    	   }
+    	 
     	}
        
        function change(){
