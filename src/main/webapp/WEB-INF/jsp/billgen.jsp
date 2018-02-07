@@ -26,7 +26,13 @@
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
  
+<style type="text/css">
+a.disabled {
+   pointer-events: none;
+   cursor: default;
+}
 
+</style>
 	<script type="text/javascript">
 var cuser;
 	function checkhome2(user){
@@ -34,8 +40,9 @@ var cuser;
 		document.getElementById("cdate").innerHTML = moment().format("DD-MM-YYYY hh:mm");
 		
 		    //   document.getElementById("adbar").innerHTML = tpin; 
-		$(".dispr").attr("disabled",true)
-		$("#intbill").attr("disabled",true)
+		
+		$(".dispr").addClass("disabled")
+		$("#intbill").addClass("disabled")
 		 if(user.includes("[ROLE_FDESK]")){
 		
 			var url = "/HMS/frontdesk" ;
@@ -797,8 +804,8 @@ function doAjaxSave(id){
       	  alert("Data Saved Successfully")
       
           }
-        $(".dispr").attr("disabled",false)
-         $("#intbill").attr("disabled",false)
+        $(".dispr").removeClass("disabled")
+         $("#intbill").removeClass("disabled")
       	  unsaved = false;
           },
           error: function(e){

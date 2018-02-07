@@ -1212,7 +1212,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
   <div class="col-xs-3">
    <div class="form-group">
             <p>LandPhone <span></span></p>
-       <input type="text" class="form-control input-sm" value="080" required maxlength="11" name="landphone" id="landphone" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+       <input type="text" class="form-control input-sm" value="" required maxlength="11" name="landphone" id="landphone" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
 </input>
 </div>
   </div>

@@ -425,7 +425,7 @@ function copy(pid,ft,ch,pr,quantity){
     	 alert("No No previous bills generated for the selected patient")
      }
 	document.getElementById("cdate").innerHTML = moment().format("DD-MM-YYYY hh:mm");
-	document.getElementById("hds").style.visibility = "none";
+	//document.getElementById("hds").style.visibility = "none";
 
 	var strSplit = pid.split('=');
 
@@ -942,7 +942,7 @@ function doAjaxSave(id){
   <div class="col-xs-1"></div>
  
    <div class="col-xs-3">
-   <span id="hds">Signature ____________</span>
+   <!--  <span id="hds">Signature ____________</span>-->
 </div>
 </div>
   	

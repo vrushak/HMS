@@ -11,7 +11,21 @@ private String combine;
 private String fileno;
 private String active;
 private String flag;
+private String sms;
+private String phno;
 
+public String getPhno() {
+	return phno;
+}
+public void setPhno(String phno) {
+	this.phno = phno;
+}
+public String getSms() {
+	return sms;
+}
+public void setSms(String sms) {
+	this.sms = sms;
+}
 public String getFlag() {
 	return flag;
 }

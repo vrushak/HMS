@@ -22,9 +22,9 @@ public class send_sms {
 
 			public String process_sms(String mob_no,String message) throws IOException, KeyManagementException, NoSuchAlgorithmException
 			{    	
-				message=URLEncoder.encode(message, "UTF-8");				
-		        URL url = new URL("https://instantalerts.co/api/web/send/?apikey=64200da0029b2it409pl98r58wotqy6v&sender=SEDEMO&to="+mob_no+"&message=This+is+a+test+message&format=json");
-				//System.out.println("url look like " + url );
+				String message1=URLEncoder.encode(message, "UTF-8");				
+		        URL url = new URL("https://instantalerts.co/api/web/send/?apikey=64200da0029b2it409pl98r58wotqy6v&sender=SEDEMO&to="+mob_no+"&message="+message1+"&format=json");
+		     //   System.out.println("url look like " + url );
 			    HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			    con.setRequestMethod("GET");
 			    con.setDoOutput(true);

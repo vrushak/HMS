@@ -1175,7 +1175,7 @@ var cu;
     		document.getElementById("fileno").value = a;
     		$('#fileno').val(a);
     		$('#docid').val(e);
-    		
+    		getData(a,c)
     			if(f!=1){
     				
     		

@@ -395,7 +395,7 @@ function addcid(getval){
 	//document.getElementById("pname").value=str;
 	document.getElementById("pid1").value =str[0];
 	document.getElementById("pname1").value = str[1];
-	
+	$('#phno').val(str[2])
 	
 	disable();
 }
@@ -417,7 +417,7 @@ function addcname(getval){
 //	document.getElementById("pid").value=str;
 	document.getElementById("pid1").value =str[0];
 	document.getElementById("pname1").value = str[1];
-	
+	$('#phno').val(str[2])
 }
 
 
@@ -465,10 +465,14 @@ function myconfirm()
 var r = confirm("Do you want to Cancel Appointment?");
  if(r== true)
  {
+	 $("#sms").attr('form','formdel')
+	 $("#phno").attr('form','formdel')
  return true;
  }
  else
  {
+	 $("#sms").attr('form','form1')
+	 $("#phno").attr('form','form1')
    return false;
  }
 }
@@ -551,6 +555,8 @@ function copy(pid){
 	 document.getElementById("bouton-contact").disabled = true;
 	 document.getElementById("bc").disabled = true;
  }
+
+ $("#phno").val(strSplit[7])
    $('#myModal').modal('show');
 
 }
@@ -713,7 +719,7 @@ $(document).ready(function(){
     <c:forEach var="p1"  items="${model.list1}">
     <tr>
     <td width="240px;" ><a href="" target="_self" onclick="copyval1('${p1.pid}','${p1.pname}','${p1.fileno}','${p1.docid}',this)" >${p1.pid}</a></td>
-    <td width="240px;"><a href="#"  onclick="copy('${p1.pid}==${p1.pname}==${p1.docid}==${p1.dname}==${p1.appointment}==${p1.fileno}==${p1.ac}')">${p1.pname}</a></td>
+    <td width="240px;"><a href="#"  onclick="copy('${p1.pid}==${p1.pname}==${p1.docid}==${p1.dname}==${p1.appointment}==${p1.fileno}==${p1.ac}==${p1.pas}')">${p1.pname}</a></td>
     <td width="240px;" class="trunk">${p1.dname}</td>
     <td width="240px;">${p1.appointment}</td>
 
@@ -761,7 +767,7 @@ $(document).ready(function(){
              <select class="selectpicker form-control" data-size="10" data-live-search="true" name = "pid1" id ="pid" onchange="addcid(this.options[this.selectedIndex])"   required>
           <option value="" selected disabled>Select</option>
         <c:forEach var="p"  items="${model.list2}">
-        <option value="${p.pid}" data-value="${p.pid},${p.combine}">${p.pid}</option>
+        <option value="${p.pid}" data-value="${p.pid},${p.combine},${p.mobile}">${p.pid}</option>
         </c:forEach>
       </select>
        
@@ -774,7 +780,7 @@ $(document).ready(function(){
              <select class="selectpicker form-control" data-size="10" data-width="100%" data-live-search="true"  name = "pname1" id ="pname" onchange="addcname(this.options[this.selectedIndex])"  >
       <option value="" selected disabled>Select</option>
         <c:forEach var="p"  items="${model.list2}">
-        <option value="${p.combine}" data-value="${p.pid},${p.combine}">${p.combine}</option>
+        <option value="${p.combine}" data-value="${p.pid},${p.combine},${p.mobile}">${p.combine}</option>
         </c:forEach>
       </select>
    
@@ -827,7 +833,8 @@ $(document).ready(function(){
 
     <input type="text" form="form1" id="fileno" value=""readonly="readonly" name="fileno" class="form-control input-sm" required>
     <input type="hidden" name="flag" form="form1" value="doc">
-           
+     <input type="hidden" name="phno" id="phno" form="form1" value="NA"><br>
+    <input type="checkbox" name="sms" id="sms" form="form1" checked>Sms Alerts       
  </div>
  
  <div class="col-xs-2"></div>

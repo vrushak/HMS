@@ -162,7 +162,7 @@ function addcid(getval){
 	//document.getElementById("pname").value=str;
 	document.getElementById("pid1").value =str[0];
 	document.getElementById("pname1").value = str[1];
-	
+	$('#phno').val(str[2])
 	
 	disable();
 }
@@ -183,6 +183,7 @@ function addcname(getval){
 //	document.getElementById("pid").value=str;
 	document.getElementById("pid1").value =str[0];
 	document.getElementById("pname1").value = str[1];
+	$('#phno').val(str[2])
 	
 }
 
@@ -252,6 +253,8 @@ function copy(pid){
 	 document.getElementById("bouton-contact").disabled = true;
 	 document.getElementById("bc").disabled = true;
  }
+
+ $('#phno').val(strSplit[8])
    $('#myModal').modal('show');
 
 }
@@ -289,10 +292,13 @@ function myconfirm()
 var r = confirm("Do you want to Cancel Appointment?");
  if(r== true)
  {
+	 $("#sms").attr('form','formdel')
+	 $("#phno").attr('form','formdel')
  return true;
  }
  else
- {
+ {  $("#sms").attr('form','form1')
+	$("#phno").attr('form','form1')
    return false;
  }
 }
@@ -426,7 +432,7 @@ if(currenttime > $("#time").val())
     <tbody class="tbody">
     <c:forEach var="p1"  items="${model.list3}">
     <tr>
-    <td width="240px;"><a href="#"  onclick="copy('${p1.pid},${p1.pname},${p1.docid},${p1.dname},${p1.appointment},${p1.time},${p1.fileno},${p1.active}')">${p1.pid}</a></td>
+    <td width="240px;"><a href="#"  onclick="copy('${p1.pid},${p1.pname},${p1.docid},${p1.dname},${p1.appointment},${p1.time},${p1.fileno},${p1.active},${p1.phno}')">${p1.pid}</a></td>
     <td width="240px;">${p1.pname}</td>
     <td width="240px;">${p1.dname}</td>
     <td width="220px;">${p1.combine}</td>
@@ -452,7 +458,7 @@ if(currenttime > $("#time").val())
     <!--  <div class="modal-content"> --> 
        
     <!--<div class="modal-body">-->
-      <form id="formdel" action="cancelapp.html" method="post"> </form>
+      <form id="formdel" action="/HMS/cancelapp/fds" method="get"> </form>
        <form id="form1" action="saveApp.html" method="post">  
   
         <h1><button type="submit" id="bouton-contact" onclick=" return validmess()" class="btn btn-warning button1" >Save</button> 
@@ -470,7 +476,7 @@ if(currenttime > $("#time").val())
              <select class="selectpicker form-control" data-size="10" data-live-search="true" name = "pid1" id ="pid" onchange="addcid(this.options[this.selectedIndex])"   required>
           <option value="" selected disabled>Select</option>
         <c:forEach var="p"  items="${model.list2}">
-        <option value="${p.pid}" data-value="${p.pid},${p.combine}">${p.pid}</option>
+        <option value="${p.pid}" data-value="${p.pid},${p.combine},${p.mobile}">${p.pid}</option>
         </c:forEach>
       </select>
        
@@ -483,7 +489,7 @@ if(currenttime > $("#time").val())
              <select class="selectpicker form-control" data-size="10" data-width="100%" data-live-search="true"  name = "pname1" id ="pname" onchange="addcname(this.options[this.selectedIndex])"  >
       <option value="" selected disabled>Select</option>
         <c:forEach var="p"  items="${model.list2}">
-        <option value="${p.combine}" data-value="${p.pid},${p.combine}">${p.combine}</option>
+        <option value="${p.combine}" data-value="${p.pid},${p.combine},${p.mobile}">${p.combine}</option>
         </c:forEach>
       </select>
    
@@ -537,7 +543,9 @@ if(currenttime > $("#time").val())
        <p>Patient File No<span>*</span></p>
 
     <input type="text" form="form1" id="fileno" value=""readonly="readonly" name="fileno" class="form-control input-sm" required>
-    <input type="hidden" name="flag" form="form1" value="fdesk">
+    <input type="hidden" name="flag" form="form1" value="fdesk"><br>
+    <input type="hidden" name="phno" id="phno" form="form1" value="NA">
+    <input type="checkbox" name="sms" id="sms" form="form1" checked>Sms Alerts
            
  </div>
  

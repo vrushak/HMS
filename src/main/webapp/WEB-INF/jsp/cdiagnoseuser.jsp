@@ -1013,6 +1013,9 @@ if(flagval.includes("Dental Observation")){
     		        	}
     		          }
     		     }
+    	else{
+    		createbr(teethv)
+    	}
     	      
     	     });
     

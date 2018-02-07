@@ -479,7 +479,7 @@ public int returnStks(Transaction s) {
 // appointments history
 public List<Appointment> getAppointment() {
 	// TODO Auto-generated method stub
-	return template.query("select ap.pid,concat(p.fname,' ',p.mname,' ',p.lname)patient,ap.docid,CONCAT(d.fname,' ',d.mname,' ',d.lname) doctor,ap.appointment,ap.time,CONCAT(ap.appointment,' ',ap.time),ap.fileno,ap.active from appointment ap join patient p on p.pid = ap.pid join doctor d on d.docID = ap.docid order by appointment desc,time",new RowMapper<Appointment>(){  
+	return template.query("select ap.pid,concat(p.fname,' ',p.mname,' ',p.lname)patient,ap.docid,CONCAT(d.fname,' ',d.mname,' ',d.lname) doctor,ap.appointment,ap.time,CONCAT(ap.appointment,' ',ap.time),ap.fileno,ap.active,p.mobile from appointment ap join patient p on p.pid = ap.pid join doctor d on d.docID = ap.docid order by appointment desc,time",new RowMapper<Appointment>(){  
         public Appointment mapRow(ResultSet rs, int row) throws SQLException {   
 	       Appointment p = new Appointment();
 	     
@@ -492,6 +492,7 @@ public List<Appointment> getAppointment() {
 	       p.setCombine(rs.getString(7));
 	       p.setFileno(rs.getString(8));
 	       p.setActive(rs.getString(9));
+	       p.setPhno(rs.getString(10));
 	  
 	   return p;
         }
@@ -905,7 +906,7 @@ public List<Billgen> getBillint(String fileno) {
 //for printing overall reports
 public List<Billgen> getBill3(String fdate,String edate) {
 	
-	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,quantity,prch from billgen where DATE_FORMAT(STR_TO_DATE(invoicedate, '%d-%m-%Y'),'%Y-%m-%d') >= DATE_FORMAT(STR_TO_DATE('"+fdate+"', '%d-%m-%Y'),'%Y-%m-%d') and DATE_FORMAT(STR_TO_DATE(invoicedate, '%d-%m-%Y'),'%Y-%m-%d') <= DATE_FORMAT(STR_TO_DATE('"+edate+"', '%d-%m-%Y'),'%Y-%m-%d')",new RowMapper<Billgen>(){  
+	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,quantity,prch from billgen where DATE_FORMAT(STR_TO_DATE(invoicedate, '%d-%m-%Y'),'%Y-%m-%d') >= STR_TO_DATE('"+fdate+"', '%Y-%m-%d') and DATE_FORMAT(STR_TO_DATE(invoicedate, '%d-%m-%Y'),'%Y-%m-%d') <= STR_TO_DATE('"+edate+"', '%Y-%m-%d')",new RowMapper<Billgen>(){  
         public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
        
 	       Billgen p = new Billgen();

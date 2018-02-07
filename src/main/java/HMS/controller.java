@@ -285,9 +285,13 @@ public class controller {
 							else{
                                 mav.setViewName("redirect:cappointment");
 					        }
-							send_sms sms = new send_sms();
-							sms.setparams("69iq54a4m4s4ib0agg135o3y0yfbkbmbu", "SEDEMO");
-							sms.send_sms("9449117374", "Hello,i will go for coffee and come!");
+					
+							if(s.getSms().contentEquals("on") && !s.getPhno().contentEquals("NA")){
+								send_sms sms = new send_sms();
+								sms.setparams("69iq54a4m4s4ib0agg135o3y0yfbkbmbu", "SEDEMO");
+								sms.send_sms(s.getPhno(), "Hi, this is a test message");		
+							}
+						
 							/*
 							 Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
@@ -314,7 +318,7 @@ public class controller {
 			        return mav; 
 					}
 				@RequestMapping(value="/cancelapp/{path}", method = RequestMethod.GET)
-				public ModelAndView  CancelAppointment(@PathVariable String path,@ModelAttribute("s") Appointment s) {
+				public ModelAndView  CancelAppointment(@PathVariable String path,@ModelAttribute("s") Appointment s) throws KeyManagementException, NoSuchAlgorithmException, IOException {
 				 int capp = 0;
 				capp=dao.cancelApp(s);
 				ModelAndView  mav = new ModelAndView();
@@ -325,6 +329,12 @@ public class controller {
 					}
 					else{
 						mav.setViewName("redirect:/cappointment.html");
+					}
+				    System.out.println(s.getPhno());
+					if(s.getSms().contentEquals("on")&& !s.getPhno().contentEquals("NA")){
+						send_sms sms = new send_sms();
+						sms.setparams("69iq54a4m4s4ib0agg135o3y0yfbkbmbu", "SEDEMO");
+						sms.send_sms(s.getPhno(), "Hi, this is a test message");		
 					}
 								
 	            }
