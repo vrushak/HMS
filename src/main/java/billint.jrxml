@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="billint" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bd4181ff-b3d6-4e5a-a7e7-f842918e18f0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="billint" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="bd4181ff-b3d6-4e5a-a7e7-f842918e18f0">
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="My Sql"/>
 	<parameter name="realPath" class="java.lang.String" isForPrompting="false">
@@ -10,6 +10,10 @@
 	<field name="invoicedate" class="java.lang.String"/>
 	<field name="pname" class="java.lang.String"/>
 	<field name="total" class="java.lang.String"/>
+	<variable name="sum" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[Double.parseDouble($F{total})]]></variableExpression>
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
 	<group name="invoice">
 		<groupExpression><![CDATA[$F{invoice}]]></groupExpression>
 	</group>
@@ -49,15 +53,15 @@ E-mail : lilayifamilyclinic@yahoo.com]]></text>
 	<pageHeader>
 		<band height="33" splitType="Stretch">
 			<staticText>
-				<reportElement x="222" y="2" width="110" height="30" uuid="2baa0c3f-0e11-4057-aaea-5be7fe062530"/>
+				<reportElement x="188" y="2" width="179" height="30" uuid="2baa0c3f-0e11-4057-aaea-5be7fe062530"/>
 				<textElement>
-					<font size="16"/>
+					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[INVOICE]]></text>
+				<text><![CDATA[CONSOLIDATED INVOICE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="410" y="0" width="70" height="20" uuid="5516ba30-82d4-4599-8b80-eceeaff17e7d"/>
-				<text><![CDATA[Today's Date :]]></text>
+				<reportElement x="440" y="0" width="40" height="20" uuid="5516ba30-82d4-4599-8b80-eceeaff17e7d"/>
+				<text><![CDATA[Date :]]></text>
 			</staticText>
 			<textField pattern="MMMMM dd, yyyy">
 				<reportElement x="480" y="0" width="91" height="20" uuid="23f97eb9-33e4-4cae-b278-456632b11ca9"/>
@@ -70,55 +74,64 @@ E-mail : lilayifamilyclinic@yahoo.com]]></text>
 			<staticText>
 				<reportElement x="50" y="0" width="100" height="30" uuid="970cafe2-fef5-4ae9-9e0a-e25a85d4c1a2"/>
 				<textElement>
-					<font size="16" isBold="true"/>
+					<font size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Invoice]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="170" y="0" width="100" height="30" uuid="859a84e3-6afa-468b-a700-ccf2d1d93607"/>
 				<textElement>
-					<font size="16" isBold="true"/>
+					<font size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Invoice Date]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="300" y="0" width="100" height="30" uuid="f509f34e-3b0b-430a-889d-f53d2234dd06"/>
 				<textElement>
-					<font size="16" isBold="true"/>
+					<font size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Patient Name]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="430" y="0" width="100" height="30" uuid="fb5ad0eb-b478-40db-b605-95f74a4ef4b1"/>
 				<textElement>
-					<font size="16" isBold="true"/>
+					<font size="14" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Total]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="32" splitType="Stretch">
+		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement x="50" y="0" width="100" height="30" uuid="2e871bd1-28e2-4f55-8323-3d0535037c73"/>
+				<reportElement x="50" y="0" width="100" height="20" uuid="2e871bd1-28e2-4f55-8323-3d0535037c73"/>
 				<textFieldExpression><![CDATA[$F{invoice}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="170" y="0" width="100" height="30" uuid="aca61a26-49c7-42da-a735-4642b9a17d19"/>
+				<reportElement x="170" y="0" width="100" height="20" uuid="aca61a26-49c7-42da-a735-4642b9a17d19"/>
 				<textFieldExpression><![CDATA[$F{invoicedate}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="300" y="0" width="100" height="30" uuid="4ad60c05-2bf6-4e81-a537-c352b9eac923"/>
+				<reportElement x="300" y="0" width="100" height="20" uuid="4ad60c05-2bf6-4e81-a537-c352b9eac923"/>
 				<textFieldExpression><![CDATA[$F{pname}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="430" y="0" width="100" height="30" uuid="cedec4a7-8c6c-488a-b3c2-0e4efe6ef5b2"/>
+				<reportElement x="430" y="0" width="100" height="20" uuid="cedec4a7-8c6c-488a-b3c2-0e4efe6ef5b2"/>
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="45" splitType="Stretch"/>
+		<band height="18" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="Float" x="390" y="0" width="40" height="17" uuid="11c56445-9cd3-4eb1-b36a-1b377a8e5e4f"/>
+				<text><![CDATA[Total :]]></text>
+			</staticText>
+			<textField pattern="#,##0.00#;(#,##0.00#-)">
+				<reportElement positionType="Float" x="430" y="0" width="90" height="17" uuid="5ae4e09a-38ae-4483-8e66-c97449feadc6"/>
+				<textFieldExpression><![CDATA[$V{sum}]]></textFieldExpression>
+			</textField>
+		</band>
 	</columnFooter>
 	<pageFooter>
 		<band height="54" splitType="Stretch"/>

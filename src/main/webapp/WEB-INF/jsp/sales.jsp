@@ -279,7 +279,7 @@ function check(id){
 	if (id == "" || id == null){
    //	alert(id);
 		id = 1;
-		var str1 = "IN-";
+		var str1 = "PHIN-";
 	    var m = moment().format("DDMMYYYY-");
 		var str3 = id;
 		var res = str1.concat(m);
@@ -296,7 +296,7 @@ function check(id){
 	//	alert("now"+id);
 		id = Number(id) + 1;
 	//	alert(id);
-		var str1 = "IN-";
+		var str1 = "PHIN-";
 		var m = moment().format("DDMMYYYY-");
 		var str3 = id;
 		var res = str1.concat(m);

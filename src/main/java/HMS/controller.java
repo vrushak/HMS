@@ -285,7 +285,9 @@ public class controller {
 							else{
                                 mav.setViewName("redirect:cappointment");
 					        }
-					
+		if(s.getSms() == null){
+			s.setSms("null");
+		}
 							if(s.getSms().contentEquals("on") && !s.getPhno().contentEquals("NA")){
 								send_sms sms = new send_sms();
 								sms.setparams("69iq54a4m4s4ib0agg135o3y0yfbkbmbu", "SEDEMO");
@@ -330,7 +332,9 @@ public class controller {
 					else{
 						mav.setViewName("redirect:/cappointment.html");
 					}
-				    System.out.println(s.getPhno());
+				    if(s.getSms() == null){
+						s.setSms("null");
+					}
 					if(s.getSms().contentEquals("on")&& !s.getPhno().contentEquals("NA")){
 						send_sms sms = new send_sms();
 						sms.setparams("69iq54a4m4s4ib0agg135o3y0yfbkbmbu", "SEDEMO");
@@ -487,10 +491,19 @@ public class controller {
   }
   
   @RequestMapping(value="/billsave", method = RequestMethod.POST)
-	public  @ResponseBody String  savebill(@ModelAttribute("s") Billgen s) {
+	public  @ResponseBody String  savebill(@ModelAttribute("s") Billgen s,HttpServletRequest request,HttpServletResponse response) {
 	 int bsave = 0;
 	 String jsonFormatData = "";
-	bsave = dao.savebill(s);
+	
+	    String feety[] = request.getParameterValues("feetype");
+	  	String charg[] = request.getParameterValues("charges");
+	  	String quant[] = request.getParameterValues("quantity");
+	  	String price[] = request.getParameterValues("price");
+	  	String prch[] = request.getParameterValues("prch");
+	 for(int i = 0;i< feety.length;i++){
+		 bsave = dao.savebill(s,feety[i],quant[i],quant[i],price[i],prch[i]);
+	 }
+	//bsave = dao.savebill(s);
 	Patient p = new Patient();
 	p.setPid(s.getPid());
 	p.setPins(s.getInsurancec());

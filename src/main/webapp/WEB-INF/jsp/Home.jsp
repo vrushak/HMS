@@ -98,7 +98,7 @@ function addp1(id){
 	
 
 
-		var url = "/HMS/pdf?location1="+moment().format("DD-MM-YYYY")+"&location2="+moment().format("DD-MM-YYYY")+"" ;
+		var url = "/HMS/pdf?location1="+moment().format("YYYY-MM-DD")+"&location2="+moment().format("YYYY-MM-DD")+"" ;
 		$(id).attr("href",url)
 	
 }
@@ -141,8 +141,8 @@ $( function() {
 		    	  var firstDay = new Date(y, m, 1);
 		    	  $("#admdate").val('');
 		    //	  $("#disdate").val('');
-		    	  $("#admdate").val(moment(firstDay).format("DD-MM-YYYY"))
-		         $("#disdate").val(moment().format("DD-MM-YYYY"));
+		    	  $("#admdate").val(moment(firstDay).format("YYYY-MM-DD"))
+		         $("#disdate").val(moment().format("YYYY-MM-DD"));
 		    	 $( "#result" ).dialog( "open" );
 		      }
 		    	

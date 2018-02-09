@@ -133,7 +133,7 @@ function disp(id,fr){
 			
 			
 			var id = 1; 
-			var str1 = "In-";
+			var str1 = "IN-";
 		    var m = moment().format("DDMMYYYY-");
 		   
 	
@@ -151,7 +151,7 @@ function disp(id,fr){
 	
 			
 			str = Number(str) + 1;
-			var str1 = "In-";
+			var str1 = "IN-";
 			var m = moment().format("DDMMYYYY-");
 			var str3 = str;
 		
@@ -419,7 +419,7 @@ function days_between(datea, dateb) {
 					}
 					
 	
-function copy(pid,ft,ch,pr,quantity){
+function copy(pid,ft,ch,pr,quantity,prch){
 	
      if(ft.length == 0 && ch.length == 0 && pr.length == 0 && quantity.length == 0){
     	 alert("No No previous bills generated for the selected patient")
@@ -444,7 +444,7 @@ function copy(pid,ft,ch,pr,quantity){
 		var tableRef = document.getElementById('items').getElementsByTagName('tbody')[0];
 	//	var rowsAdd = tableRef.insertRow(tableRef.rows.length-1);
 		
-		var markup = "<tr><td style='width:250px;'><textarea rows='1' oninput='auto_grow(this)' class='form-control input-sm feet' id = '"+fid+"' name= 'feetype' form ='billsave' value = '"+feetype[x]+"' required>"+feetype[x]+"</textarea></td><td  style='width:200px;'><input type='text'  form ='billsave'  class='form-control input-sm ftype' id = '"+charg+"' name= 'charges'  value='"+charges[x]+"' onkeypress='return onlyNos(event,this);' required></td><td style='width:100px;'><input type='text' form='billsave' class='form-control input-sm qta' name='quantity' id='"+qant+"' value='"+quantit[x]+"' onkeypress='return onlyNos(event,this);'></td><td  style='width:200px;'><input id = '"+pric+"' form ='billsave' type='text' name= 'price' class='form-control input-sm' value='"+price[x]+"' required></td><td><i class='fa fa-close' style='font-size:20px;color:red'  onclick='deleteRow(this,"+fid+","+charg+")'></i></td></tr>"
+		var markup = "<tr><td style='width:250px;'><textarea rows='1' oninput='auto_grow(this)' class='form-control input-sm feet' id = '"+fid+"' name= 'feetype' form ='billsave' value = '"+feetype[x]+"' required>"+feetype[x]+"</textarea></td><td  style='width:200px;'><input type='text'  form ='billsave'  class='form-control input-sm ftype' id = '"+charg+"' name= 'charges'  value='"+charges[x]+"' onkeypress='return onlyNos(event,this);' required></td><td style='width:100px;'><input type='text' form='billsave' class='form-control input-sm qta' name='quantity' id='"+qant+"' value='"+quantit[x]+"' onkeypress='return onlyNos(event,this);'></td><td  style='width:200px;'><input id = '"+pric+"' form ='billsave' type='text' name= 'price' class='form-control input-sm' value='"+price[x]+"' required><input type='hidden' name='prch' id='prch' value='"+prch+"' form='billsave' ></td><td><i class='fa fa-close' style='font-size:20px;color:red'  onclick='deleteRow(this,"+fid+","+charg+")'></i></td></tr>"
 		$('#items .tbody').append(markup);
 		
 		document.getElementById(fid).oninput();
@@ -934,7 +934,7 @@ function doAjaxSave(id){
 		  </tr>
 	</table>
 	 <div class="col-xs-1"></div>
-	<a href="#" id="intbill" target="_blank" class="btn btn-warning button1"  onclick="return disp(this,'ir')">Generate Integrated Bill</a>
+	<a href="#" id="intbill" target="_blank" class="btn btn-warning button1"  onclick="return disp(this,'ir')">Consolidated Invoice</a>
 	
 	<br><br>
 
@@ -990,7 +990,7 @@ function doAjaxSave(id){
     <td width="150px;">${p1.invoicedate}</td>
     <td width="150px;">${p1.pname}</td>
      <td width="150px;">${p1.fileno}</td>
-     <td width="150px;"><i class="fa fa-eye" style="color:#00b300" onclick="copy('${p1.invoice}=${p1.invoicedate}=${p1.pname}=${p1.pid}=${p1.address}=${p1.wardno}=${p1.doctor}=${p1.admdate}=${p1.disdate}=${p1.cashier}=${p1.subtotal}=${p1.tax}=${p1.discount}=${p1.total}=${p1.admitno}=${p1.mid}=${p1.policyholder}=${p1.policyno}=${p1.insurancec}=${p1.type}=${p1.fileno}','${p1.feetype}','${p1.charges}','${p1.price}','${p1.quantity}')"></i></td>
+     <td width="150px;"><i class="fa fa-eye" style="color:#00b300" onclick="copy('${p1.invoice}=${p1.invoicedate}=${p1.pname}=${p1.pid}=${p1.address}=${p1.wardno}=${p1.doctor}=${p1.admdate}=${p1.disdate}=${p1.cashier}=${p1.subtotal}=${p1.tax}=${p1.discount}=${p1.total}=${p1.admitno}=${p1.mid}=${p1.policyholder}=${p1.policyno}=${p1.insurancec}=${p1.type}=${p1.fileno}','${p1.feetype}','${p1.charges}','${p1.price}','${p1.quantity}','${p1.prch}')"></i></td>
  
    </tr>
      </c:forEach>

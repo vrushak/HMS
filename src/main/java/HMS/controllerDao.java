@@ -805,7 +805,7 @@ public List<Billgen> getBill() {
 
 public List<Billgen> getBill2(String pid,String name) {
 	
-	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,quantity from billgen where pname = '"+name+"' or pid='"+pid+"'",new RowMapper<Billgen>(){  
+	return template.query("select distinct invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,quantity,prch from billgen where pname = '"+name+"' or pid='"+pid+"'",new RowMapper<Billgen>(){  
         public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
        
 	       Billgen p = new Billgen();
@@ -838,7 +838,7 @@ public List<Billgen> getBill2(String pid,String name) {
 	       p.setType(rs.getString(23));
 	       p.setFileno(rs.getString(24));
 	       p.setQuantity(rs.getString(25));
-	      
+	       p.setPrch(rs.getString(26));
 		return p;
         }
 	});
@@ -847,7 +847,7 @@ public List<Billgen> getBill2(String pid,String name) {
 
 public List<Billgen> getBill3a(String invid) {
 	
-	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,REPLACE(feetype, ',', '\n'),REPLACE(charges, ',', '\n'),REPLACE(price, ',', '\n'),subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,REPLACE(quantity, ',', '\n') from billgen where invoice = '"+invid+"'",new RowMapper<Billgen>(){  
+	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,REPLACE(quantity, ',', '\n') from billgen where invoice = '"+invid+"'",new RowMapper<Billgen>(){  
         public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
        
 	       Billgen p = new Billgen();
@@ -888,7 +888,7 @@ public List<Billgen> getBill3a(String invid) {
 
 public List<Billgen> getBillint(String fileno) {
 	
-	return template.query("select p.invoice,p.invoicedate,p.pname,p.total from billgen p where p.fileno='"+fileno+"' union all select a.invoice,DATE_FORMAT(a.invoicedate,'%d-%m-%Y'),a.custName,a.gtotal from erpho.saleho a where a.fileno='"+fileno+"'",new RowMapper<Billgen>(){  
+	return template.query("select distinct p.invoice,p.invoicedate,p.pname,p.total from billgen p where p.fileno='"+fileno+"' union all select distinct a.invoice,DATE_FORMAT(a.invoicedate,'%d-%m-%Y'),a.custName,a.gtotal from erpho.saleho a where a.fileno='"+fileno+"'",new RowMapper<Billgen>(){  
         public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
        
 	       Billgen p = new Billgen();
@@ -906,47 +906,22 @@ public List<Billgen> getBillint(String fileno) {
 //for printing overall reports
 public List<Billgen> getBill3(String fdate,String edate) {
 	
-	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,quantity,prch from billgen where DATE_FORMAT(STR_TO_DATE(invoicedate, '%d-%m-%Y'),'%Y-%m-%d') >= STR_TO_DATE('"+fdate+"', '%Y-%m-%d') and DATE_FORMAT(STR_TO_DATE(invoicedate, '%d-%m-%Y'),'%Y-%m-%d') <= STR_TO_DATE('"+edate+"', '%Y-%m-%d')",new RowMapper<Billgen>(){  
+	return template.query("select distinct invoice,invoicedate,pname,total from billgen where DATE_FORMAT(STR_TO_DATE(invoicedate, '%d-%m-%Y'),'%Y-%m-%d') >= STR_TO_DATE('"+fdate+"', '%Y-%m-%d') and DATE_FORMAT(STR_TO_DATE(invoicedate, '%d-%m-%Y'),'%Y-%m-%d') <= STR_TO_DATE('"+edate+"', '%Y-%m-%d')",new RowMapper<Billgen>(){  
         public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
        
 	       Billgen p = new Billgen();
 	       p.setInvoice(rs.getString(1));
 	       p.setInvoicedate(rs.getString(2));
 	       p.setPname(rs.getString(3));
-	       p.setPid(rs.getString(4));
-	       p.setAddress(rs.getString(5));
-	       p.setWardno(rs.getString(6));
-	       p.setDoctor(rs.getString(7));
-	       p.setAdmdate(rs.getString(8));
-	       p.setDisdate(rs.getString(9));
-	       p.setCashier(rs.getString(10));
-	       p.setFeetype(rs.getString(11));
-	       p.setCharges(rs.getString(12));
-	       p.setPrice(rs.getString(13));
-	       p.setSubtotal(rs.getString(14));
-	      
-	       p.setTax(rs.getString(15)); 
-	       
-	       
-	       p.setDiscount(rs.getString(16));
-	       p.setTotal(rs.getString(17));
-	       p.setAdmitno(rs.getString(18));
-	       p.setMid(rs.getString(19));
-	       p.setPolicyholder(rs.getString(20));
-	   
-	       p.setPolicyno(rs.getString(21));
-	       p.setInsurancec(rs.getString(22));
-	       p.setType(rs.getString(23));
-	       p.setFileno(rs.getString(24));
-	       p.setQuantity(rs.getString(25));
-	       p.setPrch(rs.getString(26));
+	       p.setTotal(rs.getString(4));
+	     
 		return p;
         }
 	});
 }
-public int savebill(Billgen s) {
+public int savebill(Billgen s,String fee,String cha,String quant,String price,String prch) {
 	// TODO Auto-generated method stub
-	String sql = "insert into billgen(invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,quantity,fileno) values('"+s.getInvoice()+"','"+s.getInvoicedate()+"','"+s.getPname()+"','"+s.getPid()+"','"+s.getAddress()+"','"+s.getWardno()+"','"+s.getDoctor()+"','"+s.getAdmdate()+"','"+s.getDisdate()+"','"+s.getCashier()+"','"+s.getFeetype()+"','"+s.getCharges()+"','"+s.getPrice()+"','"+s.getSubtotal()+"','"+s.getTax()+"','"+s.getDiscount()+"','"+s.getTotal()+"','"+s.getAdmitno()+"','"+s.getMid()+"','"+s.getPolicyholder()+"','"+s.getPolicyno()+"','"+s.getInsurancec()+"','"+s.getType()+"','"+s.getQuantity()+"','"+s.getFileno()+"') on duplicate key update invoiceDate = '"+s.getInvoicedate()+"',address='"+s.getAddress()+"',wardno='"+s.getWardno()+"',doctor='"+s.getDoctor()+"',admdate='"+s.getAdmdate()+"',disdate='"+s.getDisdate()+"',cashier='"+s.getCashier()+"',feetype='"+s.getFeetype()+"',charges='"+s.getCharges()+"',price='"+s.getPrice()+"',subtotal='"+s.getSubtotal()+"',tax='"+s.getTax()+"',discount='"+s.getDiscount()+"',total='"+s.getTotal()+"',admitno='"+s.getAdmitno()+"',mid='"+s.getMid()+"',policyholder='"+s.getPolicyholder()+"',policyno='"+s.getPolicyno()+"',insurancec='"+s.getInsurancec()+"',type='"+s.getType()+"',quantity='"+s.getQuantity()+"',fileno='"+s.getFileno()+"'";
+	String sql = "insert into billgen(invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,quantity,fileno,prch) values('"+s.getInvoice()+"','"+s.getInvoicedate()+"','"+s.getPname()+"','"+s.getPid()+"','"+s.getAddress()+"','"+s.getWardno()+"','"+s.getDoctor()+"','"+s.getAdmdate()+"','"+s.getDisdate()+"','"+s.getCashier()+"','"+fee+"','"+cha+"','"+price+"','"+s.getSubtotal()+"','"+s.getTax()+"','"+s.getDiscount()+"','"+s.getTotal()+"','"+s.getAdmitno()+"','"+s.getMid()+"','"+s.getPolicyholder()+"','"+s.getPolicyno()+"','"+s.getInsurancec()+"','"+s.getType()+"','"+quant+"','"+s.getFileno()+"','"+prch+"') on duplicate key update invoiceDate = '"+s.getInvoicedate()+"',address='"+s.getAddress()+"',wardno='"+s.getWardno()+"',doctor='"+s.getDoctor()+"',admdate='"+s.getAdmdate()+"',disdate='"+s.getDisdate()+"',cashier='"+s.getCashier()+"',feetype='"+fee+"',charges='"+cha+"',price='"+price+"',subtotal='"+s.getSubtotal()+"',tax='"+s.getTax()+"',discount='"+s.getDiscount()+"',total='"+s.getTotal()+"',admitno='"+s.getAdmitno()+"',mid='"+s.getMid()+"',policyholder='"+s.getPolicyholder()+"',policyno='"+s.getPolicyno()+"',insurancec='"+s.getInsurancec()+"',type='"+s.getType()+"',quantity='"+quant+"',fileno='"+s.getFileno()+"',prch = '"+prch+"'";
 	return template.update(sql);
 }
 

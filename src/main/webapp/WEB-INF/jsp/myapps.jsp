@@ -834,7 +834,7 @@ $(document).ready(function(){
     <input type="text" form="form1" id="fileno" value=""readonly="readonly" name="fileno" class="form-control input-sm" required>
     <input type="hidden" name="flag" form="form1" value="doc">
      <input type="hidden" name="phno" id="phno" form="form1" value="NA"><br>
-    <input type="checkbox" name="sms" id="sms" form="form1" checked>Sms Alerts       
+    <input type="checkbox" name="sms" id="sms" form="form1" checked>SMS Alerts       
  </div>
  
  <div class="col-xs-2"></div>

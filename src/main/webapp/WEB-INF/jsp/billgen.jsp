@@ -145,7 +145,7 @@ var cuser;
 			
 			
 			var id = 1; 
-			var str1 = "In-";
+			var str1 = "IN-";
 		    var m = moment().format("DDMMYYYY-");
 		   
 	
@@ -163,7 +163,7 @@ var cuser;
 	
 			
 			str = Number(str) + 1;
-			var str1 = "In-";
+			var str1 = "IN-";
 			var m = moment().format("DDMMYYYY-");
 			var str3 = str;
 		
@@ -331,7 +331,7 @@ function auto_grow(element) {
 			 newCell.style.width ='250px';
 			 document.getElementById(fee1).oninput();
 			 newCell = rowsAdd.insertCell();
-			 newCell.innerHTML="<tr><td class =''><input form ='billsave' type='text' class= 'form-control input-sm ftype'  onkeypress='return onlyNos(event,this);' style='width: 150px;' type='text' id = '"+fee+"'  name= 'charges' value='"+strSplit[1]+"'  required oninput='calc(this.id,"+qty+","+Number(tableRef.rows.length - 1)+"),totalIt()' ></td></tr>";
+			 newCell.innerHTML="<tr><td><input form ='billsave' type='text' class= 'form-control input-sm ftype'  onkeypress='return onlyNos(event,this);' style='width: 150px;' type='text' id = '"+fee+"'  name= 'charges' value='"+strSplit[1]+"'  required oninput='calc(this.id,"+qty+","+Number(tableRef.rows.length - 1)+"),totalIt()' ></td></tr>";
 			 newCell.style.width ='200px';
 			  
 			 newCell = rowsAdd.insertCell();
@@ -339,7 +339,7 @@ function auto_grow(element) {
 			 newCell.style.width ='100px';
 			 
 			 newCell = rowsAdd.insertCell();
-			 newCell.innerHTML="<tr class=''><td><input form ='billsave' readonly class= 'form-control input-sm' type='text'  id = '"+qty+"' name= 'price'  required  ></td></tr>";
+			 newCell.innerHTML="<tr class=''><td><input type='hidden' name='prch' id='prch' class='form-control inut-sm' form='billsave' value='"+$.now()+"'><input form ='billsave' readonly class= 'form-control input-sm' type='text'  id = '"+qty+"' name= 'price'  required ></td></tr>";
 			 newCell.style.width ='200px';
 			  
 			 newCell = rowsAdd.insertCell();
@@ -835,7 +835,7 @@ input .ftype{
 
 </head>
 <sec:authentication property="principal.authorities" var="username" />
-<body onload="checkhome2('<c:out value="${username}" />'),cori('cash'),date()">
+<body onload="checkhome2('<c:out value="${username}" />'),cori('cash')">
 
 
 <sec:authorize access="hasRole('[ROLE_FDESK]')" var="haRoleUser"></sec:authorize>
@@ -1073,7 +1073,7 @@ input .ftype{
 	 <div class="col-xs-1"></div>
 	<button type="button" id="newt" class="btn btn-warning button1" onclick="clos()">New</button>
 	 <div class="col-xs-1"></div>
-	<a href="#" id="intbill" target="_blank" class="btn btn-warning button1"  onclick="return disp(this,'ir')">Generate Integrated Bill</a>
+	<a href="#" id="intbill" target="_blank" class="btn btn-warning button1"  onclick="return disp(this,'ir')">Consolidated Invoice</a>
 <button type="button"   id="bouton-contact" class="bouton-contact" onclick="return validchk();" form="billsave" ><span id="prgen">Generate Bill</span></button>
 </div>
    

@@ -294,7 +294,7 @@ E-mail : lilayifamilyclinic@yahoo.com]]></text>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="20" width="85" height="20" uuid="c62e623f-c574-42f0-9580-46d935f22bb3"/>
-				<text><![CDATA[Name of patient :]]></text>
+				<text><![CDATA[Name of Patient :]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="211" y="20" width="30" height="20" uuid="fd6aed6e-bfd4-475a-8711-2910a9d30b87"/>
@@ -477,6 +477,7 @@ E-mail : lilayifamilyclinic@yahoo.com]]></text>
 			</textField>
 			<textField>
 				<reportElement positionType="FixRelativeToBottom" x="270" y="56" width="129" height="20" uuid="ed464c52-caac-4ad1-8e4d-a42fd4977ba7"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{workphone}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -757,7 +758,8 @@ E-mail : lilayifamilyclinic@yahoo.com]]></text>
 				<textFieldExpression><![CDATA[$F{mid2}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="240" y="190" width="94" height="20" uuid="5c08a427-57c1-4db5-b852-aad47b8c286e"/>
+				<reportElement positionType="FixRelativeToBottom" x="240" y="190" width="94" height="19" uuid="5c08a427-57c1-4db5-b852-aad47b8c286e"/>
+				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{testrelease}]]></textFieldExpression>
 			</textField>
 		</band>

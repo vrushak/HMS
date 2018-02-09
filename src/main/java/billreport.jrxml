@@ -9,30 +9,7 @@
 	<field name="invoice" class="java.lang.String"/>
 	<field name="invoicedate" class="java.lang.String"/>
 	<field name="pname" class="java.lang.String"/>
-	<field name="pid" class="java.lang.String"/>
-	<field name="address" class="java.lang.String"/>
-	<field name="wardno" class="java.lang.String"/>
-	<field name="admdate" class="java.lang.String"/>
-	<field name="doctor" class="java.lang.String"/>
-	<field name="disdate" class="java.lang.String"/>
-	<field name="cashier" class="java.lang.String"/>
-	<field name="feetype" class="java.lang.String"/>
-	<field name="charges" class="java.lang.String"/>
-	<field name="price" class="java.lang.String"/>
-	<field name="subtotal" class="java.lang.String"/>
-	<field name="tax" class="java.lang.String"/>
-	<field name="discount" class="java.lang.String"/>
 	<field name="total" class="java.lang.String"/>
-	<field name="docid" class="java.lang.String"/>
-	<field name="admitno" class="java.lang.String"/>
-	<field name="mid" class="java.lang.String"/>
-	<field name="policyholder" class="java.lang.String"/>
-	<field name="policyno" class="java.lang.String"/>
-	<field name="insurancec" class="java.lang.String"/>
-	<field name="type" class="java.lang.String"/>
-	<field name="quantity" class="java.lang.String"/>
-	<field name="fileno" class="java.lang.String"/>
-	<field name="prch" class="java.lang.String"/>
 	<group name="invoice">
 		<groupExpression><![CDATA[$F{invoice}]]></groupExpression>
 	</group>
@@ -42,77 +19,8 @@
 	<group name="pname">
 		<groupExpression><![CDATA[$F{pname}]]></groupExpression>
 	</group>
-	<group name="pid">
-		<groupExpression><![CDATA[$F{pid}]]></groupExpression>
-	</group>
-	<group name="address">
-		<groupExpression><![CDATA[$F{address}]]></groupExpression>
-	</group>
-	<group name="wardno">
-		<groupExpression><![CDATA[$F{wardno}]]></groupExpression>
-	</group>
-	<group name="admdate">
-		<groupExpression><![CDATA[$F{admdate}]]></groupExpression>
-	</group>
-	<group name="doctor">
-		<groupExpression><![CDATA[$F{doctor}]]></groupExpression>
-	</group>
-	<group name="disdate">
-		<groupExpression><![CDATA[$F{disdate}]]></groupExpression>
-	</group>
-	<group name="cashier">
-		<groupExpression><![CDATA[$F{cashier}]]></groupExpression>
-	</group>
-	<group name="feetype">
-		<groupExpression><![CDATA[$F{feetype}]]></groupExpression>
-	</group>
-	<group name="charges">
-		<groupExpression><![CDATA[$F{charges}]]></groupExpression>
-	</group>
-	<group name="price">
-		<groupExpression><![CDATA[$F{price}]]></groupExpression>
-	</group>
-	<group name="subtotal">
-		<groupExpression><![CDATA[$F{subtotal}]]></groupExpression>
-	</group>
-	<group name="tax">
-		<groupExpression><![CDATA[$F{tax}]]></groupExpression>
-	</group>
-	<group name="discount">
-		<groupExpression><![CDATA[$F{discount}]]></groupExpression>
-	</group>
 	<group name="total">
 		<groupExpression><![CDATA[$F{total}]]></groupExpression>
-	</group>
-	<group name="docid">
-		<groupExpression><![CDATA[$F{docid}]]></groupExpression>
-	</group>
-	<group name="admitno">
-		<groupExpression><![CDATA[$F{admitno}]]></groupExpression>
-	</group>
-	<group name="mid">
-		<groupExpression><![CDATA[$F{mid}]]></groupExpression>
-	</group>
-	<group name="policyholder">
-		<groupExpression><![CDATA[$F{policyholder}]]></groupExpression>
-	</group>
-	<group name="policyno">
-		<groupExpression><![CDATA[$F{policyno}]]></groupExpression>
-	</group>
-	<group name="insurancec">
-		<groupExpression><![CDATA[$F{insurancec}]]></groupExpression>
-	</group>
-	<group name="type">
-		<groupExpression><![CDATA[$F{type}]]></groupExpression>
-	</group>
-	<group name="quantity">
-		<groupExpression><![CDATA[$F{quantity}]]></groupExpression>
-	</group>
-	<group name="fileno">
-		<groupExpression><![CDATA[$F{fileno}]]></groupExpression>
-	</group>
-	<group name="prch">
-		<groupExpression><![CDATA[$F{prch}]]></groupExpression>
 	</group>
 	<background>
 		<band height="124" splitType="Stretch"/>
