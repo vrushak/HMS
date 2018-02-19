@@ -185,6 +185,9 @@
 	<field name="quantity" class="java.lang.String"/>
 	<field name="fileno" class="java.lang.String"/>
 	<field name="prch" class="java.lang.String"/>
+	<variable name="slno" class="java.lang.Integer" calculation="Count">
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
 	<group name="invoice">
 		<groupExpression><![CDATA[$F{invoice}]]></groupExpression>
 	</group>
@@ -390,10 +393,10 @@ E-mail : lilayifamilyclinic@yahoo.com,TPIN NO :LFC098
 				<textElement textAlignment="Center">
 					<font isBold="true"/>
 				</textElement>
-				<text><![CDATA[Charges]]></text>
+				<text><![CDATA[Charges per Qty]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="60" width="251" height="29" uuid="f532f852-2fa2-4b04-a2b0-8951f049c94d"/>
+				<reportElement x="40" y="60" width="211" height="29" uuid="f532f852-2fa2-4b04-a2b0-8951f049c94d"/>
 				<box>
 					<pen lineWidth="0.6"/>
 				</box>
@@ -420,10 +423,20 @@ E-mail : lilayifamilyclinic@yahoo.com,TPIN NO :LFC098
 				<reportElement x="50" y="31" width="92" height="29" uuid="747a6303-5f07-4789-8cbf-0472b788355f"/>
 				<textFieldExpression><![CDATA[$F{policyno}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="60" width="40" height="29" uuid="af83da84-cf53-45c5-8a5f-224f98dc4fd8"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Sl No]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="21" splitType="Stretch">
+		<band height="22" splitType="Stretch">
 			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 			<textField isStretchWithOverflow="true">
 				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="330" y="-1" width="87" height="22" uuid="f4331113-458e-4601-b77c-2d64fa0aaa46"/>
@@ -455,11 +468,19 @@ E-mail : lilayifamilyclinic@yahoo.com,TPIN NO :LFC098
 				<textFieldExpression><![CDATA[$F{charges}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="0" y="0" width="251" height="21" uuid="de42b711-702e-4bb5-9e91-536786d9ee84"/>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" x="40" y="0" width="211" height="21" uuid="de42b711-702e-4bb5-9e91-536786d9ee84"/>
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{feetype}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="40" height="21" uuid="846ee21f-9023-4836-b03a-4d371cf7c9af"/>
+				<box>
+					<pen lineWidth="0.7"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

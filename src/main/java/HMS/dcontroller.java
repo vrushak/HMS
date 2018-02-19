@@ -483,7 +483,7 @@ public class dcontroller {
 			   Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 		    	String b = var.toString();
 		 	    List<Admitpat> list1= ddao.getAdmitpat1(principal.getName(),b);
-		 	    List<Discharge> list2 = ddao.getDischarge(); 
+		 	    List<Discharge> list2 = ddao.getDischarge("no"); 
 		 	    Map<String,Object> model = new HashMap<String, Object>();
 		 	
 		 	    model.put("list1", list1);
@@ -635,7 +635,7 @@ public class dcontroller {
 			   Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 		    	String b = var.toString();
 		 	  //  List<Admitpat> list1= ddao.getAdmitpat1(principal.getName(),b);
-		 	    List<Discharge> list2 = ddao.getDischarge(); 
+		 	    List<Discharge> list2 = ddao.getDischarge("yes"); 
 		 	   
 		 	    Map<String,Object> model = new HashMap<String, Object>();
 		 	

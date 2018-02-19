@@ -11,12 +11,16 @@ import java.io.PrintWriter;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import javax.naming.ldap.Control;
 import javax.servlet.RequestDispatcher;
@@ -501,7 +505,7 @@ public class controller {
 	  	String price[] = request.getParameterValues("price");
 	  	String prch[] = request.getParameterValues("prch");
 	 for(int i = 0;i< feety.length;i++){
-		 bsave = dao.savebill(s,feety[i],quant[i],quant[i],price[i],prch[i]);
+		 bsave = dao.savebill(s,feety[i],charg[i],quant[i],price[i],prch[i]);
 	 }
 	//bsave = dao.savebill(s);
 	Patient p = new Patient();
@@ -913,13 +917,11 @@ public class controller {
 	    	//	String date = s.getDate();
 			//	String datea[] = date.split(",");
 			String fileno = req.getParameter("fileno");
-	    	System.out.println("FileNO" +fileno);
-				System.out.println(s.getPid());
-				System.out.println(s.getTime());
+	    	
 				String time = s.getTime();
 				String timea[] = time.split(",");
 				
-				System.out.println("tlength id"+timea.length);
+			
 				String type = s.getOraltype();
 				String typeaa[] = type.split(",");
 				
@@ -947,7 +949,6 @@ public class controller {
 				
 				String aid = s.getAid1();
 				String aida[] = aid.split(",");
-				System.out.println("tlength id"+aida.length);
 				
 				String disc = s.getDiscontinue();
 				if(disc == null){
@@ -986,13 +987,13 @@ public class controller {
 				String doctrmksa[] = doctrmks.split(",");
 				
 				String vomitus = s.getVomitus();
-				System.out.println("Vomitus is "+ vomitus);
+			
 				if(vomitus == null){
 					vomitus = "off";
 				}
 				String vomitusa[] = vomitus.split(",");
 				
-				System.out.println("ext" +s.getExtflag());
+				
 	    	
 	    	if(b.contains("[ROLE_DOCTOR]")){
 	    		for(int i=0;i<aida.length;i++){
@@ -1004,11 +1005,9 @@ public class controller {
 			}
 	    	
 	    	else if(b.contains("[ROLE_NURSE]")){
-	    		System.out.println("Role is "+b);
+	    		
 	    		for(int i=0;i<aida.length;i++){
-	    			System.out.println("aida is" +aida.length);
-	    			System.out.println(vomitusa.length);
-	    			System.out.println(nursesigna.length);
+	    		
 	    			
 					//System.out.println("nursesig " +nursesigna[i]);
 	    		saven =	dao.savedrchart1(s,aida[i],timea[i],typeaa[i],amta[i],typea[i],amounta[i],urinea[i],doctora[i],ratea[i],vomitusa[i],nursesigna[i],doctrmksa[i],disca[i]);
@@ -1018,9 +1017,7 @@ public class controller {
 	    	else if(b.contains("[ROLE_CHIEFNURSE]")){
 	    		System.out.println("Role is "+b);
 	    		for(int i=0;i<aida.length;i++){
-	    			System.out.println("aida is" +aida.length);
-	    			System.out.println(vomitusa.length);
-	    			System.out.println(nursesigna.length);
+	    			
 	    			
 					//System.out.println("nursesig " +nursesigna[i]);
 	    		saven =	dao.savedrchart1(s,aida[i],timea[i],typeaa[i],amta[i],typea[i],amounta[i],urinea[i],doctora[i],ratea[i],vomitusa[i],nursesigna[i],doctrmksa[i],disca[i]);
@@ -1038,9 +1035,7 @@ public class controller {
 	    	
             else if(b.contains("[ROLE_ADMIN]") && s.getExtflag().contains("nurse")){
             	for(int i=0;i<aida.length;i++){
-	    			System.out.println("aida is" +aida.length);
-	    			System.out.println(vomitusa.length);
-	    			System.out.println(nursesigna.length);
+	    		
 	    			
 					//System.out.println("nursesig " +nursesigna[i]);
 	    		savean =	dao.savedrchart1(s,aida[i],timea[i],typeaa[i],amta[i],typea[i],amounta[i],urinea[i],doctora[i],ratea[i],vomitusa[i],nursesigna[i],doctrmksa[i],disca[i]);
@@ -1342,7 +1337,7 @@ public class controller {
 				 
 					@RequestMapping(value="/drugchart1", method = RequestMethod.GET)
 					public @ResponseBody String drugchart1(@ModelAttribute("s") Drugchart s) {
-						System.out.println("Patient"+s.getAdmitno());
+						
 						String jsonFormatData = "";
 						
 						 
@@ -1375,7 +1370,7 @@ public class controller {
 									 
 								//	 List<Iochart> list4 = dao.getPatientdet1(s.getAdmitno());
 									 List<Drugchart> list6 = dao.getPatientdet2d(admitno,id);
-							         System.out.println(s.getRatef());
+							      
 									 Map<String, Object> model = new HashMap<String, Object>();
 								       
 									    //    model.put("list1", list1);
@@ -1407,8 +1402,7 @@ public class controller {
 									 
 								//	 List<Iochart> list4 = dao.getPatientdet1(s.getAdmitno());
 									 List<Drugchart> list8 = dao.getPatientdet4d(admitno,drname,date);
-							         System.out.println("ratef gh" +s.getRatef());
-									 Map<String, Object> model = new HashMap<String, Object>();
+							        Map<String, Object> model = new HashMap<String, Object>();
 								       
 									    //    model.put("list1", list1);
 									      //  model.put("list2", list2);
@@ -1942,6 +1936,26 @@ public class controller {
 						     OutputStream out = response.getOutputStream();
 						       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
 						
+							} 
+	                  @RequestMapping(value="/receipt", method = RequestMethod.GET)
+						public void receipt(@ModelAttribute("s") Billgen s,ModelAndView modelAndView,HttpServletRequest req, HttpServletResponse response) throws JRException, IOException {
+							
+						 response.setContentType("application/pdf");
+						 response.setHeader("Content-Disposition",  "inline"); 
+                       
+						 String realPath = context.getRealPath("/");
+					     Map<String,Object> parameterMap = new HashMap<String,Object>();
+						 parameterMap.put("realPath", realPath);
+						 List<Billgen> list4= dao.getreceipt(req.getParameter("location"));
+						  
+						 JasperReport report = getReport("/receipt.jrxml");
+						      //fill the report with data source objects
+						     JRDataSource JRdataSource = new JRBeanCollectionDataSource(list4);
+						     JasperPrint jasperPrint = JasperFillManager.fillReport(report,  parameterMap, JRdataSource);
+							      
+						     OutputStream out = response.getOutputStream();
+						       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
+						
 							}  
 	                  
 	                  //dash board reports
@@ -1966,7 +1980,71 @@ public class controller {
 						
 							}  
 	                  
-	                 
+	                  @RequestMapping(value="/genlic", method = RequestMethod.POST)
+	  				public @ResponseBody String  genlic(@ModelAttribute("s") License s,HttpServletRequest req, HttpServletResponse response) throws Exception {
+	  				 String jsonFormatData = "";
+	  		
+	  				String data = handleLicenseRequest(req.getParameter("location"),req.getParameter("location1"));
+	  				jsonFormatData = data;
+	  				System.out.println("data is "+data);		
+	  				
+	  			        return jsonFormatData; 
+	  					}     
+	                  
+	                  @RequestMapping(value="/sablic", method = RequestMethod.POST)
+		  				public @ResponseBody String  sablic(@ModelAttribute("s") License s,HttpServletRequest req, HttpServletResponse response) throws Exception {
+		  				 String jsonFormatData = "";
+		  				int saves = 0; 
+		  				
+		  				 saves = dao.saveLic(req.getParameter("location2"),req.getParameter("location3"));
+		  				//handlePreviewLicense(req.getParameter("location3"));
+		  						if(saves > 0){
+		  				jsonFormatData = "success";
+		  						}
+		  						else{
+		  							jsonFormatData = "failure";
+		  						}
+		  			        return jsonFormatData; 
+		  					}               
+		                  
+	                  
+	                  //licensing module
+	                  
+	                  private static void promptLicenseRequestData(License license,String cn,String email) {
+	              
+	              		license.setCompanyName(cn);
+	                    license.setEmailId(email);
+	              	}
+	              		
+	              	 
+	              	private static String handleLicenseRequest(String cn,String email) throws Exception {
+	              		License license = LicenseManager.getNewLicense();
+	              		license.setLicenseType(License.LICENSE_TYPE_REQUEST);
+	              		LicenseManager.captureHardwareAddress(license);
+	              		promptLicenseRequestData(license,cn,email);
+	              		String encryptedLicense = LicenseManager.encryptLicense(license);
+	              		//System.out.println("\nGenerated License Request is below");
+	              		//System.out.println("==================================================\n");
+	              		//System.out.println(encryptedLicense);
+	              		//System.out.println("\n==================================================");
+	              		return encryptedLicense;
+	              	}
+	              	
+	              	private static void handlePreviewLicense(String key) throws Exception {
+	            		
+	            		
+	            		System.out.println("\nPlease paste the generated license key below and hit ENTER");
+	            		System.out.println("==============================================================");
+	            		String encryptedLicenseKey = key;
+	            		License license = LicenseManager.decryptLicense(encryptedLicenseKey);
+	            		//System.out.println("\nLicense Details");
+	            		//System.out.println("============================================================================\n");
+	            		//System.out.println(license.getMacAddress().toString());
+	            		
+	            		//System.out.println("\n============================================================================\n");
+	            	}
+	            	
+	              	
 	                  
 }
 

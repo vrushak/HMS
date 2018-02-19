@@ -409,8 +409,8 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 			return template.update(sql);
 		}
 
-		public List<Discharge> getDischarge() {
-			return template.query("select ds.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) Patient,pat.age,pat.gender,concat(d.fname,' ',d.mname,' ',d.lname) Doctor,ds.docid,adm.admdate,ds.disdate,ds.investigation,ds.fileno,ds.admitno,concat(adm.wardno,'/',adm.bedno) from discharge ds join patient pat on ds.pid = pat.pid join doctor d on ds.docid = d.docID join admitpat adm on ds.fileno = adm.fileno order by CAST(SUBSTRING_INDEX(ds.fileno,'-',-1) as decimal) desc",new RowMapper<Discharge>(){  
+		public List<Discharge> getDischarge(String value) {
+			return template.query("select ds.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) Patient,pat.age,pat.gender,concat(d.fname,' ',d.mname,' ',d.lname) Doctor,ds.docid,adm.admdate,ds.disdate,ds.investigation,ds.fileno,ds.admitno,concat(adm.wardno,'/',adm.bedno),ds.freeze from discharge ds join patient pat on ds.pid = pat.pid join doctor d on ds.docid = d.docID join admitpat adm on ds.fileno = adm.fileno where ds.freeze = '"+value+"' order by CAST(SUBSTRING_INDEX(ds.fileno,'-',-1) as decimal) desc",new RowMapper<Discharge>(){  
 		        public Discharge mapRow(ResultSet rs, int row) throws SQLException {   
 			       Discharge p = new Discharge();
 			       p.setPid(rs.getString(1));
@@ -427,7 +427,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 			       p.setFileno(rs.getString(10));
 			       p.setAdmitno(rs.getString(11));
 			       p.setWardno(rs.getString(12));
-			      
+			       p.setFreeze(rs.getString(13));
 			       return p;
 		        }
 			});

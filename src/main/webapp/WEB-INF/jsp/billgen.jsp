@@ -43,6 +43,7 @@ var cuser;
 		
 		$(".dispr").addClass("disabled")
 		$("#intbill").addClass("disabled")
+		$("#receipt").addClass("disabled")
 		 if(user.includes("[ROLE_FDESK]")){
 		
 			var url = "/HMS/frontdesk" ;
@@ -273,6 +274,7 @@ function myFunction1(getval) {
             console.log(newarr)
         });
         newitem = $(newarr).not(oldarr).get();
+
         if (newitem.length > 0) {
          
             addc(newitem[0]);
@@ -521,10 +523,12 @@ window.location = "/HMS/billgen.html";
 function cori(value){
 	
 	if(value == "insurance"){
+		$("#receipt").hide();
 		document.getElementById("insurance").style.display ="block";
 		document.getElementById("pors").style.display ="block";
 	}
 	else{
+		$("#receipt").show();
 		document.getElementById("cash").checked = true;
 		document.getElementById("insurance").style.display ="none";
 		document.getElementById("pors").style.display ="none";
@@ -608,6 +612,11 @@ function disp(id,fr){
 	  document.getElementById("prgen").style.visibility = "visible";
 	  $("#htr").show();
 	  */
+}
+function prec(val){
+	var url = "/HMS/receipt?location="+$("#invoice").val()+"" ;
+	$(val).attr("href",url)
+	return true;	
 }
 
 function openmd(value){
@@ -806,6 +815,11 @@ function doAjaxSave(id){
           }
         $(".dispr").removeClass("disabled")
          $("#intbill").removeClass("disabled")
+         console.log($("#cash").checked == true)
+         if(document.getElementById("cash").checked){
+        	 $("#receipt").removeClass("disabled")
+         }        	
+         
       	  unsaved = false;
           },
           error: function(e){
@@ -1074,6 +1088,7 @@ input .ftype{
 	<button type="button" id="newt" class="btn btn-warning button1" onclick="clos()">New</button>
 	 <div class="col-xs-1"></div>
 	<a href="#" id="intbill" target="_blank" class="btn btn-warning button1"  onclick="return disp(this,'ir')">Consolidated Invoice</a>
+    <a href='#' id="receipt" target="_blank" class="btn btn-warning button2" style="margin-right:10px;" onclick="return prec(this)">Print Receipt</a>
 <button type="button"   id="bouton-contact" class="bouton-contact" onclick="return validchk();" form="billsave" ><span id="prgen">Generate Bill</span></button>
 </div>
    

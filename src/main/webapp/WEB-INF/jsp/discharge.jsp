@@ -22,6 +22,7 @@
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-select.min.css" />' />
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-select.min.css" />' />
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-datetimepicker.css" />' >
+<link rel="stylesheet" href='<c:url value="/resources/css/jquery-confirm.min.css" />' >
 <link rel="stylesheet" href='<c:url value="/resources/css/jquery-ui.css" />' >
 
 
@@ -31,10 +32,19 @@
 <script type="text/javascript" src="/HMS/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/moment.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-select.min.js"></script>
-<script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/jquery-confirm.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/jquery-ui.js"></script>
 
-
+<style type="text/css">
+ div.jconfirm-title-c {
+    background-color: #009999;
+    
+    }
+.jconfirm-buttons button{
+color : orange;
+}
+</style>
 <script type="text/javascript">
 function goBack() {
     window.history.back();
@@ -160,6 +170,27 @@ function clos(){
 
 function refresh(){
 	$('#investigation').val('');
+}
+
+function ze(){
+	 
+	$.confirm({
+	    title: 'Confirm!',
+	    content: 'Disable editing Discharge Summary for current patient,Click CONFIRM to Disable,Click CANCEL to continue editing',
+	    buttons: {
+	        confirm: function () {
+	            $("#freeze").val("yes")
+	            $("#formd").submit();
+	        },
+	        cancel: function () {
+	            $("#freeze").val("no")
+	            $("#formd").submit();
+	         }
+	       
+	    }
+	});
+
+	
 }
 </script>
  <script type="text/javascript">
@@ -337,7 +368,7 @@ function refresh(){
   </script>
    <script>
   $( function() {
-	  var newBtn = '<button type="submit" class="btn btn-warning button3" form ="formd" id="bouton-contact" onclick="" >Save</button>';
+	  var newBtn = '<button type="button" class="btn btn-warning button3"  id="bouton-contact" onclick="ze();" >Save</button>';
 	  var newBtn1 = '<button type="button" id="close" class="btn btn-warning button4" onclick="clos()">Close</button>';
     $( "#myModal" ).dialog({
     	
@@ -560,7 +591,7 @@ function refresh(){
     <td width="155px;">${p1.dname}</td>
      <td width="160px;">${p1.admdate}</td>
     <td width="165px;">${p1.disdate}</td>
-    <td width="145px;"><i class="fa fa-eye" style="color:#00b300" onclick="copy('${p1.pid}=${p1.pname}=${p1.dname}=${p1.docid}=${p1.admdate}=${p1.disdate}=${p1.admitno}=${p1.fileno}=${p1.wardno}=${p1.age}=${p1.gender}')"></i></td>
+    <td width="145px;"><i class="fa fa-eye" style="color:#00b300" onclick="copy('${p1.pid}=${p1.pname}=${p1.dname}=${p1.docid}=${p1.admdate}=${p1.disdate}=${p1.admitno}=${p1.fileno}=${p1.wardno}=${p1.age}=${p1.gender}=${p1.freeze}')"></i></td>
     <td class="hidetd">${p1.investigation}</td>
  </tr>
     </c:forEach>
@@ -673,6 +704,7 @@ function refresh(){
    <div class="form-group">
  <p>Date of Admission<span>*</span></p>
   <input type="text" name="admdate" id="admdate" form="formd" readonly="readonly" class="form-control input-sm"  >
+  <input type="hidden" name="freeze" id="freeze" form="formd">
   </div>
   </div>   
  

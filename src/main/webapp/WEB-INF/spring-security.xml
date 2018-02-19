@@ -15,7 +15,7 @@
         <intercept-url pattern="/login" access="permitAll()" />
         <intercept-url pattern="/logout" access="permitAll()" />
         <intercept-url pattern="/welcome" access="permitAll()" />
- 
+        <intercept-url pattern="/licence" access="permitAll()" />
         <intercept-url pattern="/userInfo" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
          <intercept-url pattern="/home" access="hasRole('ROLE_ADMIN')" />
          <intercept-url pattern="/loadas" access="hasRole('ROLE_ADMIN')" />
@@ -40,9 +40,11 @@
  
         <logout logout-url="/logout" logout-success-url="/logoutSuccessful"
             delete-cookies="JSESSIONID" invalidate-session="true" />
+            
+             <custom-filter after="BASIC_AUTH_FILTER" ref="myFilter" />
  
     </http>
- 
+  <beans:bean id="myFilter" class="HMS.CustomFilter"/>
 
  
     <authentication-manager>
@@ -63,5 +65,6 @@
         </authentication-provider>
  
     </authentication-manager>
+
  
 </beans:beans>

@@ -1278,7 +1278,7 @@ var user2a;
         <th style="width:300px; " rowspan="3">Time</th>
         <th  colspan="4"><center>IN-PUT</center></th>
         <th  colspan="4"><center>OUT-PUT</center></th>
-       <th style="width:200px;" colspan="6">Doctor</th>
+       <th style="width:200px;" colspan="6"><center>DOCTOR</center></th>
         
            
       </tr>

@@ -68,7 +68,7 @@ import HMS.controllerDao;
 import javax.activation.MimetypesFileTypeMap;
 
 @Controller
-public class filedncontroller extends JFrame {
+public class filedncontroller {
 	@Autowired  
 	staffControllerDao sdao;
 	@Autowired 
@@ -76,12 +76,23 @@ public class filedncontroller extends JFrame {
 	@Autowired 
 	doctControllerDao ddao;
 	
-	private static final String UPLOAD_DIRECTORY ="c:\\Docs\\";
+	private static String UPLOAD_DIRECTORY;
 	private static final int THRESHOLD_SIZE     = 1024 * 1024 * 3;  // 3MB
 	///{path}/{path1}/{path2}/{path3}
+	
+	
 	@RequestMapping(value="/downform", method = RequestMethod.GET)
 	public void uploadForm(@ModelAttribute("s") Lab s,HttpServletRequest req, HttpServletResponse response)throws Exception {
 		String fileno = req.getParameter("location1");
+		
+		String os = System.getProperty("os.name");
+		System.out.println(os);
+		if (os.indexOf("Win") >= 0) {
+			UPLOAD_DIRECTORY ="c://Docs//";
+		} else {
+			UPLOAD_DIRECTORY="/home/tmp/Docs";
+		}
+		
 		//String admitdate = "14-11-2017";
 		//String Path = "Fileno5a/14-11-2017/doctor.jpg";
 		

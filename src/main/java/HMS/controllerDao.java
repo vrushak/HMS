@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import org.apache.poi.util.SystemOutLogger;
 import org.apache.taglibs.standard.tag.common.core.NullAttributeException;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -805,7 +806,7 @@ public List<Billgen> getBill() {
 
 public List<Billgen> getBill2(String pid,String name) {
 	
-	return template.query("select distinct invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,quantity,prch from billgen where pname = '"+name+"' or pid='"+pid+"'",new RowMapper<Billgen>(){  
+	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,GROUP_CONCAT(feetype SEPARATOR '='),GROUP_CONCAT(charges SEPARATOR '='),GROUP_CONCAT(price SEPARATOR '='),subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,GROUP_CONCAT(quantity SEPARATOR '='),GROUP_CONCAT(prch SEPARATOR '=') from billgen where pname = '"+name+"' or pid='"+pid+"' group by invoice",new RowMapper<Billgen>(){  
         public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
        
 	       Billgen p = new Billgen();
@@ -902,6 +903,22 @@ public List<Billgen> getBillint(String fileno) {
         }
 	});
 }
+
+public List<Billgen> getreceipt(String invoice) {
+	
+	return template.query("select distinct p.invoice,concat(a.fname,' ',a.mname,' ',a.lname),p.total,p.cashier from billgen p join patient a on a.pid = p.pid where p.invoice='"+invoice+"'",new RowMapper<Billgen>(){  
+        public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
+       
+	       Billgen p = new Billgen();
+	       p.setInvoice(rs.getString(1));
+	       p.setPname(rs.getString(2));
+	       p.setTotal(rs.getString(3));
+	       p.setCashier(rs.getString(4));
+	      
+		return p;
+        }
+	});
+}
 //invoicedate between '"+fdate+"' and '"+edate+"'
 //for printing overall reports
 public List<Billgen> getBill3(String fdate,String edate) {
@@ -928,8 +945,8 @@ public int savebill(Billgen s,String fee,String cha,String quant,String price,St
 public int saved(Discharge s) {
 	// TODO Auto-generated method stub
 	
-	String sql = "insert into discharge(pid,pname,dname,docid,admdate,disdate,investigation,fileno,admitno) values(?,?,?,?,?,?,?,?,?) on duplicate key update disdate =values(disdate),investigation=values(investigation)";
-	  return template.update(sql, new Object[] {s.getPid(),s.getPname(),s.getDname(),s.getDocid(),s.getAdmdate(),s.getDisdate(),s.getInvestigation(),s.getFileno(),s.getAdmitno()}); 
+	String sql = "insert into discharge(pid,pname,dname,docid,admdate,disdate,investigation,fileno,admitno,freeze) values(?,?,?,?,?,?,?,?,?,?) on duplicate key update disdate =values(disdate),investigation=values(investigation),freeze=values(freeze)";
+	  return template.update(sql, new Object[] {s.getPid(),s.getPname(),s.getDname(),s.getDocid(),s.getAdmdate(),s.getDisdate(),s.getInvestigation(),s.getFileno(),s.getAdmitno(),s.getFreeze()}); 
 }
 
 public List<Discharge> getDischarge() {
@@ -1736,8 +1753,8 @@ public List<Drugchart> getPatientdet1d(String admitno) {
 
 public int savedrchart1(Drugchart i,String aid, String string, String string2, String string3, String string4, String amounta, String urinea, String doctora, String ratea, String vomitusa, String nursesigna, String doctrmksa,String disc) {
 	// TODO Auto-generated method stub
-	System.out.println("nsig"+ nursesigna);
-	String sql = "insert into drugchart2(pid,admitno,fileno,time,type,amount,typecommence,amtgiv,urine,doctord,ratef,vomitus,nursesig,dremarks,ndate,aid,discontinue) values('"+i.getPid()+"','"+i.getAdmitno()+"','"+i.getFileno()+"','"+string+"','"+string2+"','"+string3+"','"+string4+"','"+amounta+"','"+urinea+"','"+doctora+"','"+ratea+"','"+vomitusa+"','"+nursesigna+"','"+doctrmksa+"',substring('"+string+"',2,10),'"+aid+"','"+disc+"') on duplicate key update time='"+string+"',type='"+string2+"',amount='"+string3+"',typecommence='"+string4+"',amtgiv='"+amounta+"',urine='"+urinea+"',ratef = '"+ratea+"',doctord='"+doctora+"', vomitus='"+vomitusa+"',nursesig='"+nursesigna+"',dremarks='"+doctrmksa+"',ndate=substring('"+string+"',2,10),discontinue='"+disc+"'";
+	
+	String sql = "insert into drugchart2(pid,admitno,fileno,time,type,amount,typecommence,amtgiv,urine,doctord,ratef,vomitus,nursesig,dremarks,ndate,aid,discontinue,date) values('"+i.getPid()+"','"+i.getAdmitno()+"','"+i.getFileno()+"','"+string+"','"+string2+"','"+string3+"','"+string4+"','"+amounta+"','"+urinea+"','"+doctora+"','"+ratea+"','"+vomitusa+"','"+nursesigna+"','"+doctrmksa+"',substring('"+string+"',2,10),'"+aid+"','"+disc+"',DATE_FORMAT(curdate(),'%d-%m-%Y')) on duplicate key update time='"+string+"',type='"+string2+"',amount='"+string3+"',typecommence='"+string4+"',amtgiv='"+amounta+"',urine='"+urinea+"',ratef = '"+ratea+"',doctord='"+doctora+"', vomitus='"+vomitusa+"',nursesig='"+nursesigna+"',dremarks='"+doctrmksa+"',ndate=substring('"+string+"',2,10),discontinue='"+disc+"',date=DATE_FORMAT(curdate(),'%d-%m-%Y')";
 	return template.update(sql);
 	}
 
@@ -1781,7 +1798,7 @@ public List<Drugchart> getPatientdet2d(String admitno, String id) {
 		       i.setAid1(rs.getString(16));
 		       i.setDiscontinue(rs.getString(17));
 		     //  i.setAid1(rs.getString(15));
-	      System.out.println(rs.getString(11));
+	     
 	      
 	       
 	       return i;
@@ -1806,8 +1823,7 @@ public List<Drugchart> getPatientdet3d(String admitno) {
 
 public List<Drugchart> getPatientdet4d(String admitno,String drname,String time) {
 	// TODO Auto-generated method stub
-	   System.out.println("pat4" +drname);
-	   System.out.println(time);
+	  
 	return template.query("select pid,admitno,fileno,time,type,amount,typecommence,amtgiv,urine,doctord,ratef,vomitus,nursesig,dremarks,date,aid,discontinue from drugchart2 where admitno='"+admitno+"' and type ='"+drname+"' and dremarks is NOT NULL and ratef is not null and vomitus is not null and nursesig is not null",new RowMapper<Drugchart>(){  
         public Drugchart mapRow(ResultSet rs, int row) throws SQLException {   
 	       Drugchart i = new Drugchart();
@@ -1828,9 +1844,7 @@ public List<Drugchart> getPatientdet4d(String admitno,String drname,String time)
 		       i.setDate(rs.getString(15));
 		       i.setAid1(rs.getString(16));
 		       i.setDiscontinue(rs.getString(17));
-		     //  i.setAid1(rs.getString(15));
-	      System.out.println("rs.getString(11) " +rs.getString(11));
-	      
+		     //  i.setAid1(rs.getString(15));      
 	       
 	       return i;
 	     
@@ -2452,7 +2466,27 @@ public List<Billgen> getBm() {
         }
 	});
 }
+// save licence keys  on duplicate key update cname='"+p.getCname()+"',email='"+p.getEmail()+"',mac='"+p.getMac()+"'
+public int saveLic(String lid,String lkey) {
+	// TODO Auto-generated method stub
+	
+	String sql = "insert into lusers(lid,lkey) values('"+lid+"','"+lkey+"') on duplicate key update lkey = '"+lkey+"'";
+	return template.update(sql);
 }
 
+public List<License> getLusers() {
+	
+	return template.query("select lid,lkey from lusers",new RowMapper<License>(){  
+        public License mapRow(ResultSet rs, int row) throws SQLException {   
+        	
+	       License p = new License();
+	       
+	       p.setLid(rs.getInt(1));
+	       p.setLckey(rs.getString(2));
+		return p;
+        }
+	});
+}
+}
 
 	

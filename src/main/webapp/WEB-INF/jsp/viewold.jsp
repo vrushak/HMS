@@ -78,7 +78,7 @@
 	
 function deleteRow(r,fee,charge) {
 
-	var myname = document.getElementById(fee).value+","+document.getElementById(charge).value;
+	var myname = document.getElementById(fee).value//+","+document.getElementById(charge).value;
 	
     var i = r.parentNode.parentNode.rowIndex;
     document.getElementById("items").deleteRow(i);
@@ -209,20 +209,27 @@ function disp(id,fr){
 		
 		var oldarr = [];
         var newarr = [];
-function myFunction1() {
+function myFunction1(getval) {
 
+	
     if ($("#select1 option").length == 1) {
-        oldarr = [];
-        oldarr.push($("#select1 option:selected").val());
+        
+    	oldarr = [];
+        oldarr.push($("#select1 option:selected").attr('data-value'));
       
-        addc($("#select1 option:selected").val());
+        addc($("#select1 option:selected").attr('data-value'));
     }
     else {
         newarr = [];
+     //   console.log(oldarr)
         $("#select1 option:selected").each(function(i){
-            newarr.push($(this).val());
+           
+        	newarr.push($(this).attr('data-value'));
+         //   console.log(newarr)
+          
         });
         newitem = $(newarr).not(oldarr).get();
+    
         if (newitem.length > 0) {
          
             addc(newitem[0]);
@@ -429,11 +436,11 @@ function copy(pid,ft,ch,pr,quantity,prch){
 
 	var strSplit = pid.split('=');
 
- var feetype = ft.split(',');
- var charges = ch.split(',');
- var price = pr.split(',');
- var quantit = quantity.split(',');
-	
+ var feetype = ft.split('=');
+ var charges = ch.split('=');
+ var price = pr.split('=');
+ var quantit = quantity.split('=');
+ var prch = prch.split('=');	
  	
  for(var x=0; x<feetype.length; x++) {
 	 var fid = Math.random();
@@ -444,16 +451,21 @@ function copy(pid,ft,ch,pr,quantity,prch){
 		var tableRef = document.getElementById('items').getElementsByTagName('tbody')[0];
 	//	var rowsAdd = tableRef.insertRow(tableRef.rows.length-1);
 		
-		var markup = "<tr><td style='width:250px;'><textarea rows='1' oninput='auto_grow(this)' class='form-control input-sm feet' id = '"+fid+"' name= 'feetype' form ='billsave' value = '"+feetype[x]+"' required>"+feetype[x]+"</textarea></td><td  style='width:200px;'><input type='text'  form ='billsave'  class='form-control input-sm ftype' id = '"+charg+"' name= 'charges'  value='"+charges[x]+"' onkeypress='return onlyNos(event,this);' required></td><td style='width:100px;'><input type='text' form='billsave' class='form-control input-sm qta' name='quantity' id='"+qant+"' value='"+quantit[x]+"' onkeypress='return onlyNos(event,this);'></td><td  style='width:200px;'><input id = '"+pric+"' form ='billsave' type='text' name= 'price' class='form-control input-sm' value='"+price[x]+"' required><input type='hidden' name='prch' id='prch' value='"+prch+"' form='billsave' ></td><td><i class='fa fa-close' style='font-size:20px;color:red'  onclick='deleteRow(this,"+fid+","+charg+")'></i></td></tr>"
+		var markup = "<tr><td style='width:250px;'><textarea rows='1' oninput='auto_grow(this)' class='form-control input-sm feet' id = '"+fid+"' name= 'feetype' form ='billsave' value = '"+feetype[x]+"' required>"+feetype[x]+"</textarea></td><td  style='width:200px;'><input type='text'  form ='billsave'  class='form-control input-sm ftype' id = '"+charg+"' name= 'charges'  value='"+charges[x]+"' onkeypress='return onlyNos(event,this);' required></td><td style='width:100px;'><input type='text' form='billsave' class='form-control input-sm qta' name='quantity' id='"+qant+"' value='"+quantit[x]+"' onkeypress='return onlyNos(event,this);'></td><td  style='width:200px;'><input id = '"+pric+"' form ='billsave' type='text' name= 'price' class='form-control input-sm' value='"+price[x]+"' required><input type='hidden' name='prch' id='prch' value='"+prch[x]+"' form='billsave' ></td><td><i class='fa fa-close' style='font-size:20px;color:red'  onclick='deleteRow(this,"+fid+","+charg+")'></i></td></tr>"
 		$('#items .tbody').append(markup);
 		
 		document.getElementById(fid).oninput();
 		checkhome2(cuser) 
-		oldarr.push(feetype[x])
+      $("#select1 option").each(function(i){
+     if(feetype[x] == $(this).val()){
+    	 oldarr.push(feetype[x] +','+$(this).attr('titlea'))
+     }       
+    });		
+		
 		//alert(oldarr)
-		console.log(oldarr)
-		var select = feetype[x]+','+charges[x];
-		//alert(select)
+
+		var select = feetype[x]//+','+charges[x];
+		
 
 		$("#select1 option[value='"+ select +"']").attr("selected",true);
     $("#select1").selectpicker('refresh');
@@ -522,11 +534,12 @@ function copy(pid,ft,ch,pr,quantity,prch){
 function cori(value){
 	
 	if(value == "insurance"){
+		$("#receipt").hide();
 		document.getElementById("insurance").style.display ="block";
 		document.getElementById("insurance1").checked = true;
 	}
 	else{
-		
+		$("#receipt").show();
 		document.getElementById("insurance").style.display ="none";
 		document.getElementById("cash").checked = true;
 	}
@@ -637,6 +650,12 @@ function onlyNos(e, t) {
         alert(err.Description);
     }
 }
+
+function prec(val){
+	var url = "/HMS/receipt?location="+$("#invoice").val()+"" ;
+	$(val).attr("href",url)
+	return true;	
+}
 	</script>
 <script type="text/javascript">
        
@@ -649,8 +668,8 @@ function onlyNos(e, t) {
     	        //var id = $(this).closest("tr").find('td:eq(1)').attr('value');
                 var string = x[1].innerHTML; 
                 var string2 = x[2].innerHTML;
-               console.log(string)
-               console.log(string2)
+          //     console.log(string)
+           //    console.log(string2)
     	    	 var tableRef = document.getElementById('items').getElementsByTagName('tbody')[0];
     	    	
     	     	  var pric = 'price'+ Number(tableRef.rows.length);
@@ -704,7 +723,8 @@ function doAjaxSave(id){
        	if(response.toString() == "success")   
           {
       	  alert("Data Saved Successfully")
-          }
+      	 }
+       
       	  unsaved = false;
           },
           error: function(e){
@@ -725,7 +745,7 @@ function doAjaxSave(id){
 
 </head>
 <sec:authentication property="principal.authorities" var="username" />
-<body onload="checkhome2('<c:out value="${username}" />'),cori('cash'),date()">
+<body onload="checkhome2('<c:out value="${username}" />'),cori('cash')">
   <div class="wrapper">
   <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -805,10 +825,10 @@ function doAjaxSave(id){
                 </tr>
                    <tr id="htr">
                     <td class="meta-head">Select Fee Types</td>
-                    <td><select class="selectpicker form-control" id="select1" name="select1" data-width="200px" data-size="4" data-live-search="true" onchange=" myFunction1()" multiple>
+                    <td><select class="selectpicker form-control" id="select1" name="select1" data-width="200px" data-size="4" data-live-search="true" onchange=" myFunction1(this.options[this.selectedIndex])" multiple>
                         <option disabled>Select</option>
                          <c:forEach var="p"  items="${model.list1}">
-                         <option value="${p.feetype},${p.charges}"  >${p.feetype}</option>
+                         <option value="${p.feetype}" data-value="${p.feetype},${p.charges}" titlea="${p.charges}">${p.feetype}</option>
                          </c:forEach>
                            </select>
                            </td>
@@ -935,6 +955,7 @@ function doAjaxSave(id){
 	</table>
 	 <div class="col-xs-1"></div>
 	<a href="#" id="intbill" target="_blank" class="btn btn-warning button1"  onclick="return disp(this,'ir')">Consolidated Invoice</a>
+	<a href='#' id="receipt" target="_blank" class="btn btn-warning button2" style="margin-right:30px;"  onclick="return prec(this)">Print Receipt</a>
 	
 	<br><br>
 
@@ -947,6 +968,7 @@ function doAjaxSave(id){
 </div>
   	
 <button type="button"  id="bouton-contact" class="bouton-contact" onclick="return validchk();" form="billsave" ><span id="prgen">Generate Bill</span></button>
+
 </div>
    
      <div class="container">
@@ -1018,10 +1040,11 @@ check('<c:out value="${p.invoice}" />');
 
 
 <c:forEach var="p"  items="${model.list1}">
+<!--
 <script>
 
 add('<c:out value="${p.feetype}" />','<c:out value="${p.charges}" />');
-</script>
+</script>  -->
 </c:forEach>
 <c:forEach var="p"  items="${model.list4}">
 <script>

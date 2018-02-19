@@ -1007,6 +1007,9 @@ var cu;
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
+      <li class=""><a  href="/HMS/myapps">My Appointments</a></li>  
+      <li class=""><a id="m2" href="/HMS/treatment">Treatment Records</a></li>  
+      <li class=""><a  href="/HMS/discharge">Discharge Summary</a></li>
     </ul>
   </div>
 </nav>

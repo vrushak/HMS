@@ -1378,6 +1378,9 @@ var cu;
     		      }
     		    
     		    });
+    		    
+    		  
+    		    
     		  $('#vpv').dialog({height: 300, width:1000 });
     		    $(".ui-dialog").find(".ui-widget-header").css("background", "#009999","text-align","center");
     		    
@@ -1514,6 +1517,18 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
  var get = "GET";
  doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8"); 	  
        }
+       
+       </script>
+       
+       <script>
+       $( function() {
+       $("input").on("keypress", function(e) {
+    	   
+       
+	        if (e.which === 32 && !this.value.length)
+	            e.preventDefault();
+	    });
+       });
        
        </script>
  
