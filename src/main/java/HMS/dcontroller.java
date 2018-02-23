@@ -51,7 +51,8 @@ public class dcontroller {
 	nurseControllerDao ndao;
 	@Autowired 
 	staffControllerDao sdao;
-	
+	@Autowired 
+	patientControllerDao pdao;
 	
 	@RequestMapping(value="/doctor", method = RequestMethod.GET)
 	public ModelAndView doctor(@ModelAttribute("p") Doctor p) {
@@ -139,7 +140,7 @@ public class dcontroller {
 		   public  @ResponseBody String prescription1(@PathVariable String docid,@PathVariable String pid,@ModelAttribute("p") Prescription s,Principal principal,Authentication authentication) {
 		   	 
 		   	  String jsonFormatData = "";
-		   	System.out.println("file is"+ docid);
+		 
 		      // List<Patient> list2= dao.getPatientId1();
 		       List<Prescription>list6 = ddao.getPrescription2(docid);
 		    //   List<Prescription> cpmverted = convertStadToDynamic(list6.get(0));
@@ -214,6 +215,7 @@ public class dcontroller {
 		    List<Patient> list2= dao.getPatientId1();
 		 	List<Prescription> list1= ddao.getDocID2(principal.getName(),b);
 		 	 List<Prescription>list4 = dao.search();
+		 	List<Patient> list8=pdao.getPatientId();
 		 	if(list1.isEmpty()){
 		 		
 		 		s.setDocid(b);
@@ -231,6 +233,7 @@ public class dcontroller {
 		       model.put("list", list);
 		       model.put("list15", list15);
 		       model.put("list2", list2);
+		       model.put("list8", list8);
 		 	return new ModelAndView("myapps","model",model); 
 		 	}
 		 /*  

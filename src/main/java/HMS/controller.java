@@ -89,7 +89,6 @@ import com.twilio.type.PhoneNumber;
 @Controller
 public class controller {
 	private JasperReport jr;
-	private static final String UPLOAD_DIRECTORY ="c:\\Docs\\";
 	@Autowired  
 	controllerDao dao;
 	@Autowired  
@@ -265,20 +264,33 @@ public class controller {
 			   		List<Doctor> list1= dao.getDocID1();
 				    List<Patient> list2= dao.getPatientId1();
 					List<Appointment> list3= dao.getAppointment();
+					List<Patient> list4=pdao.getPatientId();
 					
 			  Map<String, Object> model = new HashMap<String, Object>();
 			            model.put("list",list);
 				        model.put("list1",list1);
 				        model.put("list2",list2);
 				        model.put("list3", list3);
+				        model.put("list4", list4);
 			  		return new ModelAndView("appointment","model",model); 
 					}
 				@RequestMapping(value="/saveApp", method = RequestMethod.POST)
-				public ModelAndView  saveAppointment(@ModelAttribute("s") Appointment s) throws KeyManagementException, NoSuchAlgorithmException, IOException {
-				 
+				public ModelAndView  saveAppointment(@ModelAttribute("s") Appointment s,HttpServletRequest request,HttpServletResponse response) throws KeyManagementException, NoSuchAlgorithmException, IOException {
+				 String chk = request.getParameter("pat");
+				
+				 if(chk.contentEquals("on")){
+						Patient p = new Patient();
+						p.setPid(s.getPid());
+						p.setFname(s.getPname());
+						p.setMobile(s.getPhno());
+						p.setMname(" ");
+						p.setLname(" ");
+						pdao.savePatient(p);
+						} 
 					int app = 0;
 					
 				app =	dao.saveApp(s);
+				
 				ModelAndView  mav = new ModelAndView();
 				if(app > 0){
 								    
@@ -1986,7 +1998,7 @@ public class controller {
 	  		
 	  				String data = handleLicenseRequest(req.getParameter("location"),req.getParameter("location1"));
 	  				jsonFormatData = data;
-	  				System.out.println("data is "+data);		
+	  					
 	  				
 	  			        return jsonFormatData; 
 	  					}     
@@ -2030,19 +2042,33 @@ public class controller {
 	              		return encryptedLicense;
 	              	}
 	              	
-	              	private static void handlePreviewLicense(String key) throws Exception {
-	            		
-	            		
-	            		System.out.println("\nPlease paste the generated license key below and hit ENTER");
-	            		System.out.println("==============================================================");
-	            		String encryptedLicenseKey = key;
-	            		License license = LicenseManager.decryptLicense(encryptedLicenseKey);
-	            		//System.out.println("\nLicense Details");
-	            		//System.out.println("============================================================================\n");
-	            		//System.out.println(license.getMacAddress().toString());
-	            		
-	            		//System.out.println("\n============================================================================\n");
-	            	}
+	          //retrieve files based on patient fileno in diagnose screen
+	              	
+
+					 @RequestMapping(value="/retfil", method = RequestMethod.GET)
+						public @ResponseBody String retreive(@ModelAttribute("s") Lab s,HttpServletRequest req) {
+							
+							String jsonFormatData = "";
+							
+							 
+						
+							 List<Lab> listfil= dao.getRetrfiles(req.getParameter("location"));
+					         
+							 Map<String, Object> model = new HashMap<String, Object>();
+						       
+							  
+							       model.put("listfil", listfil);
+							 
+									 Gson gson = new Gson(); 
+
+									    jsonFormatData = gson.toJson(model);
+
+					       
+					
+							
+								 return jsonFormatData;
+						}
+					   	
 	            	
 	              	
 	                  

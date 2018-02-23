@@ -19,11 +19,13 @@
 <link rel="stylesheet" href='<c:url value="/resources/css/font-awesome.min.css" />' >
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap.min.css" />' >
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-select.min.css" />' />
+<link rel="stylesheet" href='<c:url value="/resources/css/jquery-confirm.min.css" />' >
 
 <script type="text/javascript" src="/HMS/resources/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/moment.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/jquery-confirm.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
 
 
@@ -67,6 +69,48 @@ function checkid(str){
 		document.getElementById("fileno").value = res;
 		 
 	//	alert(res1);
+	}
+}
+var patonid;
+function checkpatid(str){
+
+	if (str == "" || str == null){
+    	
+		
+		
+		id = 1;
+		var str1 = "P-";
+	    var m = moment().format("DDMMYYYY-");
+	    
+		var str3 = id;
+		var res = str1.concat(m);
+		var res1 = res.concat(str3);
+	    
+		
+		 patonid = res1;
+		 
+    	//alert(res1);
+	}
+	else {
+		
+	
+		
+		var id = str;
+		
+		var ida = Number(id) + 1;
+	
+		var str1 = "P-";
+		var m = moment().format("DDMMYYYY-");
+		var str3 = ida;
+		var res = str1.concat(m);
+		var res1 = res.concat(str3);
+		 
+		
+		patonid = res1;
+	//	alert(res1);
+	
+	    
+		
 	}
 }
 $(document).ready(function(){
@@ -189,6 +233,7 @@ function addcname(getval){
 
 function copy(pid){
 
+	$("#pat").next("span").andSelf().hide();
 	var strSplit = pid.split(',');
 
 
@@ -315,6 +360,47 @@ function validDate() {
 	 document.getElementsByName("appointment")[0].setAttribute('max', getInputDateFormat(maxDate));
 	}
 
+function onlyNos(e, t) {
+    try {
+        if (window.event) {
+            var charCode = window.event.keyCode;
+        }
+        else if (e) {
+            var charCode = e.which;
+        }
+        else { return true; }
+        var parts = e.srcElement.value.split('.');
+        
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        else if(parts.length >1 && charCode == 46){
+        	return false;
+        }
+        else{
+        return true;
+        }
+    }
+    catch (err) {
+        alert(err.Description);
+    }
+}
+
+function removeAll(id,pn,moba){
+	
+	$('#pid').find('[value='+id+']').remove();
+	$('#pid').selectpicker('refresh');
+	  
+	$('#pname').find('[value='+pn+']').remove();
+	$('#pname').selectpicker('refresh');  
+	
+	   $('select[name=pname1]').val('select');
+	   $('#pname').selectpicker('refresh');
+
+	   $('select[name=pid1]').val('select');
+	   $('#pid').selectpicker('refresh');
+    $('#phno').val('NA')
+}
 </script>
 <script type="text/javascript">
 $(document).ready(function () {
@@ -384,7 +470,77 @@ if(currenttime > $("#time").val())
 });
 
 </script>
+<script>
+function prompt(val){
+	var ida,namea,moba;
+	if(val.checked == false){
+		removeAll(ida,namea,moba)
+		return false;
+		
+	}
+	
+	
+$.confirm({
+    title: 'New Patient Registration',
+    content: '' +
+    '<div class="form-group">' +
+    
+    '<label>Enter Patient Id</label>' +
+    '<input type="text"  class="id form-control" value ='+patonid+' required />' +
+    '<label>Enter Patient Name</label>' +
+    '<input type="text"  class="name form-control" required />' +
+    '<label>Enter Mobile Number</label>' +
+    '<input type="text" class="mobile form-control" onkeypress="return onlyNos(event,this);" required />' +
+    '</div>' ,
+ 
+    buttons: {
+        formSubmit: {
+            text: 'Add',
+            btnClass: 'btn-blue',
+            action: function () {
+               namea = this.$content.find('.name').val();
+                if(!namea){
+                    $.alert('Please provide a valid name');
+                    return false;
+                }
+                ida = this.$content.find('.id').val();
+                if(!ida){
+                    $.alert('Please provide a valid id');
+                    return false;
+                } 
+                moba = this.$content.find('.mobile').val();
+                if(!moba){
+                    $.alert('Please provide a valid mobile');
+                    return false;
+                }
+              
+                if ($("#pid option[value='"+patonid+"']").length == 0){
+ 	              
+             	   $("#pid").append('<option value="'+ida+'" data-value="'+ida+','+namea+','+moba+'" selected="">'+ida+'</option>');
+                   $("#pid").selectpicker("refresh");
+                   
+                   $("#pname").append('<option value="'+namea+'" data-value="'+ida+','+namea+','+moba+'" selected="">'+namea+'</option>');
+                   $("#pname").selectpicker("refresh");
+                 }
+                $('#pid1').val(ida);
+                $('#pname1').val(namea);
+                $('#phno').val(moba);
 
+               
+            }
+        },
+        cancel: function (){
+        	
+            //close
+            $(val).attr("checked",false);
+            removeAll(ida,namea,moba)
+        },
+    }
+
+
+});
+}
+</script>
 </head>
 
 <sec:authentication property="principal.authorities" var="username" />
@@ -474,7 +630,7 @@ if(currenttime > $("#time").val())
   <div class="form-group">
             <p>Patient Id<span>*</span></p>
              <select class="selectpicker form-control" data-size="10" data-live-search="true" name = "pid1" id ="pid" onchange="addcid(this.options[this.selectedIndex])"   required>
-          <option value="" selected disabled>Select</option>
+          <option value="select" selected disabled>Select</option>
         <c:forEach var="p"  items="${model.list2}">
         <option value="${p.pid}" data-value="${p.pid},${p.combine},${p.mobile}">${p.pid}</option>
         </c:forEach>
@@ -487,7 +643,7 @@ if(currenttime > $("#time").val())
   <div class="form-group">
             <p>Patient Name<span>*</span></p>
              <select class="selectpicker form-control" data-size="10" data-width="100%" data-live-search="true"  name = "pname1" id ="pname" onchange="addcname(this.options[this.selectedIndex])"  >
-      <option value="" selected disabled>Select</option>
+      <option value="select" selected disabled>Select</option>
         <c:forEach var="p"  items="${model.list2}">
         <option value="${p.combine}" data-value="${p.pid},${p.combine},${p.mobile}">${p.combine}</option>
         </c:forEach>
@@ -544,19 +700,20 @@ if(currenttime > $("#time").val())
 
     <input type="text" form="form1" id="fileno" value=""readonly="readonly" name="fileno" class="form-control input-sm" required>
     <input type="hidden" name="flag" form="form1" value="fdesk"><br>
-    <input type="hidden" name="phno" id="phno" form="form1" value="NA">
-    <input type="checkbox" name="sms" id="sms" form="form1" checked>SMS Alerts
-           
+    
+    <input type="checkbox" name="sms" id="sms" form="form1">SMS Alerts
+    <input type="checkbox" name="pat" id="pat" form="form1" onchange="return prompt(this)"><span>New Patient</span>       
  </div>
  
  <div class="col-xs-2"></div>
   <div class="col-xs-4">
-       <p><span></span></p>
-
+       <p>Mobile No<span></span>*</p>
+     <input type="text" name="phno" id="phno" class="form-control input-sm" form="form1" readonly value="NA"><br>
     <button type="submit" id="bc" form="formdel" onclick=" return myconfirm()" class="btn btn-warning button1" >Cancel Appointment</button> 
            
  </div>
  </div>
+ 
  <br><br><br>
 
   
@@ -575,6 +732,11 @@ if(currenttime > $("#time").val())
  <c:forEach var="p"  items="${model.list}">
 <script>
 checkid('<c:out value="${p.fileno}" />');
+</script>
+</c:forEach>
+ <c:forEach var="p"  items="${model.list4}">
+<script>
+checkpatid('<c:out value="${p.pid}" />');
 </script>
 </c:forEach>
 <script>

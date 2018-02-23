@@ -90,6 +90,7 @@ public class filedncontroller {
 		if (os.indexOf("Win") >= 0) {
 			UPLOAD_DIRECTORY ="c://Docs//";
 		} else {
+			
 			UPLOAD_DIRECTORY="/home/tmp/Docs";
 		}
 		
@@ -103,7 +104,7 @@ public class filedncontroller {
 		 */
 		 
 		 String ext1 = FilenameUtils.getExtension(req.getParameter("location")); // returns "txt"
-		 System.out.println(ext1);
+		
          if(ext1.contentEquals("jpg")){
         	 response.setContentType("image/jpg"); 
          }
@@ -340,9 +341,9 @@ public class filedncontroller {
 			
 		      
 		 
-			
+			            /*
 			            JFrame f = new JFrame("Chart");
-			/*
+			
 			f.setContentPane(chartPanel);
 		*/
 		//	f.pack();

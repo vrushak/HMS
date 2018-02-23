@@ -255,7 +255,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 			if(userrole.contains("[ROLE_DOCTOR]")){
 				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID left outer join admitpat ad on ap.fileno = ad.fileno  where ap.docid in (select userid from userrole where username = '"+username+"')",new RowMapper<Prescription>(){  
 		        public Prescription mapRow(ResultSet rs, int row) throws SQLException {   
-		        	 System.out.println("code re");
+		        	 
 			       Prescription p = new Prescription();
 			     
 			      p.setDocid(rs.getString(1));
@@ -287,7 +287,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 				      p.setSpecialization(rs.getString(6));
 				      p.setFileno(rs.getString(7));
 				      p.setIdc("Admin");
-				      System.out.println("getid" + p.getIdc());
+				   
 				      return p;
 			        }
 				});
@@ -487,7 +487,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 			return template.query("select name from erpho.product",new RowMapper<Prescription>(){  
 		        public Prescription mapRow(ResultSet rs, int row) throws SQLException {  
 		            Prescription s=new Prescription();  
-		           System.out.println(rs.getString(1));
+		          
 		            s.setDrugn(rs.getString(1));
 		       return s;
 			
@@ -1331,7 +1331,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 				   	p.setDname(rs.getString(5));
 				   	p.setDiagnose(rs.getString(6));
 				   	p.setDatetime(rs.getString(7));
-				   	System.out.println(rs.getString(6));
+				   
 				    return p;
 			        }
 				});
