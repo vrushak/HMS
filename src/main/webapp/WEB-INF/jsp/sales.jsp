@@ -189,10 +189,7 @@ function checkhome2(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
-		
-		 
-	
-		
+			
 	}
 	 
 	
@@ -226,16 +223,14 @@ var x = document.getElementById('myTable').getElementsByTagName('tbody')[0];
    }
    
 function disp(){
-	var rcount=$('#mytable  tr').length;
 	
-	if(rcount==0){
-		alert("Cannot print blank table")
-	}
 	if(document.getElementById("sinvoice").value == "Select" ){
 		alert("Please select the Invoice")
 		return false;
 	}
 	$(".ft").hide();
+	$("#ch").text("Sales Invoice");
+	$("#chbox").next("span").andSelf().hide(); 
 	$('.table-responsive').removeClass('table-responsive');
 	$("#myTable th:eq(13), #myTable td:last-child").hide();
 	$("#myTable th:eq(0), #myTable td:nth-child(1)").show();
@@ -256,6 +251,8 @@ function disp(){
 	window.print();
 	
 	$(".ft").show();
+	$("#ch").text("Sales");
+	$("#chbox").next("span").andSelf().Show(); 
 	$('.table-responsive').addClass('table-responsive');
 	document.getElementById("addbt").style.display = "block";
 	document.getElementById("gtot").style.visibility = "visible";
@@ -701,11 +698,30 @@ function checkSp(type,value){
 
 
 	function totalIt() {
+		
 		$("#myTable .tbody tr").each(function(){
 			
 			var x=this.cells;
 	      
-	   
+			var qty = document.getElementById("unitSale").value;
+			var spsize = document.getElementById("spsize").value;
+			var up1 = document.getElementById("up1").value;
+			
+			if(spsize<1){
+	   			alert("Selling Pack Size cant be equals to 0")
+	   			return false;
+	   		}
+			
+	   		if(qty<1){
+	   			alert("Quantity sold cant be equals to 0")
+	   			return false;
+	   		}	
+	   		
+	   		if(up1<1){
+	   			alert("Unit SP cant be equals to 0")
+	   			return false;
+	   		}
+			
 	      if(Number(x[7].getElementsByTagName('input')[0].value) < Number(x[9].getElementsByTagName('input')[0].value))
 		    {
 		       //$(this).find("td:eq(2) span").text("matched");
@@ -1146,7 +1162,7 @@ function highlightDuplicates() {
 	           success: function(response){
 	            
 	        	   if(response.length == 0){
-	        		   alert("Cannot add. No Stock");
+	        		   alert("Product Cannot be added. Current Stock has expired");
 	        	   }
 	        	   $.each(response, function(index, datec) {
 	                   //to print name of employee
@@ -1551,7 +1567,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
 <div id="main">
  <div id="form1" >  
   
-     <h1> <font size="5">Sales </font><span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i></span>
+     <h1> <font id="ch" size="5">Sales </font> <span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i></span>
       <button type="button" id="close" class="btn btn-warning button2"  onclick="return disp();">Print</button>    
      
      </h1>
@@ -1644,7 +1660,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
   
 	  <div class="col-xs-2">
 	 <br></br>
-	  <input type="checkbox" id = "chbox" onclick="disppat(this)">Show Patients
+	  <input type="checkbox" id = "chbox" onclick="disppat(this)"><span>Show Patients</span>
 	  </div>      
 	  </div>
 	  
@@ -1656,14 +1672,14 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
 
    <form action="sale1.html" method = "get">
             <p>Customer Id:<span></span></p>
-       <select class="selectpicker form-control sp"  data-size="6" data-live-search="true" name = "customer" type="text" id ="customer" class="form-control input-sm"  onchange="addcid()">
+       <select class="selectpicker form-control sp"  data-size="6"  data-live-search="true" name = "customer" type="text" id ="customer" class="form-control input-sm"  onchange="addcid()">
     <option value="new">new</option>
   <c:forEach var="sale"  items="${model.list}">
-  <option class="cust" value = "${sale.customer},${sale.name},${sale.phone},${sale.sex},${sale.age},${sale.medical}">${sale.customer}</option>
+  <option class="cust"   value = "${sale.customer},${sale.name},${sale.phone},${sale.sex},${sale.age},${sale.medical}">${sale.customer}</option>
  </c:forEach>
  
   <c:forEach var="sale1"  items="${model.list11}">
-  <option class="pat" value = "${sale1.pid},${sale1.fname},${sale1.landphone},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.pid}</option>
+  <option class="pat"  value = "${sale1.pid},${sale1.fname},${sale1.landphone},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.pid}</option>
  </c:forEach>
  </select>
  </form>
@@ -1681,7 +1697,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
  </c:forEach>
  
    <c:forEach var="sale1"  items="${model.list11}">
-  <option class="pat" value = "${sale1.pid},${sale1.fname},${sale1.landphone},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.fname}</option>
+  <option class="pat" data-subtext="${sale1.dob}" value = "${sale1.pid},${sale1.fname},${sale1.landphone},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.fname}</option>
  </c:forEach>
  
  </select>
@@ -1885,7 +1901,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
                     
                   
                 <tr>
-                    <td colspan="" class="total-line meta-head">Tax</td>
+                    <td colspan="" class="total-line meta-head">Tax%</td>
 		      <td class="total-value"><div id=""><input form ="saveSales" value="0.00" type="text" class="form-control input-sm rem" name="tax" onkeypress='return onlyNos(event,this);' min="0"  id="tax" onmouse="alert("please click on generate total");"></div></td>
                 </tr>
                 <tr>

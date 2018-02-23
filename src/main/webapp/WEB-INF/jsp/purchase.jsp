@@ -52,6 +52,9 @@
   text-align:center;
 }
 
+#scroll{
+	overflow:auto;
+}
 #form1 {
   border-radius: 5px;
   max-width:1300px;
@@ -993,7 +996,7 @@ $('#datetimepicker1').datetimepicker({
 	       
 	       </div>
 	        
-	       <div class="container" id="scroll" style="height:300px;overflow-auto;border:1px groove;" >
+	       <div class="container" id="scroll" style="height:300px; border:1px groove;" >
 	   <div class="table-responsive">    
 	  
   <table class="table table-striped table-bordered table-fixed table-hover table-condensed " style="" id="myTable">
@@ -1028,8 +1031,6 @@ $('#datetimepicker1').datetimepicker({
  <th style="width:70px">Total</th>
  <th style="width:10px">Delete</th>
  <th style="width:20px"></th> -->
-  
-        
     </thead>
    
    <tbody class="tbody">

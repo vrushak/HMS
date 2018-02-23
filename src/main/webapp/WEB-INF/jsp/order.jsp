@@ -883,12 +883,8 @@ $('#datetimepicker1').datetimepicker({
 </center>
   <div id="form1" >  
   
-     <h1><button type="submit"  form="saveo" onclick="return verifypro();" id="bouton-contact" class="btn btn-warning button1">Save</button> 
+     <h1><button type="submit"  form="saveo" onclick="return verifypro();" id="bouton-contact" onkey  class="btn btn-warning button1">Save</button> 
        <font size="5">Order & Reorder</font><span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i> <button type="button" id="close" class="btn btn-warning button2 rmt" onclick="return disp()">Print</button> 
-       
-	 
-	
-	
 
 	</h1>
 	    
@@ -1081,7 +1077,7 @@ $('#datetimepicker1').datetimepicker({
 	  
 	  
 	      
- <input type=""  class="bouton-contact"  >
+ <input type=""  disabled class="bouton-contact"  >
 	  </div>
 	  </div>
 	  <script>

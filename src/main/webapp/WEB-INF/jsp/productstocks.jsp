@@ -582,7 +582,6 @@ $(document).ready(function() {
     </c:forEach>
     </tbody>
   </table>
-
 </div>
 <br>
      <div class="form-group row" >
