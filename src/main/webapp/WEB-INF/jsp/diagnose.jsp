@@ -343,7 +343,8 @@ function addcheck(div,tab){
     var i;
     var level = Number(div) + 1;
   if(s.length == 0){
-	var head =  prompt("Please enter the Header name:");
+	var head1 =  prompt("Please enter the Header name:");
+	 var head = $.trim(head1)
 	if (head == null || head == " " || head.length == "0") {
 	      return false;
   	    } 
@@ -375,7 +376,8 @@ function addcheck(div,tab){
   else{
 	  
 
-	var person = prompt("Please enter the Field name:");
+	var person1 = prompt("Please enter the Field name:");
+	var person = $.trim(person1)
 	if (person == null || person == " " || person.length == "0") {
 	       
   		return false;
@@ -434,7 +436,8 @@ function rebuildjs(){
 function updheader(div,tab){
 	
 	var hid =  $("#tab"+tab).find(".main").find('.divin').eq(div).find(".header").attr("id");
-	var head =  prompt("Update the Header name");
+	var head1 =  prompt("Update the Header name");
+	var head = $.trim(head1)
 	if (head == null || head == " " || head.length == "0") {
 	      return false;
   	    } 
@@ -464,8 +467,8 @@ function updheader(div,tab){
 function updchname(val,div,tab,value){
 	
 	var cid =  value;
-	var head =  prompt("Update the Field name:");
-	
+	var head1 =  prompt("Update the Field name:");
+	var head = $.trim(head1)
 	if (head == null || head == " " || head.length == 0) {
 	      return false;
   	    } 
@@ -500,7 +503,8 @@ if(cid == undefined || cid == " " || cid.length == 0){
 	alert("Please select the tab you want to edit!")
 	return false;
 }
-	var head =  prompt('Update Tab name');
+	var head1 =  prompt('Update Tab name');
+	var head = $.trim(head1)
 	if (head == null || head == " " || head.length == "0") {
 	      return false;
   	    } 
@@ -527,8 +531,8 @@ if(cid == undefined || cid == " " || cid.length == 0){
 	
 }
 function createTabs(){
-	var person = prompt("Please enter the Tab Name:");
-
+	var person1 = prompt("Please enter the Tab Name:");
+	var person = $.trim(person1)
   
 	if (person == null || person == " " || person.length == "0") {
 	       
