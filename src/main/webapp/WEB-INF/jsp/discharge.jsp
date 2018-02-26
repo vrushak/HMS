@@ -175,8 +175,8 @@ function refresh(){
 function ze(){
 	 
 	$.confirm({
-	    title: 'Confirm!',
-	    content: 'Disable editing Discharge Summary for current patient,Click CONFIRM to Disable,Click CANCEL to continue editing',
+	    title: 'Freeze Discharge Summary',
+	    content: 'Freeze Discharge Summary editing for current patient?Click CONFIRM to Disable,Click CANCEL to continue editing',
 	    buttons: {
 	        confirm: function () {
 	            $("#freeze").val("yes")

@@ -566,9 +566,15 @@ function AutoGrowTextArea(textField)
             
         Patient Name:<select class="selectpicker form-control" data-size="4" data-live-search="true" name = "pname" id ="pname" onchange="addname(this.options[this.selectedIndex])">
           <option value="Select" selected disabled>Select</option>
-        <c:forEach var="p"  items="${list3}">
+      
+        <c:forEach var="p"  items="${model.list4}">
+        <option value="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pname}=${p.fileno}=${p.dname}=${p.pir}=${p.date1}=${p.ppid}">${p.pname}</option>
+        </c:forEach>
+        
+        <c:forEach var="p"  items="${model.list3}">
         <option value="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pname}=${p.fileno}=${p.dname}=${p.tresult}=${p.date1}=${p.pid}">${p.pname}</option>
         </c:forEach>
+        
       </select>
        
 	</div>

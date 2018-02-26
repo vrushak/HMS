@@ -1,5 +1,7 @@
 package HMS;
+import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.naming.ldap.Control;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -46,7 +49,7 @@ import HMS.controllerDao;
 import HMS.Patient;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-
+import sun.misc.BASE64Decoder;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -148,17 +151,18 @@ public class fileupcontroller {
 	
 	*/
 	
+	@SuppressWarnings("restriction")
 	@RequestMapping(value="/savefile",method=RequestMethod.POST)
 	public @ResponseBody String saveimage( @ModelAttribute("s") Lab s,HttpSession session,HttpServletRequest req) throws Exception
 	{
+    
+	//CommonsMultipartFile file = null;
 	
-	CommonsMultipartFile file = null;
-	System.out.println(s.getDetails());
-	byte[] decoded = Base64.decodeBase64(s.getDetails());
+    byte[] decoded = Base64.decodeBase64(req.getParameter("name"));
 	
 	String jsonFormatData = "";
 	String os = System.getProperty("os.name");
-	System.out.println(os);	
+	
 		if (os.indexOf("Win") >= 0) {
 			UPLOAD_DIRECTORY ="c://Docs//";
 		} else {
@@ -171,12 +175,12 @@ public class fileupcontroller {
 		
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 		factory.setSizeThreshold(THRESHOLD_SIZE);
-		factory.setRepository(new File(UPLOAD_DIRECTORY+req.getParameter("location1")+File.separator+req.getParameter("location2")+File.separator+req.getParameter("location3")));
+		factory.setRepository(new File(UPLOAD_DIRECTORY+req.getParameter("location1")+File.separator+req.getParameter("location2")+File.separator+req.getParameter("location8")));
 		 
 		ServletFileUpload upload = new ServletFileUpload(factory);
 		ServletContext context = session.getServletContext();
 		
-		File files = new File(UPLOAD_DIRECTORY+req.getParameter("location1")+File.separator+req.getParameter("location2")+ File.separator +req.getParameter("location3"));
+		File files = new File(UPLOAD_DIRECTORY+req.getParameter("location1")+File.separator+req.getParameter("location2")+ File.separator +req.getParameter("location8"));
 		if(!files.exists()){
 		files.mkdirs();
 	    }
@@ -185,50 +189,40 @@ public class fileupcontroller {
 	
 		if(req.getParameter("location7").length() == 0){
 			
-			filname = req.getParameter("location1")+ File.separator +req.getParameter("location2")+ File.separator +req.getParameter("location3")+ File.separator + "No File Uploaded";
+			filname = req.getParameter("location1")+ File.separator +req.getParameter("location2")+ File.separator +req.getParameter("location8")+ File.separator + "No File Uploaded";
 			s.setIop("No File Uploaded");
 		}else{
 			//new Date().getTime()+file.getOriginalFilename()
 			String timestamp = req.getParameter("location7");
-		    filname = req.getParameter("location1")+ File.separator +req.getParameter("location2")+ File.separator +req.getParameter("location3")+ File.separator + timestamp;
+		    filname = req.getParameter("location1")+ File.separator +req.getParameter("location2")+ File.separator +req.getParameter("location8")+ File.separator + timestamp;
 			s.setIop(timestamp);
 		}
-		System.out.println(filname);
+		
 		File files1 = new File(UPLOAD_DIRECTORY+File.separator+filname);
 	
 		s.setTestname(filname.replace("\\", "/"));
-
-	
-  
-	//	byte[] bytes = file.getBytes();
-		//if(!file.getOriginalFilename().e)
+		
+		
 		BufferedOutputStream stream =new BufferedOutputStream(new FileOutputStream(new File(files1.getPath())));
 		stream.write(decoded);
 		stream.flush();
 		stream.close();
+		
 		s.setPid(req.getParameter("location1"));
 		s.setFileno(req.getParameter("location2"));
 		s.setDate1(req.getParameter("location3"));
 		s.setDocid(req.getParameter("location6"));
 		s.setSamplecol(req.getParameter("location4"));
 		s.setTresult(req.getParameter("location5"));
-	savefup = dao.saveLabfile(s);
-	ModelAndView  mav = new ModelAndView();
+	savefup = dao.saveLabfile1(s);
 	if(savefup > 0){
-					   
-					    mav.addObject("message", "The record has been updated sucessfully");
-					    mav.setViewName("redirect:diagnose");
-				}
-	else{
-		    mav.addObject("message", "Updating failed ");
-		    mav.setViewName("redirect:diagnose");
+		jsonFormatData = "Success";
 	}
-		
-        return jsonFormatData; 
 	
-	
-	
+	return jsonFormatData; 
 	}
+	
+	
 	@RequestMapping(value="/deletefile",method=RequestMethod.POST)
 	public @ResponseBody String DeleteFile(HttpServletRequest req){
 	    String jsonformatdata = ""; 

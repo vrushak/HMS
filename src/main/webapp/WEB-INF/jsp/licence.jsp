@@ -307,7 +307,7 @@ $(document).ready(function() {
             <div class="col-xs-2"></div>
             <div class="col-xs-4">
             <div class="form-group" >
-               <p>License Key<span>*</span></p>
+               <p>Licence Key<span>*</span></p>
                    <input type="text" name="lckey" id="lckey1" form="form1" class="form-control input-sm" required>
                    <input type="hidden" name="lid" id="lid" form="form1" value='1'>   
                   

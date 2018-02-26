@@ -140,15 +140,7 @@ if(adminusr.includes("[ROLE_ADMIN]")){
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		
-		  var url1 = "/HMS/prescription" ;
-			
-		 var element1 = document.getElementById('hc');
-		 element1.setAttribute("href",url1)
-		 
-		 var url2 = "/HMS/treatment" ;
-			
-		 var element = document.getElementById('m2');
-		 element.setAttribute("href",url2)
+	
 	}
 
 	else{
@@ -158,15 +150,7 @@ if(adminusr.includes("[ROLE_ADMIN]")){
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 
-		 var url1 = "/HMS/prescription";
 		
-		 var element1 = document.getElementById('hc');
-		 element1.setAttribute("href",url1)
-		 
-		  var url2 = "/HMS/treatment" ;
-			
-		 var element = document.getElementById('m2');
-		 element.setAttribute("href",url2)
 	}
 }
 
@@ -833,10 +817,9 @@ $.confirm({
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a id ="ho" href="">Home</a></li>
-        <li class=""><a id="hc" href="">General Checkup</a></li>
-         <li class=""><a id="m2" href="">Treatment Records</a></li>  
-           <li class=""><a  href="/HMS/discharge">Discharge Summary</a></li>
-         
+      <li class=""><a  id="m3" href="/HMS/diagnose">Clinical Diagnosis</a></li>
+      <li class=""><a id="m2" href="/HMS/treatment">Patient Treatment Records</a></li>
+      <li class=""><a id="m4" href="/HMS/discharge">Discharge Summary</a></li>        
          </ul>
          <br>
          <i class='fa fa-arrow-left button2 rightspace' id="back" style='font-size:20px;color : #f0ad4e' onclick="window.location.href='/HMS/doctor1';"></i>

@@ -277,7 +277,9 @@ public class controller {
 				@RequestMapping(value="/saveApp", method = RequestMethod.POST)
 				public ModelAndView  saveAppointment(@ModelAttribute("s") Appointment s,HttpServletRequest request,HttpServletResponse response) throws KeyManagementException, NoSuchAlgorithmException, IOException {
 				 String chk = request.getParameter("pat");
-				
+				if(chk == null){
+					chk = "off";
+				}
 				 if(chk.contentEquals("on")){
 						Patient p = new Patient();
 						p.setPid(s.getPid());
@@ -630,12 +632,20 @@ public class controller {
 	
 	@RequestMapping(value="/labssave", method = RequestMethod.POST)
 	public ModelAndView  saveNr(@ModelAttribute("s") Lab s,HttpServletRequest req,HttpServletResponse res) {
-	
-	//	dao.savecategory(s);
-	//	dao.savescategory(s);
-		 RedirectView redirectView = new RedirectView();
-	     redirectView.setUrl("/HMS/labcmast.html");
-          return new ModelAndView(redirectView); 
+		int savefup = 0;
+		savefup = dao.saveLabfile(s);
+		ModelAndView  mav = new ModelAndView();
+		if(savefup > 0 ){
+		mav.addObject("message", "The record has been saved sucessfully");
+		mav.setViewName("redirect:labup");		    
+						    
+		}
+
+		else{
+		mav.addObject("message", "Record could not be saved successfully ");
+		mav.setViewName("redirect:labup");
+		}
+          return mav; 
 		}
 	
 	//lab config redirection
@@ -1746,13 +1756,12 @@ public class controller {
 											 Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 										    	String b = var.toString();
 											 
-												 List<Lab> list2= dao.getLabconfig();
 												 List<Prescription> list1= ddao.getDocID3(principal.getName(),b);
 												 List<Lab> list3= dao.getLabupload();
 										    	
 												 Map<String, Object> model = new HashMap<String, Object>();
 											        model.put("list1",list1);
-											        model.put("list2",list2);
+											       
 											        model.put("list3",list3);
 												return new ModelAndView("lab","model",model); 
 												}			
@@ -1790,12 +1799,12 @@ public class controller {
 												 List<Lab> list2= dao.getLabconfig();
 												 List<Prescription> list1= ddao.getDocID2(principal.getName(),b);
 												 List<Lab> list3= dao.getLabupload();
-										    	
+												 List<Diagnose> list4= ddao.getLabupload();
 												 Map<String, Object> model = new HashMap<String, Object>();
-											        model.put("list1",list1);
+											        model.put("list4",list4);
 											        model.put("list2",list2);
 											        model.put("list3",list3);
-												return new ModelAndView("labprint","list3",list3); 
+												return new ModelAndView("labprint","model",model); 
 													
 											
 												}

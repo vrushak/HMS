@@ -103,7 +103,7 @@ public class filedncontroller {
 		 response.setContentType("image/jpg");
 		 */
 		 
-		 String ext1 = FilenameUtils.getExtension(req.getParameter("location")); // returns "txt"
+		 String ext1 = FilenameUtils.getExtension(req.getParameter("location1")); // returns "txt"
 		
          if(ext1.contentEquals("jpg")){
         	 response.setContentType("image/jpg"); 

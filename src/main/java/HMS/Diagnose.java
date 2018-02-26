@@ -46,6 +46,7 @@ public class Diagnose {
 	private String pds;
 	private String admit;
 	private String tablename;
+
 	private String teid;
 	private String teethval;
 	private String iop;
@@ -53,7 +54,37 @@ public class Diagnose {
 	private String samplecol;
 	private String date1;
 	private String tresult;
-	
+
+	public String getTresult() {
+		return tresult;
+	}
+	public void setTresult(String tresult) {
+		this.tresult = tresult;
+	}
+	public String getIop() {
+		return iop;
+	}
+	public void setIop(String iop) {
+		this.iop = iop;
+	}
+	public String getTestname() {
+		return testname;
+	}
+	public void setTestname(String testname) {
+		this.testname = testname;
+	}
+	public String getSamplecol() {
+		return samplecol;
+	}
+	public void setSamplecol(String samplecol) {
+		this.samplecol = samplecol;
+	}
+	public String getDate1() {
+		return date1;
+	}
+	public void setDate1(String date1) {
+		this.date1 = date1;
+	}
 	public String getTeid() {
 		return teid;
 	}

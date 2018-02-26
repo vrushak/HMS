@@ -253,39 +253,32 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 	public List<Prescription> getDocID3(String username,String userrole) {
 			
 			if(userrole.contains("[ROLE_DOCTOR]")){
-				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID left outer join admitpat ad on ap.fileno = ad.fileno  where ap.docid in (select userid from userrole where username = '"+username+"')",new RowMapper<Prescription>(){  
+				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,ap.fileno from admitpat ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID where ap.docid in (select userid from userrole where username = '"+username+"') and ap.fileno not in (select fileno from labupload)",new RowMapper<Prescription>(){  
 		        public Prescription mapRow(ResultSet rs, int row) throws SQLException {   
 		        	 
 			       Prescription p = new Prescription();
 			     
 			      p.setDocid(rs.getString(1));
 			      p.setDname(rs.getString(2));
-			    
 			      p.setPid(rs.getString(3));
 			      p.setPname(rs.getString(4));
-			      p.setAppointment(rs.getString(5));
-			      p.setSpecialization(rs.getString(6));
-			      p.setFileno(rs.getString(7));
+			      p.setFileno(rs.getString(5));
 			      p.setIdc("");
 			      return p;
 		        }
 			});
 			}
 			else{
-				System.out.println("inside else of docid");
-				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID left outer join admitpat ad on ap.fileno = ad.fileno;",new RowMapper<Prescription>(){  
+				
+				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,ap.fileno from admitpat ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID",new RowMapper<Prescription>(){  
 			        public Prescription mapRow(ResultSet rs, int row) throws SQLException {   
 				       Prescription p = new Prescription();
 				      
 				      p.setDocid(rs.getString(1));
 				      p.setDname(rs.getString(2));
-				    
-				   
 				      p.setPid(rs.getString(3));
 				      p.setPname(rs.getString(4));
-				      p.setAppointment(rs.getString(5));
-				      p.setSpecialization(rs.getString(6));
-				      p.setFileno(rs.getString(7));
+				      p.setFileno(rs.getString(5));
 				      p.setIdc("Admin");
 				   
 				      return p;
@@ -1425,7 +1418,18 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 
 				}
 
+//for lab module
+			public List<Diagnose> getTabsvalue1(String tablename) {
+				return template.query("select tid,tabvalue from "+tablename+" where tabvalue = 'lab'",new RowMapper<Diagnose>(){  
+				        public Diagnose mapRow(ResultSet rs, int row) throws SQLException {   
+					       Diagnose p = new Diagnose();
+					   	p.setTabid(rs.getInt(1));
+					   	p.setTabvalue(rs.getString(2));
+					   	return p;
+				        }
+					});
 
+				}
 			public List<Diagnose> getHeaderValsl(int level,String tablename) {
 				
 				return template.query("select hid,header from "+tablename+" where hid ='"+level+"'",new RowMapper<Diagnose>(){  
@@ -1553,6 +1557,26 @@ public List<Deptspe> getspe() {
         }
 	});
 }
+
+//lab print for out patients
+
+public List<Diagnose> getLabupload() {
+	return template.query("select l.pid,concat(p.fname,' ',p.mname,' ',p.lname)Patient,l.fileno,l.docid,l.date,concat(d.fname,' ',d.mname,' ',d.lname)Doctor,l.pir from prescription l join patient p on l.pid = p.pid join doctor d on d.docID = l.docid where l.pir is not null and pir <> ''",new RowMapper<Diagnose>(){
+			 public Diagnose mapRow(ResultSet rs, int row) throws SQLException { 		
+	Diagnose h = new Diagnose();
+	h.setPpid(rs.getString(1));
+	h.setPname(rs.getString(2));
+	h.setFileno(rs.getString(3));
+	h.setDocid(rs.getString(4));
+	h.setDate1(rs.getString(5));
+	h.setDname(rs.getString(6));
+	h.setTresult(rs.getString(7));
+   
+	return h;
+
+    }
+	});
+	}
 
 }  
 		

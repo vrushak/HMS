@@ -9,7 +9,7 @@ public class Lab {
 	private String sampletype;
 	private String sampleqty;
 	private String cost;
-	private String  intext;
+	private String intext;
 	private String details;
 	private String pname;
 	private String lid;

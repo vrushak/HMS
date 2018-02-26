@@ -58,7 +58,7 @@ function checkhome1(user){
 		 var element = document.getElementById('m2');
 		 element.setAttribute("href",url2)
 		 
-		 var url3 = "/HMS/prescription" ;
+		 var url3 = "/HMS/diagnose" ;
 			
 		 var element = document.getElementById('m3');
 		 element.setAttribute("href",url3)
@@ -86,7 +86,7 @@ function checkhome1(user){
 		 var element = document.getElementById('m2');
 		 element.setAttribute("href",url2)
 		 
-		 var url3 = "/HMS/prescription" ;
+		 var url3 = "/HMS/diagnose" ;
 			
 		 var element = document.getElementById('m3');
 		 element.setAttribute("href",url3)
@@ -137,9 +137,9 @@ function myFunction() {
 	  tr = table.getElementsByTagName("tr");
 	 
 	  for (i = 0; i < tr.length; i++) {
-	    td = tr[i].getElementsByTagName("td")[2];
+	    td = tr[i].getElementsByTagName("td")[1].getElementsByTagName('textarea')[0];
 	    if (td) {
-	      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+	    	 if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
 	        tr[i].style.display = "";
 	      } else {
 	        tr[i].style.display = "none";
@@ -330,7 +330,7 @@ function setline(id){
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
       <li class=""><a id="m2" href="">My Appointments</a></li>
-        <li class=""><a  id="m3" href="">General Checkup</a></li>
+        <li class=""><a  id="m3" href="">Clinical Diagnosis</a></li>
           <li class=""><a id="m4" href="/HMS/discharge">Discharge Summary</a></li>
  <!-- 
        <li class=""><a id="nob" href="/HMS/nursetr/"  onclick=' return visible();' target="_blank">Nurse observations</a></li>

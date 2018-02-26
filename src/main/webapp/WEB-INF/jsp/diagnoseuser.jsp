@@ -255,7 +255,7 @@ function showtextArea(tabname){
 	
 }
 
-function copyval1(name){
+function copyval1(){
 	
 	var a = $("#fileno").val();
 	var b; 
@@ -268,23 +268,13 @@ function copyval1(name){
 		  c = $("#ppid").val();
 	  }
 
-	if(name == "lb" && b == null){
+	if(b == null || b.length == 0 ||c == null ||c.length == 0){
 		alert("Please select Patient Name")
 		return false;
 	
 	}
-	else if(name == "lb" && b !="select"){
-	
-		  var url = "/HMS/labup2?location="+a+"&location1="+b+"&location2="+c+"";
-		
-			$('#'+name).attr("href",url);
-		
-			
-			return true;
-	}
-	
 	else{
-		
+	return true;	
 	}
 	
 }
@@ -761,14 +751,15 @@ var tabname = $('.'+id).text();
 	  
   }
   else{
-		
+	  $(".tab-pane").width(450)	
+	  $('#dd').show();
 	  if(tabname.toLowerCase() != "lab"){
 		  $('#dd').show();
 		  $('#dd').text("Diagnosis Details")
 		  $('#text1').show();
 		  $('#pir').hide()
 		  $('#prv').show();
-		  $(".tab-pane").width(450)
+		 
 	  }
 	  else{
 
@@ -1527,7 +1518,10 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
 }
   
   function doAjaxDeletefile(value){
-	   
+	 
+		
+		
+	
 	 
 		
 	   var uri = "/HMS/deletefile?location="+$(value).attr('titlea')+"";
@@ -1563,25 +1557,42 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
       <script type="text/javascript">
        function doAjaxPosts3(form) {
     	   // get the form values
-    	   
-    	         //  var name = $('#pname').val();
     	 
+    	   c = $("#vpid2").val();
+    		
+ 		  b = $("#pname").val();
+ 		 
+ 	 
+
+ 	if(b == "select" ||c == "select"){
+ 		alert("Please select Patient Name")
+ 		return false;
+ 	
+ 	}
+    	         //  var name = $('#pname').val();
+    	   $("#date1").val(moment().format("DD-MM-YYYY"))
+    	   $("#samplecol").val(moment().format("DD-MM-YYYY hh:mm:ss"))
+    	   
+    	   var selname;
+    	   if($("#check").prop("checked") == true){
+    	   selname = $("#vpid2").val();
+    	   }
+    	   else{
+    		   selname = $("#ppid").val();
+    	   }
     			  $.ajax({
     	         	  
     		    		 type: "POST",
-    		    	     url :  "/HMS/savefile?location1="+$("#ppid").val()+"&location2="+$("#fileno").val()+"&location3="+$("#datetime").val()+"&location4="+$("#samplecol").val()+"&location5="+$("#pir").val()+"&location6="+$('#docid').val()+"&location7="+$('#iop').val()+",&location7="+$('#iop').val()+"",
+    		    	     url :  "/HMS/savefile?location1="+selname+"&location2="+$("#fileno").val()+"&location3="+$("#datetime").val()+"&location4="+$("#samplecol").val()+"&location5="+$("#pir").val()+"&location6="+$('#docid').val()+"&location7="+$('#iop').val()+"&location8="+$('#date1').val()+"",
     		    	     async : false,
-    		    	     data: "details" + filerd,
-    		    	     dataType: "JSON",
-    			         contentType: "application/json; charset=UTF-8",
+    		    	     data:{name:filerd},
+    		    	    
     			           
     			           success: function(response){
-    			        	if(response.toString() == "success")   
-    			           {
-    			       	  alert("Data Saved Successfully")
-    			           }
-    			       	  unsaved = false;
-    			           },
+    			        	  
+    			        	  alert("File Uploaded Successfully!")
+    			        	  retrievefi($("#fileno").val())
+	        	           },
     			           error: function(e){
     			        	  
     			        	           alert('Error: ' + e);
@@ -1623,7 +1634,18 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
       <a class="navbar-brand" >Clinical Diagnosis</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active" id="act"><a id="ho" href="">Home</a></li>
+      <li><a id="ho" href="">Home</a></li>
+      <li><a  href="/HMS/myapps">My Appointments</a></li>
+      <li><a  href="/HMS/treatment">Patient Treatment Records</a></li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown">Charts
+        <span class="caret"></span></a>
+      <ul class="dropdown-menu">
+        <li><a  href="/HMS/iochart">Io Chart</a></li>
+        <li><a  href="/HMS/hourchart">Hour Chart</a></li>
+        <li><a  href="/HMS/drugchart">Drug Chart</a></li>
+      </ul></li>
+      <li><a id="ho" href="/HMS/labup">Lab</a></li>
     </ul>
   </div>
 </nav>
@@ -1921,14 +1943,14 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
   <div class="form-group">
        <p><label for="image">Choose File</label></p>
       <input class="form-control input-sm" name="file" id="upfile" type="file" onchange="change1a(event)"/>
-      <input type="hidden" name="samplecol" id="samplecol" form="upform">    
+      <input type="hidden" name="samplecol" id="samplecol" form="formc">    
             </div>
             </div>
              <div class="col-xs-4">
-             <input type="hidden" id="iop" name="iop" form="upform">
+             <input type="hidden" id="iop" name="iop" form="formc">
                <input type="hidden" id="date1" name="date1" form="upform">
              <br><br>
-              <button class="btn btn-info" onclick="doAjaxPosts3('upform')" id ="" type="button" >Upload File <span class="fa fa-save"></span></button>
+              <button class="btn btn-info" onclick="return doAjaxPosts3('upform')" id ="" type="button" >Upload File <span class="fa fa-save"></span></button>
    </div>
         </div>
         <div class="form-group row">

@@ -2359,19 +2359,26 @@ public void getChart2(Hourchart h) throws SQLException, Exception {
 // file upload details
 public int saveLabfile(Lab s) {
 	// TODO Auto-generated method stub
-	System.out.println(s.getDname());
-	String sql = "insert into labupload(pid,fileno,docurl,date,docid,tresult,iop,samplecol) values('"+s.getPid()+"','"+s.getFileno()+"','"+s.getTestname()+"','"+s.getDate1()+"','"+s.getDocid()+"','"+s.getTresult()+"','"+s.getIop()+"','"+s.getSamplecol()+"') on duplicate key update docurl = '"+s.getTestname()+"',docid='"+s.getDocid()+"',tresult='"+s.getTresult()+"',iop ='"+s.getIop()+"',samplecol='"+s.getSamplecol()+"'";
+	  String sql="insert into labupload(pid,fileno,date,docid,tresult) values(?,?,?,?,?) on duplicate key update docid = values(docid),tresult = values(tresult),date = values(date)";  
+	  return template.update(sql, new Object[] { s.getPid(),s.getFileno(),s.getDate1(),s.getDocid(),s.getTresult()}); 
+	
+}
+
+//file upload details
+public int saveLabfile1(Lab s) {
+	// TODO Auto-generated method stub
+	String sql = "insert into storefile(pid,fileno,docurl,samplecol,filename) values('"+s.getPid()+"','"+s.getFileno()+"','"+s.getTestname()+"','"+s.getSamplecol()+"','"+s.getIop()+"') on duplicate key update docurl = '"+s.getTestname()+"',filename ='"+s.getIop()+"',samplecol='"+s.getSamplecol()+"'";
 	return template.update(sql);
 }
 
 public List<Lab> getLabupload() {
-	return template.query("select l.pid,concat(p.fname,' ',p.mname,' ',p.lname)Patient,l.fileno,l.docurl,l.date,l.dname,l.tresult,l.iop,l.samplecol from labupload l join patient p on l.pid = p.pid ",new RowMapper<Lab>(){
+	return template.query("select l.pid,concat(p.fname,' ',p.mname,' ',p.lname)Patient,l.fileno,l.docid,l.date,concat(d.fname,' ',d.mname,' ',d.lname)Doctor,l.tresult,l.iop,l.samplecol from labupload l join patient p on l.pid = p.pid join doctor d on d.docID = l.docid",new RowMapper<Lab>(){
 			 public Lab mapRow(ResultSet rs, int row) throws SQLException { 		
 	Lab h = new Lab();
 	h.setPid(rs.getString(1));
 	h.setPname(rs.getString(2));
 	h.setFileno(rs.getString(3));
-	h.setTestname(rs.getString(4));
+	h.setDocid(rs.getString(4));
 	h.setDate1(rs.getString(5));
 	h.setDname(rs.getString(6));
 	h.setTresult(rs.getString(7));
@@ -2386,18 +2393,12 @@ public List<Lab> getLabupload() {
 //get files based on patient fileno
 public List<Lab> getRetrfiles(String fileno) {
 	System.out.println(fileno);
-	return template.query("select l.pid,concat(p.fname,' ',p.mname,' ',p.lname)Patient,l.fileno,l.docurl,l.date,concat(d.fname,' ',d.mname,' ',d.lname),l.tresult,l.iop,l.samplecol from labupload l join patient p on l.pid = p.pid join doctor d on l.docid = d.docid where l.fileno = '"+fileno+"'",new RowMapper<Lab>(){
+	return template.query("select l.docurl,l.filename,l.samplecol from storefile l where l.fileno = '"+fileno+"'",new RowMapper<Lab>(){
 			 public Lab mapRow(ResultSet rs, int row) throws SQLException { 		
 	Lab h = new Lab();
-	h.setPid(rs.getString(1));
-	h.setPname(rs.getString(2));
-	h.setFileno(rs.getString(3));
-	h.setTestname(rs.getString(4));
-	h.setDate1(rs.getString(5));
-	h.setDname(rs.getString(6));
-	h.setTresult(rs.getString(7));
-    h.setIop(rs.getString(8));
-    h.setSamplecol(rs.getString(9));
+	h.setTestname(rs.getString(1));
+	h.setIop(rs.getString(2));
+    h.setSamplecol(rs.getString(3));
     System.out.println(rs.getString(1));
 	return h;
 
@@ -2510,7 +2511,7 @@ public List<License> getLusers() {
 	});
 }
 public int filedelete(String sub) {
-	String sql = "delete from labupload where docurl='"+sub+"'";
+	String sql = "delete from storefile where docurl='"+sub+"'";
 	return template.update(sql);
 	
 }

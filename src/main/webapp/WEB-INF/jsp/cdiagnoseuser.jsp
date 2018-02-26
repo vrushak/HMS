@@ -202,7 +202,7 @@ function calculateBmi() {
 	}
 	
 function checkhome(user){
-
+	$("#pir").hide();
 	
 
 	if(user.includes("[ROLE_FDESK]")){
@@ -242,6 +242,15 @@ function checkhome(user){
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 	}
+
+}
+function showtextArea(tabname){
+
+	
+
+	$("#pir").show();
+	$('#text1').hide();
+	$("#dd").text("Pathology Investigation Recommended")
 
 }
 
@@ -529,7 +538,7 @@ function addcheck(div,tab){
 		  }
 		  
 			var get = "POST";
-	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8");	         
+	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","JSON");	         
   	    }
 	
   }
@@ -581,7 +590,7 @@ function addcheck(div,tab){
   		  
   			var get = "POST";
   			
-  	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8");	  
+  	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","JSON");	  
   	    	
   	   
   	     
@@ -621,7 +630,7 @@ function updheader(div,tab){
 		  }
 		  
 			var get = "POST";
-	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8");	         
+	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","JSON");	         
   	    }
 	
 }
@@ -692,7 +701,7 @@ function createTabs(){
 		return rv;
 		}
 		 var get = "POST";	  
-	   	  doAjaxPostNew(get,uri,data1,successFn,errorFn,"application/json; charset=UTF-8");
+	   	  doAjaxPostNew(get,uri,data1,successFn,errorFn,"application/json; charset=UTF-8","JSON");
 	   	 	
 		
 	//create the tab
@@ -756,7 +765,7 @@ function loadval(div){
 function checkempty(value,tval){
     flag = value;
     flagval = $(tval).text();
-   
+    minimize($(tval).attr("class"))
   // console.log($(tval).attr("href"))
     if ($('#tab'+value).find(".main").is(':empty')){
    pid = 0;
@@ -767,19 +776,36 @@ function checkempty(value,tval){
 }
 
 function minimize(id){
-  if(id == "pv" || id == "pd" || id == "pres"){
-	  $('#dd').hide();
-	  $('#text1').hide();
-	  $('#prv').hide();
-	  $(".tab-pane").width(1100)
-  }
-  else{
-	  $('#dd').show();
-	  $('#text1').show();
-	  $('#prv').show();
-	  $(".tab-pane").width(450) 
-  }
-}
+
+	var tabname = $('.'+id).text();
+
+	  if(id == "pv" || id == "pd" || id == "pres" || id =="fileupload"){
+		
+	      $('#dd').hide();
+		  $('#text1').hide();
+		  $('#prv').hide();
+		  $('#pir').hide();
+		  $(".tab-pane").width(1100)
+		  
+		  
+	  }
+	  else{
+		  $(".tab-pane").width(450)	
+		  $('#dd').show();
+		  if(tabname.toLowerCase() != "lab"){
+			
+			  $('#dd').text("Diagnosis Details")
+			  $('#text1').show();
+			  $('#pir').hide()
+			  $('#prv').show();
+			 
+		  }
+		  else{
+
+			  showtextArea(tabname)
+	  }
+	  }
+	}
 function loadtabvalues(){
 	var nextTab = $('#pills li').size()+1;
 	var no = $('#li').size();
@@ -799,8 +825,8 @@ function loadtabvalues(){
 		  if($("."+datec.tabid).size() < 1){
 			  
 		  partab = datec.tabvalue;
-    	$('<li><a href="#tab'+datec.tabid+'" id="li'+no+'" class='+datec.tabid+' data-toggle="tab" onclick="checkempty('+datec.tabid+',this),minimize(this.id)">'+datec.tabvalue+'</a></li>').appendTo('#pills');
-    	
+		  $('<li><a href="#tab'+datec.tabid+'" id="li'+no+'" class='+datec.tabid+' data-toggle="tab" onclick="checkempty('+datec.tabid+',this)">'+datec.tabvalue+'</a></li>').appendTo('#pills');
+	    	
     	// create the tab content
     	$('<div class="tab-pane fade" id="tab'+datec.tabid+'"><div class="main"></div></div>').appendTo('.tab-content');
 		  }	
@@ -808,9 +834,10 @@ function loadtabvalues(){
 
          });  
 	  
-	  $('<li><a href="" id="lb" class="lb" target="_blank" onclick = "return copyval1(this.id);">Lab</a></li>').appendTo('#pills');
-	  $('<li><a href="#pd1" id="pd" class="pd" data-toggle="tab" onclick="minimize(this.id)">Provisional Diagnosis</a></li>').appendTo('#pills');
-	  $('<li><a href="#pres1" id="pres" class="pres" data-toggle="tab" onclick="minimize(this.id)">Prescription</a></li>').appendTo('#pills');
+	  //$('<li><a href="" id="lb" class="lb" target="_blank" onclick = "return copyval1(this.id);">Lab</a></li>').appendTo('#pills');
+	 $('<li><a href="#pd1" id="pd" class="pd" data-toggle="tab" onclick="minimize(this.id)">Provisional Diagnosis</a></li>').appendTo('#pills');
+	 $('<li><a href="#fileupload1" id="fileupload" data-toggle="tab" class="uploadform" onclick = "minimize(this.id)">UPLOAD FILE</a></li>').appendTo('#pills')
+	 $('<li><a href="#pres1" id="pres" class="pres" data-toggle="tab" onclick="minimize(this.id)">Prescription</a></li>').appendTo('#pills');
      }
 	    
 	  var errorFn = function(e){
@@ -820,7 +847,7 @@ function loadtabvalues(){
 	 
 		
 		var get = "POST";
-  doAjaxPostNew(get,uri,data1,successFn,errorFn,"application/json; charset=UTF-8");
+  doAjaxPostNew(get,uri,data1,successFn,errorFn,"application/json; charset=UTF-8","JSON");
  //if(fgr == undefined){
 	//  creatediv(1)	 
  //}
@@ -863,7 +890,7 @@ function activechk(flag){
 */
 </script>
       <script type="text/javascript">
-       function  doAjaxPostNew(met,uri,data1,successFn,errorFn,ctype) {
+       function  doAjaxPostNew(met,uri,data1,successFn,errorFn,ctype,dat) {
                    
     	              $.ajax({
     	        	  
@@ -871,7 +898,7 @@ function activechk(flag){
     	        	   
     	        	           url: uri,
     	        	           data: "tabvalue="+data1,
-    	        	           dataType: "JSON",
+    	        	           dataType: dat,
     	        	           contentType: ctype,
     	        	           success: successFn,
     	                       error: errorFn
@@ -973,7 +1000,7 @@ if(flagval.includes("Dental Observation")){
 	  
 	 
 		var get = "GET";
-   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8");
+   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","JSON");
 	}
 
        </script>
@@ -1082,17 +1109,17 @@ function refresh(){
 	
 	}
        function createbr(retobj){
-	       var head = document.getElementById("text1").value;
-	      // var head2 = document.getElementById("text1").innerHTML; 
-	      // var spl = head2.split('\n');
-	
-	   //   for(var  i= 0;i<spl.length;i++){
-	    //	  if(retobj != spl[i]){
-	    		 
-	    //	  }
-	   //   }
-           $('#text1').val(head + retobj);  //document.createTextNode(retobj);
-          // head.appendChild(head1);
+    	   if(flagval.toLowerCase() != "lab" ){       
+    	       var head = document.getElementById("text1").value;
+    	
+    	 
+               $('#text1').val(head + retobj);  //document.createTextNode(retobj);
+              
+            }
+            else{
+            	 var head = document.getElementById("pir").value;
+            	 $('#pir').val(head + retobj);
+            }
    }
        
        function addcname(getval){
@@ -1121,7 +1148,8 @@ function refresh(){
     			$("#docid").val(str[3]); 
     			$("#datetime").val(moment().format("DD-MM-YYYY hh:mm"));
     			getData(str[2],str[0])
-    	}
+    	        retrievefi(str[2])
+        }
        function addcid(getval){
     		var myname = getval.getAttribute('data-value'); 	
 
@@ -1173,12 +1201,14 @@ function refresh(){
    			$("#datetime").val(str[4]);
    			
    			$("#text1").val(getval.getAttribute('dv'));
-   			getData(str[2],str[0])	   			
+   			getData(str[2],str[0])	   		
+   			retrievefi(str[2])
    		    $(document).on('change', ':input', function(){ //triggers change in all input fields including text type
    	            
    	        	unsaved = false;
    	        });
-   	}
+   	
+       }
        
        function sel(){
     	   var kl = $('#vpid').val();
@@ -1479,7 +1509,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
     		  
     		 
     			var get = "GET";
-    	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8");
+    	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","JSON");
     	   
     	   unsaved = false;
        }
@@ -1518,9 +1548,141 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
  var i = r.parentNode.parentNode.rowIndex;
  document.getElementById("myTable1").deleteRow(i);
  var get = "GET";
- doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8"); 	  
+ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","JSON"); 	  
        }
        
+       
+       function change1a(e){
+   		document.getElementById("iop").value =e.target.files[0].name;
+   		var files = document.getElementById('upfile').files;
+   		   if (files.length > 0) {
+   		     getBase64(files[0]);
+   		   }
+   	}
+
+     function retrievefi(id){
+   	  $("#rf").empty();
+   	  
+   	    var uri = "/HMS/retfil?location="+id+"";
+   		var data = "0";
+   		 
+   	   var successFn =  function(response){
+   	     $.each(response.listfil, function(index, datec) {
+    
+   	     var url = "/HMS/downform?location="+datec.testname+"&location1="+datec.iop+"";
+   	     var text = ""+datec.iop+"";
+   	      $('#rf').append('<a href="' + url + '" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+datec.testname+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i>'); 
+   	      
+   	      
+   	          });    
+   	      }
+   		    
+   		  var errorFn = function(e){
+   	      	  alert('Error: ' + e);
+   		  }
+   		  
+   			var get = "GET";
+   	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","JSON");	         
+   	     
+   }
+     
+     function doAjaxDeletefile(value){
+   	 
+   		
+   		
+   	
+   	 
+   		
+   	   var uri = "/HMS/deletefile?location="+$(value).attr('titlea')+"";
+   	  
+   	  var data = 0;
+   	 
+      var successFn =  function(response){
+   	  if(response.toString() == "Success")   
+        {
+   		  
+        $(value).prev('a').andSelf().remove();
+    	  alert("Record deleted Successfully")
+        }
+    	  unsaved = false;
+        };
+        
+
+   	
+       var errorFn =  function(e){
+     	  
+     	           alert('Error: ' + e);
+     	  
+              }
+     	         
+
+   var get = "POST";
+   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","text"); 	  
+     }
+    
+          </script>     
+         <script type="text/javascript">
+       function doAjaxPosts3(form) {
+    	   // get the form values
+    	 
+    	   c = $("#vpid").val();
+    		
+ 		  b = $("#pname").val();
+ 		
+ 	 
+
+ 	if(b == "select" || c == "select"){
+ 		alert("Please select Patient Name")
+ 		return false;
+ 	
+ 	}
+    	         //  var name = $('#pname').val();
+    	   $("#date1").val(moment().format("DD-MM-YYYY"))
+    	   $("#samplecol").val(moment().format("DD-MM-YYYY hh:mm:ss"))
+    	   var selname;
+    	   if($("#check").prop("checked") == true){
+    	   selname = $("#vpid2").val();
+    	   }
+    	   else{
+    		   selname = $("#ppid").val();
+    	   } 
+    	        $.ajax({
+    	         	  
+    		    		 type: "POST",
+    		    	     url :  "/HMS/savefile?location1="+selname+"&location2="+$("#fileno").val()+"&location3="+$("#datetime").val()+"&location4="+$("#samplecol").val()+"&location5="+$("#pir").val()+"&location6="+$('#docid').val()+"&location7="+$('#iop').val()+"&location8="+$('#date1').val()+"",
+    		    	     async : false,
+    		    	     data:{name:filerd},
+    		    	    
+    			           
+    			           success: function(response){
+    			        	  
+    			        	  alert("File Uploaded Successfully!")
+    			        	  retrievefi($("#fileno").val())
+	        	           },
+    			           error: function(e){
+    			        	  
+    			        	           alert('Error: ' + e);
+    			        	  
+    			        	           }
+    			        	           });
+    		    	
+    		    	                   }
+       
+       
+      
+  var filerd;     
+       function getBase64(file) {
+    	   var reader = new FileReader();
+    	   reader.readAsDataURL(file);
+    	   reader.onload = function () {
+    		 filerd = reader.result;  
+    	     console.log(reader.result);
+    	   };
+    	   reader.onerror = function (error) {
+    	     console.log('Error: ', error);
+    	   };
+    	}
+    
        </script>
        
        <script>
@@ -1802,6 +1964,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
       <textarea name="pds" id="pds" rows="3" cols="90" form="formc" data-rule="" data-msg="address1" ></textarea></div>
       </div>
       </div>
+      <!--  
       <div class="form-group row" >
       <div class="col-xs-1"></div>
       <div class="col-xs-1">
@@ -1813,7 +1976,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
       
       <textarea name="pir" id="pir" rows="3" cols="90" form="formc" data-rule="" data-msg="address1" ></textarea></div>
       </div>
-      </div>
+      </div>-->
       
   
       <div class="form-group row" >
@@ -1832,6 +1995,41 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
       </div></div>
       
     </div>
+    <div id="fileupload1" class="tab-pane fade">
+     <br><br>
+  <form id="upform" action="" method="post" enctype="multipart/form-data">   
+  <div class="form-group row" >
+        <div class="col-xs-1"></div>
+        <div class="col-xs-4">
+  <div class="form-group">
+       <p><label for="image">Choose File</label></p>
+      <input class="form-control input-sm" name="file" id="upfile" type="file" onchange="change1a(event)"/>
+      <input type="hidden" name="samplecol" id="samplecol" form="upform">    
+            </div>
+            </div>
+             <div class="col-xs-4">
+             <input type="hidden" id="iop" name="iop" form="upform">
+               <input type="hidden" id="date1" name="date1" form="upform">
+             <br><br>
+              <button class="btn btn-info" onclick="return doAjaxPosts3('upform')" id ="" type="button" >Upload File <span class="fa fa-save"></span></button>
+   </div>
+        </div>
+        <div class="form-group row">
+        <div class="col-xs-1"></div> 
+        <p><b>Documents Uploaded</b></p>
+        <div class="col-xs-1"></div>
+        
+        <div class="col-xs-6" id="rf" style="height : 100px;border:1px solid;overflow-scroll">
+        
+        </div>
+        </div>
+
+
+<p>
+        
+<!--  <a href="downform.html" target="_blank">Download</a>-->
+    </form>
+   </div> 
     
       <div id="pres1" class="tab-pane fade">
     <div class="table-responsive"> 
@@ -1894,6 +2092,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
     <div class="col-xs-4">
     <p id="tx" style="margin-top:-10px;"><b id='dd'>Diagnosis Details</b></p>
     <textarea name='diagnose' id='text1' required rows='18' cols='78' form="formc" ></textarea>
+    <textarea name='pir' id='pir' rows='18' cols='78' form="formc" ></textarea>
     </div>
     
     

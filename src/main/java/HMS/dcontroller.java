@@ -1271,6 +1271,8 @@ public class dcontroller {
 			      
 			 return jsonFormatData;
 	}
+	
+		  
 		  
 		  @RequestMapping(value="/loadtab", method = RequestMethod.POST)
 				public @ResponseBody String loadtab(@ModelAttribute("s") Diagnose s) {
@@ -1292,6 +1294,28 @@ public class dcontroller {
 			 return jsonFormatData;
 			
 		  }
+		  //for admission lab module
+		  @RequestMapping(value="/loadtab2", method = RequestMethod.POST)
+			public @ResponseBody String loadtab2(@ModelAttribute("s") Diagnose s) {
+					String jsonFormatData = "";
+				 int res = 0;
+				
+				 List<Diagnose> list5 = null;
+				
+				 list5 = ddao.getTabsvalue1("diagtab");
+				 
+				 Map<String, Object> model = new HashMap<String, Object>();
+			       model.put("list5", list5);
+				
+				 Gson gson = new Gson(); 
+
+				jsonFormatData = gson.toJson(list5);
+
+		       
+		 return jsonFormatData;
+		
+	  }
+		
 			
 			 @RequestMapping(value="/loadtxtvalues", method = RequestMethod.GET)
 				public @ResponseBody String loadtxt(HttpServletRequest req,@ModelAttribute("s") Diagnose s) {
