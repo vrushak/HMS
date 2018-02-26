@@ -505,7 +505,8 @@ function addcheck(div,tab){
     var i;
     var level = Number(div) + 1;
   if(s.length == 0){
-	var head =  prompt("Please enter the header name:");
+	var head1 =  prompt("Please enter the header name:");
+	var head = $.trim(head1)
 	if (head == null || head == " " || head.length == "0") {
 	      return false;
   	    } 
@@ -537,7 +538,8 @@ function addcheck(div,tab){
   else{
 	  
 
-	var person = prompt("Please enter the Field name:");
+	var person1 = prompt("Please enter the Field name:");
+	var person = $.trim(person1)
 	if (person == null || person == " " || person.length == "0") {
 	       
   		return false;
@@ -596,7 +598,8 @@ function rebuildjs(){
 function updheader(div,tab){
 	
 	var hid =  $("#tab"+tab).find(".main").find('.divin').eq(div).find(".header").attr("id");
-	var head =  prompt("Please enter the header name:");
+	var head1 =  prompt("Please enter the header name:");
+	 var head = $.trim(head1)
 	if (head == null || head == " " || head.length == "0") {
 	      return false;
   	    } 
@@ -625,8 +628,8 @@ function updheader(div,tab){
 
 
 function createTabs(){
-	var person = prompt("Please enter the Tab Name:");
-
+	var person1 = prompt("Please enter the Tab Name:");
+    var person = $.trim(person1)
   
 	if (person == null || person == " " || person.length == "0") {
 	       
@@ -1013,6 +1016,9 @@ if(flagval.includes("Dental Observation")){
     		        	}
     		          }
     		     }
+    	else{
+    		createbr(teethv)
+    	}
     	      
     	     });
     
@@ -1375,6 +1381,9 @@ var cu;
     		      }
     		    
     		    });
+    		    
+    		  
+    		    
     		  $('#vpv').dialog({height: 300, width:1000 });
     		    $(".ui-dialog").find(".ui-widget-header").css("background", "#009999","text-align","center");
     		    
@@ -1511,6 +1520,18 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
  var get = "GET";
  doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8"); 	  
        }
+       
+       </script>
+       
+       <script>
+       $( function() {
+       $("input").on("keypress", function(e) {
+    	   
+       
+	        if (e.which === 32 && !this.value.length)
+	            e.preventDefault();
+	    });
+       });
        
        </script>
  

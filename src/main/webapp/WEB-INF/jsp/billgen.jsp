@@ -26,7 +26,13 @@
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
  
+<style type="text/css">
+a.disabled {
+   pointer-events: none;
+   cursor: default;
+}
 
+</style>
 	<script type="text/javascript">
 var cuser;
 	function checkhome2(user){
@@ -34,8 +40,10 @@ var cuser;
 		document.getElementById("cdate").innerHTML = moment().format("DD-MM-YYYY hh:mm");
 		
 		    //   document.getElementById("adbar").innerHTML = tpin; 
-		$(".dispr").attr("disabled",true)
-		$("#intbill").attr("disabled",true)
+		
+		$(".dispr").addClass("disabled")
+		$("#intbill").addClass("disabled")
+		$("#receipt").addClass("disabled")
 		 if(user.includes("[ROLE_FDESK]")){
 		
 			var url = "/HMS/frontdesk" ;
@@ -138,7 +146,7 @@ var cuser;
 			
 			
 			var id = 1; 
-			var str1 = "In-";
+			var str1 = "IN-";
 		    var m = moment().format("DDMMYYYY-");
 		   
 	
@@ -156,7 +164,7 @@ var cuser;
 	
 			
 			str = Number(str) + 1;
-			var str1 = "In-";
+			var str1 = "IN-";
 			var m = moment().format("DDMMYYYY-");
 			var str3 = str;
 		
@@ -266,6 +274,7 @@ function myFunction1(getval) {
             console.log(newarr)
         });
         newitem = $(newarr).not(oldarr).get();
+
         if (newitem.length > 0) {
          
             addc(newitem[0]);
@@ -324,7 +333,7 @@ function auto_grow(element) {
 			 newCell.style.width ='250px';
 			 document.getElementById(fee1).oninput();
 			 newCell = rowsAdd.insertCell();
-			 newCell.innerHTML="<tr><td class =''><input form ='billsave' type='text' class= 'form-control input-sm ftype'  onkeypress='return onlyNos(event,this);' style='width: 150px;' type='text' id = '"+fee+"'  name= 'charges' value='"+strSplit[1]+"'  required oninput='calc(this.id,"+qty+","+Number(tableRef.rows.length - 1)+"),totalIt()' ></td></tr>";
+			 newCell.innerHTML="<tr><td><input form ='billsave' type='text' class= 'form-control input-sm ftype'  onkeypress='return onlyNos(event,this);' style='width: 150px;' type='text' id = '"+fee+"'  name= 'charges' value='"+strSplit[1]+"'  required oninput='calc(this.id,"+qty+","+Number(tableRef.rows.length - 1)+"),totalIt()' ></td></tr>";
 			 newCell.style.width ='200px';
 			  
 			 newCell = rowsAdd.insertCell();
@@ -332,7 +341,7 @@ function auto_grow(element) {
 			 newCell.style.width ='100px';
 			 
 			 newCell = rowsAdd.insertCell();
-			 newCell.innerHTML="<tr class=''><td><input form ='billsave' readonly class= 'form-control input-sm' type='text'  id = '"+qty+"' name= 'price'  required  ></td></tr>";
+			 newCell.innerHTML="<tr class=''><td><input type='hidden' name='prch' id='prch' class='form-control inut-sm' form='billsave' value='"+$.now()+"'><input form ='billsave' readonly class= 'form-control input-sm' type='text'  id = '"+qty+"' name= 'price'  required ></td></tr>";
 			 newCell.style.width ='200px';
 			  
 			 newCell = rowsAdd.insertCell();
@@ -514,10 +523,12 @@ window.location = "/HMS/billgen.html";
 function cori(value){
 	
 	if(value == "insurance"){
+		$("#receipt").hide();
 		document.getElementById("insurance").style.display ="block";
 		document.getElementById("pors").style.display ="block";
 	}
 	else{
+		$("#receipt").show();
 		document.getElementById("cash").checked = true;
 		document.getElementById("insurance").style.display ="none";
 		document.getElementById("pors").style.display ="none";
@@ -601,6 +612,11 @@ function disp(id,fr){
 	  document.getElementById("prgen").style.visibility = "visible";
 	  $("#htr").show();
 	  */
+}
+function prec(val){
+	var url = "/HMS/receipt?location="+$("#invoice").val()+"" ;
+	$(val).attr("href",url)
+	return true;	
 }
 
 function openmd(value){
@@ -797,8 +813,13 @@ function doAjaxSave(id){
       	  alert("Data Saved Successfully")
       
           }
-        $(".dispr").attr("disabled",false)
-         $("#intbill").attr("disabled",false)
+        $(".dispr").removeClass("disabled")
+         $("#intbill").removeClass("disabled")
+         console.log($("#cash").checked == true)
+         if(document.getElementById("cash").checked){
+        	 $("#receipt").removeClass("disabled")
+         }        	
+         
       	  unsaved = false;
           },
           error: function(e){
@@ -828,7 +849,7 @@ input .ftype{
 
 </head>
 <sec:authentication property="principal.authorities" var="username" />
-<body onload="checkhome2('<c:out value="${username}" />'),cori('cash'),date()">
+<body onload="checkhome2('<c:out value="${username}" />'),cori('cash')">
 
 
 <sec:authorize access="hasRole('[ROLE_FDESK]')" var="haRoleUser"></sec:authorize>
@@ -1066,7 +1087,8 @@ input .ftype{
 	 <div class="col-xs-1"></div>
 	<button type="button" id="newt" class="btn btn-warning button1" onclick="clos()">New</button>
 	 <div class="col-xs-1"></div>
-	<a href="#" id="intbill" target="_blank" class="btn btn-warning button1"  onclick="return disp(this,'ir')">Generate Integrated Bill</a>
+	<a href="#" id="intbill" target="_blank" class="btn btn-warning button1"  onclick="return disp(this,'ir')">Consolidated Invoice</a>
+    <a href='#' id="receipt" target="_blank" class="btn btn-warning button2" style="margin-right:10px;" onclick="return prec(this)">Print Receipt</a>
 <button type="button"   id="bouton-contact" class="bouton-contact" onclick="return validchk();" form="billsave" ><span id="prgen">Generate Bill</span></button>
 </div>
    

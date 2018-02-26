@@ -48,6 +48,12 @@ public class Diagnose {
 	private String tablename;
 	private String teid;
 	private String teethval;
+	private String iop;
+	private String testname;
+	private String samplecol;
+	private String date1;
+	private String tresult;
+	
 	public String getTeid() {
 		return teid;
 	}

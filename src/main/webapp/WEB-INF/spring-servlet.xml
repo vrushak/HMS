@@ -29,19 +29,14 @@ xmlns:beans="http://www.springframework.org/schema/beans"
     </property>
   </bean>
   
-<bean id="obj" class="HMS.FileUpload">  
-<property name="base">  
-<value>c:\\Docs\\</value>  
-</property>  
 
-
-</bean>  
   <beans:bean class="org.springframework.web.servlet.view.XmlViewResolver">
         <beans:property name="location" value="/WEB-INF/jasper-view.xml"/>
         <beans:property name="order" value="0"/>
     </beans:bean>
      
   <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
   
  
 </beans>

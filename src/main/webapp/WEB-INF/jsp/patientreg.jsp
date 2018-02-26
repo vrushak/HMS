@@ -1009,14 +1009,6 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
          	<input type="date" readonly max="2999-12-31"name="regdate" id="regdate" class="form-control input-sm" required>
 	</div>
   </div>
-  
-   <div class="col-xs-3">
-    
-	   <div class="form-group">
-            <p>Purpose of Visit <span></span></p>
-    <input type="text" name="pofvisit" id="pofvisit" class="form-control input-sm"  required>
-</div>
-	</div>
  
  </div>
     <div class="form-group">
@@ -1026,9 +1018,6 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
               </div>
             </div>
             
-            
-            
- 
 </fieldset>
        </div>
       
@@ -1212,7 +1201,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
   <div class="col-xs-3">
    <div class="form-group">
             <p>LandPhone <span></span></p>
-       <input type="text" class="form-control input-sm" value="080" required maxlength="11" name="landphone" id="landphone" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+       <input type="text" class="form-control input-sm" value="" required maxlength="11" name="landphone" id="landphone" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
 </input>
 </div>
   </div>
@@ -1797,7 +1786,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
   <div class="col-xs-5">
   <div class="form-group">
             <p>Reason for visit<span></span></p>
-   <input type="text"  name="" id="" class="form-control input-sm"   >
+   <input type="text"  name="pofvisit" id="pofvisit" class="form-control input-sm"   >
     
 </div>
   </div>

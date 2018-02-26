@@ -16,8 +16,14 @@ private String admitno;
 private String wardno;
 private String gender;
 private String age;
+private String freeze;
 
-
+public String getFreeze() {
+	return freeze;
+}
+public void setFreeze(String freeze) {
+	this.freeze = freeze;
+}
 public String getWardno() {
 	return wardno;
 }

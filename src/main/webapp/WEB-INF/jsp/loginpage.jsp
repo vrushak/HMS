@@ -161,6 +161,9 @@ body {
   text-decoration: none;
 }
 
+nav ul .ls {
+width : 300px;
+}
 </style>
 
 <script type="text/javascript">
@@ -175,6 +178,10 @@ function formab(){
 	document.getElementById("f").submit();
 	alert();
 }
+
+function copyval(val){
+	$("#exp").text("Licence will expire on "+val)
+}
 </script>
   
 </head>
@@ -187,10 +194,12 @@ function formab(){
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="/HMS/welcome">Home</a></li>
-       <!-- <li class=""><a href="/HMS/admin">Admin</a></li>
-      <li class=""><a href="/HMS/doctor1">Doctor</a></li>
-      <li class=""><a href="/HMS/nursedesk">Nurse</a></li>
-      <li class=""><a href="/HMS/frontdesk">Frontdesk</a></li>-->
+      <li class="col-xs-4"><a href="/HMS/licence">Licence</a></li>
+     
+      
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="ls"><a href="#" id="exp"></a></li>
       
     </ul>
   </div>
@@ -264,6 +273,11 @@ $('.toggle').click(function(){
 });
 
 </script>
+<c:forEach var="p"  items="${list}">
+<script>
+copyval('<c:out value="${p.expiry}" />')
+</script>
+</c:forEach>
 
 </body>
 </html>

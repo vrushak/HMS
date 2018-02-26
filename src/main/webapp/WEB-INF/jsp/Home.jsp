@@ -78,12 +78,14 @@ function myconfirm()
 
 
 function addp(id){
-	if($("#admdate").length == 0){
-		alert("Please select admission date")
+
+	if($("#admdate").val().length == 0){
+		alert("Please select From date")
 		return false;
 	}
-	else if($("#disdate").length == 0){
-		alert("Please select disacharge date")
+	else if($("#disdate").val().length == 0){
+		alert("Please select To date")
+		return false;
 	}
 	else{
 		var url = "/HMS/pdf?location1="+$("#admdate").val()+"&location2="+$("#disdate").val()+"" ;
@@ -96,10 +98,14 @@ function addp1(id){
 	
 
 
-		var url = "/HMS/pdf?location1="+moment().format("DD-MM-YYYY")+"&location2="+moment().format("DD-MM-YYYY")+"" ;
+		var url = "/HMS/pdf?location1="+moment().format("YYYY-MM-DD")+"&location2="+moment().format("YYYY-MM-DD")+"" ;
 		$(id).attr("href",url)
 	
 }
+
+function getInputDateFormat(date) {
+	 return date.toISOString().split('T')[0];
+	}
 </script>
 <script>
 $( function() {
@@ -135,11 +141,12 @@ $( function() {
 		    	  var firstDay = new Date(y, m, 1);
 		    	  $("#admdate").val('');
 		    //	  $("#disdate").val('');
-		    	  $("#admdate").val(moment(firstDay).format("DD-MM-YYYY"))
-		    //      $("#disdate").val(moment().format("DD-MM-YYYY"));
+		    	  $("#admdate").val(moment(firstDay).format("YYYY-MM-DD"))
+		         $("#disdate").val(moment().format("YYYY-MM-DD"));
 		    	 $( "#result" ).dialog( "open" );
 		      }
 		    	
+		    	/*
 		    	$('.dp1').datetimepicker({
 		   	   	 
 		    		
@@ -150,20 +157,16 @@ $( function() {
 			        minView: 2,
 			       
 			       
-			       });
+			       });*/
 		    	 });  
 	    
 	    
 	    $( "#admdate" ).on( "change", function() {
 	   var a = $("#admdate").val();
-
-	   $('#datetimepicker').datetimepicker({
-	   	
-		 
-		  
-		    	});
-	    	
-	    });
+	   var today = new Date(a);
+	   
+	      $("#disdate").attr('min',getInputDateFormat(today))
+		});
 });
 
 </script>
@@ -336,8 +339,8 @@ $( function() {
         <p>From Date<span></span></p>
        <div class="form-group">
       <div class='input-group date dp1'>
-      <input type='text' name="admdate" id="admdate" class="form-control input-sm" required />
-      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+      <input type='date' name="admdate" id="admdate" onkeydown="return false" class="form-control input-sm" required />
+     
       </div></div>
       </div>
       </div>
@@ -346,12 +349,12 @@ $( function() {
         <p>To Date<span></span></p>
        <div class="form-group">
       <div class='input-group date dp1' id="datetimepicker">
-      <input type='text' name="disdate" id="disdate" class="form-control input-sm" required />
-      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+      <input type='date' name="disdate" id="disdate" onkeydown="return false" class="form-control input-sm" required />
+   
       </div></div>
       </div>
       </div>   
-      <a href="" target="_blank" class="btn btn-warning" onclick="return addp(this)">Bill Report</a></div>
+      <a href="#" target="_blank" class="btn btn-warning" onclick="return addp(this)">Bill Report</a></div>
   </div>	  
 	  				
 </div>

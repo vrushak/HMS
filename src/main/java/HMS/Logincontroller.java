@@ -1,10 +1,14 @@
 package HMS;
 
+
 import java.security.Principal;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -16,10 +20,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 @Controller
 public class Logincontroller {
+	
 	@Autowired  
 	controllerDao dao;
 	@Autowired 
@@ -28,6 +34,7 @@ public class Logincontroller {
 	nurseControllerDao ndao;
 	@Autowired 
 	staffControllerDao sdao;
+
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView adminPage() {
 		    List<Appointment> list = dao.getAppointment1();
@@ -62,10 +69,26 @@ public class Logincontroller {
     }
  
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public ModelAndView loginPage(Model model,@ModelAttribute("p") Doctor p ,HttpServletRequest request,Principal principal,Authentication authentication ) {
-
-        return new ModelAndView("loginpage");
+    public ModelAndView loginPage(HttpServletRequest request,Principal principal,Authentication authentication ) throws Exception {
+    	List<License> list = dao.getLusers();
+     	try{
+    	License license = LicenseManager.decryptLicense(list.get(0).getLckey());
+    	list.get(0).setCompanyName(license.getCompanyName());
+    	list.get(0).setEmailId(license.getEmailId());
+     	
+    	 License license1 = LicenseManager.decryptLicense(list.get(0).getLckey());
+		    Date expirationDate = null;
+		    Date date = new Date(license1.getExpirationDate());
+		    SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
+     	    list.get(0).setExpiry(format1.format(date));
+     	}
+     	catch(IndexOutOfBoundsException exception) {
+     	    System.out.println(exception);
+     	}
+        return new ModelAndView("loginpage","list",list);
     }
+   
+
     @RequestMapping(value = "/doctor1", method = RequestMethod.GET)
     public ModelAndView doctor(@ModelAttribute("p") Doctor p ,HttpServletRequest request,Principal principal,Authentication authentication) {
        	List<Doctor> list1 = ddao.getuserrole(principal.getName());
@@ -202,4 +225,23 @@ public class Logincontroller {
         }
         return "403Page";
     }
+    
+    @RequestMapping(value = "/licence", method = RequestMethod.GET)
+   public ModelAndView licence(@ModelAttribute("p") License p ,HttpServletRequest request,Principal principal,Authentication authentication ) throws Exception {
+     	List<License> list = dao.getLusers();
+     	try{
+    	License license = LicenseManager.decryptLicense(list.get(0).getLckey());
+    	list.get(0).setCompanyName(license.getCompanyName());
+    	list.get(0).setEmailId(license.getEmailId());
+     	}
+     	catch(IndexOutOfBoundsException exception) {
+     	    System.out.println(exception);
+     	   
+     	}
+     
+    	Map<String, Object> model = new HashMap<String, Object>();
+         model.put("list",list);
+        return new ModelAndView("licence","model",model);
+    }
+   
 }

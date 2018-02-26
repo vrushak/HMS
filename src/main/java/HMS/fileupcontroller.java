@@ -39,7 +39,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-
+import org.apache.commons.codec.binary.Base64;
 import com.google.gson.Gson;
 
 import HMS.controllerDao;
@@ -59,19 +59,35 @@ public class fileupcontroller {
 	@Autowired 
 	doctControllerDao ddao;
 	
-	private static final String UPLOAD_DIRECTORY ="c:\\Docs\\";
+	private static String UPLOAD_DIRECTORY;
 	private static final int THRESHOLD_SIZE     = 1024 * 1024 * 3;  // 3MB
 	
 	@RequestMapping("uploadform")
 	public ModelAndView uploadForm(@ModelAttribute("s") FileUpload s){
+		String os = System.getProperty("os.name");
+		
+		if (os.indexOf("Win") >= 0) {
+			UPLOAD_DIRECTORY ="c://Docs//";
+		} else {
+			
+			UPLOAD_DIRECTORY="/home/tmp/Docs";
+		}
 		System.out.println(s.getBase());
 		return new ModelAndView("uploadform");	
 	}
-	
+	/*
 	@RequestMapping(value="savefile",method=RequestMethod.POST)
 	public ModelAndView saveimage( @ModelAttribute("s") Lab s,@RequestParam CommonsMultipartFile file,HttpSession session) throws Exception
 	{
-	System.out.println(s.getDname());	
+	String os = System.getProperty("os.name");
+		
+		if (os.indexOf("Win") >= 0) {
+			UPLOAD_DIRECTORY ="c://Docs//";
+		} else {
+			
+			UPLOAD_DIRECTORY="/home/tmp/Docs";
+		}
+	
 		String filname;
 		int savefup = 0;
 		
@@ -87,10 +103,10 @@ public class fileupcontroller {
 		files.mkdirs();
 	    }
 		
-		System.out.println("File" + file.isEmpty());
+		
 	
 		if(s.getIop().length() == 0){
-			System.out.println("File" + file.getOriginalFilename());
+			
 			filname = s.getPid()+ File.separator + s.getFileno()+ File.separator +s.getDate1()+ File.separator + "No File Uploaded";
 			s.setIop("No File Uploaded");
 		}else{
@@ -101,7 +117,7 @@ public class fileupcontroller {
 		}
 	
 		File files1 = new File(UPLOAD_DIRECTORY+File.separator+filname);
-		System.out.println("files1 is " +files1.getPath());
+	
 		s.setTestname(filname.replace("\\", "/"));
 	
 	
@@ -128,5 +144,129 @@ public class fileupcontroller {
 	
 	
 	
+	}
+	
+	*/
+	
+	@RequestMapping(value="/savefile",method=RequestMethod.POST)
+	public @ResponseBody String saveimage( @ModelAttribute("s") Lab s,HttpSession session,HttpServletRequest req) throws Exception
+	{
+	
+	CommonsMultipartFile file = null;
+	System.out.println(s.getDetails());
+	byte[] decoded = Base64.decodeBase64(s.getDetails());
+	
+	String jsonFormatData = "";
+	String os = System.getProperty("os.name");
+	System.out.println(os);	
+		if (os.indexOf("Win") >= 0) {
+			UPLOAD_DIRECTORY ="c://Docs//";
+		} else {
+			
+			UPLOAD_DIRECTORY="/home/tmp/Docs";
+		}
+	
+		String filname;
+		int savefup = 0;
+		
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		factory.setSizeThreshold(THRESHOLD_SIZE);
+		factory.setRepository(new File(UPLOAD_DIRECTORY+req.getParameter("location1")+File.separator+req.getParameter("location2")+File.separator+req.getParameter("location3")));
+		 
+		ServletFileUpload upload = new ServletFileUpload(factory);
+		ServletContext context = session.getServletContext();
+		
+		File files = new File(UPLOAD_DIRECTORY+req.getParameter("location1")+File.separator+req.getParameter("location2")+ File.separator +req.getParameter("location3"));
+		if(!files.exists()){
+		files.mkdirs();
+	    }
+		
+		
+	
+		if(req.getParameter("location7").length() == 0){
+			
+			filname = req.getParameter("location1")+ File.separator +req.getParameter("location2")+ File.separator +req.getParameter("location3")+ File.separator + "No File Uploaded";
+			s.setIop("No File Uploaded");
+		}else{
+			//new Date().getTime()+file.getOriginalFilename()
+			String timestamp = req.getParameter("location7");
+		    filname = req.getParameter("location1")+ File.separator +req.getParameter("location2")+ File.separator +req.getParameter("location3")+ File.separator + timestamp;
+			s.setIop(timestamp);
+		}
+		System.out.println(filname);
+		File files1 = new File(UPLOAD_DIRECTORY+File.separator+filname);
+	
+		s.setTestname(filname.replace("\\", "/"));
+
+	
+  
+	//	byte[] bytes = file.getBytes();
+		//if(!file.getOriginalFilename().e)
+		BufferedOutputStream stream =new BufferedOutputStream(new FileOutputStream(new File(files1.getPath())));
+		stream.write(decoded);
+		stream.flush();
+		stream.close();
+		s.setPid(req.getParameter("location1"));
+		s.setFileno(req.getParameter("location2"));
+		s.setDate1(req.getParameter("location3"));
+		s.setDocid(req.getParameter("location6"));
+		s.setSamplecol(req.getParameter("location4"));
+		s.setTresult(req.getParameter("location5"));
+	savefup = dao.saveLabfile(s);
+	ModelAndView  mav = new ModelAndView();
+	if(savefup > 0){
+					   
+					    mav.addObject("message", "The record has been updated sucessfully");
+					    mav.setViewName("redirect:diagnose");
+				}
+	else{
+		    mav.addObject("message", "Updating failed ");
+		    mav.setViewName("redirect:diagnose");
+	}
+		
+        return jsonFormatData; 
+	
+	
+	
+	}
+	@RequestMapping(value="/deletefile",method=RequestMethod.POST)
+	public @ResponseBody String DeleteFile(HttpServletRequest req){
+	    String jsonformatdata = ""; 
+		int filedelete = 0;
+		String os = System.getProperty("os.name");
+		if (os.indexOf("Win") >= 0) {
+			UPLOAD_DIRECTORY ="c://Docs//";
+		} else {
+			
+			UPLOAD_DIRECTORY="/home/tmp/Docs";
+		}
+		  try{
+	    		
+	    	
+	    		
+	    		File file = new File(UPLOAD_DIRECTORY+File.separator+req.getParameter("location"));
+
+	    		if(file.delete()){
+	    			System.out.println(file.getName() + " is deleted!");
+	    			filedelete = dao.filedelete(req.getParameter("location"));
+	    			if(filedelete > 0){
+	    				jsonformatdata = "Success";
+	    			}
+	    			else{
+	    				jsonformatdata = "Failure";
+	    			}
+	    		}else{
+	    			System.out.println("Delete operation is failed.");
+	    			 jsonformatdata = "Delete";
+	    		}
+
+	    	}catch(Exception e){
+
+	    		e.printStackTrace();
+
+	    	}
+			return jsonformatdata;
+
+	   
 	}
 }

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="receipt" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="aab0f78b-ffa3-4372-a0ae-dae86f04a873">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="My Sql"/>
+	<parameter name="realPath" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{realPath}+"/Images/logocms.jpg"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[select pid,pname,total,cashier from billgen]]>
+	</queryString>
+	<field name="invoice" class="java.lang.String"/>
+	<field name="pname" class="java.lang.String"/>
+	<field name="total" class="java.lang.String"/>
+	<field name="cashier" class="java.lang.String"/>
+	<group name="invoice">
+		<groupExpression><![CDATA[$F{invoice}]]></groupExpression>
+	</group>
+	<group name="pname">
+		<groupExpression><![CDATA[$F{pname}]]></groupExpression>
+	</group>
+	<group name="total">
+		<groupExpression><![CDATA[$F{total}]]></groupExpression>
+	</group>
+	<group name="cashier">
+		<groupExpression><![CDATA[$F{cashier}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image onErrorType="Blank">
+				<reportElement x="0" y="0" width="100" height="79" uuid="f307ef15-82c1-44ce-a2e8-62335a0f58db"/>
+				<imageExpression><![CDATA[$P{realPath}+"/Images/logocms.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="370" y="0" width="200" height="20" uuid="c8b99d66-7837-4edb-a573-9f6a0e993e59"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[LILAYI FAMILY CLINIC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="20" width="200" height="54" uuid="90f9a916-2ead-4f9b-8470-163d3a3756b0"/>
+				<text><![CDATA[Plot 4014A,Lusaka-Zambia,P.O Box 32680,
+Contact: +260 962 151 935,
+E-mail : lilayifamilyclinic@yahoo.com
+]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement x="247" y="0" width="60" height="20" uuid="f3a21a41-da2b-4da7-a8cd-0b2b4ec1f388"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[RECEIPT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="400" y="15" width="60" height="20" uuid="8b19da54-a7bb-44bc-8441-d5542e66ec5e"/>
+				<text><![CDATA[Receipt No :]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="110" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="-1" width="130" height="30" uuid="ed7ab9f3-909e-49b9-ac48-fdd9d5b050ac"/>
+				<text><![CDATA[Received with thanks from :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="29" width="110" height="30" uuid="56530800-7742-480c-9d20-999eb28e903d"/>
+				<text><![CDATA[The Sum of Kwacha :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="60" height="28" uuid="47278aa4-75a8-481c-81ca-b2eae1c4c16a"/>
+				<text><![CDATA[Issued By :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="80" width="40" height="25" uuid="4fe5006d-aa09-469f-b708-40c779a64015"/>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
+			<textField pattern="M/d/yy h:mm a">
+				<reportElement x="480" y="80" width="90" height="26" uuid="e6a29b78-a07e-4633-9fb0-c3bf7a2f70ac"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="-1" width="440" height="30" uuid="a8390c7d-15a0-4bf2-b403-802c9e4ec913"/>
+				<textFieldExpression><![CDATA[$F{pname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="29" width="460" height="30" uuid="002f4e15-79d0-463f-aee6-6aefb7e8b3a4"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="80" width="150" height="30" uuid="383a3618-cb77-40df-a7c5-8750f8e5c7c0"/>
+				<textFieldExpression><![CDATA[$F{cashier}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement x="440" y="59" width="130" height="21" uuid="34febbac-308a-4dd9-a7e5-31f200d15a29"/>
+				<textField>
+					<reportElement x="0" y="0" width="130" height="21" uuid="71dc2122-cdf6-454a-a2ef-e633ea8c0bb7"/>
+					<box>
+						<pen lineWidth="1.0"/>
+					</box>
+					<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -161,7 +161,7 @@ public class doctControllerDao {
 		public List<Prescription> getDocID2(String username,String userrole) {
 			
 			if(userrole.contains("[ROLE_DOCTOR]")){
-				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno,ap.active from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID  where ap.docid in (select userid from userrole where username = '"+username+"')  and ap.active = 'on'",new RowMapper<Prescription>(){  
+				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno,ap.active,p.mobile from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID  where ap.docid in (select userid from userrole where username = '"+username+"')  and ap.active = 'on' order by ap.appointment",new RowMapper<Prescription>(){  
 		        public Prescription mapRow(ResultSet rs, int row) throws SQLException {   
 		        	
 			       Prescription p = new Prescription();
@@ -176,13 +176,14 @@ public class doctControllerDao {
 			      p.setFileno(rs.getString(7));
 			      p.setAc(rs.getString(8));
 			      p.setIdc("");
+			      p.setPas(rs.getString(9));
 			      return p;
 		        }
 			});
 			}
 			else{
 			
-				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno,ap.active from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID where ap.active = 'on'",new RowMapper<Prescription>(){  
+				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno,ap.active,p.mobile from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID where ap.active = 'on'order by ap.appointment",new RowMapper<Prescription>(){  
 			        public Prescription mapRow(ResultSet rs, int row) throws SQLException {   
 				       Prescription p = new Prescription();
 				      
@@ -197,7 +198,7 @@ public class doctControllerDao {
 				      p.setFileno(rs.getString(7));
 				      p.setAc(rs.getString(8));
 				      p.setIdc("Admin");
-				    
+				      p.setPas(rs.getString(9));
 				      return p;
 			        }
 				});
@@ -254,7 +255,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 			if(userrole.contains("[ROLE_DOCTOR]")){
 				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID left outer join admitpat ad on ap.fileno = ad.fileno  where ap.docid in (select userid from userrole where username = '"+username+"')",new RowMapper<Prescription>(){  
 		        public Prescription mapRow(ResultSet rs, int row) throws SQLException {   
-		        	 System.out.println("code re");
+		        	 
 			       Prescription p = new Prescription();
 			     
 			      p.setDocid(rs.getString(1));
@@ -286,7 +287,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 				      p.setSpecialization(rs.getString(6));
 				      p.setFileno(rs.getString(7));
 				      p.setIdc("Admin");
-				      System.out.println("getid" + p.getIdc());
+				   
 				      return p;
 			        }
 				});
@@ -408,8 +409,8 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 			return template.update(sql);
 		}
 
-		public List<Discharge> getDischarge() {
-			return template.query("select ds.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) Patient,pat.age,pat.gender,concat(d.fname,' ',d.mname,' ',d.lname) Doctor,ds.docid,adm.admdate,ds.disdate,ds.investigation,ds.fileno,ds.admitno,concat(adm.wardno,'/',adm.bedno) from discharge ds join patient pat on ds.pid = pat.pid join doctor d on ds.docid = d.docID join admitpat adm on ds.fileno = adm.fileno order by CAST(SUBSTRING_INDEX(ds.fileno,'-',-1) as decimal) desc",new RowMapper<Discharge>(){  
+		public List<Discharge> getDischarge(String value) {
+			return template.query("select ds.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) Patient,pat.age,pat.gender,concat(d.fname,' ',d.mname,' ',d.lname) Doctor,ds.docid,adm.admdate,ds.disdate,ds.investigation,ds.fileno,ds.admitno,concat(adm.wardno,'/',adm.bedno),ds.freeze from discharge ds join patient pat on ds.pid = pat.pid join doctor d on ds.docid = d.docID join admitpat adm on ds.fileno = adm.fileno where ds.freeze = '"+value+"' order by CAST(SUBSTRING_INDEX(ds.fileno,'-',-1) as decimal) desc",new RowMapper<Discharge>(){  
 		        public Discharge mapRow(ResultSet rs, int row) throws SQLException {   
 			       Discharge p = new Discharge();
 			       p.setPid(rs.getString(1));
@@ -426,7 +427,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 			       p.setFileno(rs.getString(10));
 			       p.setAdmitno(rs.getString(11));
 			       p.setWardno(rs.getString(12));
-			      
+			       p.setFreeze(rs.getString(13));
 			       return p;
 		        }
 			});
@@ -486,7 +487,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 			return template.query("select name from erpho.product",new RowMapper<Prescription>(){  
 		        public Prescription mapRow(ResultSet rs, int row) throws SQLException {  
 		            Prescription s=new Prescription();  
-		           System.out.println(rs.getString(1));
+		          
 		            s.setDrugn(rs.getString(1));
 		       return s;
 			
@@ -1330,7 +1331,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 				   	p.setDname(rs.getString(5));
 				   	p.setDiagnose(rs.getString(6));
 				   	p.setDatetime(rs.getString(7));
-				   	System.out.println(rs.getString(6));
+				   
 				    return p;
 			        }
 				});
