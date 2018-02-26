@@ -1380,7 +1380,7 @@ public class controllerDao {
 		}
 		//select pr.Batch,pr.expDate,unit,unitprice,(select sum(currentstock) from productstock where productstock.batch=purchase.Batch),total,(select sum(sp) from productprice where productprice.batch=purchase.Batch) from purchase where productName='"+user3+"' and quantity > 0
 		public List<Sale> getinvprods(String user3) {
-			return template.query("select pr.Batch,pr.expDate,ps.spdesc,ps.spsize,ps.currentstock,ps.sudesc,ps.sp,ps.cp,ps.sellqty,ps.sunits from purchase pr left outer join productstock ps on pr.productName = ps.name  where ps.name = '"+user3+"' and ps.currentstock <> 0 and ps.expdate >= curdate() and pr.batch = ps.batch and pr.mpack = ps.mpack",new RowMapper<Sale>(){
+			return template.query("select pr.Batch,ps.expDate,ps.spdesc,ps.spsize,ps.currentstock,ps.sudesc,ps.sp,ps.cp,ps.sellqty,ps.sunits from purchase pr left outer join productstock ps on pr.productName = ps.name  where ps.name = '"+user3+"' and ps.currentstock <> 0 and ps.expdate >= curdate() and pr.batch = ps.batch and pr.mpack = ps.mpack",new RowMapper<Sale>(){
 		        public Sale mapRow(ResultSet rs, int row) throws SQLException {  
 		            Sale s=new Sale();  
 		      //      System.out.println(rs.getString(2));
