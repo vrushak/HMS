@@ -524,9 +524,9 @@ function copy(pid,ft,ch,pr,quantity,prch){
    document.getElementById("insurancec").value = strSplit[18];
    
    document.getElementById("fileno").value = strSplit[20];
- 
+
    cori(strSplit[19])
-  
+  cori1(strSplit[21])
    $('#myModal').modal('hide');  
   
 }
@@ -537,14 +537,34 @@ function cori(value){
 		$("#receipt").hide();
 		document.getElementById("insurance").style.display ="block";
 		document.getElementById("insurance1").checked = true;
+		document.getElementById("pors").style.display ="block";
 	}
+	
 	else{
 		$("#receipt").show();
 		document.getElementById("insurance").style.display ="none";
 		document.getElementById("cash").checked = true;
+		document.getElementById("pors").style.display ="none";
 	}
+	
 }
 
+function cori1(value){
+	
+	
+	
+	
+	if(value.includes("Primary")){
+     $("#ps").prop('checked','checked');
+     $("#ss").hide();
+     $("#sss").hide();
+	}
+	else{
+	$("#ss").prop('checked','checked');
+	$("ps").hide();
+	$("#ppp").hide();
+	}
+}
 
 	
 	</script>
@@ -881,8 +901,14 @@ function doAjaxSave(id){
 		</div>
 		
 		<br>	
-		
-		<div class="form-group row" id="insurance" style="margin-top:200px;">
+			<div class="form-group row" id="pors">
+		 <div class="col-xs-4"></div>
+       <div class="col-xs-4">
+	<input type="radio" name="ps" id="ps" form="billsave" value="Primary" ><span id="ppp">Primary</span>
+	<input type="radio" name="ps"  id="ss" form="billsave" value="Secondary" ><span id="sss">Secondary</span>
+		</div>
+		</div>
+		<div class="form-group row" id="insurance">
        <div class="col-xs-4">
         
 		<table  style="width : 300px;">
@@ -1012,7 +1038,7 @@ function doAjaxSave(id){
     <td width="150px;">${p1.invoicedate}</td>
     <td width="150px;">${p1.pname}</td>
      <td width="150px;">${p1.fileno}</td>
-     <td width="150px;"><i class="fa fa-eye" style="color:#00b300" onclick="copy('${p1.invoice}=${p1.invoicedate}=${p1.pname}=${p1.pid}=${p1.address}=${p1.wardno}=${p1.doctor}=${p1.admdate}=${p1.disdate}=${p1.cashier}=${p1.subtotal}=${p1.tax}=${p1.discount}=${p1.total}=${p1.admitno}=${p1.mid}=${p1.policyholder}=${p1.policyno}=${p1.insurancec}=${p1.type}=${p1.fileno}','${p1.feetype}','${p1.charges}','${p1.price}','${p1.quantity}','${p1.prch}')"></i></td>
+     <td width="150px;"><i class="fa fa-eye" style="color:#00b300" onclick="copy('${p1.invoice}=${p1.invoicedate}=${p1.pname}=${p1.pid}=${p1.address}=${p1.wardno}=${p1.doctor}=${p1.admdate}=${p1.disdate}=${p1.cashier}=${p1.subtotal}=${p1.tax}=${p1.discount}=${p1.total}=${p1.admitno}=${p1.mid}=${p1.policyholder}=${p1.policyno}=${p1.insurancec}=${p1.type}=${p1.fileno}=${p1.ps}','${p1.feetype}','${p1.charges}','${p1.price}','${p1.quantity}','${p1.prch}')"></i></td>
  
    </tr>
      </c:forEach>

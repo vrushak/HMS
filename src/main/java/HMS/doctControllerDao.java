@@ -397,13 +397,13 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 		}
 		public int saved(Discharge s) {
 			// TODO Auto-generated method stub
+			   String sql="insert into discharge(pid,pname,dname,docid,admdate,disdate,treatment,dissum,investigation,management,fileno,admitno) values(?,?,?,?,?,?,?,?,?,?,?,?) on duplicate key update disdate = values(disdate),treatment =value(treatment),dissum=values(dissum),investigation=values(investigation),management=values(management)";  
+			  return template.update(sql, new Object[] { s.getPid(),s.getPname(),s.getDname(),s.getDocid(),s.getAdmdate(),s.getDisdate(),s.getTreatment(),s.getDissum(),s.getInvestigation(),s.getManagement(),s.getFileno(),s.getAdmitno()}); 
 			
-			String sql = "insert into discharge(pid,pname,dname,docid,admdate,disdate,treatment,dissum,investigation,management,fileno,admitno) values('"+s.getPid()+"','"+s.getPname()+"', '"+s.getDname()+"','"+s.getDocid()+"','"+s.getAdmdate()+"','"+s.getDisdate()+"','"+s.getTreatment()+"','"+s.getDissum()+"','"+s.getInvestigation()+"','"+s.getManagement()+"','"+s.getFileno()+"','"+s.getAdmitno()+"') on duplicate key update disdate ='"+s.getDisdate()+"',treatment ='"+s.getTreatment()+"',dissum='"+s.getDissum()+"',investigation='"+s.getInvestigation()+"',management='"+s.getManagement()+"' ";
-			return template.update(sql);
-		}
+					}
 
 		public List<Discharge> getDischarge(String value) {
-			return template.query("select ds.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) Patient,pat.age,pat.gender,concat(d.fname,' ',d.mname,' ',d.lname) Doctor,ds.docid,adm.admdate,ds.disdate,ds.investigation,ds.fileno,ds.admitno,concat(adm.wardno,'/',adm.bedno),ds.freeze from discharge ds join patient pat on ds.pid = pat.pid join doctor d on ds.docid = d.docID join admitpat adm on ds.fileno = adm.fileno where ds.freeze = '"+value+"' order by CAST(SUBSTRING_INDEX(ds.fileno,'-',-1) as decimal) desc",new RowMapper<Discharge>(){  
+			return template.query("select ds.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) Patient,pat.age,pat.gender,concat(d.fname,' ',d.mname,' ',d.lname) Doctor,ds.docid,adm.admdate,ds.disdate,ds.investigation,ds.fileno,ds.admitno,concat(adm.wardno,'/',adm.bedno),ds.freeze,ds.dissum from discharge ds join patient pat on ds.pid = pat.pid join doctor d on ds.docid = d.docID join admitpat adm on ds.fileno = adm.fileno where ds.freeze = '"+value+"' order by CAST(SUBSTRING_INDEX(ds.fileno,'-',-1) as decimal) desc",new RowMapper<Discharge>(){  
 		        public Discharge mapRow(ResultSet rs, int row) throws SQLException {   
 			       Discharge p = new Discharge();
 			       p.setPid(rs.getString(1));
@@ -421,6 +421,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 			       p.setAdmitno(rs.getString(11));
 			       p.setWardno(rs.getString(12));
 			       p.setFreeze(rs.getString(13));
+			       p.setDissum(rs.getString(14));
 			       return p;
 		        }
 			});
@@ -457,7 +458,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 		
 		public int saveds(Dslip s) {
 			// TODO Auto-generated method stub
-			System.out.println("indc" +s.getDocid());
+		
 			String sql = "insert into dslip(pid,docid,disdate,treatment,dissum,investigation,management,fileno,admitno,revisit,ec,amno) values(?,?,?,?,?,?,?,?,?,?,?,?) on duplicate key update disdate =values(disdate),treatment =values(treatment),dissum=values(dissum),investigation=values(investigation),management=values(management),revisit=values(revisit),ec=values(ec),amno=values(amno)";
 			  return template.update(sql, new Object[] {s.getPid(),s.getDocid(),s.getDisdate(),s.getTreatment(),s.getDissum(),s.getInvestigation(),s.getManagement(),s.getFileno(),s.getAdmitno(),s.getRevisit(),s.getEc(),s.getAmno()}); 
 
@@ -1332,7 +1333,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 			
 	//load values based on fileno for discharge screen
 			public List<Diagnose> getHistvalue1(String pid,String fileno,String tablename) {
-				return template.query("select d.pid,d.fileno,concat(pat.fname,' ',pat.mname,' ',pat.lname) patient,doc.docid,concat(doc.fname,' ',doc.mname,' ',doc.lname) doctor,concat('Diagnose Details',d.diagnose,'\n\nProvisional Diagnosis\n',prep.pds) Diag,d.datetime from "+tablename+" d join patient pat on pat.pid = d.pid join doctor doc on doc.docid = d.docid right outer join prescription prep on prep.fileno = d.fileno where d.pid = '"+pid+"' and d.fileno ='"+fileno+"'",new RowMapper<Diagnose>(){  
+				return template.query("select d.pid,d.fileno,concat(pat.fname,' ',pat.mname,' ',pat.lname) patient,doc.docid,concat(doc.fname,' ',doc.mname,' ',doc.lname) doctor,concat('Diagnose Details',d.diagnose,'\n\nProvisional Diagnosis\n',prep.pds) Diag,d.datetime,dp.investigation from "+tablename+" d join patient pat on pat.pid = d.pid join doctor doc on doc.docid = d.docid right outer join prescription prep on prep.fileno = d.fileno left outer join discharge dp on dp.fileno = d.fileno where d.pid = '"+pid+"' and d.fileno ='"+fileno+"'",new RowMapper<Diagnose>(){  
 				        public Diagnose mapRow(ResultSet rs, int row) throws SQLException {   
 					       Diagnose p = new Diagnose();
 					   	p.setPpid(rs.getString(1));
@@ -1342,6 +1343,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 					   	p.setDname(rs.getString(5));
 					   	p.setDiagnose(rs.getString(6));
 					   	p.setDatetime(rs.getString(7));
+					   	p.setIop(rs.getString(8));
 					    return p;
 				        }
 					});

@@ -27,6 +27,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -185,8 +186,11 @@ public class fileupcontroller {
 		files.mkdirs();
 	    }
 		
+		String base64Image = req.getParameter("name").split(",")[1];
+		byte[] imageBytes = javax.xml.bind.DatatypeConverter.parseBase64Binary(base64Image);
+	//	BufferedImage img = ImageIO.read(new ByteArrayInputStream(imageBytes));
+		// write the image to a file
 		
-	
 		if(req.getParameter("location7").length() == 0){
 			
 			filname = req.getParameter("location1")+ File.separator +req.getParameter("location2")+ File.separator +req.getParameter("location8")+ File.separator + "No File Uploaded";
@@ -201,10 +205,14 @@ public class fileupcontroller {
 		File files1 = new File(UPLOAD_DIRECTORY+File.separator+filname);
 	
 		s.setTestname(filname.replace("\\", "/"));
-		
+		 String ext1 = FilenameUtils.getExtension(req.getParameter("location7"));
+		//File outputfile = new File(files1.getPath());
+		//ImageIO.write(img, ext1, outputfile);
 		
 		BufferedOutputStream stream =new BufferedOutputStream(new FileOutputStream(new File(files1.getPath())));
-		stream.write(decoded);
+		
+		
+		stream.write(imageBytes);
 		stream.flush();
 		stream.close();
 		

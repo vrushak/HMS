@@ -1003,8 +1003,8 @@ input .ftype{
 		<div class="form-group row" id="pors">
 		 <div class="col-xs-4"></div>
        <div class="col-xs-4">
-	<input type="radio" name="ps" id="ps"  value="Primary" onclick="cori1(this.value)" checked> Primary
-	<input type="radio" name="ps"  id="ss" value="Secondary" onclick="cori1(this.value)"><span id="sss">Secondary</span>
+	<input type="radio" name="ps" id="ps"  value="Primary" form="billsave" onclick="cori1(this.value)" checked> Primary
+	<input type="radio" name="ps"  id="ss" value="Secondary" form="billsave" onclick="cori1(this.value)"><span id="sss">Secondary</span>
 		</div>
 		</div>
 		

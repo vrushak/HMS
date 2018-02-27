@@ -35,6 +35,8 @@
 <script type="text/javascript" src="/HMS/resources/js/jquery-ui.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/jquery-confirm.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/jquery-ui.min.js"></script>
+
 
 <style type="text/css">
  div.jconfirm-title-c {
@@ -44,6 +46,9 @@
 .jconfirm-buttons button{
 color : orange;
 }
+
+
+
 </style>
 <script type="text/javascript">
 function goBack() {
@@ -67,8 +72,8 @@ function ch(){
 }
 function addcname(getval){
 	  $("#formd").trigger("reset");
-	
-	
+	  $('#investigation').val("")	
+	$('#disdate').val(moment().format("DD-MM-YYYY HH:mm"));
 	var myname = getval.getAttribute('data-value');
 	var str = myname.split('=');
 	
@@ -143,7 +148,7 @@ function copy(pid){
 	   document.getElementById("age").value = strSplit[9];
 	   
 	   document.getElementById("gender").value = strSplit[10];
-	  
+	  $("#dissum").val(strSplit[12])
 	  
 	  // document.getElementById("dissum").value = dissum;
 	  
@@ -169,14 +174,29 @@ function clos(){
 }
 
 function refresh(){
-	$('#investigation').val('');
+	$('#prv').text('');
 }
 
 function ze(){
-	 
+	
+	 if($("#pname").val() == 'select'){
+		 alert("Please select Patient Name")
+		 return false;
+	 }
+	 else if($("#disdate").val().length == 0){
+		 alert("Please select Discharge date")
+	     return false;
+	 }
+	 else if($("#investigation").val().length == 0){
+		 alert("Please fill out summary details")
+	     return false;
+	 }
+	 else{
+		 
+	 }
 	$.confirm({
 	    title: 'Freeze Discharge Summary',
-	    content: 'Freeze Discharge Summary editing for current patient?Click CONFIRM to Disable,Click CANCEL to continue editing',
+	    content: 'Freeze Discharge Summary editing for current patient?'+"\n"+'Click CONFIRM to Disable,Click CANCEL to continue editing',
 	    buttons: {
 	        confirm: function () {
 	            $("#freeze").val("yes")
@@ -189,7 +209,7 @@ function ze(){
 	       
 	    }
 	});
-
+	$("#dissum").val('<c:out value="${pageContext.request.userPrincipal.name}" />  '+moment().format("DD-MM-YYYY hh:mm"))
 	
 }
 </script>
@@ -290,7 +310,9 @@ function ze(){
        <script type="text/javascript">
        function doAjaxPostfl(pid,file) {
     	   // get the form values
-    	
+    	   
+    	   $('#prv').text("")
+    	 $('#fileid').find('option').remove()
     	          // var pid = $('#pid').val();
     
     	    $.ajax({
@@ -394,7 +416,7 @@ function ze(){
     $( "#cs" ).on( "click", function() {
       $( "#myModal" ).dialog( "open" );
     });
-    $('#myModal').dialog({height: 600, width :1000});
+    $('#myModal').dialog({height: 600, width :1200});
     $(".ui-dialog").find(".ui-widget-header").css("background", "#009999","text-align","center");
     
 
@@ -403,9 +425,10 @@ function ze(){
   </script>
   
 <script>
-        function doAjaxPost1() {
+        function doAjaxPost1(val) {
     	   // get the form values
-    	    $('#investigation').val("");
+    	   // $('#investigation').val("");
+    	   
     	  var counter = 1;
     	 
     	          var pid = $('#pid2').val();
@@ -470,10 +493,28 @@ function ze(){
   	            	   unsaved = false;
       	           });
        	          */
-      	               
+    	            	 if(response.list19.length == 0){
+    	    	           	   alert("No records found for this "+ fileno)
+    	    	       	    	
+    	    	            	}  
        	       $.each(response.list19, function(index, addn) {
   	            	
-       	    	   $('#investigation').val(addn.diagnose)
+       	    	   
+       	       if(val.includes('cur')){
+  	            		
+  	            		$("#investigation").val(addn.diagnose);
+  	            	//	var head = document.getElementById("investigation").value;
+  	            	//	$("#investigation").val(head+"\n"+"Last Modified"+'<c:out value="${pageContext.request.userPrincipal.name}" />  '+moment().format("DD-MM-YYYY hh:mm"))
+  	      	           }
+  	            	else{
+  	               $('#prv').val("")
+  	           	   $('#prv').text(addn.diagnose);    	
+  	               var ha = "<span><b>Discharge Summary :</b></span>"
+  	               var db = "<span>"+addn.iop+"<span>"
+  	               $("#prv").append("\n"+ha);
+  	               $("#prv").append(db);
+  	            	}
+       	    
        	    	  unsaved = false;
        	       });
        	        
@@ -498,6 +539,7 @@ function ze(){
        
        
        </script>
+      
        <style>
 #result.ui-dialog-content{
  
@@ -591,7 +633,7 @@ function ze(){
     <td width="155px;">${p1.dname}</td>
      <td width="160px;">${p1.admdate}</td>
     <td width="165px;">${p1.disdate}</td>
-    <td width="145px;"><i class="fa fa-eye" style="color:#00b300" onclick="copy('${p1.pid}=${p1.pname}=${p1.dname}=${p1.docid}=${p1.admdate}=${p1.disdate}=${p1.admitno}=${p1.fileno}=${p1.wardno}=${p1.age}=${p1.gender}=${p1.freeze}')"></i></td>
+    <td width="145px;"><i class="fa fa-eye" style="color:#00b300" onclick="copy('${p1.pid}=${p1.pname}=${p1.dname}=${p1.docid}=${p1.admdate}=${p1.disdate}=${p1.admitno}=${p1.fileno}=${p1.wardno}=${p1.age}=${p1.gender}=${p1.freeze}=${p1.dissum}')"></i></td>
     <td class="hidetd">${p1.investigation}</td>
  </tr>
     </c:forEach>
@@ -624,9 +666,9 @@ function ze(){
  </div>
  </div>
  <div id="myModal" title="Discharge Summary">
- 
+ <div class="col-md-9" style="">
        <form id="formd" action="/HMS/saved.html" method="post"></form>
-  
+ 
       <div class="form-group row" >
         <div class="col-xs-1"></div>
        <div class="col-xs-3">
@@ -672,11 +714,7 @@ function ze(){
        <div class="col-xs-3">
    <div class="form-group">
  <p>Patient File No<span>*</span></p>
-   <select class="selectpicker form-control" data-size="6" data-live-search="true" name = "fileid" id ="fileid" onchange="refresh()"  required>
-          <option value="select" selected disabled>Select</option>
-          </select>
-          
-  <input type="hidden" name="fileno" id="fileno1" form="formd" readonly="readonly" class="form-control input-sm"  >
+  <input type="text" name="fileno" id="fileno1" form="formd" readonly="readonly" class="form-control input-sm"  >
   </div>
   </div>   
   
@@ -734,7 +772,7 @@ function ze(){
    <div class="col-xs-1"></div>
     <div class="col-xs-3">
    <div class="form-group">
-    <button  id="opener" style="color:#fff;" class="btn btn-warning button1" onclick="doAjaxPost1()">Fetch Patient Records</button>
+    <button  id="opener" style="color:#fff;" class="btn btn-warning button1" onclick="doAjaxPost1('cur')">Fetch Patient Records</button>
   
    </div>
    </div>
@@ -763,6 +801,7 @@ function ze(){
  
    <div class="col-xs-1"></div>
     <div class="col-xs-8">
+    <p>Summary<span>*</span></p>
 <div class="form-group">
            
             <textarea name="investigation" id="investigation" rows="5" form="formd" required></textarea>
@@ -771,12 +810,26 @@ function ze(){
 
 </div>
   
+</div>
 
-
-  
    
- 
-</div> 
+
+    
+<div class="col-md-3" id="mypanel" style="border-style:ridge;border-width:2px;">
+<div class="col-xs-9" >
+   <p>Previous File No<span>*</span></p>
+   <select class="selectpicker form-control" data-size="6" data-live-search="true" name = "fileid" id ="fileid" onchange="refresh()"  required>
+          <option value="select" selected disabled>Select</option>
+          </select>
+       
+        </div>
+        <br><br>
+    <i class="fa fa-angle-double-down" style="font-size:36px;color:orange;"onclick="doAjaxPost1('prv')"></i>
+  <pre class="col-xs-12"  id="prv" style="height:370px;scroll-Y:auto;margin-top:30px;">
+  
+  
+  </pre> 
+ </div> 
   
  
 
@@ -879,6 +932,7 @@ function ze(){
                 
 </div>
   --> 
+ <b>Last Modified : </b><input type="text" name="dissum" id="dissum" form="formd" style="border:none;"> 
 </div>
  
  <script type="text/javascript">

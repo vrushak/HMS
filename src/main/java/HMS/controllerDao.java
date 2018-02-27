@@ -806,7 +806,7 @@ public List<Billgen> getBill() {
 
 public List<Billgen> getBill2(String pid,String name) {
 	
-	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,GROUP_CONCAT(feetype SEPARATOR '='),GROUP_CONCAT(charges SEPARATOR '='),GROUP_CONCAT(price SEPARATOR '='),subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,GROUP_CONCAT(quantity SEPARATOR '='),GROUP_CONCAT(prch SEPARATOR '=') from billgen where pname = '"+name+"' or pid='"+pid+"' group by invoice",new RowMapper<Billgen>(){  
+	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,GROUP_CONCAT(feetype SEPARATOR '='),GROUP_CONCAT(charges SEPARATOR '='),GROUP_CONCAT(price SEPARATOR '='),subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,GROUP_CONCAT(quantity SEPARATOR '='),GROUP_CONCAT(prch SEPARATOR '='),instype from billgen where pname = '"+name+"' or pid='"+pid+"' group by invoice",new RowMapper<Billgen>(){  
         public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
        
 	       Billgen p = new Billgen();
@@ -840,6 +840,7 @@ public List<Billgen> getBill2(String pid,String name) {
 	       p.setFileno(rs.getString(24));
 	       p.setQuantity(rs.getString(25));
 	       p.setPrch(rs.getString(26));
+	       p.setPs(rs.getString(27));
 		return p;
         }
 	});
@@ -938,15 +939,15 @@ public List<Billgen> getBill3(String fdate,String edate) {
 }
 public int savebill(Billgen s,String fee,String cha,String quant,String price,String prch) {
 	// TODO Auto-generated method stub
-	String sql = "insert into billgen(invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,quantity,fileno,prch) values('"+s.getInvoice()+"','"+s.getInvoicedate()+"','"+s.getPname()+"','"+s.getPid()+"','"+s.getAddress()+"','"+s.getWardno()+"','"+s.getDoctor()+"','"+s.getAdmdate()+"','"+s.getDisdate()+"','"+s.getCashier()+"','"+fee+"','"+cha+"','"+price+"','"+s.getSubtotal()+"','"+s.getTax()+"','"+s.getDiscount()+"','"+s.getTotal()+"','"+s.getAdmitno()+"','"+s.getMid()+"','"+s.getPolicyholder()+"','"+s.getPolicyno()+"','"+s.getInsurancec()+"','"+s.getType()+"','"+quant+"','"+s.getFileno()+"','"+prch+"') on duplicate key update invoiceDate = '"+s.getInvoicedate()+"',address='"+s.getAddress()+"',wardno='"+s.getWardno()+"',doctor='"+s.getDoctor()+"',admdate='"+s.getAdmdate()+"',disdate='"+s.getDisdate()+"',cashier='"+s.getCashier()+"',feetype='"+fee+"',charges='"+cha+"',price='"+price+"',subtotal='"+s.getSubtotal()+"',tax='"+s.getTax()+"',discount='"+s.getDiscount()+"',total='"+s.getTotal()+"',admitno='"+s.getAdmitno()+"',mid='"+s.getMid()+"',policyholder='"+s.getPolicyholder()+"',policyno='"+s.getPolicyno()+"',insurancec='"+s.getInsurancec()+"',type='"+s.getType()+"',quantity='"+quant+"',fileno='"+s.getFileno()+"',prch = '"+prch+"'";
+	String sql = "insert into billgen(invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,quantity,fileno,prch,instype) values('"+s.getInvoice()+"','"+s.getInvoicedate()+"','"+s.getPname()+"','"+s.getPid()+"','"+s.getAddress()+"','"+s.getWardno()+"','"+s.getDoctor()+"','"+s.getAdmdate()+"','"+s.getDisdate()+"','"+s.getCashier()+"','"+fee+"','"+cha+"','"+price+"','"+s.getSubtotal()+"','"+s.getTax()+"','"+s.getDiscount()+"','"+s.getTotal()+"','"+s.getAdmitno()+"','"+s.getMid()+"','"+s.getPolicyholder()+"','"+s.getPolicyno()+"','"+s.getInsurancec()+"','"+s.getType()+"','"+quant+"','"+s.getFileno()+"','"+prch+"','"+s.getPs()+"') on duplicate key update invoiceDate = '"+s.getInvoicedate()+"',address='"+s.getAddress()+"',wardno='"+s.getWardno()+"',doctor='"+s.getDoctor()+"',admdate='"+s.getAdmdate()+"',disdate='"+s.getDisdate()+"',cashier='"+s.getCashier()+"',feetype='"+fee+"',charges='"+cha+"',price='"+price+"',subtotal='"+s.getSubtotal()+"',tax='"+s.getTax()+"',discount='"+s.getDiscount()+"',total='"+s.getTotal()+"',admitno='"+s.getAdmitno()+"',mid='"+s.getMid()+"',policyholder='"+s.getPolicyholder()+"',policyno='"+s.getPolicyno()+"',insurancec='"+s.getInsurancec()+"',type='"+s.getType()+"',quantity='"+quant+"',fileno='"+s.getFileno()+"',prch = '"+prch+"',instype='"+s.getPs()+"'";
 	return template.update(sql);
 }
 
 public int saved(Discharge s) {
 	// TODO Auto-generated method stub
 	
-	String sql = "insert into discharge(pid,pname,dname,docid,admdate,disdate,investigation,fileno,admitno,freeze) values(?,?,?,?,?,?,?,?,?,?) on duplicate key update disdate =values(disdate),investigation=values(investigation),freeze=values(freeze)";
-	  return template.update(sql, new Object[] {s.getPid(),s.getPname(),s.getDname(),s.getDocid(),s.getAdmdate(),s.getDisdate(),s.getInvestigation(),s.getFileno(),s.getAdmitno(),s.getFreeze()}); 
+	String sql = "insert into discharge(pid,pname,dname,docid,admdate,disdate,investigation,fileno,admitno,freeze,dissum) values(?,?,?,?,?,?,?,?,?,?,?) on duplicate key update disdate =values(disdate),investigation=values(investigation),freeze=values(freeze),dissum=values(dissum)";
+	  return template.update(sql, new Object[] {s.getPid(),s.getPname(),s.getDname(),s.getDocid(),s.getAdmdate(),s.getDisdate(),s.getInvestigation(),s.getFileno(),s.getAdmitno(),s.getFreeze(),s.getDissum()}); 
 }
 
 public List<Discharge> getDischarge() {

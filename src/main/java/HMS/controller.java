@@ -485,7 +485,7 @@ public class controller {
 			 return jsonFormatData;
 	}
   @RequestMapping(value="/billhistory", method = RequestMethod.GET)
-  public ModelAndView billhistory(@ModelAttribute("p") Billgen p) {
+  public ModelAndView billhistory(@ModelAttribute("p") Billgen p,HttpServletRequest req,HttpServletResponse res) {
 	
 	  List<Billconfig> list1= dao.getBillconfig();
 	 
@@ -493,11 +493,13 @@ public class controller {
 	  List<Billgen> list3= dao.getBill1();
 	
 	  List<Billgen> list4= dao.getBill2(p.getPid(),p.getPname());
-	 
+	   
+
   Map<String,Object> model = new HashMap<String, Object>();
   model.put("list1", list1);
   model.put("list2", list2);
   model.put("list3", list3);
+  
   if(list4.isEmpty()){
 	  model.put("note", "No previous bills generated for the selected patient");
 	  return new ModelAndView("billgen","model",model);

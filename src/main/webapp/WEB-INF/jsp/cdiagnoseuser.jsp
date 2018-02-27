@@ -836,7 +836,7 @@ function loadtabvalues(){
 	  
 	  //$('<li><a href="" id="lb" class="lb" target="_blank" onclick = "return copyval1(this.id);">Lab</a></li>').appendTo('#pills');
 	 $('<li><a href="#pd1" id="pd" class="pd" data-toggle="tab" onclick="minimize(this.id)">Provisional Diagnosis</a></li>').appendTo('#pills');
-	 $('<li><a href="#fileupload1" id="fileupload" data-toggle="tab" class="uploadform" onclick = "minimize(this.id)">UPLOAD FILE</a></li>').appendTo('#pills')
+	 $('<li><a href="#fileupload1" id="fileupload" data-toggle="tab" class="uploadform" onclick = "minimize(this.id)">Upload File</a></li>').appendTo('#pills')
 	 $('<li><a href="#pres1" id="pres" class="pres" data-toggle="tab" onclick="minimize(this.id)">Prescription</a></li>').appendTo('#pills');
      }
 	    
@@ -2016,7 +2016,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
         </div>
         <div class="form-group row">
         <div class="col-xs-1"></div> 
-        <p><b>Documents Uploaded</b></p>
+        <p><b>Files Uploaded</b></p>
         <div class="col-xs-1"></div>
         
         <div class="col-xs-6" id="rf" style="height : 100px;border:1px solid;overflow-scroll">

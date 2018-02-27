@@ -795,7 +795,7 @@ function loadtabvalues(){
 	  
 	  //$('<li><a href="" id="lb" class="lb" target="_blank" onclick = "return copyval1(this.id);">Lab</a></li>').appendTo('#pills');
 	  $('<li><a href="#pd1" id="pd" class="pd" data-toggle="tab" onclick="minimize(this.id)">Provisional Diagnosis</a></li>').appendTo('#pills');
-	  $('<li><a href="#fileupload1" id="fileupload" data-toggle="tab" class="uploadform" onclick = "minimize(this.id)">UPLOAD FILE</a></li>').appendTo('#pills')
+	  $('<li><a href="#fileupload1" id="fileupload" data-toggle="tab" class="uploadform" onclick = "minimize(this.id)">Upload File</a></li>').appendTo('#pills')
 	  
 	  $('<li><a href="#pres1" id="pres" class="pres" data-toggle="tab" onclick="minimize(this.id)">Prescription</a></li>').appendTo('#pills');
      }
@@ -1261,7 +1261,7 @@ var cu;
     		else{
     			
     	        change()
-    			$('#close').hide();
+    			//$('#close').hide();
     		}
     	}
    
@@ -1502,6 +1502,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
  
 	     var url = "/HMS/downform?location="+datec.testname+"&location1="+datec.iop+"";
 	     var text = ""+datec.iop+"";
+	     $('#rf').append('\n')
 	      $('#rf').append('<a href="' + url + '" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+datec.testname+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i>'); 
 	      
 	      
@@ -1652,7 +1653,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
  <div id ="form2">
     <h1><button id ="bouton-contact" form="formc" class="btn btn-warning btn-sm button1" class="form-control input-sm" >Save</button>
   <font size="5" id="cd"> Clinical Diagnosis </font>
-      <button type="button" id="close" class="btn btn-warning button2" onclick="clos()">Close</button>    
+      <button type="button" id="close" class="btn btn-warning button2" onclick="window.location.href = '/HMS/diagnose';">Refresh</button>    
   </h1>
 <br>
  <form id = "formc" action="/HMS/savediag.html" method = "post"></form>
@@ -1955,7 +1956,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
         </div>
         <div class="form-group row">
         <div class="col-xs-1"></div> 
-        <p><b>Documents Uploaded</b></p>
+        <p><b>Files Uploaded</b></p>
         <div class="col-xs-1"></div>
         
         <div class="col-xs-6" id="rf" style="height : 100px;border:1px solid;overflow-scroll">
@@ -2031,7 +2032,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
     <div class="col-xs-4">
     <p id="tx" style="margin-top:-10px;"><b id='dd'>Diagnosis Details</b></p>
     <textarea name='diagnose' id='text1' required rows='18' cols='78' form="formc" ></textarea>
-    <textarea name='pir' id='pir' required rows='18' cols='78' form="formc" ></textarea>
+    <textarea name='pir' id='pir'  rows='18' cols='78' form="formc" ></textarea>
     </div>
     
     
