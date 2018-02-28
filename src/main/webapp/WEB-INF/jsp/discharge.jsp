@@ -196,7 +196,7 @@ function ze(){
 	 }
 	$.confirm({
 	    title: 'Freeze Discharge Summary',
-	    content: 'Freeze Discharge Summary editing for current patient?'+"\n"+'Click CONFIRM to Disable,Click CANCEL to continue editing',
+	    content: 'Freeze Discharge Summary editing for current patient?<br>Click CONFIRM to Disable<br>Click CANCEL to continue editing',
 	    buttons: {
 	        confirm: function () {
 	            $("#freeze").val("yes")

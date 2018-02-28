@@ -725,7 +725,7 @@ function loadval(div){
 function checkempty(value,tval){
     flag = value;
     flagval = $(tval).text();
-    
+  
   // console.log($(tval).attr("href"))
    minimize($(tval).attr("class"))
     if ($('#tab'+value).find(".main").is(':empty')){
@@ -753,12 +753,13 @@ var tabname = $('.'+id).text();
   else{
 	  $(".tab-pane").width(450)	
 	  $('#dd').show();
+	  $('#prv').show();
 	  if(tabname.toLowerCase() != "lab"){
 		  $('#dd').show();
 		  $('#dd').text("Diagnosis Details")
 		  $('#text1').show();
 		  $('#pir').hide()
-		  $('#prv').show();
+	
 		 
 	  }
 	  else{
@@ -964,8 +965,8 @@ function loadval(div,min){
     			  createbr("\n") 
     			  createbr("\n") 
     		  }
-    				   
-    		  createbr(flagval)	
+    	    			   
+    		  createbr($.trim(flagval))	
     		
     		  createbr(">")
     		          for(i in obj[retobj]){
@@ -1352,7 +1353,12 @@ var cu;
        
        </script>
        <script type="text/javascript">
+       function uplconf(){
+    	   
        
+       
+       }
+
        function getData(fileno,pid){
     
     		  var uri = "/HMS/prescription1/"+fileno+"/"+pid+"";
@@ -1503,7 +1509,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
 	     var url = "/HMS/downform?location="+datec.testname+"&location1="+datec.iop+"";
 	     var text = ""+datec.iop+"";
 	     $('#rf').append('\n')
-	      $('#rf').append('<a href="' + url + '" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+datec.testname+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i>'); 
+	      $('#rf').append('<a href="' + url + '" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+datec.testname+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
 	      
 	      
 	          });    
@@ -1534,7 +1540,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
      {
 		  
      $(value).prev('a').andSelf().remove();
- 	  alert("Record deleted Successfully")
+ 	  alert("File deleted Successfully")
      }
  	  unsaved = false;
      };
@@ -1559,16 +1565,25 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
        function doAjaxPosts3(form) {
     	   // get the form values
     	 
-    	   c = $("#vpid2").val();
-    		
- 		  b = $("#pname").val();
+    	   if($('#upfile').val().length == 0){
+    		   alert("Please choose file to upload")
+        	   return false;
+           }
+           
+    	  
+    
  		 
- 	 
+ 		if($("#check").prop("checked") == true){
+ 			  b = $("#vpid").val();
+ 			  
+ 		  }else{
+ 			  b = $("#pname").val();
+ 			 
+ 		  }
 
- 	if(b == "select" ||c == "select"){
+ 	if(b.includes("select")){
  		alert("Please select Patient Name")
  		return false;
- 	
  	}
     	         //  var name = $('#pname').val();
     	   $("#date1").val(moment().format("DD-MM-YYYY"))
@@ -1592,6 +1607,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
     			           success: function(response){
     			        	  
     			        	  alert("File Uploaded Successfully!")
+    			        	  $('#upfile').val('');
     			        	  retrievefi($("#fileno").val())
 	        	           },
     			           error: function(e){
@@ -1611,6 +1627,27 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
     	   $('#'+form).attr("action","/HMS/savefile?location1="+$("#ppid").val()+"&location2="+$("#fileno").val()+"&location3="+$("#date1").val()+"&location4="+$("#samplecol").val()+"&location5="+$("#pir").val()+"&location6="+$('#docid').val()+"&location7="+$('#iop').val()+""); 
      	   $("#"+form).submit() 
        }
+       function validsave(){
+      	var a = $("#vpid").val();
+     	var	b = $("#pname").val();
+     	var	c = $("#vpid2").val();
+     	var	d = $("#ppid").val();
+    	 
+
+    	if(b == "select" || c == "select"){
+    		alert("Please select Patient Name")
+    		return false;
+    	
+    	}
+    	
+    	else if(c == "select" || d == "select"){
+    		alert("Please select Patient Id")
+    		return false;
+    	}
+    	else{
+    		return true;
+    	}
+      }
   var filerd;     
        function getBase64(file) {
     	   var reader = new FileReader();
@@ -1642,7 +1679,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
         <a class="dropdown-toggle" data-toggle="dropdown">Charts
         <span class="caret"></span></a>
       <ul class="dropdown-menu">
-        <li><a  href="/HMS/iochart">Io Chart</a></li>
+        <li><a  href="/HMS/iochart">IO Chart</a></li>
         <li><a  href="/HMS/hourchart">Hour Chart</a></li>
         <li><a  href="/HMS/drugchart">Drug Chart</a></li>
       </ul></li>
@@ -1651,7 +1688,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
   </div>
 </nav>
  <div id ="form2">
-    <h1><button id ="bouton-contact" form="formc" class="btn btn-warning btn-sm button1" class="form-control input-sm" >Save</button>
+    <h1><button id ="bouton-contact" form="formc" class="btn btn-warning btn-sm button1" onclick="return validsave();" class="form-control input-sm" >Save</button>
   <font size="5" id="cd"> Clinical Diagnosis </font>
       <button type="button" id="close" class="btn btn-warning button2" onclick="window.location.href = '/HMS/diagnose';">Refresh</button>    
   </h1>
@@ -1687,7 +1724,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
        <div class="form-group" id="fg">
       
        <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="pname" onchange="addcname(this.options[this.selectedIndex])">
-          <option value="select" selected disabled >Select</option>
+          <option value="select"  selected  >Select</option>
         <c:forEach var="p"  items="${model.list1}">
         <option value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pid}==${p.pname}==${p.fileno}==${p.docid}">${p.pname}</option>
         </c:forEach>
@@ -1695,7 +1732,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
       </div>
       <div class="form-group" id="fg1">
        <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="vpid" onchange='addcname1(this.options[this.selectedIndex])'>
-          <option value="select" selected disabled >Select</option>
+          <option value="select"  selected >Select</option>
         <c:forEach var="p"  items="${model.list3}">
       
        <option value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}" dv="${fn:escapeXml(p.diagnose)}" >${p.pname}</option>
@@ -1716,7 +1753,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
       <div class="col-xs-5">
        <div class="form-group" id="id1">
       <select class="selectpicker form-control btn btn" data-width="100%" data-size="5" form="formc" data-live-search="true"  name = "ppid" id ="ppid" onchange="addcid(this.options[this.selectedIndex])" >
-      <option value="select" disabled selected>Select</option>
+      <option value="select" selected>Select</option>
         <c:forEach var="p"  items="${model.list1}">
         <option value = "${p.pid}" data-subtext="${p.fileno}" data-value="${p.pid}==${p.pname}==${p.fileno}==${p.docid}">${p.pid}</option>
         </c:forEach>
@@ -1725,7 +1762,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
       
         <div class="form-group" id="id2">
         <select class="selectpicker form-control btn btn" data-width="100%" data-size="5" form="formc" data-live-search="true" id ="vpid2" >
-      <option value="select" disabled selected>Select</option>
+      <option value="select" selected>Select</option>
       <c:forEach var="p"  items="${model.list3}">
      
         <option value ="${p.ppid}" data-subtext="${p.fileno}" data-value='${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}' dv="${fn:escapeXml(p.diagnose)}">${p.ppid}</option>

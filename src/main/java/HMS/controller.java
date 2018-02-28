@@ -277,6 +277,9 @@ public class controller {
 				@RequestMapping(value="/saveApp", method = RequestMethod.POST)
 				public ModelAndView  saveAppointment(@ModelAttribute("s") Appointment s,HttpServletRequest request,HttpServletResponse response) throws KeyManagementException, NoSuchAlgorithmException, IOException {
 				 String chk = request.getParameter("pat");
+				
+				 Date date = new Date();
+				 String modifiedDate= new SimpleDateFormat("yyyy-MM-dd").format(date);
 				if(chk == null){
 					chk = "off";
 				}
@@ -287,6 +290,7 @@ public class controller {
 						p.setMobile(s.getPhno());
 						p.setMname(" ");
 						p.setLname(" ");
+						p.setRegdate(modifiedDate);
 						pdao.savePatient(p);
 						} 
 					int app = 0;

@@ -765,11 +765,12 @@ var tabname = $('.'+id).text();
   else{
 	  $(".tab-pane").width(450)	
 	  $('#dd').show();
+	  $('#prv').show();
 	  if(tabname.toLowerCase() != "lab"){
 		
 		
 		  $('#tresult').hide()
-		  $('#prv').show();
+		
 		
 	  }
 	  else{
@@ -977,7 +978,7 @@ function loadval(div,min){
     				   
     	//	  createbr(flagval)	
     		
-    		  createbr(">")
+    		 // createbr(">")
     		          for(i in obj[retobj]){
     		           for(var key in obj[retobj][i]) {
     		        	 
@@ -1212,7 +1213,7 @@ function refresh(){
  
 	     var url = "/HMS/downform?location="+datec.testname+"&location1="+datec.iop+"";
 	     var text = ""+datec.iop+"";
-	      $('#rf').append('<a href="' + url + '" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+datec.testname+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i>'); 
+	      $('#rf').append('<a href="' + url + '" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+datec.testname+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
 	      
 	      
 	          });    
@@ -1243,7 +1244,7 @@ function refresh(){
      {
 		  
      $(value).prev('a').andSelf().remove();
- 	  alert("Record deleted Successfully")
+ 	  alert("File deleted Successfully")
      }
  	  unsaved = false;
      };
@@ -1265,20 +1266,51 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
   
     	             
       <script type="text/javascript">
+      
+      function validsave(){
+     	 a = $("#vpid").val();
+    		 b = $("#pname").val();
+    		 c = $("#vpid2").val();
+    		 d = $("#ppid").val();
+   	 
+
+   	if(b == "select" || c == "select"){
+   		alert("Please select Patient Name")
+   		return false;
+   	
+   	}
+   	
+   	else if(c == "select" || d == "select"){
+   		alert("Please select Patient Id")
+   		return false;
+   	}
+   	else{
+   		return true;
+   	}
+     }
+      
+      
        function doAjaxPosts3(form) {
     	   // get the form values
-    	 
-    	   c = $("#vpid2").val();
-    		
- 		  b = $("#pname").val();
- 		 
- 	 
+    	   if($('#upfile').val().length == 0){
+        	   alert("Please choose file to upload")
+        	   return false;
+           }
+    	   
+   		 
+    		if($("#check").prop("checked") == true){
+    			  b = $("#vpid").val();
+    			  
+    		  }else{
+    			  b = $("#pname").val();
+    			 
+    		  }
 
- 	if(b == "sel" || c == "sel"){
- 		alert("Please select Patient Name")
- 		return false;
- 	
- 	}
+    	if(b.includes("select")){
+    		alert("Please select Patient Name")
+    		return false;
+    	}
+       	  
     	         //  var name = $('#pname').val();
     	   $("#date1").val(moment().format("DD-MM-YYYY"))
     	   $("#samplecol").val(moment().format("DD-MM-YYYY hh:mm:ss"))
@@ -1300,6 +1332,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
     			           success: function(response){
     			        	  
     			        	  alert("File Uploaded Successfully!")
+    			        	  $('#upfile').val('');
     			        	  retrievefi($("#fileno").val())
 	        	           },
     			           error: function(e){
@@ -1348,9 +1381,9 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
   </div>
 </nav>
  <div id ="form2">
-    <h1><button id ="bouton-contact" form="formc" class="btn btn-warning btn-sm button1" class="form-control input-sm" >Save</button>
+    <h1><button id ="bouton-contact" form="formc" class="btn btn-warning btn-sm button1" class="form-control input-sm" onclick="return validsave();">Save</button>
   <font size="5" id="cd"> Lab Tests </font>
-     <button type="button" id="close" class="btn btn-warning button2" onclick="window.location.href = '/HMS/labup';">Close</button>
+     <button type="button" id="close" class="btn btn-warning button2" onclick="window.location.href = '/HMS/labup';">Refresh</button>
   </h1>
 <br>
  <form id = "formc" action="/HMS/labssave.html" method = "post"></form>
@@ -1383,7 +1416,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
        <div class="form-group" id="fg">
       
        <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="pname" onchange="addcname(this.options[this.selectedIndex])">
-          <option value="select" selected disabled >Select</option>
+          <option value="select" selected  >Select</option>
         <c:forEach var="p"  items="${model.list1}">
         <option value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pid}==${p.pname}==${p.fileno}==${p.docid}">${p.pname}</option>
         </c:forEach>
@@ -1391,7 +1424,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
       </div>
       <div class="form-group" id="fg1">
        <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="vpid" onchange='addcname1(this.options[this.selectedIndex])'>
-          <option value="select" selected disabled >Select</option>
+          <option value="select" selected >Select</option>
         <c:forEach var="p"  items="${model.list3}">
       
        <option value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pid}==${p.pname}==${p.fileno}==${p.docid}==${p.date1}==${p.iop}==${p.samplecol}" dv="${fn:escapeXml(p.tresult)}" >${p.pname}</option>

@@ -480,7 +480,7 @@ public int returnStks(Transaction s) {
 // appointments history
 public List<Appointment> getAppointment() {
 	// TODO Auto-generated method stub
-	return template.query("select ap.pid,concat(p.fname,' ',p.mname,' ',p.lname)patient,ap.docid,CONCAT(d.fname,' ',d.mname,' ',d.lname) doctor,ap.appointment,ap.time,CONCAT(ap.appointment,' ',ap.time),ap.fileno,ap.active,p.mobile from appointment ap join patient p on p.pid = ap.pid join doctor d on d.docID = ap.docid order by appointment desc,time",new RowMapper<Appointment>(){  
+	return template.query("select ap.pid,concat(p.fname,' ',p.mname,' ',p.lname)patient,ap.docid,CONCAT(d.fname,' ',d.mname,' ',d.lname) doctor,ap.appointment,ap.time,CONCAT(ap.appointment,' ',ap.time),ap.fileno,ap.active,p.mobile,ap.diagactive from appointment ap join patient p on p.pid = ap.pid join doctor d on d.docID = ap.docid order by appointment desc,time",new RowMapper<Appointment>(){  
         public Appointment mapRow(ResultSet rs, int row) throws SQLException {   
 	       Appointment p = new Appointment();
 	     
@@ -494,7 +494,8 @@ public List<Appointment> getAppointment() {
 	       p.setFileno(rs.getString(8));
 	       p.setActive(rs.getString(9));
 	       p.setPhno(rs.getString(10));
-	  
+	      
+	       p.setSms(rs.getString(11));
 	   return p;
         }
 	});
@@ -502,7 +503,8 @@ public List<Appointment> getAppointment() {
 
 
 public int saveApp(Appointment p) {
-	String sql = "insert into appointment(pid,pname,docid,appointment,time,active,fileno) values('"+p.getPid()+"','"+p.getPname()+"','"+p.getDocid()+"','"+p.getAppointment()+"','"+p.getTime()+"','on','"+p.getFileno()+"') on duplicate key update pname='"+p.getPname()+"',docid='"+p.getDocid()+"',appointment='"+p.getAppointment()+"',time='"+p.getTime()+"',active = 'on',fileno='"+p.getFileno()+"'";
+	
+	String sql = "insert into appointment(pid,pname,docid,appointment,time,active,fileno,diagactive) values('"+p.getPid()+"','"+p.getPname()+"','"+p.getDocid()+"','"+p.getAppointment()+"','"+p.getTime()+"','on','"+p.getFileno()+"','"+p.getSms()+"') on duplicate key update pname='"+p.getPname()+"',docid='"+p.getDocid()+"',appointment='"+p.getAppointment()+"',time='"+p.getTime()+"',active = 'on',fileno='"+p.getFileno()+"',diagactive='"+p.getSms()+"'";
 	return template.update(sql);
 	
 }

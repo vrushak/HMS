@@ -500,7 +500,11 @@ $(".open1").click(function() {
     	        	                   
     	        	                   if(datec.username > 0){
     	        	                	   alert("Username already exists!")
-    	        	                	   
+    	        	                	   $("#open2a").prop('disabled',true)
+    	        	                	   return false;
+    	        	                   }
+    	        	                   else{
+    	        	                	   $("#open2a").prop('disabled',false)
     	        	                   }
     	        	               });    
     	        	           },
@@ -854,7 +858,7 @@ $(".open1").click(function() {
    <div class="form-group">
     
             <p>UserName <span>*</span></p>
-         	<input type="text" name="username" id="username" class="form-control input-sm" oninput="doAjaxPost1(this.value)" required  />
+         	<input type="text" name="username" id="username" class="form-control input-sm" onfocusout="return doAjaxPost1(this.value)"  required  />
 	
 	</div>
  

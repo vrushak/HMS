@@ -515,7 +515,7 @@ function addcheck(div,tab){
     var level = Number(div) + 1;
   if(s.length == 0){
 	var head1 =  prompt("Please enter the header name:");
-	var head = $.trim(head1)
+	var head = $.trim(head1).replace(/\s+/g, " ");
 	if (head == null || head == " " || head.length == "0") {
 	      return false;
   	    } 
@@ -548,7 +548,7 @@ function addcheck(div,tab){
 	  
 
 	var person1 = prompt("Please enter the Field name:");
-	var person = $.trim(person1)
+	var person = $.trim(person1).replace(/\s+/g, " ");
 	if (person == null || person == " " || person.length == "0") {
 	       
   		return false;
@@ -608,7 +608,7 @@ function updheader(div,tab){
 	
 	var hid =  $("#tab"+tab).find(".main").find('.divin').eq(div).find(".header").attr("id");
 	var head1 =  prompt("Please enter the header name:");
-	 var head = $.trim(head1)
+	 var head = $.trim(head1).replace(/\s+/g, " ");
 	if (head == null || head == " " || head.length == "0") {
 	      return false;
   	    } 
@@ -638,7 +638,7 @@ function updheader(div,tab){
 
 function createTabs(){
 	var person1 = prompt("Please enter the Tab Name:");
-    var person = $.trim(person1)
+    var person = $.trim(person1).replace(/\s+/g, " ");
   
 	if (person == null || person == " " || person.length == "0") {
 	       
@@ -715,6 +715,7 @@ function creatediv(main){
 	
 var	divid =  $('#tab'+main).find(".main").find(".divin" ).length;
 var	divid1 = $('#tab'+main).find(".main").find(".divot" ).length;
+
 if(flagval.includes("Dental Observations")){
 	$select1 = $('<select/>', {
 	    'class':"selectpicker form-control input-sm select1",
@@ -792,12 +793,13 @@ function minimize(id){
 	  else{
 		  $(".tab-pane").width(450)	
 		  $('#dd').show();
+		  $('#prv').show();
 		  if(tabname.toLowerCase() != "lab"){
 			
 			  $('#dd').text("Diagnosis Details")
 			  $('#text1').show();
 			  $('#pir').hide()
-			  $('#prv').show();
+		
 			 
 		  }
 		  else{
@@ -1025,6 +1027,7 @@ if(flagval.includes("Dental Observation")){
     			 createbr(">")
     			createbr(">")
     			createbr(">")
+    			
     			createbr(teethv)
     			
     		}
@@ -1044,6 +1047,9 @@ if(flagval.includes("Dental Observation")){
     		          }
     		     }
     	else{
+    		
+    		createbr("\n") 
+			  createbr("\n") 
     		createbr(teethv)
     	}
     	      
@@ -1571,7 +1577,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
     
    	     var url = "/HMS/downform?location="+datec.testname+"&location1="+datec.iop+"";
    	     var text = ""+datec.iop+"";
-   	      $('#rf').append('<a href="' + url + '" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+datec.testname+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i>'); 
+   	      $('#rf').append('<a href="' + url + '" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+datec.testname+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
    	      
    	      
    	          });    
@@ -1602,7 +1608,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
         {
    		  
         $(value).prev('a').andSelf().remove();
-    	  alert("Record deleted Successfully")
+    	  alert("File deleted Successfully")
         }
     	  unsaved = false;
         };
@@ -1624,18 +1630,26 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
          <script type="text/javascript">
        function doAjaxPosts3(form) {
     	   // get the form values
-    	 
-    	   c = $("#vpid").val();
-    		
- 		  b = $("#pname").val();
- 		
- 	 
+    	   if($('#upfile').val().length == 0){
+    		   alert("Please choose file to upload")
+        	   return false;
+           }
+    	   
+    	   
+   		 
+    		if($("#check").prop("checked") == true){
+    			  b = $("#vpid").val();
+    			  
+    		  }else{
+    			  b = $("#pname").val();
+    			 
+    		  }
 
- 	if(b == "select" || c == "select"){
- 		alert("Please select Patient Name")
- 		return false;
- 	
- 	}
+    	if(b.includes("select")){
+    		alert("Please select Patient Name")
+    		return false;
+    	}
+       	  
     	         //  var name = $('#pname').val();
     	   $("#date1").val(moment().format("DD-MM-YYYY"))
     	   $("#samplecol").val(moment().format("DD-MM-YYYY hh:mm:ss"))
@@ -1657,6 +1671,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
     			           success: function(response){
     			        	  
     			        	  alert("File Uploaded Successfully!")
+    			        	  $('#upfile').val('');
     			        	  retrievefi($("#fileno").val())
 	        	           },
     			           error: function(e){
@@ -1682,7 +1697,28 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
     	     console.log('Error: ', error);
     	   };
     	}
-    
+    function validsave(){
+    	 a = $("#vpid").val();
+   		 b = $("#pname").val();
+   		 c = $("#vpid2").val();
+   		 d = $("#ppid").val();
+  	 
+
+  	if(b == "select" || c == "select"){
+  		alert("Please select Patient Name")
+  		return false;
+  	
+  	}
+  	
+  	else if(c == "select" || d == "select"){
+  		alert("Please select Patient Id")
+  		return false;
+  	}
+  	else{
+  		return true;
+  	}
+    }
+       
        </script>
        
        <script>
@@ -1707,12 +1743,15 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
       <a class="navbar-brand" >Dental Diagnosis</a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active" id="act"><a id="ho" href="">Home</a></li>
+    <li><a id="ho" href="">Home</a></li>
+      <li class=""><a  href="/HMS/myapps">My Appointments</a></li>  
+      <li class=""><a id="m2" href="/HMS/treatment">Treatment Records</a></li>  
+      <li class=""><a  href="/HMS/discharge">Discharge Summary</a></li>
     </ul>
   </div>
 </nav>
  <div id ="form2">
-    <h1><button id ="bouton-contact" form="formc" class="btn btn-warning btn-sm button1" class="form-control input-sm" >Save</button>
+    <h1><button id ="bouton-contact" form="formc" class="btn btn-warning btn-sm button1" class="form-control input-sm" onclick="return validsave();">Save</button>
   <font size="5" id="cd"> Dental Diagnosis </font>
       <button type="button" id="close" class="btn btn-warning button2" onclick="clos()">Close</button>    
   </h1>
@@ -1777,7 +1816,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
       <div class="col-xs-5">
        <div class="form-group" id="id1">
       <select class="selectpicker form-control btn btn" data-width="100%" data-size="5" form="formc" data-live-search="true"  name = "ppid" id ="ppid" onchange="return addcid(this.options[this.selectedIndex])" >
-      <option value="select" disabled selected>Select</option>
+      <option value="select"  selected>Select</option>
         <c:forEach var="p"  items="${model.list1}">
         <option value = "${p.pid}" data-subtext="${p.fileno}" data-value="${p.pid}==${p.pname}==${p.fileno}==${p.docid}">${p.pid}</option>
         </c:forEach>
@@ -1786,7 +1825,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
       
         <div class="form-group" id="id2">
         <select class="selectpicker form-control btn btn" data-width="100%" data-size="5" form="formc" data-live-search="true" id ="vpid2" >
-      <option value="select" disabled selected>Select</option>
+      <option value="select"  selected>Select</option>
       <c:forEach var="p"  items="${model.list3}">
      
         <option value ="${p.ppid}" data-subtext="${p.fileno}" data-value='${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}' dv="${fn:escapeXml(p.diagnose)}">${p.ppid}</option>

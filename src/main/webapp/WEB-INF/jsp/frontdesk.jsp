@@ -481,7 +481,7 @@ function myconfirm()
   
    <div class="col-xs-4">
     <div class="form-group">
-            <p>Mobile Phone <span>*</span></p>
+            <p>Mobile <span>*</span></p>
          	<input type="text" name="mobile" id="mobile" class="form-control input-sm" required>
 </div>
     </div>

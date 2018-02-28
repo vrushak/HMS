@@ -30,7 +30,11 @@
 <script type="text/javascript">
 
 
-    $("#datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
+    $("#datetime").datetimepicker({
+    	format: 'yyyy-mm-dd hh:ii'
+    	
+    });
+    
 </script>      
 <style type="text/css">
 .btn-block{
@@ -137,7 +141,8 @@ function myFunction() {
 	  tr = table.getElementsByTagName("tr");
 	 
 	  for (i = 0; i < tr.length; i++) {
-	    td = tr[i].getElementsByTagName("td")[1].getElementsByTagName('textarea')[0];
+	    td = tr[i].getElementsByTagName("td")[1];
+
 	    if (td) {
 	    	 if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
 	        tr[i].style.display = "";
@@ -208,7 +213,7 @@ function onlyAlphabets(e, t) {
     		  
     		 
     		  newCell = rowsAdd.insertCell();
-    		  newCell.innerHTML="<tr><td width ='';><input form ='forma' class= 'form-control input-sm' readonly='readonly'  type='text' onkeypress='return onlyAlphabets(event,this);' id = 'dname' name= 'dname' value='"+dnamed[x]+"' required  ></td></tr>";
+    		  newCell.innerHTML="<tr><td width ='';><input form ='forma' class= 'form-control input-sm' readonly='readonly'  type='hidden' onkeypress='return onlyAlphabets(event,this);' id = 'dname' name= 'dname' value='"+dnamed[x]+"' required  >"+dnamed[x]+"</td></tr>";
     		  newCell.style.width ='200px';
     		  
     		  newCell = rowsAdd.insertCell();

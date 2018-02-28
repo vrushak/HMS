@@ -158,7 +158,9 @@ function datasuccess(data){
     
 	   document.getElementById("lname").value = strSplit[2];
 	  
-	   document.getElementById("regdate").value =strSplit[3];
+	  document.getElementById("regdate").value = strSplit[3];
+	  
+
 	   document.getElementById("pofvisit").value = strSplit[4];
 	   document.getElementById("dob").value = strSplit[5];
 	   document.getElementById("age").value = strSplit[6];
@@ -1009,6 +1011,14 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
          	<input type="date" readonly max="2999-12-31"name="regdate" id="regdate" class="form-control input-sm" required>
 	</div>
   </div>
+  
+   <div class="col-xs-3">
+  <div class="form-group">
+            <p>Reason for visit<span></span></p>
+   <input type="text"  name="pofvisit" id="pofvisit" class="form-control input-sm"   >
+    
+</div>
+  </div>
  
  </div>
     <div class="form-group">
@@ -1783,13 +1793,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
   
    <div class="form-group row" >
         <div class="col-xs-1"></div>
-  <div class="col-xs-5">
-  <div class="form-group">
-            <p>Reason for visit<span></span></p>
-   <input type="text"  name="pofvisit" id="pofvisit" class="form-control input-sm"   >
-    
-</div>
-  </div>
+ 
   
   <div class="col-xs-5">
    <div class="form-group">
