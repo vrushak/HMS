@@ -307,6 +307,7 @@ public class controller {
 							else{
                                 mav.setViewName("redirect:cappointment");
 					        }
+							System.out.println("SMS "+s.getSms());
 		if(s.getSms() == null){
 			s.setSms("null");
 		}
@@ -337,8 +338,7 @@ public class controller {
 									    mav.setViewName("redirect:cappointment");
 										}
 								}
-					 RedirectView redirectView = new RedirectView();
-				     redirectView.setUrl("/HMS/cappointment.html");
+				System.out.println("SMS "+s.getSms());
 			        return mav; 
 					}
 				@RequestMapping(value="/cancelapp/{path}", method = RequestMethod.GET)
@@ -1764,10 +1764,11 @@ public class controller {
 											 
 												 List<Prescription> list1= ddao.getDocID3(principal.getName(),b);
 												 List<Lab> list3= dao.getLabupload();
-										    	
+												 List<Prescription> list1a= ddao.getDocID2(principal.getName(),b);
+													
 												 Map<String, Object> model = new HashMap<String, Object>();
 											        model.put("list1",list1);
-											       
+											        model.put("list1a",list1a);
 											        model.put("list3",list3);
 												return new ModelAndView("lab","model",model); 
 												}			
@@ -1810,6 +1811,7 @@ public class controller {
 											        model.put("list4",list4);
 											        model.put("list2",list2);
 											        model.put("list3",list3);
+											        
 												return new ModelAndView("labprint","model",model); 
 													
 											

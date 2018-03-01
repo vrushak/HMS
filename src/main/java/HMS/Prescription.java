@@ -78,7 +78,14 @@ public class Prescription {
 	private String pstock;
 	private int pstock1;
 	private String advice;
+	private String sms;
 	
+	public String getSms() {
+		return sms;
+	}
+	public void setSms(String sms) {
+		this.sms = sms;
+	}
 	public String getAdvice() {
 		return advice;
 	}

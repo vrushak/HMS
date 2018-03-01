@@ -209,14 +209,18 @@ change()
 		 element.setAttribute("href",url)
 	}
 	else if(user.includes("[ROLE_ASSISTANT]")){
-	
+		$("#check").prop("checked",true);
+		$('#dp').hide();
+		
+		change()
+		
 		 var url = "/HMS/frontdesk" ;
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 	}
 	else if(user.includes("[ROLE_DOCTOR]")){
-		
+		$("#vpid option[class='ap']").hide();
 		 var url = "/HMS/doctor1" ;
 			
 		 var element = document.getElementById('ho');
@@ -224,6 +228,11 @@ change()
 	}
 	
 	else if(user.includes("[ROLE_Accounts Admin]")){
+		$("#check").prop("checked",true);
+		$('#dp').hide();
+	
+		change()
+		
 		
 		 var url = "/HMS/frontdesk" ;
 			
@@ -232,6 +241,10 @@ change()
 		 
 		}
 	else if(user.includes("[ROLE_NURSE]")){
+		$("#check").prop("checked",true);
+		$('#dp').hide();
+		change()
+		
 		
 		 var url = "/HMS/nursedesk" ;
 			
@@ -240,6 +253,10 @@ change()
 	}
 	
 	else if(user.includes("[ROLE_CHIEFNURSE]")){
+		$("#check").prop("checked",true);
+		$('#dp').hide();
+		change()
+		
 		
 		 var url = "/HMS/nursedesk" ;
 			
@@ -249,6 +266,7 @@ change()
 		}
 	
 	else{
+		$("#vpid option[class='ap']").hide();
 		 var url = "/HMS/home" ;
 			
 		 var element = document.getElementById('ho');
@@ -766,17 +784,8 @@ var tabname = $('.'+id).text();
 	  $(".tab-pane").width(450)	
 	  $('#dd').show();
 	  $('#prv').show();
-	  if(tabname.toLowerCase() != "lab"){
-		
-		
-		  $('#tresult').hide()
-		
-		
-	  }
-	  else{
-
-		  showtextArea(tabname)
-  }
+	  $('#tresult').show()
+	  
   }
 }
 function loadtabvalues(){
@@ -1150,10 +1159,11 @@ function refresh(){
    			$("#tresult").val(getval.getAttribute('dv'));
    				   			
    		    retrievefi(str[2])
-   			$(document).on('change', ':input', function(){ //triggers change in all input fields including text type
+		$(document).on('change', '#vpid', function(){ //triggers change in all input fields including text type
    	            
    	        	unsaved = false;
    	        });
+   	
    	}
        
        function sel(){
@@ -1274,16 +1284,20 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
     		 d = $("#ppid").val();
    	 
 
-   	if(b == "select" || c == "select"){
-   		alert("Please select Patient Name")
-   		return false;
-   	
-   	}
-   	
-   	else if(c == "select" || d == "select"){
-   		alert("Please select Patient Id")
-   		return false;
-   	}
+    		 if($("#check").prop("checked") == true){
+    			 
+   			  b = $("#vpid").val();
+   		  }else{
+   			  b = $("#pname").val();
+   			  
+   		  }
+
+       	if(b == "select"){
+       		alert("Please select Patient Name")
+       		return false;
+       	
+       	}
+       	
    	else{
    		return true;
    	}
@@ -1401,7 +1415,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
    <div id="home1" class="tab-pane fade in active">
      <div class="form-group row" >
         <div class="col-xs-6"></div>
-    <div class="col-xs-6">Diagnosed Patients : <input type="checkbox" name="check" id="check" onchange = "change()" ></div>
+    <div class="col-xs-6"><span id="dp">Diagnosed Patients : <input type="checkbox" name="check" id="check" onchange = "change()" ></span></div>
    
     </div>
     <br>
@@ -1416,9 +1430,9 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
        <div class="form-group" id="fg">
       
        <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="pname" onchange="addcname(this.options[this.selectedIndex])">
-          <option value="select" selected  >Select</option>
+          <option class = 'pa' value="select" selected  >Select</option>
         <c:forEach var="p"  items="${model.list1}">
-        <option value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pid}==${p.pname}==${p.fileno}==${p.docid}">${p.pname}</option>
+        <option class='pa' value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pid}==${p.pname}==${p.fileno}==${p.docid}">${p.pname}</option>
         </c:forEach>
       </select>
       </div>
@@ -1426,8 +1440,11 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
        <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="vpid" onchange='addcname1(this.options[this.selectedIndex])'>
           <option value="select" selected >Select</option>
         <c:forEach var="p"  items="${model.list3}">
-      
-       <option value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pid}==${p.pname}==${p.fileno}==${p.docid}==${p.date1}==${p.iop}==${p.samplecol}" dv="${fn:escapeXml(p.tresult)}" >${p.pname}</option>
+       <option value ="${p.pname}" data-subtext="IP- ${p.fileno}" data-value="${p.pid}==${p.pname}==${p.fileno}==${p.docid}==${p.date1}==${p.iop}==${p.samplecol}" dv="${fn:escapeXml(p.tresult)}" >${p.pname}</option>
+        </c:forEach>
+        
+        <c:forEach var="p"  items="${model.list1a}">
+        <option class="ap" value="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pid}==${p.pname}==${p.fileno}==${p.docid}">${p.pname}</option>
         </c:forEach>
       </select>
       

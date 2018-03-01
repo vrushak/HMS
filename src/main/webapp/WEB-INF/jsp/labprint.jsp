@@ -568,11 +568,11 @@ function AutoGrowTextArea(textField)
           <option value="Select" selected disabled>Select</option>
       
         <c:forEach var="p"  items="${model.list4}">
-        <option value="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pname}=${p.fileno}=${p.dname}=${p.pir}=${p.date1}=${p.ppid}">${p.pname}</option>
+        <option value="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pname}=${p.fileno}=${p.dname}=${p.tresult}=${p.date1}=${p.ppid}">${p.pname}</option>
         </c:forEach>
         
         <c:forEach var="p"  items="${model.list3}">
-        <option value="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pname}=${p.fileno}=${p.dname}=${p.tresult}=${p.date1}=${p.pid}">${p.pname}</option>
+        <option value="${p.pname}" data-subtext="IP- ${p.fileno}" data-value="${p.pname}=${p.fileno}=${p.dname}=${p.tresult}=${p.date1}=${p.pid}">${p.pname}</option>
         </c:forEach>
         
       </select>

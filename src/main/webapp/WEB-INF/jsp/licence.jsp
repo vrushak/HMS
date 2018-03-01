@@ -191,6 +191,19 @@ function validateEmail(emailField){
         return true;
 
 }
+
+function openmd1(value){
+	if(value.includes("false")){
+alert("License expired! Please share the license key with techwedge consulatnts");		
+	}
+	else if(value.includes("failed")){
+alert("No Network connected!")		
+	}
+	else{
+		
+	}
+
+}
 </script>
 <script>
 function doAjaxPostNew(met,uri,ctype) {
@@ -326,8 +339,12 @@ $(document).ready(function() {
 <script>
 copyval('<c:out value="${p.lid}" />','<c:out value="${p.lckey}" />','<c:out value="${p.companyName}" />','<c:out value="${p.emailId}" />')
 </script>
-</c:forEach>
 
+</c:forEach>
+<script>
+
+openmd1('<c:out value='${model.result}'/>')
+</script>
 
 </body>
 </html>

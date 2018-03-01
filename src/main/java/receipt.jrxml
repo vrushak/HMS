@@ -63,6 +63,10 @@ E-mail : lilayifamilyclinic@yahoo.com
 				<reportElement x="400" y="15" width="60" height="20" uuid="8b19da54-a7bb-44bc-8441-d5542e66ec5e"/>
 				<text><![CDATA[Receipt No :]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="460" y="16" width="85" height="19" uuid="dc53b247-1aeb-44b4-877a-a0daf629d3c2"/>
+				<textFieldExpression><![CDATA[$F{invoice}]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<detail>

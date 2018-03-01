@@ -161,7 +161,7 @@ public class doctControllerDao {
 		public List<Prescription> getDocID2(String username,String userrole) {
 			
 			if(userrole.contains("[ROLE_DOCTOR]")){
-				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno,ap.active,p.mobile from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID  where ap.docid in (select userid from userrole where username = '"+username+"')  and ap.active = 'on' order by ap.appointment",new RowMapper<Prescription>(){  
+				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno,ap.active,p.mobile,ap.diagactive from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID  where ap.docid in (select userid from userrole where username = '"+username+"')  and ap.active = 'on' order by ap.appointment",new RowMapper<Prescription>(){  
 		        public Prescription mapRow(ResultSet rs, int row) throws SQLException {   
 		        	
 			       Prescription p = new Prescription();
@@ -177,13 +177,14 @@ public class doctControllerDao {
 			      p.setAc(rs.getString(8));
 			      p.setIdc("");
 			      p.setPas(rs.getString(9));
+			      p.setSms(rs.getString(10));
 			      return p;
 		        }
 			});
 			}
 			else{
 			
-				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno,ap.active,p.mobile from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID where ap.active = 'on'order by ap.appointment",new RowMapper<Prescription>(){  
+				return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.appointment,' ',ap.time),p.pofvisit,ap.fileno,ap.active,p.mobile,ap.diagactive from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID where ap.active = 'on'order by ap.appointment",new RowMapper<Prescription>(){  
 			        public Prescription mapRow(ResultSet rs, int row) throws SQLException {   
 				       Prescription p = new Prescription();
 				      
@@ -199,6 +200,7 @@ public class doctControllerDao {
 				      p.setAc(rs.getString(8));
 				      p.setIdc("Admin");
 				      p.setPas(rs.getString(9));
+				      p.setSms(rs.getString(10));
 				      return p;
 			        }
 				});
@@ -621,12 +623,12 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 		}
 
 
-			public List<Admitpat> getAdmitpat1(String id,String role) {
+			public List<Admitpat> getAdmitpat1(String id,String role,String table) {
 				// TODO Auto-generated method stub
 			
 				//docid in (select  userid from userrole where username='"+id+"' ) and
 				if(role.contains("[ROLE_DOCTOR]")){
-			return template.query("select distinct a.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) Patient,a.docid,concat(d.fname,' ',d.mname,' ',d.lname) Doctor,a.admdate,a.fileno,a.admitno,CONCAT(wardno,'/',bedno),a.cause,pat.age,pat.gender from admitpat a join appointment ap on  a.fileno = ap.fileno join doctor d on a.docid = d.docID join discharge dc join patient pat on a.pid = pat.pid where a.fileno not in (select fileno from discharge) or a.fileno not in (select fileno from dslip)",new RowMapper<Admitpat>(){  
+			return template.query("select distinct a.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) Patient,a.docid,concat(d.fname,' ',d.mname,' ',d.lname) Doctor,a.admdate,a.fileno,a.admitno,CONCAT(wardno,'/',bedno),a.cause,pat.age,pat.gender from admitpat a join appointment ap on  a.fileno = ap.fileno join doctor d on a.docid = d.docID join discharge dc join patient pat on a.pid = pat.pid where a.fileno not in (select fileno from "+table+")",new RowMapper<Admitpat>(){  
 					        public Admitpat mapRow(ResultSet rs, int row) throws SQLException {   
 						       Admitpat p = new Admitpat();
 						       System.out.println("inside admitno1");
@@ -649,7 +651,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 			}
 				else{   
 					 
-				        	return template.query("select distinct a.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) Patient,a.docid,concat(d.fname,' ',d.mname,' ',d.lname) Doctor,a.admdate,a.fileno,a.admitno,CONCAT(wardno,'/',bedno),a.cause,pat.age,pat.gender from admitpat a join appointment ap on  a.fileno = ap.fileno join doctor d on a.docid = d.docID join discharge dc join patient pat on a.pid = pat.pid where a.fileno not in (select fileno from discharge) or a.fileno not in (select fileno from dslip)",new RowMapper<Admitpat>(){  
+				        	return template.query("select distinct a.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) Patient,a.docid,concat(d.fname,' ',d.mname,' ',d.lname) Doctor,a.admdate,a.fileno,a.admitno,CONCAT(wardno,'/',bedno),a.cause,pat.age,pat.gender from admitpat a join appointment ap on  a.fileno = ap.fileno join doctor d on a.docid = d.docID join discharge dc join patient pat on a.pid = pat.pid where a.fileno not in (select fileno from "+table+")",new RowMapper<Admitpat>(){  
 						        public Admitpat mapRow(ResultSet rs, int row) throws SQLException {   
 							       Admitpat p = new Admitpat();
 							       

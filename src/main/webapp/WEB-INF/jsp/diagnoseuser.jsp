@@ -1139,7 +1139,7 @@ function refresh(){
    			$("#text1").val(getval.getAttribute('dv'));
    			getData(str[2],str[0])	   			
    		    retrievefi(str[2])
-   			$(document).on('change', ':input', function(){ //triggers change in all input fields including text type
+   			$(document).on('change', '#vpid', function(){ //triggers change in all input fields including text type
    	            
    	        	unsaved = false;
    	        });
@@ -1632,18 +1632,22 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
      	var	b = $("#pname").val();
      	var	c = $("#vpid2").val();
      	var	d = $("#ppid").val();
-    	 
+     	if($("#check").prop("checked") == true){
+			 
+			  b = $("#vpid").val();
+		  }else{
+			  b = $("#pname").val();
+			  
+		  }
 
-    	if(b == "select" || c == "select"){
+    	if(b == "select"){
     		alert("Please select Patient Name")
     		return false;
     	
     	}
     	
-    	else if(c == "select" || d == "select"){
-    		alert("Please select Patient Id")
-    		return false;
-    	}
+    	
+
     	else{
     		return true;
     	}
@@ -1996,7 +2000,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
         <p><b>Files Uploaded</b></p>
         <div class="col-xs-1"></div>
         
-        <div class="col-xs-6" id="rf" style="height : 100px;border:1px solid;overflow-scroll">
+        <div class="col-xs-6" id="rf" style="height : 100px;border:1px solid;overflow-Y:scroll">
         
         </div>
         </div>

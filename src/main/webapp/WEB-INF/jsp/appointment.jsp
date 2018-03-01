@@ -29,7 +29,18 @@
 <script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
 
 
+<style type="text/css">
+div.jconfirm-title-c {
+    background-color: #009999;
+    font-size :1px;
+    color:white;
+    }
+.jconfirm-buttons button{
+color : orange;
+}
 
+
+</style>
 
 <script type="text/javascript">
 
@@ -273,7 +284,7 @@ function copy(pid){
    document.getElementById("filenod").value = strSplit[6];
     document.getElementById("bc").style.display = "block";
    
-    if($("#sms").val().includes("on")){
+    if(strSplit[9].includes("on")){
     	$("#sms").prop("checked",true)
     }else{
     	$("#sms").prop("checked",false)
@@ -281,11 +292,12 @@ function copy(pid){
 	 
 		var date = new Date(document.getElementById("appointment").value);
 		var date1 = new Date()
-	var longFormat = date*1;
-	var longformat1 = date1*1;	
- if(date ==  date1)  {
-	
-	if(document.getElementById("time").value >=  moment().format("HH:mm")){
+	var longformat = date*1;
+	var longformat1 = date1*1;
+
+ if(moment(document.getElementById("appointment").value).format("DD-MM-YYYY") ==   moment().format("DD-MM-YYYY"))  {
+
+	if(document.getElementById("time").value >=  moment().format("HH:mm A")){
 	 document.getElementById("bouton-contact").disabled = false;
 	document.getElementById("bc").disabled = false;
  }
@@ -294,12 +306,12 @@ function copy(pid){
 			document.getElementById("bc").disabled = true;
 	}
  }
- else if(date < date1){
-	
+ else if(longformat < longformat1){
+
 	 document.getElementById("bouton-contact").disabled = true;
 	 document.getElementById("bc").disabled = true;
  }
- else if(date >  date1)  {
+ else if(longformat >=  longformat1)  {
 	
 	 document.getElementById("bouton-contact").disabled = false;
 		document.getElementById("bc").disabled = false;
@@ -547,7 +559,9 @@ $.confirm({
         	
             //close
             $(val).attr("checked",false);
-         
+         if(namea == null){
+        	 namea=0;
+         }
             if(namea.length > 0  ){
         	   removeAll(ida,namea,moba)   
            }

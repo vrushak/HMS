@@ -35,9 +35,9 @@ public class CustomFilter extends GenericFilterBean {
      
        if(!uri.contentEquals("/HMS/licence") && !uri.contains(".js") && !uri.contains(".css") && !uri.contains("/HMS/genlic") && !uri.contains("/HMS/sablic")){
     	   if(k.contentEquals("false")){
-    	   resp.sendRedirect("/HMS/licence");
-    	
-    	   return;
+    	   resp.sendRedirect("/HMS/licence?res=licensefailed");
+           
+      	   return;
        }
        } 
     	   chain.doFilter(request, response);

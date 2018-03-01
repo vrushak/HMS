@@ -1209,10 +1209,11 @@ function refresh(){
    			$("#text1").val(getval.getAttribute('dv'));
    			getData(str[2],str[0])	   		
    			retrievefi(str[2])
-   		    $(document).on('change', ':input', function(){ //triggers change in all input fields including text type
+		$(document).on('change', '#vpid', function(){ //triggers change in all input fields including text type
    	            
    	        	unsaved = false;
    	        });
+   
    	
        }
        
@@ -1704,16 +1705,20 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
    		 d = $("#ppid").val();
   	 
 
-  	if(b == "select" || c == "select"){
+   		if($("#check").prop("checked") == true){
+			 
+			  b = $("#vpid").val();
+		  }else{
+			  b = $("#pname").val();
+			  
+		  }
+
+  	if(b == "select"){
   		alert("Please select Patient Name")
   		return false;
   	
   	}
   	
-  	else if(c == "select" || d == "select"){
-  		alert("Please select Patient Id")
-  		return false;
-  	}
   	else{
   		return true;
   	}

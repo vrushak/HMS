@@ -909,7 +909,7 @@ public List<Billgen> getBillint(String fileno) {
 
 public List<Billgen> getreceipt(String invoice) {
 	
-	return template.query("select distinct p.invoice,concat(a.fname,' ',a.mname,' ',a.lname),p.total,p.cashier from billgen p join patient a on a.pid = p.pid where p.invoice='"+invoice+"'",new RowMapper<Billgen>(){  
+	return template.query("select distinct REPLACE(Lower(p.invoice),'in','R'),concat(a.fname,' ',a.mname,' ',a.lname),p.total,p.cashier from billgen p join patient a on a.pid = p.pid where p.invoice='"+invoice+"'",new RowMapper<Billgen>(){  
         public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
        
 	       Billgen p = new Billgen();

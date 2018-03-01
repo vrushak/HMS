@@ -229,10 +229,26 @@ public class Logincontroller {
     @RequestMapping(value = "/licence", method = RequestMethod.GET)
    public ModelAndView licence(@ModelAttribute("p") License p ,HttpServletRequest request,Principal principal,Authentication authentication ) throws Exception {
      	List<License> list = dao.getLusers();
+     	String result = null;
+     	String failed = request.getParameter("res");
+     	if(failed == null){
+     		failed = "tre";
+     	}
      	try{
     	License license = LicenseManager.decryptLicense(list.get(0).getLckey());
     	list.get(0).setCompanyName(license.getCompanyName());
     	list.get(0).setEmailId(license.getEmailId());
+    	if(failed.equalsIgnoreCase("licensefailed")){
+     		result = "failed";
+     	}
+    	
+    	else if(System.currentTimeMillis() <= license.getExpirationDate()){
+    		
+			result ="true";
+		}
+    	else{
+    		result = "false";
+    	}
      	}
      	catch(IndexOutOfBoundsException exception) {
      	    System.out.println(exception);
@@ -241,6 +257,7 @@ public class Logincontroller {
      
     	Map<String, Object> model = new HashMap<String, Object>();
          model.put("list",list);
+         model.put("result",result);
         return new ModelAndView("licence","model",model);
     }
    

@@ -28,7 +28,19 @@
 <script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/jquery-confirm.min.js"></script>
+<style type="text/css">
+div.jconfirm-title-c {
+    background-color: #009999;
+    font-size : 10px;
+    color:white;
+    
+    }
+.jconfirm-buttons button{
+color : orange;
+}
 
+
+</style>
 <style type="text/css">
 
 .tab-pane{
@@ -559,10 +571,20 @@ function copy(pid){
     document.getElementById("bc").style.display = "block";
    
 	
- if(moment(document.getElementById("appointment").value).format("DD-MM-YYYY") ==  moment().format("DD-MM-YYYY")){
-	
-	if(document.getElementById("time").value >=  moment().format("HH:mm")){
-	
+    if(strSplit[8].includes("on")){
+    	$("#sms").prop("checked",true)
+    }else{
+    	$("#sms").prop("checked",false)
+    }
+	 
+		var date = new Date(document.getElementById("appointment").value);
+		var date1 = new Date()
+	var longformat = date*1;
+	var longformat1 = date1*1;
+
+ if(moment(document.getElementById("appointment").value).format("DD-MM-YYYY") ==   moment().format("DD-MM-YYYY"))  {
+
+	if(document.getElementById("time").value >=  moment().format("HH:mm A")){
 	 document.getElementById("bouton-contact").disabled = false;
 	document.getElementById("bc").disabled = false;
  }
@@ -571,13 +593,20 @@ function copy(pid){
 			document.getElementById("bc").disabled = true;
 	}
  }
- else if(moment(document.getElementById("appointment").value).format("DD-MM-YYYY") <  moment().format("DD-MM-YYYY")){
+ else if(longformat < longformat1){
+
 	 document.getElementById("bouton-contact").disabled = true;
 	 document.getElementById("bc").disabled = true;
  }
+ else if(longformat >=  longformat1)  {
+	
+	 document.getElementById("bouton-contact").disabled = false;
+		document.getElementById("bc").disabled = false;
+	 }
  else{
 	 
  }
+ 
 
  if(strSplit[6] == "off"){
 	 document.getElementById("bouton-contact").disabled = true;
@@ -796,7 +825,12 @@ $.confirm({
         	
             //close
             $(val).attr("checked",false);
-            removeAll(ida,namea,moba)
+            if(namea == null){
+           	 namea=0;
+            }
+            if(namea.length > 0  ){
+         	   removeAll(ida,namea,moba)   
+            }
         },
     }
 
@@ -856,7 +890,7 @@ $.confirm({
     <c:forEach var="p1"  items="${model.list1}">
     <tr>
     <td width="240px;" ><a href="" target="_self" onclick="copyval1('${p1.pid}','${p1.pname}','${p1.fileno}','${p1.docid}',this)" >${p1.pid}</a></td>
-    <td width="240px;"><a href="#"  onclick="copy('${p1.pid}==${p1.pname}==${p1.docid}==${p1.dname}==${p1.appointment}==${p1.fileno}==${p1.ac}==${p1.pas}')">${p1.pname}</a></td>
+    <td width="240px;"><a href="#"  onclick="copy('${p1.pid}==${p1.pname}==${p1.docid}==${p1.dname}==${p1.appointment}==${p1.fileno}==${p1.ac}==${p1.pas}==${p1.sms}')">${p1.pname}</a></td>
     <td width="240px;" class="trunk">${p1.dname}</td>
     <td width="240px;">${p1.appointment}</td>
 

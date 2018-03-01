@@ -41,6 +41,7 @@
 <style type="text/css">
  div.jconfirm-title-c {
     background-color: #009999;
+    font-size : 18px;
     
     }
 .jconfirm-buttons button{
@@ -312,7 +313,7 @@ function ze(){
     	   // get the form values
     	   
     	   $('#prv').text("")
-    	 $('#fileid').find('option').remove()
+    	 $('#fileid').find('option').not(':first').remove()
     	          // var pid = $('#pid').val();
     
     	    $.ajax({
@@ -338,8 +339,8 @@ function ze(){
     	        	        		   
 
     	   	                    });
-    	        	        	   $('select[name =fileid]').val(file);
-    	        	      		 $('#fileid').selectpicker('refresh');
+    	        	        	 //  $('select[name =fileid]').val(file);
+    	        	      		 //$('#fileid').selectpicker('refresh');
     	        	           },
     	        	           error: function(e){
     	        	        	  
@@ -432,7 +433,22 @@ function ze(){
     	  var counter = 1;
     	 
     	          var pid = $('#pid2').val();
-    	            var fileno = $('#fileid').val();
+    	          var fileno = $('#fileno1').val();
+    	 if(pid.length == 0){
+    		 alert("Please select the Patient")
+    		 return false;
+    	 }
+    	 if(val != "cur"){
+    		 
+    		 fileno = $('#fileid').val();
+    		
+    	    if(fileno.includes("select")){
+    		 alert("Please select the fileno")
+    		 return false;
+    	 }
+    	    
+    	 }
+    	 
     	 
     	            $.ajax({
     	        	  
@@ -772,7 +788,7 @@ function ze(){
    <div class="col-xs-1"></div>
     <div class="col-xs-3">
    <div class="form-group">
-    <button  id="opener" style="color:#fff;" class="btn btn-warning button1" onclick="doAjaxPost1('cur')">Fetch Patient Records</button>
+    <button  id="opener" style="color:#fff;" class="btn btn-warning button1" onclick="return doAjaxPost1('cur')">Fetch Patient Records</button>
   
    </div>
    </div>
@@ -819,12 +835,12 @@ function ze(){
 <div class="col-xs-9" >
    <p>Previous File No<span>*</span></p>
    <select class="selectpicker form-control" data-size="6" data-live-search="true" name = "fileid" id ="fileid" onchange="refresh()"  required>
-          <option value="select" selected disabled>Select</option>
+          <option value="select" selected>Select</option>
           </select>
        
         </div>
         <br><br>
-    <i class="fa fa-angle-double-down" style="font-size:36px;color:orange;"onclick="doAjaxPost1('prv')"></i>
+    <i class="fa fa-angle-double-down" style="font-size:36px;color:orange;"onclick="return doAjaxPost1('prv')"></i>
   <pre class="col-xs-12"  id="prv" style="height:370px;scroll-Y:auto;margin-top:30px;">
   
   
@@ -932,7 +948,7 @@ function ze(){
                 
 </div>
   --> 
- <b>Last Modified : </b><input type="text" name="dissum" id="dissum" form="formd" style="border:none;"> 
+ <b>Last Modified : </b><input type="text" name="dissum" id="dissum" form="formd" style="border:none;" readonly="readonly"> 
 </div>
  
  <script type="text/javascript">

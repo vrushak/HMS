@@ -1273,7 +1273,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
   </div>
   <div class="col-xs-3">
    <div class="form-group">
-            <p>Po Box<span></span></p>
+            <p>PO Box<span></span></p>
     <input type="text" maxlength="6" name="pcode" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="pcode" class="form-control input-sm" >
 </div>
   </div>
