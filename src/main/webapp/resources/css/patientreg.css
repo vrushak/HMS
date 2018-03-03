@@ -47,7 +47,9 @@
 p span {
   color: #F00;
 }
-
+p span {
+  color: #F00;
+}
 p {
   margin: 0px;
   font-weight: 500;

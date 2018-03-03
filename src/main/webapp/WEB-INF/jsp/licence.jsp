@@ -194,11 +194,14 @@ function validateEmail(emailField){
 
 function openmd1(value){
 	if(value.includes("false")){
-alert("License expired! Please share the license key with techwedge consulatnts");		
+alert("Your licence has expired. Please contact your Vendor to re-activate your licence");		
 	}
 	else if(value.includes("failed")){
-alert("No Network connected!")		
+alert("Please check your network connection")		
 	}
+	else if(value.includes("diffmac")){
+		alert("Computer id not registered")
+	} 	
 	else{
 		
 	}
@@ -221,7 +224,7 @@ function doAjaxPostNew(met,uri,ctype) {
       	          valid()	 
    	         } 
    	         else{
-   	        	 alert("Data saved successfully")
+   	        	 alert("License activated successfully")
    	         }
 	        
 	         },

@@ -42,7 +42,7 @@
  div.jconfirm-title-c {
     background-color: #009999;
     font-size : 18px;
-    
+    color : white;
     }
 .jconfirm-buttons button{
 color : orange;

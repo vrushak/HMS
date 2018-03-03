@@ -468,20 +468,33 @@ else{
 			
 			
 		}
-		function validdate(id){
+		function validdate(id,id1){
+			var date = new Date(document.getElementById(id).value);
+			var date1 = new Date()
+			var longformat = date*1;
+			var longformat1 = date1*1;
+			
 		
 		var va	='Valid? '+ !!document.getElementById(id).value;
-	
+     
 		if(va == 'Valid? false'){
-			alert("invalid date")
+		$("#"+id1).text("invalid date!");
 			return false;
 		}
+		else if(longformat > longformat1)  {
+
+			$("#"+id1).text("invalid date!");  
+			return false;
+		 }	
 		else{
+			$("#"+id1).text(" ");
 			return true;
 		}
 		}
 
+function verdate(date){
 
+}
 		
 </script>
 
@@ -679,11 +692,17 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
        
        
        <script type="text/javascript">
-      
+       $( document ).ready(function() {
+       $('input').on('click focusin', function() {
+    	   if(this.value == "NA"){
+    		   this.value = "";
+    	    };
+    	});
+       });
        
  jQuery().ready(function() {
 
-	
+	 
 	
 
    
@@ -1090,8 +1109,8 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
    <div class="col-xs-5">
     <div class="form-group">
             <p>Date of Birth <span></span></p>
-     <input type="date" maxlength="2999-312-31"name="modate" id="modate" onkeydown="return false"  onblur="return validdate(this.id)"  class="form-control input-sm" required>
-
+     <input type="date" maxlength="2999-312-31"name="modate" id="modate" onfocusout="return validdate(this.id,'sp1')"  class="form-control input-sm" required>
+      <p><span id="sp1"></span></p>
 	</div>
    </div>
   
@@ -1110,8 +1129,8 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
    <div class="col-xs-5">
     <div class="form-group">
             <p>Date of Birth <span></span></p>
-     <input type="date" maxlength="2999-312-31"  name="fodate" id="fodate" onkeydown="return false"  onblur="return validdate(this.id)" class="form-control input-sm" required>
-
+     <input type="date" maxlength="2999-312-31"  name="fodate" id="fodate"   onfocusout="return validdate(this.id,'sp2')" class="form-control input-sm" required>
+      <p><span id="sp2"></span></p>
 	</div>
    </div>
   
@@ -1532,8 +1551,8 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
    <div class="form-group">
     
             <p>Date of Birth<span></span></p>
-         	<input type="date" name="spdate" id="spdate" onkeydown="return false"  onblur="return validdate(this.id)" class="form-control input-sm"  >
-	
+         	<input type="date" name="spdate" id="spdate" onblur="return validdate(this.id,'sp3')" class="form-control input-sm"  >
+	        <p><span id="sp3"></span></p>
 	</div>
  
   </div>

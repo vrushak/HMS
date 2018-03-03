@@ -164,7 +164,7 @@ public class LicenseManager {
 			}
 			}
 		else{
-			result = "false";
+			result = "diffmac";
 		}
 		// TODO Auto-generated method stub
 		return result;

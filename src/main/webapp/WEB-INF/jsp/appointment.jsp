@@ -465,13 +465,16 @@ $(document).ready(function () {
 	 	 
 	 	 var currenttime  = dt.getHours() + ":" + dt.getMinutes();
 	 	
-	 	 
 if(currenttime > $("#time").val())
 	 	{
-	 	 	 alert("Appointments can be scheduled only for future time")
+	 	 	 $("#sp1").text("Appointments can be scheduled only for future time")
 		   	 $( "#time" ).val(currenttime);
 		         $(this).focus();         
 	 	}
+else{
+	$("#sp1").text(" ");
+  	 
+}
 		/*   
 		     if(currentTime.getHours() > parseInt(userTime[0]) || (currentTime.getMinutes()>parseInt(userTime[1]))){
 		   	 alert("Appointments can be scheduled only for future time")
@@ -720,9 +723,8 @@ $.confirm({
   <p>Time<span>*</span></p>
 
     <input type="time"  form="form1" id="time" value="now" name="time" class="form-control input-sm" required>
-    
-           
-   </div>
+    <p><span id="sp1"></span></p>
+ </div>
 </div>
   </div>
   
@@ -735,7 +737,7 @@ $.confirm({
     <input type="text" form="form1" id="fileno" value=""readonly="readonly" name="fileno" class="form-control input-sm" required>
     <input type="hidden" name="flag" form="form1" value="fdesk"><br>
     
-    <input type="checkbox" name="sms" id="sms" form="form1" value='on'>SMS Alerts
+    <input type="hidden" name="sms" id="sms" form="form1" value='on'><!-- SMS Alerts -->
     <input type="checkbox" name="pat" id="pat" form="form1" onchange="return prompt(this)"><span>New Patient</span>       
  </div>
  

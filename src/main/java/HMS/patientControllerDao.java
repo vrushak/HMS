@@ -188,7 +188,7 @@ public List<Patient> getPatients() {
 	     p.setFname(rs.getString(2));
 	     p.setAge(rs.getString(3));
 	     p.setGender(rs.getString(4));
-	     p.setLandphone(rs.getString(5));
+	     p.setMobile(rs.getString(5));
 	     p.setDob(rs.getString(6));
 	      return p;
         }

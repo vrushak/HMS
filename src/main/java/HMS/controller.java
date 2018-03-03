@@ -306,7 +306,7 @@ public class controller {
 							}
 							else{
                                 mav.setViewName("redirect:cappointment");
-					        }
+					        }/*
 							System.out.println("SMS "+s.getSms());
 		if(s.getSms() == null){
 			s.setSms("null");
@@ -316,7 +316,7 @@ public class controller {
 								sms.setparams("69iq54a4m4s4ib0agg135o3y0yfbkbmbu", "SEDEMO");
 								sms.send_sms(s.getPhno(), "Hi, this is a test message");		
 							}
-						
+						*/
 							/*
 							 Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
@@ -338,7 +338,7 @@ public class controller {
 									    mav.setViewName("redirect:cappointment");
 										}
 								}
-				System.out.println("SMS "+s.getSms());
+			//	System.out.println("SMS "+s.getSms());
 			        return mav; 
 					}
 				@RequestMapping(value="/cancelapp/{path}", method = RequestMethod.GET)
@@ -354,6 +354,7 @@ public class controller {
 					else{
 						mav.setViewName("redirect:/cappointment.html");
 					}
+				    /*
 				    if(s.getSms() == null){
 						s.setSms("null");
 					}
@@ -362,7 +363,7 @@ public class controller {
 						sms.setparams("69iq54a4m4s4ib0agg135o3y0yfbkbmbu", "SEDEMO");
 						sms.send_sms(s.getPhno(), "Hi, this is a test message");		
 					}
-								
+						*/		
 	            }
 
 					

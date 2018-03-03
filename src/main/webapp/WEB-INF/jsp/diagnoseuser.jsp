@@ -171,6 +171,8 @@ table.alpha .tbalpha{
  }
 </style>
 <script type="text/javascript">
+
+
 function calculateBmi() {
 	var weight = document.getElementById("weightw").value;
 	var height = document.getElementById("height").value;
@@ -1664,7 +1666,20 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
     	     console.log('Error: ', error);
     	   };
     	}
+       
     
+    
+       </script>
+       <script>
+       $(document).ready(function() {
+     	  
+    	   $('.tbalpha').on( 'click focusin','tr td', function() {
+    	    	
+    	 	   if(this.getElementsByTagName('input')[0].value == "NA"){
+    	 		  this.getElementsByTagName('input')[0].value = "";
+    	 	    };
+    	 	});
+    	    }); 
        </script>
 </head>
 <sec:authentication property="principal.authorities" var="username" />

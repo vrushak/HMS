@@ -24,18 +24,24 @@ public class CustomFilter extends GenericFilterBean {
    	    HttpServletResponse resp = (HttpServletResponse)response;
        
    	    String k = "false";
+   	    String res = null;
 		try {
 			k = LicenseManager.licence();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
-		
+		if(k == "false"){
+			res = "licensefailed";
+		}
+		else if(k == "diffmac"){
+			res = "diffmac";
+		}
         String uri = reqs.getRequestURI();
      
        if(!uri.contentEquals("/HMS/licence") && !uri.contains(".js") && !uri.contains(".css") && !uri.contains("/HMS/genlic") && !uri.contains("/HMS/sablic")){
     	   if(k.contentEquals("false")){
-    	   resp.sendRedirect("/HMS/licence?res=licensefailed");
+    	   resp.sendRedirect("/HMS/licence?res="+res+"");
            
       	   return;
        }

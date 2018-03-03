@@ -241,7 +241,9 @@ public class Logincontroller {
     	if(failed.equalsIgnoreCase("licensefailed")){
      		result = "failed";
      	}
-    	
+    	else if(failed.equalsIgnoreCase("diffmac")){
+    		result = "diffmac";
+    	}
     	else if(System.currentTimeMillis() <= license.getExpirationDate()){
     		
 			result ="true";

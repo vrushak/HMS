@@ -1737,7 +1737,17 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
        });
        
        </script>
- 
+        <script>
+       $(document).ready(function() {
+     	  
+    	   $('.tbalpha').on( 'click focusin','tr td', function() {
+    	    	
+    	 	   if(this.getElementsByTagName('input')[0].value == "NA"){
+    	 		  this.getElementsByTagName('input')[0].value = "";
+    	 	    };
+    	 	});
+    	    }); 
+       </script>
 </head>
 <sec:authentication property="principal.authorities" var="username" />
 <body onload="checkhome('<c:out value="${username}" />'),loadtabvalues()">
