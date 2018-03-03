@@ -220,6 +220,8 @@ function checkhome(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 
+		
 	}
 	else if(user.includes("[ROLE_DOCTOR]")){
 		
@@ -1005,6 +1007,7 @@ function loadval(div,min){
     		$('#fg1').show();
     		$('#id1').hide();
     		$('#id2').show();
+    		$('#spk').show();
     	
     		   
     	   }
@@ -1019,7 +1022,7 @@ function loadval(div,min){
        		   $('#fg').show();
        		   $('#id2').hide();
      		   $('#id1').show();
-    	      
+     		  $('#spk').hide();
      		  
      		 
     	   }
@@ -1525,6 +1528,59 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
 	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","JSON");	         
 	     
 }
+  // retrieve data for diseases
+  function retrieveds(){
+	  $("#vpid2").find(".dpa").remove();
+	     $('#vpid2').selectpicker('refresh');
+	     
+	     $("#vpid").find(".dpa").remove();
+	     $('#vpid').selectpicker('refresh');
+	
+   	    var uri = "/HMS/retds?location="+$("#myInp").val()+"&location2=diagnose";
+   		var data = "0";
+   		 
+   	   var successFn =  function(response){
+   		 if(response.listred.length == 0){
+   			 alert("No Records found!")
+   		 }
+   	   
+   	     $.each(response.listred, function(index, datec) {
+   	      
+   	    	 $("#vpid2").append('<option class="dpa" value="'+datec.ppid+'" data-subtext="DP- '+datec.fileno+'" data-value="'+datec.ppid+'=='+datec.pname+'=='+datec.fileno+'=='+datec.docid+'=='+datec.datetime+'">'+datec.ppid+'</option>');
+            $("#vpid2").selectpicker("refresh");
+            
+            $("#vpid").append('<option class="dpa" value="'+datec.pname+'" data-subtext="DP- '+datec.fileno+'" data-value="'+datec.ppid+'=='+datec.pname+'=='+datec.fileno+'=='+datec.docid+'=='+datec.datetime+'">'+datec.pname+'</option>');
+            $("#vpid").selectpicker("refresh");
+   	          });    
+   	      }
+   		    
+   		  var errorFn = function(e){
+   	      	  alert('Error: ' + e);
+   		  }
+   		  
+   			var get = "GET";
+   	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","JSON");	         
+   	     
+   }
+  
+  function playop(val){
+	  if($(val).val().length < 1){
+			$("#vpid").find(".ser1").show();
+	        $('#vpid').selectpicker('refresh');
+	        
+	        $("#vpid2").find(".ser1").show();
+	        $('#vpid2').selectpicker('refresh');
+	        
+	  }
+	  else{
+		    $("#vpid").find(".ser1").hide();
+	        $('#vpid').selectpicker('refresh');
+	        
+	        $("#vpid2").find(".ser1").hide();
+	        $('#vpid2').selectpicker('refresh');
+		
+	  }
+  }
   
   function doAjaxDeletefile(value){
 	 
@@ -1702,14 +1758,16 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
         <li><a  href="/HMS/hourchart">Hour Chart</a></li>
         <li><a  href="/HMS/drugchart">Drug Chart</a></li>
       </ul></li>
-      <li><a id="ho" href="/HMS/labup">Lab</a></li>
+      
     </ul>
-  </div>
+    <a href="/HMS/diagnose" class="btn btn-warning navbar-btn navbar-right">Refresh</a>
+  
 </nav>
  <div id ="form2">
     <h1><button id ="bouton-contact" form="formc" class="btn btn-warning btn-sm button1" onclick="return validsave();" class="form-control input-sm" >Save</button>
   <font size="5" id="cd"> Clinical Diagnosis </font>
-      <button type="button" id="close" class="btn btn-warning button2" onclick="window.location.href = '/HMS/diagnose';">Refresh</button>    
+<span class="button2" id="spk"><input type="text" id="myInp" class="form-control input-sm button2" placeholder="Search Patients by Keyword"  oninput="playop(this)" style="width:150px"/>
+<i class="glyphicon glyphicon-search" onclick="retrieveds()" style="color:#ff9900;margin: 4px 8px;"></i></span>  	
   </h1>
 <br>
  <form id = "formc" action="/HMS/savediag.html" method = "post"></form>
@@ -1754,7 +1812,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
           <option value="select"  selected >Select</option>
         <c:forEach var="p"  items="${model.list3}">
       
-       <option value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}" dv="${fn:escapeXml(p.diagnose)}" >${p.pname}</option>
+       <option class="ser1" value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}"  dv="${fn:escapeXml(p.diagnose)}"  >${p.pname}</option>
         </c:forEach>
       </select>
       
@@ -1784,7 +1842,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
       <option value="select" selected>Select</option>
       <c:forEach var="p"  items="${model.list3}">
      
-        <option value ="${p.ppid}" data-subtext="${p.fileno}" data-value='${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}' dv="${fn:escapeXml(p.diagnose)}">${p.ppid}</option>
+        <option class="ser1" value ="${p.ppid}" data-subtext="${p.fileno}" data-value='${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}' dv="${fn:escapeXml(p.diagnose)}">${p.ppid}</option>
         </c:forEach>
       </select>
       </div>

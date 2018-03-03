@@ -1333,6 +1333,26 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 				});
 			}		
 			
+	// retrieve patient name based on patient disease	
+			
+			public List<Diagnose> getHistvalue(String tablename,String diseasename) {
+				System.out.println(tablename);
+				System.out.println(diseasename);
+				return template.query("select d.pid,d.fileno,concat(pat.fname,' ',pat.mname,' ',pat.lname) patient,doc.docid,concat(doc.fname,' ',doc.mname,' ',doc.lname) doctor,d.diagnose,d.datetime from "+tablename+" d join patient pat on pat.pid = d.pid join doctor doc on doc.docid = d.docid where diagnose like '%"+diseasename+"%'",new RowMapper<Diagnose>(){  
+				        public Diagnose mapRow(ResultSet rs, int row) throws SQLException {   
+					       Diagnose p = new Diagnose();
+					   	p.setPpid(rs.getString(1));
+					   	p.setFileno(rs.getString(2));
+					   	p.setPname(rs.getString(3));
+					   	p.setDocid(rs.getString(4));
+					   	p.setDname(rs.getString(5));
+					   	p.setDiagnose(rs.getString(6));
+					   	p.setDatetime(rs.getString(7));
+					   
+					    return p;
+				        }
+					});
+				}		
 	//load values based on fileno for discharge screen
 			public List<Diagnose> getHistvalue1(String pid,String fileno,String tablename) {
 				return template.query("select d.pid,d.fileno,concat(pat.fname,' ',pat.mname,' ',pat.lname) patient,doc.docid,concat(doc.fname,' ',doc.mname,' ',doc.lname) doctor,concat('Diagnose Details',d.diagnose,'\n\nProvisional Diagnosis\n',prep.pds) Diag,d.datetime,dp.investigation from "+tablename+" d join patient pat on pat.pid = d.pid join doctor doc on doc.docid = d.docid right outer join prescription prep on prep.fileno = d.fileno left outer join discharge dp on dp.fileno = d.fileno where d.pid = '"+pid+"' and d.fileno ='"+fileno+"'",new RowMapper<Diagnose>(){  

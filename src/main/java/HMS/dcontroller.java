@@ -2073,5 +2073,32 @@ return jsonFormatData;
 
 	     return jsonFormatData;
 		}
- 
+
+//filter based on contents
+@RequestMapping(value="/retds", method = RequestMethod.GET)
+		public @ResponseBody String retds(HttpServletRequest req,@ModelAttribute("s") Diagnose s) {
+				String jsonFormatData = "";
+			
+			
+				List<Diagnose>listred = ddao.getHistvalue(req.getParameter("location2"),req.getParameter("location"));
+			// List<Diagnose> list1 = ddao.getHeaderVal1(tab,pid);
+			 Map<String, Object> model = new HashMap<String, Object>();
+		       
+		       model.put("listred", listred);
+		     //  model.put("list1", list1);
+			 Gson gson = new Gson(); 
+
+			jsonFormatData = gson.toJson(model);
+
+	       
+	 return jsonFormatData;
+	
+	
+	 
+	
+//get previous records
+	
+
+}
+
 }

@@ -1073,7 +1073,7 @@ if(flagval.includes("Dental Observation")){
     		$('#fg1').show();
     		$('#id1').hide();
     		$('#id2').show();
-    	
+    		$('#spk').show();
     		   
     	   }
     	   else{
@@ -1087,7 +1087,7 @@ if(flagval.includes("Dental Observation")){
        		   $('#fg').show();
        		   $('#id2').hide();
      		   $('#id1').show();
-    	      
+     		   $('#spk').hide();
      		  
      		 
     	   }
@@ -1593,6 +1593,60 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
    	     
    }
      
+     // retrieve data for diseases
+     function retrieveds(){
+    	 $("#vpid2").find(".dpa").remove();
+	     $('#vpid2').selectpicker('refresh');
+	     
+	     $("#vpid").find(".dpa").remove();
+	     $('#vpid').selectpicker('refresh');
+    		
+    	    var uri = "/HMS/retds?location="+$("#myInp").val()+"&location2=cdiagnose";
+       		var data = "0";
+      		
+       	   
+      		
+      	   var successFn =  function(response){
+      		   
+      		 if(response.listred.length == 0){
+       			 alert("No Records found!")
+       		 }
+      		   $.each(response.listred, function(index, datec) {
+      	       $("#vpid2").append('<option class="dpa" value="'+datec.ppid+'" data-subtext="DP- '+datec.fileno+'" data-value="'+datec.ppid+'=='+datec.pname+'=='+datec.fileno+'=='+datec.docid+'=='+datec.datetime+'">'+datec.ppid+'</option>');
+               $("#vpid2").selectpicker("refresh");
+               
+               $("#vpid").append('<option class="dpa" value="'+datec.pname+'" data-subtext="DP- '+datec.fileno+'" data-value="'+datec.ppid+'=='+datec.pname+'=='+datec.fileno+'=='+datec.docid+'=='+datec.datetime+'">'+datec.pname+'</option>');
+               $("#vpid").selectpicker("refresh");
+      	          });    
+      	      }
+      		    
+      		  var errorFn = function(e){
+      	      	  alert('Error: ' + e);
+      		  }
+      		  
+      			var get = "GET";
+      	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","JSON");	         
+      	     
+      }
+     
+     function playop(val){
+   	  if($(val).val().length < 1){
+   			$("#vpid").find(".ser1").show();
+   	        $('#vpid').selectpicker('refresh');
+   	        
+   	        $("#vpid2").find(".ser1").show();
+   	        $('#vpid2').selectpicker('refresh');
+   	        
+   	  }
+   	  else{
+   		    $("#vpid").find(".ser1").hide();
+   	        $('#vpid').selectpicker('refresh');
+   	        
+   	        $("#vpid2").find(".ser1").hide();
+   	        $('#vpid2').selectpicker('refresh');
+   		
+   	  }
+     }
      function doAjaxDeletefile(value){
    	 
    		
@@ -1763,12 +1817,15 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
       <li class=""><a id="m2" href="/HMS/treatment">Treatment Records</a></li>  
       <li class=""><a  href="/HMS/discharge">Discharge Summary</a></li>
     </ul>
+     <a href="/HMS/diagnose" class="btn btn-warning navbar-btn navbar-right">Refresh</a>
+  
   </div>
 </nav>
  <div id ="form2">
     <h1><button id ="bouton-contact" form="formc" class="btn btn-warning btn-sm button1" class="form-control input-sm" onclick="return validsave();">Save</button>
   <font size="5" id="cd"> Dental Diagnosis </font>
-      <button type="button" id="close" class="btn btn-warning button2" onclick="clos()">Close</button>    
+     <span class="button2" id="spk"><input type="text" id="myInp" class="form-control input-sm button2" placeholder="Search Patients by Keyword"  oninput="playop(this)" style="width:150px"/>
+<i class="glyphicon glyphicon-search" onclick="retrieveds()" style="color:#ff9900;margin: 4px 8px;"></i></span>      
   </h1>
 <br>
  <form id = "formc" action="/HMS/csavediag.html" method = "post"></form>
@@ -1813,7 +1870,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
           <option value="select" selected disabled >Select</option>
         <c:forEach var="p"  items="${model.list3}">
       
-       <option value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}" dv="${fn:escapeXml(p.diagnose)}" >${p.pname}</option>
+       <option class="ser1" value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}" dv="${fn:escapeXml(p.diagnose)}" >${p.pname}</option>
         </c:forEach>
       </select>
       
@@ -1843,7 +1900,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
       <option value="select"  selected>Select</option>
       <c:forEach var="p"  items="${model.list3}">
      
-        <option value ="${p.ppid}" data-subtext="${p.fileno}" data-value='${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}' dv="${fn:escapeXml(p.diagnose)}">${p.ppid}</option>
+        <option class="ser1" value ="${p.ppid}" data-subtext="${p.fileno}" data-value='${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}' dv="${fn:escapeXml(p.diagnose)}">${p.ppid}</option>
         </c:forEach>
       </select>
       </div>
