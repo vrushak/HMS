@@ -1197,14 +1197,16 @@ function doAjaxDelete(r,drug,type){
   
    </div>
    </div>
-   
+     <div class="col-xs-1">
+ </div>
    <div class="col-xs-2">
    <div class="form-group">
     <button id="opener2" class="btn btn-warning button1" onclick="return doAjaxPost2()">Previous Records</button>
   
    </div>
    </div>
-       
+     <div class="col-xs-1">
+ </div>    
          <div class="col-xs-2">
    <div class="form-group">
     <button id="opener4" class="btn btn-warning button1" >Show Available Drugs</button>

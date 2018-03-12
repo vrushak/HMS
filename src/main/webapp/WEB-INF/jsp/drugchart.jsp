@@ -187,6 +187,9 @@ modal-body{
 	width :50px;
 }
 
+.btn-block{
+ width : 1250px;
+}
 
 #col3{
 margin-left: 150px; 
@@ -706,6 +709,9 @@ function addname(getval){
 	//document.getElementById("nursesig").value = strSplit[8];
 	document.getElementById("admitno").value = strSplit[9];
 	
+	document.getElementById("id").innerHTML = strSplit[1];
+	document.getElementById("nm").innerHTML = strSplit[0];
+	document.getElementById("flno").innerHTML = strSplit[4];
 	 disbut();
 	 dord = strSplit[7];
 	 
@@ -1509,6 +1515,10 @@ $(function () {
 	</h1>
 
 <br>
+<div class="container" style="width:auto;height:auto">
+ <button type="button" style="background:#81BDA4",  class="btn btn-primary btn-block"><span id="pi" style="float:left">Patient Information</span><span id="flno" style="float:right">Fileno</span><span id="id" style="float:right;margin-right:15px;">Id</span><span style="float:right;margin-right:25px;" id="nm">Name</span></button>
+ <br>
+  </div>  
 
 <div class="container">
  
@@ -1568,7 +1578,7 @@ $(function () {
   
   <div class="form-group">
          <p>Registration Id<span>*</span></p>
-     <input type="text" name="pid" id="pid"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="pid" id="pid"  form="forma" class="form-control input-sm" readonly required>
        
        
        
@@ -1584,7 +1594,7 @@ $(function () {
      <div class="form-group">
      
           <p>Admit No<span>*</span></p>
-             <input type="text" name="admitno" id="admitno"  form="forma" class="form-control input-sm"  required>
+             <input type="text" name="admitno" id="admitno"  form="forma" class="form-control input-sm" readonly required>
              <input type="hidden" name="fileno" id="fileno" readonly="readonly" form="forma" class="form-control input-sm"  required>
 	         <input type="hidden" name="name" id="name" readonly="readonly" form="forma" class="form-control input-sm"  required>
 	         <input type="hidden" name="" id="" readonly="readonly" form="forma" class="form-control input-sm"  required>
@@ -1608,7 +1618,7 @@ $(function () {
   <div class="form-group">
      
             <p>Age<span>*</span></p>
-     <input type="text" name="age" id="age"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="age" id="age"  form="forma" class="form-control input-sm" readonly required>
      </div>
  </div>
  
@@ -1616,7 +1626,7 @@ $(function () {
   
   <div class="form-group">
           <p>Gender<span>*</span></p>
-     <input type="text" name="gender" id="gender"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="gender" id="gender"  form="forma" class="form-control input-sm" readonly required>
        
      </div>
  </div>
@@ -1626,7 +1636,7 @@ $(function () {
   <div class="form-group">
   
           <p>Admission Date<span>*</span></p>
-     <input type="text" name="admdate" id="admdate"  form="forma" class="form-control input-sm" required>
+     <input type="text" name="admdate" id="admdate"  form="forma" class="form-control input-sm" readonly required>
        
           
      </div>
@@ -1641,7 +1651,7 @@ $(function () {
   <div class="form-group">
      
            <p>Current Date<span>*</span></p>
-     <input type="text" name="curdate" id="curdate"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="curdate" id="curdate"  form="forma" class="form-control input-sm" readonly  required>
        
      </div>
  </div>
@@ -1653,7 +1663,7 @@ $(function () {
   <div class="form-group">
      
           <p>WardNo/BedNo<span>*</span></p>
-     <input type="text" name="wardno" id="wardno"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="wardno" id="wardno"  form="forma" class="form-control input-sm" readonly required>
      </div>
  </div>
  
@@ -1662,7 +1672,7 @@ $(function () {
   <div class="form-group">
      
           <p>Doctor<span>*</span></p>
-     <input type="text" name="doctsig" id="doctsig"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="doctsig" id="doctsig"  form="forma" class="form-control input-sm" readonly required>
      <input type="hidden" name="extflag" id="extflag" form="forma" value="doct" >
      </div>
  </div>

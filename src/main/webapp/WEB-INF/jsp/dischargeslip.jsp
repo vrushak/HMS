@@ -466,7 +466,7 @@ function validatetab(){
         <th width="155px;"class="">Patient Id</th>
         <th width="155px;"class="">Patient Name</th>
         <th width="155px;" class="">Doctor Name</th>
-        <th width="160px;"class="">Date of admission</th>
+        <th width="160px;"class="">Date of Admission</th>
         <th width="165px;" class="">Date of Discharge</th>
         <th width="165px;">View</th>
       </tr>
@@ -519,7 +519,7 @@ function validatetab(){
   <ul class="nav nav-pills nav-stacked col-md-2">
     <li class="active"><a data-toggle="pill" href="#home1">Patient Details</a></li>
     <li><a data-toggle="pill" href="#home">Diagnosis and Results</a></li>
-    <li><a data-toggle="pill" href="#menu1">Revisit and Emergency contact</a></li>
+    <li><a data-toggle="pill" href="#menu1">Revisit and Emergency Contact</a></li>
    
    
   </ul>
@@ -574,7 +574,7 @@ function validatetab(){
         <div class="col-xs-1"></div>
        <div class="col-xs-3">
    <div class="form-group">
- <p>File No<span></span></p>
+ <p>Patient File no<span></span></p>
   <input type="text" name="fileno" id="fileno" form="formd" readonly="readonly" class="form-control input-sm"  >
   </div>
   </div>   
@@ -601,14 +601,14 @@ function validatetab(){
         <div class="col-xs-1"></div>
        <div class="col-xs-3">
    <div class="form-group">
- <p>Date of admission<span>*</span></p>
+ <p>Date of Admission<span>*</span></p>
   <input type="text" name="admdate" id="admdate" form="formd" readonly="readonly" class="form-control input-sm" required >
   </div>
   </div>   
  
    <div class="col-xs-4">
    <div class="form-group">
-<p>Date of discharge<span>*</span></p>
+<p>Date of Discharge<span>*</span></p>
 <div class='input-group date' id='datetimepicker1'>
   <input type="text" name="disdate" id="disdate" form="formd" class="form-control input-sm"  required>
    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>

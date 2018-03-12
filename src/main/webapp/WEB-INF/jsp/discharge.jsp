@@ -643,7 +643,7 @@ function ze(){
         <th width="155px;">Patient Id</th>
         <th width="155px;">Patient Name</th>
         <th width="155px;">Doctor Name</th>
-        <th width="160px;">Date of admission</th>
+        <th width="160px;">Date of Admission</th>
         <th width="165px;">Date of Discharge</th>
         <th width="145px;">View</th>
         <th width="20px;"></th>

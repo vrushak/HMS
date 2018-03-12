@@ -394,7 +394,7 @@ function setline(id){
 	         <input type="hidden" name="admitno" id="admitno" readonly="readonly" form="forma" class="form-control input-sm"  required>
 	</div>
 	<div class="form-group">
-            <p>Date of admission<span>*</span></p>
+            <p>Date of Admission<span>*</span></p>
      <input type="text" name="admdate" id="admdate" readonly="readonly" form="forma" class="form-control input-sm"  required>
        
 	</div>
