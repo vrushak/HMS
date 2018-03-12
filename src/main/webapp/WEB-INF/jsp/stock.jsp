@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -272,7 +273,7 @@ for(var i =0;i<s.length;i++){
     <td style="width:100px;" ><a href="#" onclick="copy('${p1.pid},${p1.pname},${p1.ptype},${p1.quantity},${p1.pack},${p1.up},${p1.total},${p1.reorder},${p1.expdate},${p1.pc},${p1.invid}')">${p1.pid}</a></td>
     <td style="width:240px;">${p1.pname}</td>
     <td style="width:100px;">${p1.ptype}</td>
-    <td style="width:120px;"> ${p1.expdate}</td>
+    <td style="width:120px;"><fmt:parseDate value="${p1.expdate}" pattern="yyyy-MM-dd" var="myDate"/><fmt:formatDate value="${myDate}" type='date' pattern="dd-MM-yyyy"/></td>
      <td style="width:100px;">${p1.quantity}</td>
     <td style="width:100px;">${p1.pack}</td>
      <td style="width:100px;">${p1.up}</td>

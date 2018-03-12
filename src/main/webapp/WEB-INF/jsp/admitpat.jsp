@@ -170,7 +170,7 @@ function addcname(getval){
 
 function copy(pid){
 
-	document.getElementById("ch").innerHTML = "View Admission";
+	document.getElementById("ch").innerHTML = "Admission";
 	
 	var strSplit = pid.split('=');
 
@@ -313,7 +313,7 @@ $(document).ready(function () {
 	  <button type="button" class="btn btn-warning button1" data-toggle="modal" data-target="#myModal">
 	  <span class="glyphicon glyphicon-plus"></span>New Admission</button>
 <font size="5">In Patients</font><span class="button2"><i class="glyphicon glyphicon-search" style="color:#ff9900;margin: 4px 8px;"></i>
-		<input type="text" id="myInp" class="form-control input-sm button2" placeholder="Search by Name or Id" style="width:150px"/></span>
+		<input type="text" id="myInp" class="form-control input-sm button2" placeholder="Search by Name" style="width:150px"/></span>
 	</h1>
 
 	    <br>
@@ -321,12 +321,13 @@ $(document).ready(function () {
    <table class="table table-striped table-bordered table-fixed table-hover table-condensed" style="width: 1150px; " id="myTable">
     <thead class="thead">
       <tr>
-        <th class="">Patient Name</th>
-        <th class="">Doctor Name</th>
-        <th class="">WardNo</th>
-        <th class="">BedNo</th>
-        <th class="">Cause</th>
-        <th>Print Admit Card</th>
+        <th width="200px;">Patient Name</th>
+        <th width="200px;">Doctor Name</th>
+        <th width="200px;">WardNo</th>
+        <th width="200px;">BedNo</th>
+        <th width="200px;">Cause</th>
+        <th width="180px;">Print Admit Card</th>
+        <th width="20px;"></th>
         
       </tr>
     </thead>
@@ -338,7 +339,7 @@ $(document).ready(function () {
     <td width="200px;">${p1.wardno}</td>
     <td width="200px;">${p1.bedno}</td>
     <td width="200px;">${p1.cause}</td>
-    <td width="200px;"><a href="/HMS/adpdf?location=${p1.fileno}" target="_blank">Print</a></td>
+    <td width="180px;"><a href="/HMS/adpdf?location=${p1.fileno}" target="_blank">Print</a></td>
  </tr>
     </c:forEach>
     </tbody>
@@ -473,7 +474,7 @@ $(document).ready(function () {
   
   <div class="col-xs-3">
          <p>Patient File No<span>*</span></p>
-<input type="text" name="fileno" id="fileno" class="form-control input-sm" required>
+<input type="text" name="fileno" id="fileno" class="form-control input-sm" readonly required>
    
   </div>
    

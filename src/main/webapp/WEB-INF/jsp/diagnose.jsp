@@ -438,11 +438,14 @@ function updheader(div,tab){
 	var hid =  $("#tab"+tab).find(".main").find('.divin').eq(div).find(".header").attr("id");
 	var head1 =  prompt("Update the Header name");
 	var head = $.trim(head1).replace(/\s+/g, " ");
+	
 	if (head == null || head == " " || head.length == "0") {
 	      return false;
   	    } 
 	else {
-  	    var uri = "/HMS/updhead?hid="+hid+"&&header="+head+"&&tabid="+tab+"&&level="+Number(div+1)+"";
+	  
+  	    var uri = "/HMS/updhead?hid="+hid+"&header="+encodeURIComponent(head)+"&tabid="+tab+"&level="+Number(div+1)+"";
+	
 		var data = "0";
 		 
 	   var successFn =  function(response){

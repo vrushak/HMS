@@ -264,7 +264,7 @@ function deleteRow(r) {
 		
 	}
 function checkhome(user){
-	
+	document.getElementById("curdate").value = new Date();
 	if(user.includes("dbfdesk")){
 		 var url = "/HMS/frontdesk" ;
 		 $("#back").hide();	
@@ -530,7 +530,7 @@ function display(user1,user2){
 	
     var nursegig;
 	var tableRef = document.getElementById('myTable1').getElementsByTagName('tbody')[0];
-	var rowsAdd = tableRef.insertRow(tableRef.rows.length);  
+	  
 	var counter = "doctsig" +  tableRef.rows.length;
 
 if(user1 == "[ROLE_NURSE]" ||user1 == "[ROLE_CHIEFNURSE]" ){
@@ -543,82 +543,12 @@ else{
 }
 	
 	//    var m = moment().format('YYYY-MM-DD h:mm a');
-
-	  var newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input type='hidden' name='aid1' id='aid1' value= "+$.now()+"  form='forma'><input  form ='forma' value='"+new Date(new Date().getTime()).toLocaleTimeString()+"' class= 'form-control input-sm'   readonly = 'readonly' type='text' id = 'time' name= 'time' > </td></tr>";
-	  newCell.style.width ='87px';
-	  newCell.style.border='groove';
-	  
-	
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input form ='forma'  class= 'form-control input-sm' id = 'oraltype' value=' ' name= 'oraltype' ></td></tr>";
-	  newCell.style.width ='89px';
-	  newCell.style.border='groove';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td ><input form ='forma' onkeypress='return onlyNos(event,this);' class= 'form-control input-sm' value=' ' type='text'  id = 'oralamt' name= 'oralamt'></td></tr>";
-	  newCell.style.width ='105px';
-	  newCell.style.border='groove';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input form ='forma' class= 'form-control input-sm'  value=' ' id = 'oralcommence'  name= 'oralcommence' ></td></tr>";
-	  newCell.style.width ='111px';
-	  newCell.style.border='groove';
-	  
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input form ='forma' class= 'form-control input-sm' onkeypress='return onlyNos(event,this);' value=' ' id = 'amtgiv'  name= 'amtgiv'  ></td></tr>";
-	  newCell.style.width ='86px';
-	  newCell.style.border='groove';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='forma' class= 'form-control input-sm' onkeypress='return onlyNos(event,this);' value=' '  type='text' id = 'urine' name= 'urine'  > </td></tr>";
-	  newCell.style.width ='71px'; 
-	  newCell.style.border='groove';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input form ='forma'  class= 'form-control input-sm' onkeypress='return onlyNos(event,this);' value=' ' id = 'vomitus'  name= 'vomitus' ></td></tr>";
-	  newCell.style.width ='133px';
-	  newCell.style.border='groove';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input form ='forma' class= 'form-control input-sm' value=' ' type='text'  id = 'remarks' name= 'remarks'    ></td></tr>";
-	  newCell.style.width ='91px'; 
-	  newCell.style.border='groove';
-	
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input form ='forma' class= 'form-control input-sm' value='"+nursesig+"' type='text'  id = 'nsign' name= 'nsign'    ></td></tr>";
-	  newCell.style.width ='91px'; 
-	  newCell.style.border='groove';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td ><input form ='forma' class= 'form-control input-sm dcotsig'  type='text' value='"+user2+"'  id = '"+counter+"' name= 'doctsig'  required  ></td></tr>";
-	  newCell.style.width ='90px';
-	  newCell.style.border='groove';
-	  
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input form ='forma'  class= 'form-control input-sm doctord' value=' ' id = 'doctord' oninput='disbut()' name= 'doctord' required></td></tr>";
-	  newCell.style.width ='85px';
-	  newCell.style.border='groove';
-	  
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input form ='forma' class= 'form-control input-sm ratef' value=' ' id = 'ratef'  name= 'ratef'  required></td></tr>";
-	  newCell.style.width ='68px';
-	  newCell.style.border='groove';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input form ='forma' class= 'form-control input-sm doctrmks'  value=' ' type='text'  id = 'doctrmks' name= 'doctrmks'  required  ></td></tr>";
-	  newCell.style.width ='92px'; 
-	  newCell.style.border='groove';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><i class='fa fa-trash-o' style='font-size:20px'  onclick='deleteRow(this)'></i></td></tr>";
-	  newCell.style.width ='70px';
-	  newCell.style.border='groove';
-	  
+ var rowa = "taba"+ tableRef.rows.length;    
+	  var markup = "<tr id='"+rowa+"'><td style='width:87px;'><input type='hidden' name='aid1' id='aid1' value= "+$.now()+"  form='forma'><input  form ='forma' value='"+new Date(new Date().getTime()).toLocaleTimeString()+"' class= 'form-control input-sm'   readonly = 'readonly' type='text' id = 'time' name= 'time' ></td><td style='width:89px'><input form ='forma'  class= 'form-control input-sm' id = 'oraltype' value=' ' name= 'oraltype' ></td><td style='width:105px'><input form ='forma' onkeypress='return onlyNos(event,this);' class= 'form-control input-sm' value=' ' type='text'  id = 'oralamt' name= 'oralamt'></td><td style='width:111px;'><input form ='forma' class= 'form-control input-sm'  value=' ' id = 'oralcommence'  name= 'oralcommence' ></td><td style='width:86px'><input form ='forma' class= 'form-control input-sm' onkeypress='return onlyNos(event,this);' value=' ' id = 'amtgiv'  name= 'amtgiv'  ></td><td style='width:71px'><input  form ='forma' class= 'form-control input-sm' onkeypress='return onlyNos(event,this);' value=' '  type='text' id = 'urine' name= 'urine'></td><td style='width:133px;'><input form ='forma'  class= 'form-control input-sm' onkeypress='return onlyNos(event,this);' value=' ' id = 'vomitus'  name= 'vomitus' ></td><td style='width:91px;'><input form ='forma' class= 'form-control input-sm' value=' ' type='text'  id = 'remarks' name= 'remarks'></td><td style='width:91px;'><input form ='forma' class= 'form-control input-sm' value='"+nursesig+"' type='text'  id = 'nsign' name= 'nsign'></td><td style='width:90px;'><input form ='forma' class= 'form-control input-sm dcotsig'  type='text' value='"+user2+"'  id = '"+counter+"' name= 'doctsig'  required  ></td><td style='width:85px;'><input form ='forma'  class= 'form-control input-sm doctord' value=' ' id = 'doctord' oninput='disbut()' name= 'doctord' required></td><td style='width:68px'><input form ='forma' class= 'form-control input-sm ratef' value=' ' id = 'ratef'  name= 'ratef'  required></td><td style='width:92px'><input form ='forma' class= 'form-control input-sm doctrmks'  value=' ' type='text'  id = 'doctrmks' name= 'doctrmks'  required  ></td><td style='width:70px'><i class='fa fa-trash-o' style='font-size:20px'  onclick='deleteRow(this)'></i></td></tr>";
+	  $('#myTable1 .tbody1').append(markup);
+	  var elmnt = document.getElementById(rowa);
+	     elmnt.scrollIntoView();
+	     $(rowa).focus(); 
 		
 	  
 disbut();	
@@ -1194,8 +1124,17 @@ var user2a;
 	      </div>
 	      
 	            <div class="form-group row" >
-	     <div class="col-xs-1"></div>
-	      <div class="col-xs-3">
+	    	     <div class="col-xs-1"></div>
+	          <div class="col-xs-3">
+  
+  <div class="form-group">
+     
+           <p>Current Date<span>*</span></p>
+     <input type="text" name="curdate" id="curdate"  form="forma" class="form-control input-sm"  required>
+       
+     </div>
+ </div>
+	      <div class="col-xs-4">
 	       <div class="form-group">
      
           <p>WardNo/BedNo<span>*</span></p>
@@ -1235,7 +1174,7 @@ var user2a;
      </div>
 	      </div>
 	      --> 
-	       <div class="col-xs-4">
+	       <div class="col-xs-3">
 	       <div class="form-group">
      
           <p>Nurse Assigned<span></span></p>

@@ -987,13 +987,14 @@ function loadval(div,min){
     				   
     	//	  createbr(flagval)	
     		
-    		 // createbr(">")
+    		// createbr(">")
     		          for(i in obj[retobj]){
     		           for(var key in obj[retobj][i]) {
     		        	 
     		        	    if (obj[retobj][i].hasOwnProperty(key)) {
     		        	   
     		        	        var res = obj[retobj][i][key];
+    		        	     
     		        	        createbr(">")
     		        	        createbr(res)
     		        	    
@@ -1001,7 +1002,8 @@ function loadval(div,min){
     		        	       }
     		        	}
     		          }
-    		     }
+    		          $('#tresult').val($('#tresult').val().split("\n").map(str => str.length && str.charAt(0) == '>' ? str.substr(1) : str).join('\n'));
+    		            }
     	      
     	     });
     	  obj = {};
@@ -1075,12 +1077,24 @@ function refresh(){
 	    		 
 	    //	  }
 	   //   }
+
            $('#text1').val(head + retobj);  //document.createTextNode(retobj);
           // head.appendChild(head1);
         }
         else{
+        	
+                  
         	 var head = document.getElementById("tresult").value;
-        	 $('#tresult').val(head + retobj);
+              $('#tresult').val(head + retobj);
+        	 
+              /*
+              var lines = $('#tresult').val().split('\n');
+        	 for(var i = 0;i < lines.length;i++){
+        		 //lines[i].charAt(0)
+  
+        	     //code here using lines[i] which will give you each line
+        	 } 
+        */
         }
    }
        

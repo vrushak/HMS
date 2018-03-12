@@ -23,6 +23,7 @@
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap.min.css" />' >
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-select.min.css" />' />
 <link rel="stylesheet" href='<c:url value="/resources/css/jquery-ui.css" />' >
+<link rel="stylesheet" href='<c:url value="/resources/css/jquery-confirm.min.css" />' >
 
 <script type="text/javascript" src="/HMS/resources/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap.min.js"></script>
@@ -31,6 +32,7 @@
 <script type="text/javascript" src="/HMS/resources/js/jquery-ui.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/jquery-confirm.min.js"></script>
 
 <style>
 .wrapper {
@@ -242,9 +244,9 @@ function AutoGrowTextArea(textField)
 </script>
 <script type="text/javascript">
 var userb;
-
+var sp;
 function checkhome(user){
-	
+	sp = $("#pname").val();
 	var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
 	if(tableRef.rows.length == 0){
 		display();
@@ -321,7 +323,7 @@ function disp(){
 	//alert(x)
 	if(x == "Select"){
 		
-		alert("please select the Patient Name ");
+		alert("please select a Patient Name ");
 		return false;
 	}
 	else{
@@ -365,6 +367,7 @@ for(var i=0;i<e.length;i++){
 function addname(getval){
 	
 	
+	
 	var myname = getval.getAttribute('data-value'); 	
 		//var str = document.getElementById("pname").getAttribute("data-value");
 	//	alert(str);
@@ -372,8 +375,24 @@ function addname(getval){
 		
 	
 		var strSplit = myname.split('=');
+		
 //		alert(strSplit[9]);
-
+if(!sp.includes("Select")){
+$.confirm({
+	    title: 'Confirm!',
+	    content: 'You are changing the patient name?<br>Click CONFIRM to clear the data<br>Click CANCEL to retain the data',
+	    buttons: {
+	        confirm: function () {
+	        	  $("#myTable .tbody tr").remove();
+	        	  display()
+	        },
+	        cancel: function () {
+	            
+	         }
+	       
+	    }
+	});
+}
 		document.getElementById("pid").value = strSplit[0];
 		document.getElementById("pname").value = strSplit[1];
 		document.getElementById("docid").value = strSplit[2];	
@@ -382,7 +401,7 @@ function addname(getval){
 		document.getElementById("fileno").value = strSplit[4];
 		document.getElementById("admitno").value = strSplit[5];
 		document.getElementById("age").value = strSplit[6];
-	
+	sp = strSplit[1];
 		//document.getElementById("dname").value = strSplit[3];
 		
 		
@@ -456,19 +475,19 @@ function display(){
 	//    var m = moment().format('YYYY-MM-DD h:mm a');
 
 	  var newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<input type='text'  form ='form1'  class= 'form-control input-sm' value=' ' id = 'typeofdr' name= 'typeofdr'  required>";
+	  newCell.innerHTML="<input type='text'  form ='form1'  class= 'form-control input-sm' value='NA' id = 'typeofdr' name= 'typeofdr'  required>";
 	  newCell.style.width ='100px';
 		 
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value=' '  type='text' id = '"+tableRef.rows.length+"' name= 'drugname'  required> </td></tr>";
+	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value='NA'  type='text' id = '"+tableRef.rows.length+"' name= 'drugname'  required> </td></tr>";
 	  newCell.style.width ='100px';
 		 
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value=' ' type='text' id = 'strdrug' name= 'strdrug'  required> </td></tr>";
+	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm' value='NA' type='text' id = 'strdrug' name= 'strdrug'  required> </td></tr>";
 	  newCell.style.width ='100px';
 		 
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm baf' value=' ' type='text' id = 'dosage' name= 'dosage'  required> </td></tr>";
+	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm baf' value='NA' type='text' id = 'dosage' name= 'dosage'  required> </td></tr>";
 	  newCell.style.width ='50px';
 		 
 	  
@@ -487,11 +506,11 @@ function display(){
 	  newCell.style.width ='100px';
 	  
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm baf' value=' ' type='text' id = 'totn' name= 'totn'  required> </td></tr>";
+	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm baf'  type='text' id = 'totn' name= 'totn' value='NA' required> </td></tr>";
 	  newCell.style.width ='70px';
 		 
 	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm baf' value=' ' type='text' id = 'nofdays' name= 'nofdays'  required> </td></tr>";
+	  newCell.innerHTML="<tr><td><input  form ='form1' class= 'form-control input-sm baf' type='text' id = 'nofdays' name= 'nofdays' value='NA'  required> </td></tr>";
 	  newCell.style.width ='50px';
 		 
 	  newCell = rowsAdd.insertCell();
@@ -632,13 +651,29 @@ function doAjaxPost(fileno) {
 </script>
 
 <script>
+function validatetab(){
+	
+	var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
+if($("#pname").val().includes("Select")){
+	alert("Please select a Patient Name")
+	return false;
+}
+	if(tableRef.rows.length  == 0){
+	   alert("Please add medicines")
+	   return false;
+	}
+	else{
+		return true;
+	}
+	
+}
 function doAjaxPost2() {
 	   // get the form values
 	//  
 	
 
 	if(document.getElementById("pname").value == "Select"){
-		alert("Please select the patient name")
+		alert("Please select a Patient name")
 		return false;
 		
 	}
@@ -685,7 +720,7 @@ if(response.length == 0){
 	if(tableRef.rows.length == 1){
 		display();
 	}
-	alert("No Records exists for this Patient file number")
+	alert("Selected patient does not have previous records")
 }
       
     $.each(response, function(index, drug) {
@@ -926,6 +961,7 @@ if(response.length == 0){
   });
   </script>
  <script>
+ 
 function doAjaxDelete(r,drug,type){
 
 	var a = document.getElementById(drug).value;
@@ -965,7 +1001,17 @@ function doAjaxDelete(r,drug,type){
 }
 
 </script> 
-
+       <script>
+       $(document).ready(function() {
+     	  
+    	   $('.tbody').on( 'click focusin','tr td', function() {
+    	    	
+    	 	   if(this.getElementsByTagName('input')[0].value == "NA"){
+    	 		  this.getElementsByTagName('input')[0].value = "";
+    	 	    };
+    	 	});
+    	    }); 
+       </script>
 
 </head>
 
@@ -989,7 +1035,7 @@ function doAjaxDelete(r,drug,type){
   -->
     </ul>
      <ul class="nav navbar-nav navbar-right">
-      <li><a href="/HMS/prdocs"><span class="fa fa-arrow-left"></span>Back</a></li>
+      <li><a href="/HMS/prdocs"><span class="glyphicon glyphicon-user"></span>Back</a></li>
       
     </ul>
   </div>
@@ -1000,7 +1046,7 @@ function doAjaxDelete(r,drug,type){
   
      <h1>
 	
-  <button type="submit" id="bc" form="form1" class="btn btn-warning button1" onclick="" >Save</button>    	
+  <button type="submit" id="bc" form="form1" class="btn btn-warning button1" onclick="return validatetab()" >Save</button>    	
 <font size="5">IPD Prescription</font><span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i>
    <button type="button" id="close" class="btn btn-warning button2" onclick="return disp()">Print</button>    
       
@@ -1032,7 +1078,7 @@ function doAjaxDelete(r,drug,type){
 	      <div class="form-group">
       
            
-   Doctor:<input type="text" name="dname" id="dname"  form="form1" class="form-control input-sm"  required>
+   Doctor:<input type="text" name="dname" id="dname"  form="form1" class="form-control input-sm" readonly required>
        
        
 	</div>
@@ -1042,7 +1088,7 @@ function doAjaxDelete(r,drug,type){
 	        <div class="form-group">
      
         
-          Date:<input type="text" name="date" id="date"  form="form1" class="form-control input-sm"  required>
+          Date:<input type="text" name="date" id="date"  form="form1" class="form-control input-sm" readonly required>
      
      
        
@@ -1058,7 +1104,7 @@ function doAjaxDelete(r,drug,type){
 	      <div class="form-group">
             
         Patient Name:<select class="selectpicker form-control" data-size="4" data-live-search="true" form="form1" name = "pname" id ="pname" onchange="addname(this.options[this.selectedIndex])">
-          <option value="Select" selected disabled>Select</option>
+          <option value="Select" selected>Select</option>
         <c:forEach var="p"  items="${model.list1}">
         <option value="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pid}=${p.pname}=${p.docid}=${p.dname}=${p.fileno}=${p.admitno}=${p.age}=${p.cause}">${p.pname}</option>
         </c:forEach>
@@ -1071,7 +1117,7 @@ function doAjaxDelete(r,drug,type){
 	      
 	       <div class="form-group">
        
-    Age:<input type="text" name="age" id="age" class="form-control input-sm"  required>
+    Age:<input type="text" name="age" id="age" class="form-control input-sm" readonly required>
        
        
        

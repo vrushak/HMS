@@ -63,6 +63,27 @@ margin-left:10px;
 
 <script>
 
+function getInputDateFormat(date) {
+	 return date.toISOString().split('T')[0];
+	}
+	
+function validDate(val) {
+	 var today = new Date();
+	 var maxDate = new Date($("#admdate").val());
+	 
+if($(val).attr("id").includes("admdate")){
+
+	document.getElementById("admdate").setAttribute('max', getInputDateFormat(today));
+}
+else{
+	alert()
+    document.getElementById("disdate").setAttribute('min', getInputDateFormat(maxDate));
+}
+	 
+	}
+	
+	
+
 function myconfirm()
 {
  var r = confirm("Do you want to Logout?");
@@ -103,9 +124,7 @@ function addp1(id){
 	
 }
 
-function getInputDateFormat(date) {
-	 return date.toISOString().split('T')[0];
-	}
+
 </script>
 <script>
 $( function() {
@@ -139,10 +158,10 @@ $( function() {
 		    	  
 		    	  var date = new Date(), y = date.getFullYear(), m = date.getMonth();
 		    	  var firstDay = new Date(y, m, 1);
-		    	  $("#admdate").val('');
+		    	 // $("#admdate").val('');
 		    //	  $("#disdate").val('');
 		    	  $("#admdate").val(moment(firstDay).format("YYYY-MM-DD"))
-		         $("#disdate").val(moment().format("YYYY-MM-DD"));
+		          $("#disdate").val(moment().format("YYYY-MM-DD"));
 		    	 $( "#result" ).dialog( "open" );
 		      }
 		    	
@@ -161,11 +180,13 @@ $( function() {
 		    	 });  
 	    
 	    
-	    $( "#admdate" ).on( "change", function() {
+	    $( "#admdate" ).on( "click", function() {
 	   var a = $("#admdate").val();
+	
 	   var today = new Date(a);
 	   
-	      $("#disdate").attr('min',getInputDateFormat(today))
+	    $("#admdate").attr('max',a)
+ 	    $("#disdate").attr('min',a)
 		});
 });
 
@@ -338,20 +359,19 @@ $( function() {
         <div class="col-xs-10">
         <p>From Date<span></span></p>
        <div class="form-group">
-      <div class='input-group date dp1'>
-      <input type='date' name="admdate" id="admdate" onkeydown="return false" class="form-control input-sm" required />
      
-      </div></div>
+      <input type="date" name="admdate" id="admdate"  class="form-control input-sm"  required />
+     
+      </div>
       </div>
       </div>
      <div class="form-group row" >
         <div class="col-xs-10">
         <p>To Date<span></span></p>
        <div class="form-group">
-      <div class='input-group date dp1' id="datetimepicker">
-      <input type='date' name="disdate" id="disdate" onkeydown="return false" class="form-control input-sm" required />
+     <input type="date" name="disdate" id="disdate"  class="form-control input-sm"  required />
    
-      </div></div>
+      </div>
       </div>
       </div>   
       <a href="#" target="_blank" class="btn btn-warning" onclick="return addp(this)">Bill Report</a></div>

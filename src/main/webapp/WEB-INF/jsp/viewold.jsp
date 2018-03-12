@@ -561,7 +561,7 @@ function cori1(value){
 	}
 	else{
 	$("#ss").prop('checked','checked');
-	$("ps").hide();
+	$("#ps").hide();
 	$("#ppp").hide();
 	}
 }
@@ -591,11 +591,11 @@ function validchk(){
 		return false;
 	}
 	else if(b == "NA" || b=="null" || b.length == 0){
-		alert("Please fillout Policy Holder details")
+		alert("Please fillout Policy Holder name")
 		return false;
 	}
 	else if(c == "NA" || c == "null" || c.length == 0){
-		alert("Please fillout Policy No details")
+		alert("Please fillout Policy No")
 		return false;
 	}
 	

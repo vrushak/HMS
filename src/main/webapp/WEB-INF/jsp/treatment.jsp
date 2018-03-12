@@ -111,7 +111,7 @@ function checkhome1(user){
 function visible(){
 	 var pid = document.getElementById("pid").value ;
 	 if(pid == "" || pid == null){
-	 alert("Please select the patient!!");
+	 alert("Please select a Patient Name");
 	 return false;
 	 }
 	 else{
@@ -198,7 +198,7 @@ function onlyAlphabets(e, t) {
  	   document.getElementById("pid").value = id; 
  	   document.getElementById("admdate").value = admdatep; 
        
- 	 
+ 
     	
     	  for(var x=0; x<datetimep.length; x++) {
     		  
@@ -217,14 +217,21 @@ function onlyAlphabets(e, t) {
     		  newCell.style.width ='200px';
     		  
     		  newCell = rowsAdd.insertCell();
-    		  newCell.innerHTML="<tr><td width ='';><textarea form ='forma' class= 'form-control input-sm'  rows='1'  id = 'comments'  name= 'comments' onkeypress='' value='"+comments+"'  required>"+comments+"</textarea></td></tr>";
+    		  newCell.innerHTML="<tr><td width ='';><textarea form ='forma' class= 'form-control input-sm'  rows='1'  id = '"+tableRef.rows.length+"'  name= 'comments' onkeypress='' value='"+comments+"'  required>"+comments+"</textarea></td></tr>";
     		  newCell.style.width ='300px';
     		  /*
     		  newCell = rowsAdd.insertCell();
     		  newCell.innerHTML="<tr><td class='tds'><i class='fa fa-trash-o' style='font-size:20px'  onclick= deleteRow(this,'"+encodeURIComponent(dnamed[x])+"')></i></td></tr>";
     		  newCell.style.width ='50px';
               */
+              if('<c:out value="${pageContext.request.userPrincipal.name}" />' != "dbadmin1"){
+               if(dnamed[x] != '<c:out value="${pageContext.request.userPrincipal.name}" />'){
+            	 
+            	$("#"+tableRef.rows.length).attr("readonly","readonly")
+              }
+              }
     	  }
+  
 	}
 
 
@@ -446,7 +453,7 @@ function setline(id){
    </div>
     <c:forEach var="p"  items="${model.list1}">
     <script>
- checkhome('<c:out value="${p.idc}" />');
+ //checkhome('<c:out value="${p.idc}" />');
  </script>
     </c:forEach>
     

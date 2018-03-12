@@ -229,13 +229,12 @@ function copy(pid){
    
   
    
- //  $("#pname").append('<option value="'+strSplit[1]+'"selected="">'+strSplit[1]+'</option>');
-  // $("#pname").selectpicker("refresh");
+   $("#pname").append('<option value="'+strSplit[1]+'"selected="">'+strSplit[1]+'</option>');
+  $("#pname").selectpicker("refresh");
    
-   $('select[name=pname]').val(strSplit[1]);
-	 $('#pname').selectpicker('refresh');
+ //  $('select[name=pname]').val(strSplit[1]);
+//	 $('#pname').selectpicker('refresh');
  
- //document.getElementById("pname1").disabled = true; 
 // document.getElementById("bouton-contact").disabled = true; 
  
    
@@ -302,6 +301,13 @@ function datasuccess(data){
 	    window.location = "/HMS/dslip"
 	}
 	
+}
+
+function validatetab(){
+	if($("#pname").val().includes("select")){
+		alert("Please select a Patient Name")
+		return false;
+	}
 }
 </script>
  <script type="text/javascript">
@@ -498,7 +504,7 @@ function datasuccess(data){
        
     <!--<div class="modal-body">-->
       <div id="form2">
-          <h1>  <button type="submit" class="btn btn-warning button1" form ="formd" id="bouton-contact" onclick="" >Save</button> 
+          <h1>  <button type="submit" class="btn btn-warning button1" form ="formd" id="bouton-contact" onclick="return validatetab()" >Save</button> 
         Discharge Slip
          <button type="button" id="close" class="btn btn-warning button2" onclick="clos()">Close</button>    
       
@@ -530,7 +536,7 @@ function datasuccess(data){
   <div class="form-group">
             <p>Patient Name<span>*</span></p>
              <select class="selectpicker form-control" data-size="6" data-live-search="true"name = "pname" id ="pname" onchange="addcname(this.options[this.selectedIndex])"    required>
-          <option value="select" selected disabled>Select</option>
+          <option value="select" selected>Select</option>
         <c:forEach var="p"  items="${model.list1}">
         <option data-subtext="${p.fileno},${p.admitno}" value="${p.pname}" data-value="${p.pid}=${p.pname}=${p.dname}=${p.docid}=${p.admdate}=${p.fileno}=${p.admitno}=${p.cause}=${p.wardno}=${p.age}=${p.gender}">${p.pname}</option>
         </c:forEach>

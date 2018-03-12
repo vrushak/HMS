@@ -245,7 +245,12 @@ function disp(){
 
 	
 
-
+function vrf(){
+	if($("#pn").val().includes("select")){
+		alert("Please select a Patient Name")
+		return false;
+	}
+}
 		
 	
 		
@@ -313,7 +318,7 @@ function cpyfile(getval){
 
 		document.getElementById("fin").value = strSplit[0];
 		document.getElementById("docid").value = strSplit[1];
-	//	document.getElementById("pn").value = strSplit[2];
+		document.getElementById("pname").value = strSplit[2];
     
 }
 
@@ -537,7 +542,7 @@ hr {
 	        </div>
 	       
      <tr>
-       <b>&emsp;&emsp;&emsp; Dr</b><input type="text" value="${pageContext.request.userPrincipal.name}"  style="border-style:none; width:80%; border-width:2px;"  id="pname" name="pname" form="savesic"  ></input>
+       <b>&emsp;&emsp;&emsp; Dr</b><input type="text"  style="border-style:none; width:80%; border-width:2px;"  id="pname" name="pname" form="savesic"  ></input>
           <br>
           <br>
          
@@ -556,7 +561,7 @@ hr {
      <div class="col-xs-3">
       <div class="form-group">
 <select class="selectpicker form-control input-sm" data-size="10" data-live-search="true" name = "pn" id ="pn"  onchange="cpyfile(this.options[this.selectedIndex])" form="savesic">
-          <option value="" selected disabled>Patient Name</option>
+          <option value="select" selected>Patient Name</option>
          <c:forEach var="p"  items="${model.list2}">
         <option value="${p.pid}" data-subtext="${p.fileno}"  data-value="${p.fileno}=${p.docid}=${p.dname}">${p.pname}</option>
        

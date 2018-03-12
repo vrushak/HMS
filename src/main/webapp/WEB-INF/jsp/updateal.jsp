@@ -333,7 +333,7 @@ function copy(pid){
   document.getElementById("aid").value = strSplit[0];
   document.getElementById("aname").value = strSplit[1];
   document.getElementById("arole").value = strSplit[2];
-  
+  changetext(strSplit[2])
   
    $('#myModal').modal('show');
 
@@ -366,6 +366,20 @@ function validmess(){
 	}
 }
 
+function changetext(val){
+	if(val.includes("ASSISTANT")){
+		$('.text-muted').text('Assistant role has access to edit bill modules and also to other frontdesk modules');
+	}
+	else if(val.includes("PHARMACIST")){
+		$('.text-muted').text('Pharmacist role has access to edit bill modules and also to other frontdesk modules ');
+	}
+	else if(val.includes("SALESMANAGER")){
+		$('.text-muted').text('Salesmanager role has access to edit bill modules and also to other frontdesk modules ');
+	}
+	else{
+		$('.text-muted').text('Accounts Admin role has access to edit bill modules and also to other frontdesk modules ');
+	}
+}
 
 </script>
 <script type="text/javascript">
@@ -521,13 +535,13 @@ $(document).ready(function () {
        <div class="col-xs-4">
   <div class="form-group">
                <p>Assign Role<span>*</span></p>
-    <select class="form-control" form="form1" data-size="5" data-width="100%" name="arole" id="arole" required >
+    <select class="form-control" form="form1" data-size="5" data-width="100%" name="arole" id="arole" onchange="changetext(this.value)" required >
            <option value="Accounts Admin">Accounts Admin</option>
            <option value="ASSISTANT">Assistant</option>
            <option value="PHARMACIST">PHARMACIST</option>
            <option value="SALESMANAGER">SALESMANAGER</option>
             </select>
-             <small class="text-muted">Accounts Admin role has access to edit bill modules and also to other frontdesk modules .</small>
+             <small class="text-muted">Accounts Admin role has access to edit bill modules and also to other frontdesk modules.</small>
             
             </div>
   </div>

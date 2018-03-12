@@ -209,7 +209,7 @@ var cuser;
 			 document.getElementById("disdate").value =  moment().format("DD-MM-YYYY");
 		 }
 		 
-	
+	$("#cashier").val(str[8])
 		 
 		 
 	//	days_between(str[4],document.getElementById("disdate").value);
@@ -662,7 +662,8 @@ var mip,mis,php,phs,pnop,pnos,insp,inss;
 	                   pnop = datec.policyno.split("=");
 	                  
 	                   insp = datec.insurancec.split("=");
-	            
+	                   
+	                   $("#ps").prop('checked',true);
 	                   cori1('Primary')
 	                
 	                   //'+datec.time+'=.='+datec.oraltype+'=.='+datec.oralamt+'=.='+datec.oralcommence+'=.='+datec.amtgiv+'=.='+datec.urine+'=.='+datec.vomitus+'=.='+datec.remarks+'=.='+datec.doctord+'=.='+datec.doctsig+'=.='+datec.ratef+'=.='+datec.doctrmks+'
@@ -721,7 +722,10 @@ function validchk(){
 	var a = document.getElementById("mid").value;
 	var b = document.getElementById("policyholder").value;
 	var c = document.getElementById("policyno").value;
-	
+	if($("#pname1").val().includes("select")){
+		alert("Please select a Patient Name")
+		return false;
+	}
 	
 	if(document.getElementById("insurance1").checked == true){
 		
@@ -734,11 +738,11 @@ function validchk(){
 		return false;
 	}
 	else if(b == "NA" || b=="null" || b.length == 0){
-		alert("Please fillout Policy Holder details")
+		alert("Please fillout Policy Holder name")
 		return false;
 	}
 	else if(c == "NA" || c == "null" || c.length == 0){
-		alert("Please fillout Policy No details")
+		alert("Please fillout Policy No")
 		return false;
 	}
 	
@@ -924,7 +928,7 @@ input .ftype{
                     <td><select class="selectpicker form-control" data-size="5" data-width="200px" data-live-search="true" name = "pname1" id ="pname1" onchange="addcname()" form ="billsave"   required>
                         <option value="select">Select</option>
                          <c:forEach var="p"  items="${model.list3}">
-                          <option data-subtext="${p.fileno},${p.admitno}" value="${p.pname}=${p.pid}=${p.address}=${p.wardno}=${p.admdate}=${p.dname}=${p.fileno}=${p.admitno}" >${p.pname}</option>
+                          <option data-subtext="${p.fileno},${p.admitno}" value="${p.pname}=${p.pid}=${p.address}=${p.wardno}=${p.admdate}=${p.dname}=${p.fileno}=${p.admitno}=${p.cashier}" >${p.pname}</option>
                           </c:forEach>
                            </select>
       </td>
@@ -992,7 +996,7 @@ input .ftype{
                 </tr>
                 <tr>
                     <td class="meta-head">Cashier</td>
-                    <td><textarea id="cashier" name="cashier"  form="billsave">${pageContext.request.userPrincipal.name}</textarea></td>
+                    <td><textarea id="cashier" name="cashier"  form="billsave"></textarea></td>
                 </tr>
 
             </table>

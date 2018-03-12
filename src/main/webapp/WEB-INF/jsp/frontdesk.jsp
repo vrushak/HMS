@@ -343,11 +343,17 @@ function myconfirm()
       <figcaption><input type="button" onclick="location.href='/HMS/admitpat.html';"value="Admissions"></figcaption>
       </figure>
     </div>
-    
+    <!-- 
       <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/Summary.png'/>"/><br><br>
       <figcaption><input type="button" onclick="location.href='/HMS/discharge.html';" value="View Summary"></figcaption>
+      </figure>
+    </div> -->
+     <div class="col-xs-2">
+      <figure>
+       <img src="<c:url value='/Images/emergency.png'/>"/><br><br>
+      <figcaption><input type="button"  onclick="doAjaxPost()" value="Emergency Care"></figcaption>
       </figure>
     </div>
     </div>
@@ -373,12 +379,7 @@ function myconfirm()
       </figure>
     </div>
  
-  <div class="col-xs-2">
-      <figure>
-       <img src="<c:url value='/Images/emergency.png'/>"/><br><br>
-      <figcaption><input type="button"  onclick="doAjaxPost()" value="Emergency Care"></figcaption>
-      </figure>
-    </div>
+ 
  
  
  <div class="col-xs-2">

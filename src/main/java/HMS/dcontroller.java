@@ -569,13 +569,13 @@ public class dcontroller {
 		   	return jsonFormatData; 
 		   	}
 		   
-		   @RequestMapping(value="/dischargefile/{id}", method = RequestMethod.GET)
-		   public @ResponseBody String Dischargefile(@PathVariable String id) {
+		   @RequestMapping(value="/dischargefile", method = RequestMethod.GET)
+		   public @ResponseBody String Dischargefile(HttpServletRequest req, HttpServletResponse response) {
 		 	  	 
 		   	  String jsonFormatData = "";
 		   	
 		       
-		       List<Prescription>list3a = ddao.getFilenos(id);
+		       List<Prescription>list3a = ddao.getFilenos(req.getParameter("location1"),req.getParameter("location2"));
 		     
 		  
 		        Gson gson = new Gson(); 
@@ -839,8 +839,8 @@ public class dcontroller {
 
 }
 		   @RequestMapping(value="/sick", method = RequestMethod.GET)
-			public ModelAndView sick(@ModelAttribute("s") Appointment p) {
-				List<Appointment> list2=ddao.getappointment1();  
+			public ModelAndView sick(@ModelAttribute("s") Appointment p,Principal principal) {
+				List<Appointment> list2=ddao.getappointment1(principal.getName());  
 			    List<Sick> list3= ddao.getsick();
 				 Map<String, Object> model = new HashMap<String, Object>();
 			       model.put("list2",list2);
@@ -875,8 +875,8 @@ public class dcontroller {
 		  
 		
 		   @RequestMapping(value="/referral", method = RequestMethod.GET)
-			public ModelAndView referral(@ModelAttribute("r")  Referral r) {
-			   List<Appointment> list2=ddao.getappointment();			
+			public ModelAndView referral(@ModelAttribute("r")  Referral r,Principal principal) {
+			   List<Appointment> list2=ddao.getappointment(principal.getName());			
 				List<Referral> list3= ddao.getreferral();
 			   
 				 Map<String, Object> model = new HashMap<String, Object>();
@@ -1474,7 +1474,7 @@ public class dcontroller {
 			public @ResponseBody String updhtab(HttpServletRequest req,@ModelAttribute("s") Diagnose s) {
 					String jsonFormatData = "";
 				 int res = 0;
-				 int tabid = Integer.parseInt(req.getParameter("tabid"));
+				 //int tabid = Integer.parseInt(req.getParameter("tabid"));
 				 int hid = Integer.parseInt(req.getParameter("hid"));
 				 int level = Integer.parseInt(req.getParameter("level"));
 				 		

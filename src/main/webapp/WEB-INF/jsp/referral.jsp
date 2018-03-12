@@ -276,6 +276,13 @@ function checkhome(user){
 	}
 }
 
+function vrf(){
+	if($("#pid").val().includes("select")){
+		alert("Please select a Patient Name")
+		return false;
+	}
+}
+
 function disp(){
 	AutoGrowTextArea(document.getElementById("pname"))
 	AutoGrowTextArea(document.getElementById("remarks"))
@@ -372,7 +379,8 @@ function cpyfile(getval){
 
 	document.getElementById("fn").value = strSplit[0];
 	document.getElementById("docid1").value = strSplit[1];
-//	document.getElementById("pid").value = strSplit[2];
+	alert(strSplit[2])
+    document.getElementById("dname").value = strSplit[2];
 }
 
 
@@ -555,7 +563,7 @@ function AutoGrowTextArea(textField)
 	<div id="page-wrap">
         <h1>
         
-	     <button type="submit" form="saveref" class="btn btn-warning button1" id='bc'  value="submit">
+	     <button type="submit" form="saveref" class="btn btn-warning button1" onclick="return vrf()" id='bc'  value="submit">
 	     
 	  <span></span>Save</button>
 <font size="5">Referral Note</font><span class="button2">
@@ -625,7 +633,7 @@ function AutoGrowTextArea(textField)
                     <p style="" align="left" "meta-head"><form="saveref" >&emsp;&emsp;&emsp; <b>This will introduce my patient ,</b>
                     
            <select class="selectpicker" data-size="10" data-live-search="true" name = "pid" id ="pid"  form="saveref" onchange="cpyfile(this.options[this.selectedIndex])" >
-          <option value="" selected disabled>Patient Name</option>
+          <option value="select" selected>Patient Name</option>
          <c:forEach var="p"  items="${model.list2}">
         <option value="${p.pid}"  data-subtext="${p.fileno},${p.pid}" data-value="${p.fileno}=${p.docid}=${p.dname}">${p.pname}</option>
         
@@ -660,7 +668,7 @@ function AutoGrowTextArea(textField)
                 <textarea class="notes1" style="width :750px;" rows="2"  id="remarks" name="remarks" form="saveref" onfocus="AutoGrowTextArea(this)"  required></textarea>
           </div>
          <br>
-         <tr>&emsp;&emsp;&emsp;<b>Doctor's Name:<input type="text" id="dname" name="dname" value="${pageContext.request.userPrincipal.name}"  style="border-style: none;margin-left:1%;width:30%;border-width:2px;" class="meta-head"  form="saveref"/></b>&emsp;&emsp;&emsp;<span id="ss" style="margin-left:-5px;" ><b>Doctor's Signature:</b></span> &emsp;<input type="text" id="sign"  name="sign" style="border-style: none; width:24%;border-width:2px;" class="meta-head"  form="saveref"></input> </tr><br>
+         <tr>&emsp;&emsp;&emsp;<b>Doctor's Name:<input type="text" id="dname" name="dname" style="border-style: none;margin-left:1%;width:30%;border-width:2px;" class="meta-head"  form="saveref"/></b>&emsp;&emsp;&emsp;<span id="ss" style="margin-left:-5px;" ><b>Doctor's Signature:</b></span> &emsp;<input type="text" id="sign"  name="sign" style="border-style: none; width:24%;border-width:2px;" class="meta-head"  form="saveref"></input> </tr><br>
                <br>
               
              </tr>

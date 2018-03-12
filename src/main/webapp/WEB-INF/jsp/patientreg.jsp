@@ -569,10 +569,10 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
              //  var errorFn = ;
            doAjaxPostNew(uri, postData, successFn, errorFn);
        }
-*/
+*/  var insflag = 0;
        function doAjaxPost() {
     	   // get the form values
-    	   
+    	 
     	         //  var name = $('#pname').val();
     	            var pid = $('#pid').val();
     	           $.ajax({
@@ -605,6 +605,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
     	        	            	   document.getElementById("policyno2").value= datec.policyno2;
     	        	            	   document.getElementById("mid1").value = datec.mid1;
     	        	            	   document.getElementById("mid2").value= datec.mid2;
+    	        	            	   insflag = 1; 
     	        	            	   
     	        	               }),    
     	        	        	   
@@ -731,7 +732,10 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
 	   
     });
    $(".open3").click(function() {
-	   doAjaxPost();  
+	   if(insflag == 0){
+		   doAjaxPost();    
+	   }
+	    
        $(".frm").hide("fast");
        $("#sf4").show("slow");
    
@@ -827,7 +831,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
         <th style="width:150px;">First Name</th>
         <th style="width:150px;">Last Name</th>
         <th style="width:150px;">Registered Date</th>
-        <th style="width:150px;">Purpose of visit</th>
+        <th style="width:150px;">Reason of visit</th>
         <th style="width:50px;">Edit</th>
         <th style="width:100px;">Print</th>
         <th style="width:15px;"></th>

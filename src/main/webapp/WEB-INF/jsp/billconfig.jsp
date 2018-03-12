@@ -143,16 +143,18 @@ function display(){
 	var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
 	var rowsAdd = tableRef.insertRow(tableRef.rows.length);  
 	
+
+	var row = "tab"+ tableRef.rows.length;
+	var markup = "<tr id='"+row+"'><td style='width:240px'><input type='hidden' form ='form' value='"+$.now()+"' name='aid' id='aid'><input form ='form' class= 'form-control input-sm'  type='text' id = 'feetype' name= 'feetype'  required> </td><td width ='240px';><input form ='form' class= 'form-control input-sm' type='text'  id = 'charges' name= 'charges' value='0.00' required  ></td></tr>"
+    $('#myTable tbody').append(markup);
 	//    var m = moment().format('YYYY-MM-DD h:mm a');
 
-	  var newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input type='hidden' form ='form' value='"+$.now()+"' name='aid' id='aid'><input form ='form' class= 'form-control input-sm'  type='text' id = 'feetype' name= 'feetype'  required> </td></tr>";
-	  newCell.style.width ='240px';
 	
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td width ='';><input form ='form' class= 'form-control input-sm' type='text'  id = 'charges' name= 'charges' value='0.00' required  ></td></tr>";
-	  newCell.style.width ='240px';
 	  
+	  var elmnt = document.getElementById(row);
+	     elmnt.scrollIntoView();
+	     $(row).focus(); 
+	     
 	  checkhome(cuser)
 	  
 	//  newCell = rowsAdd.insertCell();

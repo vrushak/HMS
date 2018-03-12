@@ -13,6 +13,7 @@
 	<field name="pname" class="java.lang.String"/>
 	<field name="total" class="java.lang.String"/>
 	<field name="cashier" class="java.lang.String"/>
+	<field name="price" class="java.lang.String"/>
 	<group name="invoice">
 		<groupExpression><![CDATA[$F{invoice}]]></groupExpression>
 	</group>
@@ -24,6 +25,9 @@
 	</group>
 	<group name="cashier">
 		<groupExpression><![CDATA[$F{cashier}]]></groupExpression>
+	</group>
+	<group name="price">
+		<groupExpression><![CDATA[$F{price}]]></groupExpression>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
@@ -97,7 +101,7 @@ E-mail : lilayifamilyclinic@yahoo.com
 			</textField>
 			<textField>
 				<reportElement x="110" y="29" width="460" height="30" uuid="002f4e15-79d0-463f-aee6-6aefb7e8b3a4"/>
-				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{price}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="60" y="80" width="150" height="30" uuid="383a3618-cb77-40df-a7c5-8750f8e5c7c0"/>

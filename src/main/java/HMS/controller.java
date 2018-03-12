@@ -448,12 +448,11 @@ public class controller {
 		}
     
   @RequestMapping(value="/billgen", method = RequestMethod.GET)
-  public ModelAndView billgener(@ModelAttribute("p") Billgen p) {
-	
+  public ModelAndView billgener(@ModelAttribute("p") Billgen p,Principal principal,Authentication authentication) {
+	  
 	  List<Billconfig> list1= dao.getBillconfig();
-	 
 	  List<Billgen> list2= dao.getBill();
-	  List<Billgen> list3= dao.getBill1();
+	  List<Billgen> list3= dao.getBill1(principal.getName());
 	 
   Map<String,Object> model = new HashMap<String, Object>();
   model.put("list1", list1);
@@ -490,12 +489,12 @@ public class controller {
 			 return jsonFormatData;
 	}
   @RequestMapping(value="/billhistory", method = RequestMethod.GET)
-  public ModelAndView billhistory(@ModelAttribute("p") Billgen p,HttpServletRequest req,HttpServletResponse res) {
+  public ModelAndView billhistory(@ModelAttribute("p") Billgen p,HttpServletRequest req,HttpServletResponse res,Principal principal,Authentication authentication) {
 	
 	  List<Billconfig> list1= dao.getBillconfig();
 	 
 	  List<Billgen> list2= dao.getBill();
-	  List<Billgen> list3= dao.getBill1();
+	  List<Billgen> list3= dao.getBill1(principal.getName());
 	
 	  List<Billgen> list4= dao.getBill2(p.getPid(),p.getPname());
 	   

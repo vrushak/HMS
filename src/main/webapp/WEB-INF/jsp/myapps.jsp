@@ -1005,7 +1005,7 @@ $.confirm({
     <input type="text" form="form1" id="fileno" value=""readonly="readonly" name="fileno" class="form-control input-sm" required>
     <input type="hidden" name="flag" form="form1" value="doc">
  
-    <input type="checkbox" name="sms" id="sms" form="form1">SMS Alerts       
+   <!--   <input type="checkbox" name="sms" id="sms" form="form1">SMS Alerts -->      
      <input type="checkbox" name="pat" id="pat" form="form1" onchange="return prompt(this)"><span>New Patient</span> 
  </div>
  

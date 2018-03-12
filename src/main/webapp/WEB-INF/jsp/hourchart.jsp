@@ -193,6 +193,7 @@ function disbut(){
 }
 function checkhome(user){
 	//alert(user)
+	document.getElementById("curdate").value = new Date();
 	if(user.includes("dbfdesk")){
 		 var url = "/HMS/frontdesk" ;
 		 $("#back").hide();
@@ -353,7 +354,7 @@ function display(){
 	
 	
 	var tableRef = document.getElementById('myTable1').getElementsByTagName('tbody')[0];
-	var rowsAdd = tableRef.insertRow(tableRef.rows.length);  
+	  
 var nursesig;
 	 if(user2a == "[ROLE_NURSE]" ||user2a == "[ROLE_CHIEFNURSE]" ){
  		nursesig = user2c;
@@ -361,55 +362,12 @@ var nursesig;
  	else{
  		nursesig = user2c;
  	}
-                  
-	  var newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><select class='form-control input-sm' form ='forma'  style='width:100%;  border:groove;'  id = 'tabid'   name= 'tabid'  required><option value='Bowels'>Bowels</option><option value='Urine'>Urine</option><option value='Temperature'>Temperature</option><option value='Day of disease'>Day of disease</option><option value='Pulse'>Pulse</option><option value='Respire'>Respire</option><option value='BP'>BP</option><option value='Diet'>Diet</option></select></td></tr>";
-	  newCell.style.width ='100px';
-	  newCell.style.overflow = 'hidden';
-	
-
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='forma' class= 'form-control input-sm' style='width:100%;  border:groove;' value='0'  type='text' id = 'time' name= 'time'  > </td></tr>";
-	  newCell.style.width ='150px';
-	  newCell.style.overflow = 'hidden';
-	  
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input form ='forma'   class= 'form-control input-sm'  style='width:100%;  border:groove;' value='0' id = 'oraltype'  name= 'oraltype'></td></tr>";
-	  newCell.style.width ='150px';
-	  newCell.style.overflow = 'hidden';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td ><input form ='forma'  class= 'form-control input-sm' style='width:100%;  border:groove;' value='0'   type='text'  id = 'oralamt' name= 'oralamt'    ></td></tr>";
-	  newCell.style.width ='150px';
-	  newCell.style.overflow = 'hidden';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td width ='';><input form ='forma'  class= 'form-control input-sm' style='width:100%;  border:groove;' value='0' id = 'oralcommence'  name= 'oralcommence'  ></td></tr>";
-	  newCell.style.width ='150px';
-	  newCell.style.overflow = 'hidden';
-	  
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td width ='';><input form ='forma'  class= 'form-control input-sm' style='width:100%;  border:groove;' value='0' id = 'amtgiv'  name= 'amtgiv'></td></tr>";
-	  newCell.style.width ='150px';
-	  newCell.style.overflow = 'hidden';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='forma'  class= 'form-control input-sm' style='width:100%;border:groove;' type='text' value='0' id = 'urine' name= 'urine' > </td></tr>";
-	  newCell.style.width ='150px';
-	  newCell.style.overflow = 'hidden';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='forma'  class= 'form-control input-sm' style='width:100%; border:groove;' type='text' value='"+user2c+"' id = 'nsign' name= 'nsign' > </td></tr>";
-	  newCell.style.width ='100px';
-	  newCell.style.overflow = 'hidden';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input type='text' name='aid1'  class= 'form-control input-sm' readonly style='width:100%;border:groove;' id='aid1' value= "+m+"  form='forma'></td></tr>";
-	  newCell.style.width ='70px';
-	  newCell.style.overflow = 'hidden';
-	 
+	 var rowa = "taba"+ tableRef.rows.length;      
+	 var markup = "<tr id='"+rowa+"'><td style='width:100px;'><select class='form-control input-sm' form ='forma'  style='border:groove;'  id = 'tabid'   name= 'tabid'  required><option value='Bowels'>Bowels</option><option value='Urine'>Urine</option><option value='Temperature' selected>Temperature</option><option value='Day of disease'>Day of disease</option><option value='Pulse'>Pulse</option><option value='Respire'>Respire</option><option value='BP'>BP</option><option value='Diet'>Diet</option></select></td><td style='width:150px;'><input  form ='forma' class= 'form-control input-sm' style='border:groove;' value='0'  type='text' id = 'time' name= 'time'  > </td><td style='width:150px;'><input form ='forma'   class= 'form-control input-sm'  style='border:groove;' value='0' id = 'oraltype'  name= 'oraltype'></td><td style='width:150px'><input form ='forma'  class= 'form-control input-sm' style='border:groove;' value='0'   type='text'  id = 'oralamt' name= 'oralamt'    ></td><td style='width:150px'><input form ='forma'  class= 'form-control input-sm' style='border:groove;' value='0' id = 'oralcommence'  name= 'oralcommence'  ></td><td style='width:150px;'><input form ='forma'  class= 'form-control input-sm' style='border:groove;' value='0' id = 'amtgiv'  name= 'amtgiv'></td><td style='width :150px'><input  form ='forma'  class= 'form-control input-sm' style='border:groove;' type='text' value='0' id = 'urine' name= 'urine' > </td><td style='width:100px;'><input  form ='forma'  class= 'form-control input-sm' style='border:groove;' type='text' value='"+user2c+"' id = 'nsign' name= 'nsign' > </td><td style='width:70px;'><input type='text' name='aid1'  class= 'form-control input-sm' readonly style='border:groove;' id='aid1' value= "+m+"  form='forma'></td></tr>";
+	 $('#myTable1 .tbody1').append(markup);
+	  var elmnt = document.getElementById(rowa);
+	     elmnt.scrollIntoView();
+	     $(rowa).focus(); 
 	  disbut();       
 	 
 	
@@ -933,8 +891,18 @@ var user2a;
 	
 	   <div class="form-group row" >
 	     <div class="col-xs-1"></div>
+	    <div class="col-xs-3">
+  
+  <div class="form-group">
+     
+           <p>Current Date<span>*</span></p>
+     <input type="text" name="curdate" id="curdate"  form="forma" class="form-control input-sm"  required>
+       
+     </div>
+ </div>       
 	        
-      <div class="col-xs-3">
+	        
+      <div class="col-xs-4">
   
   <div class="form-group">
      

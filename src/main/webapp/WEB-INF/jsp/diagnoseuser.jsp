@@ -1514,7 +1514,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
 	     var url = "/HMS/downform?location="+datec.testname+"&location1="+datec.iop+"";
 	     var text = ""+datec.iop+"";
 	     $('#rf').append('\n')
-	      $('#rf').append('<a href="' + url + '" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+datec.testname+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
+	      $('#rf').append('<a href="' + url + '" title="'+datec.iop+'" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+datec.testname+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
 	      
 	      
 	          });    
@@ -1546,10 +1546,10 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
    	   
    	     $.each(response.listred, function(index, datec) {
    	      
-   	    	 $("#vpid2").append('<option class="dpa" value="'+datec.ppid+'" data-subtext="DP- '+datec.fileno+'" data-value="'+datec.ppid+'=='+datec.pname+'=='+datec.fileno+'=='+datec.docid+'=='+datec.datetime+'">'+datec.ppid+'</option>');
+   	    	 $("#vpid2").append('<option class="dpa" value="'+datec.ppid+'" data-subtext="DP- '+datec.fileno+'" data-value="'+datec.ppid+'=='+datec.pname+'=='+datec.fileno+'=='+datec.docid+'=='+datec.datetime+'" dv='+datec.diagnose+'>'+datec.ppid+'</option>');
             $("#vpid2").selectpicker("refresh");
             
-            $("#vpid").append('<option class="dpa" value="'+datec.pname+'" data-subtext="DP- '+datec.fileno+'" data-value="'+datec.ppid+'=='+datec.pname+'=='+datec.fileno+'=='+datec.docid+'=='+datec.datetime+'">'+datec.pname+'</option>');
+            $("#vpid").append('<option class="dpa" value="'+datec.pname+'" data-subtext="DP- '+datec.fileno+'" data-value="'+datec.ppid+'=='+datec.pname+'=='+datec.fileno+'=='+datec.docid+'=='+datec.datetime+'" dv='+datec.diagnose+'>'+datec.pname+'</option>');
             $("#vpid").selectpicker("refresh");
    	          });    
    	      }
@@ -1760,14 +1760,12 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
       </ul></li>
       
     </ul>
-    <a href="/HMS/diagnose" class="btn btn-warning navbar-btn navbar-right">Refresh</a>
+
   
 </nav>
  <div id ="form2">
     <h1><button id ="bouton-contact" form="formc" class="btn btn-warning btn-sm button1" onclick="return validsave();" class="form-control input-sm" >Save</button>
-  <font size="5" id="cd"> Clinical Diagnosis </font>
-<span class="button2" id="spk"><input type="text" id="myInp" class="form-control input-sm button2" placeholder="Search Patients by Keyword"  oninput="playop(this)" style="width:150px"/>
-<i class="glyphicon glyphicon-search" onclick="retrieveds()" style="color:#ff9900;margin: 4px 8px;"></i></span>  	
+  <font size="5" id="cd"> Clinical Diagnosis </font>    <a href="/HMS/diagnose" class="btn btn-warning button2">Refresh</a>
   </h1>
 <br>
  <form id = "formc" action="/HMS/savediag.html" method = "post"></form>
@@ -2054,18 +2052,21 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
   <form id="upform" action="" method="post" enctype="multipart/form-data">   
   <div class="form-group row" >
         <div class="col-xs-1"></div>
-        <div class="col-xs-4">
+        <div class="col-xs-3">
   <div class="form-group">
        <p><label for="image">Choose File</label></p>
       <input class="form-control input-sm" name="file" id="upfile" type="file" onchange="change1a(event)"/>
       <input type="hidden" name="samplecol" id="samplecol" form="formc">    
             </div>
             </div>
+             <div class="col-xs-2"><br><br>
+             <button class="btn btn-info btn-sm" onclick="return doAjaxPosts3('upform')" >Upload File</button>
+             </div>
              <div class="col-xs-4">
              <input type="hidden" id="iop" name="iop" form="formc">
                <input type="hidden" id="date1" name="date1" form="upform">
              <br><br>
-              <button class="btn btn-info" onclick="return doAjaxPosts3('upform')" id ="" type="button" >Upload File <span class="fa fa-save"></span></button>
+             
    </div>
         </div>
         <div class="form-group row">

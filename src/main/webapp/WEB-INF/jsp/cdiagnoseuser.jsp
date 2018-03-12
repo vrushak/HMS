@@ -318,8 +318,9 @@ var teethv;
 function copytethval(teeth){
 	teethv = $(teeth).attr("data-value");
 	var title = $(teeth).attr("titlea").split('==');
-	$("#tab"+title[1]).find(".main").find('div.divin').not(':first').remove();
-	$("#tab"+title[1]).find(".main").find('div.divot').not(':first').remove();
+	$("#tab"+title[1]).find(".main").find('div.divin').remove();
+	$("#tab"+title[1]).find(".main").find('div.divot').remove();
+	creatediv(Number(fgr)-1)
 	obj = {};
 	  prvrec = 0;
 	 
@@ -712,7 +713,7 @@ function createTabs(){
 var $select;
 var $select1;
 function creatediv(main){
-	
+
 var	divid =  $('#tab'+main).find(".main").find(".divin" ).length;
 var	divid1 = $('#tab'+main).find(".main").find(".divot" ).length;
 
@@ -1817,15 +1818,14 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
       <li class=""><a id="m2" href="/HMS/treatment">Treatment Records</a></li>  
       <li class=""><a  href="/HMS/discharge">Discharge Summary</a></li>
     </ul>
-     <a href="/HMS/diagnose" class="btn btn-warning navbar-btn navbar-right">Refresh</a>
-  
+     
   </div>
 </nav>
  <div id ="form2">
     <h1><button id ="bouton-contact" form="formc" class="btn btn-warning btn-sm button1" class="form-control input-sm" onclick="return validsave();">Save</button>
-  <font size="5" id="cd"> Dental Diagnosis </font>
-     <span class="button2" id="spk"><input type="text" id="myInp" class="form-control input-sm button2" placeholder="Search Patients by Keyword"  oninput="playop(this)" style="width:150px"/>
-<i class="glyphicon glyphicon-search" onclick="retrieveds()" style="color:#ff9900;margin: 4px 8px;"></i></span>      
+  <font size="5" id="cd"> Dental Diagnosis </font><a href="/HMS/cdiagnose" class="btn btn-warning button2">Refresh</a>
+  
+ 
   </h1>
 <br>
  <form id = "formc" action="/HMS/csavediag.html" method = "post"></form>

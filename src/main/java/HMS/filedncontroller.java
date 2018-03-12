@@ -98,6 +98,8 @@ public class filedncontroller {
 		//String Path = "Fileno5a/14-11-2017/doctor.jpg";
 		
 		 response.setCharacterEncoding("UTF-8");
+	
+		 
 		/* response.setContentType("image/png");
 		 response.setContentType("image/jpeg");
 		 response.setContentType("image/jpg");
@@ -107,12 +109,15 @@ public class filedncontroller {
 		
          if(ext1.contentEquals("jpg")){
         	 response.setContentType("image/jpg"); 
+        	 response.setHeader("Content-disposition","inline; filename=\"" + fileno + "\"");
          }
          else if(ext1.contentEquals("jpeg")){
         	 response.setContentType("image/jpeg");
+        	 response.setHeader("Content-Disposition", "inline; filename=\"" + fileno + "\"");
          }
          else if(ext1.contentEquals("png")){
         	 response.setContentType("image/png");
+        	 response.setHeader("Content-Disposition", "inline; filename=\"" + fileno + "\"");
          }
          else if(ext1.contentEquals("pdf")){
         	 response.setContentType("application/pdf");
@@ -292,7 +297,8 @@ public class filedncontroller {
 	 CategoryPlot plot = chart.getCategoryPlot();
 	 CategoryAxis domainAxis = plot.getDomainAxis();
 	 domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
-	 
+	 ValueAxis yAxis = plot.getRangeAxis();
+	 yAxis.setRange(80.0, 110.0);
 		LineAndShapeRenderer renderer = new LineAndShapeRenderer();
 		
 		renderer.setSeriesPaint(0, Color.RED);

@@ -333,10 +333,21 @@ function copy(pid){
 	  document.getElementById("nid").value = strSplit[0];
 	  document.getElementById("nname").value = strSplit[1];
 	  document.getElementById("nrole").value = strSplit[2];
-
+changetext(strSplit[2])
    $('#myModal').modal('show');
 
 }
+
+function changetext(val){
+	if(val.includes("CHIEFNURSE")){
+		$('.text-muted').text('Chief Nurse role has access to nurse assign module as well as to other nurse modules.');
+	}
+	
+	else{
+		$('.text-muted').text('Nurse role has access to nurse assign module as well as to other nurse modules.');
+	}
+}
+
 function validmess(){
 	var a = document.getElementById("pname").value;
 	var b = document.getElementById("pid").value;
@@ -484,7 +495,7 @@ function validDate() {
        <div class="col-xs-4">
   <div class="form-group">
                <p>Assign Role<span>*</span></p>
-    <select class="form-control" form="form1" data-size="5" data-width="100%" name="nrole" id="nrole" required >
+    <select class="form-control" form="form1" data-size="5" data-width="100%" name="nrole" id="nrole" onchange="changetext(this.value)" required >
            <option value="CHIEFNURSE">Chief Nurse</option>
            <option value="NURSE">Nurse</option>
             </select>

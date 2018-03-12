@@ -161,7 +161,9 @@ textarea {
   
     display:block;
   }
- 
+ #myTable1 td{
+ border-style:groove;
+ }
  
      
 
@@ -384,70 +386,16 @@ var flagt;
 		    
 
 		var tableRef = document.getElementById('myTable1').getElementsByTagName('tbody')[0];
-		var rowsAdd = tableRef.insertRow(); 
-		
-		var i = tableRef.rows.length;
-		
-		
-//		var time ="time"+i;
-	 //   var ora ="oraltype"+i;
-		
-
-		  var newCell = rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><input type='hidden' name='aid1' form='forma' id='aid1'  value= "+$.now()+"><input  form ='forma' style='width:100%;  border:groove;' class= 'form-control input-sm' value = '"+m+"' readonly='readonly' type='text' id = 'time' name= 'time' required  ></td></tr>";
-		  newCell.style.width ='140px';
-		  newCell.style.border='groove'
+	    var i = tableRef.rows.length;
+	    var row = "tab"+ tableRef.rows.length;
+var markup = "<tr id='"+row+"'><td style='width:140px'><input type='hidden' name='aid1' form='forma' id='aid1'  value= "+$.now()+"><input  form ='forma' style='border:groove;' class= 'form-control input-sm' value = '"+m+"' readonly='readonly' type='text' id = 'time' name= 'time' required  ></td><td style='width:260px'><input form ='forma'  class= 'form-control input-sm drugn' style='border:groove;'  value= '' id = '"+i+"'  name= 'oraltype' required></td><td style='width:100px;'><input form ='forma' class= 'form-control input-sm' style='border:groove;' onkeypress=''  value=' ' type='text'  id = 'oralamt' name= 'oralamt' required ></td><td style='width:80px;'><input form ='forma' class= 'form-control input-sm' style='border:groove;' value=' 'onkeypress='return onlyNos(event,this);' id = 'oralcommence'  name= 'oralcommence' required></td><td style='width:80px;'><input form ='forma' class= 'form-control input-sm' value= ' ' style='border:groove;' onkeypress='return onlyNos(event,this);' id = 'amtgiv'  name= 'amtgiv' required ></td><td style='width:130px;'><input  form ='forma' class= 'form-control input-sm' value=' 'style='border:groove;' type='text' id = 'urine' name= 'urine' required ></td><td style='width:150px;'><input form ='forma' style='border:groove;' class= 'form-control input-sm' value='"+user2+"' type='text'  id = 'doctord' name= 'doctord' required ></td><td style='width:150px;'><input form ='forma' value = ' ' class= 'form-control input-sm' style='border:groove;' type='text'  id = 'discontinue' name= 'discontinue' ></td><td class='ts' style='width:80px;'><i class='fa fa-pencil Addbtn' id='"+i+"' style='font-size:20px'   onclick=display12('"+user1+"','"+user2+"',this.id)></i></td></tr>"
+      $('#myTable1 .tbody1').append(markup);
 		  
-		  
-		  newCell = rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><input form ='forma'  class= 'form-control input-sm drugn' style='width:100%;  border:groove;'  value= '' id = '"+i+"'  name= 'oraltype' required></td></tr>";
-		  newCell.style.width ='270px';
-		  newCell.style.border='groove'
-	     
-		 
-		 
-		 
-		  newCell= rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><input form ='forma' class= 'form-control input-sm' style='width:100%;  border:groove;' onkeypress=''  value=' ' type='text'  id = 'oralamt' name= 'oralamt' required ></td></tr>";
-		  newCell.style.width ='100px';
-		  newCell.style.border='groove';
-		
-		  
-		  
-		  newCell = rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><input form ='forma' class= 'form-control input-sm' value=' 'onkeypress='return onlyNos(event,this);' id = 'oralcommence'  name= 'oralcommence' required></td></tr>";
-		  newCell.style.width ='80px';
-		  newCell.style.border='groove';
-		
-		  
-		  
-		  newCell = rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><input form ='forma' class= 'form-control input-sm' value= ' ' onkeypress='return onlyNos(event,this);' id = 'amtgiv'  name= 'amtgiv' required ></td></tr>";
-		  newCell.style.width ='80px';
-		  newCell.style.border='groove';
-		 
-		  
-		  newCell = rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><input  form ='forma' class= 'form-control input-sm' value=' ' type='text' id = 'urine' name= 'urine' required ></td></tr>";
-		  newCell.style.width ='130px';
-		  newCell.style.border='groove';
-		  
-		  
-		  newCell = rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><input form ='forma' class= 'form-control input-sm' value='"+user2+"' type='text'  id = 'doctord' name= 'doctord' required ></td></tr>";
-		  newCell.style.width='150px';
-		  newCell.style.border='groove';
-
-		  newCell = rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><input form ='forma' value = ' ' class= 'form-control input-sm'  type='text'  id = 'discontinue' name= 'discontinue' ></td></tr>";
-		  newCell.style.width='150px';
-		  newCell.style.border='groove';
-		  
+	   var elmnt = document.getElementById(row);
+	     elmnt.scrollIntoView();
+	     $(row).focus(); 
 		//  if(user1.includes("[ROLE_NURSE]")){
-		  newCell = rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><i class='fa fa-pencil Addbtn' id='"+i+"' style='font-size:20px'   onclick=display12('"+user1+"','"+user2+"',this.id)></i></td></tr>";
-	      newCell.style.width='80px';
-		  newCell.style.border='groove';
+		
 		  //}
 		disbut();
 		 
@@ -575,12 +523,12 @@ var flagt;
 		}
 
 		var tableRef = document.getElementById('myTable').getElementsByClassName('tbody2')[0];
-		var rowsAdd = tableRef.insertRow(); 
+		
 		var i = tableRef.rows.length;
 		var nursesign ="nursesig"+i;
 		var vomitus ="vomitus"+i;
 		var vomitushid ="vomitushid"+i;
-		var rowsAdd = tableRef.insertRow();  	
+			
 		
 		document.getElementById("bouton-contact").setAttribute("form","formbc");
 		document.getElementById("pid").setAttribute("form","formbc");
@@ -588,7 +536,7 @@ var flagt;
 		document.getElementById("fileno").setAttribute("form","formbc");
 
 		//if(t1a == "undefined" && t2a == "undefined" && t3a == "undefined" && t4a == "undefined" && t5a == "undefined" && t6a == "undefined" && t7a == "undefined" && t8a == "undefined" ){
-			console.log(t1a);
+		
 		
 			if(t1a == undefined){
 				t1a =  document.getElementById("time1").value;
@@ -601,28 +549,13 @@ var flagt;
 					t8a = document.getElementById("discontinue1").value;
 				
 			}
-	
-		     var newCell = rowsAdd.insertCell();
-		      newCell.innerHTML="<tr><td><input type='hidden' name='aid1' form='formbc' id='aid1'  value= '"+$.now()+"'><input  form ='formbc'  value = '"+m+"' type='hidden' id = 'time' name= 'time'  ><input form ='formbc' type='hidden' value ='"+t2a+"' id = 'oraltype'  name= 'oraltype' ><input form ='formbc' value='"+t3a+"' type='hidden'  id = 'oralamt' name= 'oralamt'  ><input type='hidden' form ='formbc'  value='"+t4a+"' id = 'oralcommence'  name= 'oralcommence'><input form ='formbc' type='hidden'  value= '"+t5a+"' id = 'amtgiv'  name= 'amtgiv' ><input  form ='formbc' value='"+t6a+"' type='hidden' id = 'urine' name= 'urine'  ><input form ='formbc'  value='"+t7a+"' type='hidden'  id = 'doctord' name= 'doctord'  ><input form ='formbc' type='hidden'  id = 'discontinue' name= 'discontinue' value='"+decodeURI(t8a)+"' ><input form ='formbc' style='width:100%;  border:groove;' class= 'form-control input-sm' value= '"+m+"' type='text' readonly='readonly' id = 'ratef' required name= 'ratef' ></td></tr>";
-			  newCell.style.width='150px';
-			  newCell.style.border='groove';
-			 
-			  newCell = rowsAdd.insertCell();
-			  newCell.innerHTML="<tr><td><input form ='formbc'style='width:100%;  border:groove;' type='checkbox' class= '' value= 'active' id = '"+vomitus+"' name= 'vomitus' onclick = checkb(this.id,'"+nursesign+"','"+user2+"') ><input type='hidden' name='vomitus' form='formbc' value='off'></td></tr>";
-			  newCell.style.width='300px';
-			  newCell.style.border='groove';
-			  
-			  newCell = rowsAdd.insertCell();
-			  newCell.innerHTML="<tr><td><input form ='formbc'style='width:100%;  border:groove;' class= 'form-control input-sm' value = ' ' type='text'  id = '"+nursesign+"' name= 'nursesig' required ></td></tr>";
-			  newCell.style.width='100px';
-			  newCell.style.border='groove';
-			  
-			
-			  newCell = rowsAdd.insertCell();
-			  newCell.innerHTML="<tr><td><input form ='formbc' style='width:100%;  border:groove;' class= 'form-control input-sm' value= ' ' type='text'  id = 'doctrmks' name= 'doctrmks' ></td></tr>";
-			  newCell.style.width='630px';
-			  newCell.style.border='groove';
-			
+			var rowa = "taba"+ tableRef.rows.length;
+var markup="<tr id='"+rowa+"'><td style='width:150px;'><input type='hidden' name='aid1' form='formbc' id='aid1'  value= '"+$.now()+"'><input  form ='formbc'  value = '"+m+"' type='hidden' id = 'time' name= 'time'  ><input form ='formbc' type='hidden' value ='"+t2a+"' id = 'oraltype'  name= 'oraltype' ><input form ='formbc' value='"+t3a+"' type='hidden'  id = 'oralamt' name= 'oralamt'  ><input type='hidden' form ='formbc'  value='"+t4a+"' id = 'oralcommence'  name= 'oralcommence'><input form ='formbc' type='hidden'  value= '"+t5a+"' id = 'amtgiv'  name= 'amtgiv' ><input  form ='formbc' value='"+t6a+"' type='hidden' id = 'urine' name= 'urine'  ><input form ='formbc'  value='"+t7a+"' type='hidden'  id = 'doctord' name= 'doctord'  ><input form ='formbc' type='hidden'  id = 'discontinue' name= 'discontinue' value='"+decodeURI(t8a)+"' ><input form ='formbc' style='border:groove;' class= 'form-control input-sm' value= '"+m+"' type='text' readonly='readonly' id = 'ratef' required name= 'ratef' ></td><td style='width:300px;'><input form ='formbc'style='border:groove;' type='checkbox' class= '' value= 'active' id = '"+vomitus+"' name= 'vomitus' onclick = checkb(this.id,'"+nursesign+"','"+user2+"') ><input type='hidden' name='vomitus' form='formbc' value='off'></td><td style='width:100px;'><input form ='formbc'style='border:groove;' class= 'form-control input-sm' value = ' ' type='text'  id = '"+nursesign+"' name= 'nursesig' required ></td><td style='width:630px;'><input form ='formbc' style='border:groove;' class= 'form-control input-sm' value= ' ' type='text'  id = 'doctrmks' name= 'doctrmks' ></td></tr>";
+			  $('#myTable .tbody2').append(markup);
+			  var elmnt = document.getElementById(rowa);
+			     elmnt.scrollIntoView();
+			     $(rowa).focus(); 
+			     
 		
 		if(user1.includes("[ROLE_NURSE]")){
 

@@ -1,6 +1,7 @@
 package HMS;
 
 import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -12,7 +13,6 @@ import java.security.Principal;
 import java.sql.ResultSet;  
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 import org.apache.poi.util.SystemOutLogger;
 import org.apache.taglibs.standard.tag.common.core.NullAttributeException;
@@ -480,7 +480,7 @@ public int returnStks(Transaction s) {
 // appointments history
 public List<Appointment> getAppointment() {
 	// TODO Auto-generated method stub
-	return template.query("select ap.pid,concat(p.fname,' ',p.mname,' ',p.lname)patient,ap.docid,CONCAT(d.fname,' ',d.mname,' ',d.lname) doctor,ap.appointment,ap.time,CONCAT(ap.appointment,' ',ap.time),ap.fileno,ap.active,p.mobile,ap.diagactive from appointment ap join patient p on p.pid = ap.pid join doctor d on d.docID = ap.docid order by appointment desc,time",new RowMapper<Appointment>(){  
+	return template.query("select ap.pid,concat(p.fname,' ',p.mname,' ',p.lname)patient,ap.docid,CONCAT(d.fname,' ',d.mname,' ',d.lname) doctor,ap.appointment,ap.time,CONCAT(ap.appointment,' ',ap.time),ap.fileno,ap.active,p.mobile,ap.diagactive from appointment ap join patient p on p.pid = ap.pid join doctor d on d.docID = ap.docid order by STR_TO_DATE(appointment, '%Y-%m-%d')desc,time",new RowMapper<Appointment>(){  
         public Appointment mapRow(ResultSet rs, int row) throws SQLException {   
 	       Appointment p = new Appointment();
 	     
@@ -776,8 +776,9 @@ public int saveBillconfig(String fee, String amt,String aid) {
 }
 
 
-public List<Billgen> getBill1() {
-	return template.query("select a.pid,concat(p.fname,' ',p.mname,' ',p.lname) patient,a.fileno,CONCAT(adm.wardno,'/',adm.bedno),adm.admdate,concat(d.fname,' ',d.mname,' ',d.lname) doctor,adm.admitno from appointment a join patient p on a.pid=p.pid join doctor d on d.docID = a.docid left outer join admitpat adm on a.fileno = adm.fileno ",new RowMapper<Billgen>(){  
+public List<Billgen> getBill1(String username) {
+	
+	return template.query("select a.pid,concat(p.fname,' ',p.mname,' ',p.lname) patient,a.fileno,CONCAT(adm.wardno,'/',adm.bedno),adm.admdate,concat(d.fname,' ',d.mname,' ',d.lname) doctor,adm.admitno,(select concat(fname,' ',mname,' ',lname) from assistant where aid in (select userid from users where username='"+username+"')) from appointment a join patient p on a.pid=p.pid join doctor d on d.docID = a.docid left outer join admitpat adm on a.fileno = adm.fileno",new RowMapper<Billgen>(){  
         public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
 	       Billgen p = new Billgen();
 	       p.setPid(rs.getString(1));
@@ -789,6 +790,7 @@ public List<Billgen> getBill1() {
 	      // p.setAddress(rs.getString(5));
 	       p.setDname(rs.getString(6));
 	       p.setAdmitno(rs.getString(7));
+	       p.setCashier(rs.getString(8));
 	       return p;
         }
 	});
@@ -901,6 +903,7 @@ public List<Billgen> getBillint(String fileno) {
 	       p.setPname(rs.getString(3));
 	       p.setTotal(rs.getString(4));
 	     
+	     
 	      
 		return p;
         }
@@ -911,12 +914,19 @@ public List<Billgen> getreceipt(String invoice) {
 	
 	return template.query("select distinct REPLACE(Lower(p.invoice),'in','R'),concat(a.fname,' ',a.mname,' ',a.lname),p.total,p.cashier from billgen p join patient a on a.pid = p.pid where p.invoice='"+invoice+"'",new RowMapper<Billgen>(){  
         public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
-       
+
 	       Billgen p = new Billgen();
 	       p.setInvoice(rs.getString(1));
 	       p.setPname(rs.getString(2));
 	       p.setTotal(rs.getString(3));
 	       p.setCashier(rs.getString(4));
+	       float f=Float.parseFloat(rs.getString(3)); 
+	      
+		      String ab;
+		       YourNumberMyWord a = new YourNumberMyWord();
+		      YourNumberMyWord.main(Math.round(f));
+		         System.out.println();
+		        p.setPrice(rs.getString(3)); 
 	      
 		return p;
         }
@@ -1148,8 +1158,8 @@ public int savescategory(Lab s,String category,String subcategory,String catcode
 	public List<Admitpat> getAdmitpat(String username, String userrole) {
 		// TODO Auto-generated method stub
 		if(userrole.contains("[ROLE_DOCTOR]")){
-			
-			return template.query("select ad.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) patient,ad.docid,concat(d.fname,' ',d.mname,' ',d.lname),wardno,bedno,discharge,cause,admdate,ad.fileno,ad.admitno from admitpat ad join patient pat on ad.pid = pat.pid join doctor d on ad.docid = d.docID where ad.docid in (select userid from userrole where username ='"+username+"')",new RowMapper<Admitpat>(){  
+		//	where ad.docid in (select userid from userrole where username ='"+username+"')
+			return template.query("select ad.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) patient,ad.docid,concat(d.fname,' ',d.mname,' ',d.lname),wardno,bedno,discharge,cause,admdate,ad.fileno,ad.admitno from admitpat ad join patient pat on ad.pid = pat.pid join doctor d on ad.docid = d.docID",new RowMapper<Admitpat>(){  
 		        public Admitpat mapRow(ResultSet rs, int row) throws SQLException {   
 			       Admitpat p = new Admitpat();
 			       

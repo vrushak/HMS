@@ -252,6 +252,7 @@ window.location = "/HMS/doctor1.html";
       <figcaption><input type="button" onclick="location.href='/HMS/labup';" value="Lab Tests"></figcaption>
       </figure>
     </div>
+    <!--  
    <div class="col-xs-2">
       <figure>
      
@@ -259,7 +260,7 @@ window.location = "/HMS/doctor1.html";
       <figcaption><input type="button" onclick="location.href='/HMS/labconfig'" value="Lab Configuration"></figcaption>
      
       </figure>
-    </div>
+    </div>-->
     
    <div class="col-xs-2">
       <figure>

@@ -43,13 +43,16 @@
     background-color: #009999;
     font-size : 18px;
     color : white;
+    text-align : center;
     }
 .jconfirm-buttons button{
 color : orange;
 }
 
 
-
+pre::first-line { 
+   font-weight: bold;
+}
 </style>
 <script type="text/javascript">
 function goBack() {
@@ -197,7 +200,7 @@ function ze(){
 	 }
 	$.confirm({
 	    title: 'Freeze Discharge Summary',
-	    content: 'Freeze Discharge Summary editing for current patient?<br>Click CONFIRM to Disable<br>Click CANCEL to continue editing',
+	    content: 'Freeze Discharge Summary editing for current patient?<br>Click CONFIRM to Freeze<br>Click CANCEL to continue editing',
 	    buttons: {
 	        confirm: function () {
 	            $("#freeze").val("yes")
@@ -320,7 +323,7 @@ function ze(){
     	        	  
     	        	           type: "GET",
     	        	   
-    	        	           url: "/HMS/dischargefile/"+pid+"",
+    	        	           url: "/HMS/dischargefile?location1="+pid+"&location2="+file+"",
     	        	           async :false,
     	        	           dataType: "JSON",
     	        	           contentType: "application/json; charset=UTF-8",
@@ -524,11 +527,16 @@ function ze(){
   	      	           }
   	            	else{
   	               $('#prv').val("")
+  
   	           	   $('#prv').text(addn.diagnose);    	
   	               var ha = "<span><b>Discharge Summary :</b></span>"
   	               var db = "<span>"+addn.iop+"<span>"
-  	               $("#prv").append("\n"+ha);
-  	               $("#prv").append(db);
+  	      
+  	               if(addn.iop != undefined){
+  	            	 $("#prv").append("\n"+ha);
+    	               $("#prv").append(db);
+  	               }
+  	               
   	            	}
        	    
        	    	  unsaved = false;
