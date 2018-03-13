@@ -730,7 +730,7 @@ public class controller {
 		}
 //io-chart
 		@RequestMapping(value="/iochart", method = RequestMethod.GET)
-		public ModelAndView  iochart(Principal principal,Authentication authentication) {
+		public ModelAndView  iochart(Principal principal,Authentication authentication,HttpServletRequest req,HttpServletResponse res) {
               authentication.getAuthorities();
 	    	
 	    	System.out.println("Authentication" +authentication.getAuthorities());
@@ -744,7 +744,10 @@ public class controller {
 					}
 					else
 					list3 = dao.getPatientdet();
-			return new ModelAndView("iochart","list3",list3); 
+					Map<String, Object> model = new HashMap<String, Object>();
+				    model.put("list3", list3);
+				    model.put("bac", req.getParameter("location"));
+			return new ModelAndView("iochart","model",model); 
 			}
 		
 		@RequestMapping(value="/iochart1", method = RequestMethod.GET)
@@ -906,7 +909,7 @@ public class controller {
 
 		
 		@RequestMapping(value="/drugchart", method = RequestMethod.GET)
-		public ModelAndView  drugchart(Principal principal,Authentication authentication) {
+		public ModelAndView  drugchart(Principal principal,Authentication authentication,HttpServletRequest req,HttpServletResponse res) {
     authentication.getAuthorities();
 	    	
 	    	System.out.println("Authentication" +authentication.getAuthorities());
@@ -926,6 +929,7 @@ public class controller {
 				      
 				       model.put("list3", list3);
 				       model.put("list4", list4);
+				       model.put("bac", req.getParameter("location"));
 			return new ModelAndView("drugchart","model",model); 
 			}
 		
@@ -1283,7 +1287,7 @@ public class controller {
 		//load hour chart details
 		
 		@RequestMapping(value="/hourchart", method = RequestMethod.GET)
-		public ModelAndView  hourchart(Principal principal,Authentication authentication) {
+		public ModelAndView  hourchart(Principal principal,Authentication authentication,HttpServletRequest req,HttpServletResponse res) {
                  authentication.getAuthorities();
 	    	
 	    	System.out.println("Authentication" +authentication.getAuthorities());
@@ -1297,8 +1301,11 @@ public class controller {
 					}
 					else
 					list3 = dao.getPatientdet(); 
+					Map<String, Object> model = new HashMap<String, Object>();
+				    model.put("list3", list3);
+				    model.put("bac", req.getParameter("location"));
 		//	List<Iochart> list3= dao.getPatientdet(principal.getName());
-			return new ModelAndView("hourchart","list3",list3); 
+			return new ModelAndView("hourchart","model",model); 
 			}
 		
 		@RequestMapping(value="/hourchart1", method = RequestMethod.GET)
@@ -1456,7 +1463,7 @@ public class controller {
 	//opd drugchart
 							 
 							 @RequestMapping(value="/opdchart", method = RequestMethod.GET)
-								public ModelAndView  opdchart(Principal principal,Authentication authentication) {
+								public ModelAndView  opdchart(Principal principal,Authentication authentication,HttpServletRequest req,HttpServletResponse res) {
 						    authentication.getAuthorities();
 							    	
 							    	System.out.println("Authentication" +authentication.getAuthorities());
@@ -1470,7 +1477,8 @@ public class controller {
 								      
 								       model.put("list3", list3);
 								       model.put("list4", list4);
-										
+								       model.put("bac", req.getParameter("location"));
+	
 									return new ModelAndView("opdchart","model",model); 
 									}
 								
@@ -1757,7 +1765,7 @@ public class controller {
 												return new ModelAndView("lab","model",model); 
 												}	
 										 @RequestMapping(value="/labup", method = RequestMethod.GET)
-											public ModelAndView  labup(Principal principal,Authentication authentication) {
+											public ModelAndView  labup(Principal principal,Authentication authentication,HttpServletRequest req,HttpServletResponse res) {
 											 
 											 Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 										    	String b = var.toString();
@@ -1770,6 +1778,9 @@ public class controller {
 											        model.put("list1",list1);
 											        model.put("list1a",list1a);
 											        model.put("list3",list3);
+											        model.put("bac", req.getParameter("location"));
+
+
 												return new ModelAndView("lab","model",model); 
 												}			
 			//get the subcategories

@@ -175,9 +175,9 @@ function display(){
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
-    <br>
-    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back"  onclick="window.location.href='/HMS/frontdesk';"></i>
-    
+    <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/frontdesk" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Front Desk</span></a></li>
+    </ul>
   </div>
 </nav>
   

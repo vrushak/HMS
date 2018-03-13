@@ -294,7 +294,7 @@ function myconfirm()
 
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
 
-<span id='sp'><i class="fa fa-arrow-left button2 rightspace" id="arr" style="font-size:20px;color : #228B22" onclick="window.location.href='/HMS/home';"></i></span>
+<span id="sp"><a href="/HMS/home" id="back" class='button2 rightspace' ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Home</span></a></span>
 
 <div class="well well-lg" id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
 
@@ -400,7 +400,7 @@ function myconfirm()
     <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/Lab Tests Icon.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='/HMS/labup';" value="Lab Tests"></figcaption>
+      <figcaption><input type="button" onclick="location.href='/HMS/labup?location=frontdesk';" value="Lab Tests"></figcaption>
       </figure>
     </div>
    </div>

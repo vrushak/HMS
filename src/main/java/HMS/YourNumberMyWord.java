@@ -4,7 +4,7 @@ import java.util.*;
 public class YourNumberMyWord
 {
  public static String rt;
-  public void pw(int n,String ch)
+  public String pw(int n,String ch)
   { 
     String  one[]={" "," one"," two"," three"," four"," five"," six"," seven"," eight"," Nine"," ten"," eleven"," twelve"," thirteen"," fourteen","fifteen"," sixteen"," seventeen"," eighteen"," nineteen"};
  
@@ -20,15 +20,16 @@ var = one[n];
  }
  if(n > 0)
 res = var + ch;
-rt = res; 
-System.out.print(res);
+
+
+return res;
  }
  
-  public static void main(int n)
+  public static String main(int n)
   {
     
 
-    
+	  StringBuffer str = new StringBuffer();
     if(n <= 0)  
 {                 
       System.out.println("Enter numbers greater than 0");
@@ -38,14 +39,14 @@ System.out.print(res);
       YourNumberMyWord a = new YourNumberMyWord();
       
    
-      a.pw((n/1000000000)," Hundred");
-      a.pw((n/10000000)%100," crore");
-      a.pw(((n/100000)%100)," lakh");
-      a.pw(((n/1000)%100)," thousand");
-      a.pw(((n/100)%10)," hundred");
-      a.pw((n%100)," ");
+      str.append(a.pw((n/1000000000)," Hundred"));
+      str.append(a.pw((n/10000000)%100," crore"));
+      str.append(a.pw(((n/100000)%100)," lakh"));
+      str.append(a.pw(((n/1000)%100)," thousand"));
+      str.append(a.pw(((n/100)%10)," hundred"));
+      str.append(a.pw((n%100)," "));
     }
-    System.out.println(YourNumberMyWord.rt);
-	//return res;
+    
+	return str.toString();
   }
 }

@@ -271,6 +271,21 @@ change()
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 
+
+		 if(bac.includes("dochome")){
+					 $("#back").attr("href","/HMS/doctor1")
+					 $("#tit").text("Back to Doctor Home")
+				 }
+		 else if(bac.includes("frontdesk")){
+			 $("#back").attr("href","/HMS/doctor1")
+			 $("#tit").text("Back to Front Desk")
+		 }
+				 else{
+					 $("#back").attr("href","/HMS/nursedesk") 
+					 $("#tit").text("Back to Nurse Desk")
+				 }
+
 	}
 
 }
@@ -1406,6 +1421,9 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
     <ul class="nav navbar-nav">
       <li class="active" id="act"><a id="ho" href="">Home</a></li>
     </ul>
+    <ul class="nav navbar-nav navbar-right">
+  <li><a href="#" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back</span></a></li>
+    </ul>
   </div>
 </nav>
  <div id ="form2">
@@ -1597,6 +1615,9 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
 
 <script>
 datasuccess('<%=request.getParameter("message")%>')
+</script>
+<script>
+var bac = '<c:out value='${model.bac}'/>';
 </script>
 </body>
 </html>

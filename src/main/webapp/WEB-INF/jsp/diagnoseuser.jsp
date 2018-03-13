@@ -1754,13 +1754,15 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
         <a class="dropdown-toggle" data-toggle="dropdown">Charts
         <span class="caret"></span></a>
       <ul class="dropdown-menu">
-        <li><a  href="/HMS/iochart">IO Chart</a></li>
-        <li><a  href="/HMS/hourchart">Hour Chart</a></li>
-        <li><a  href="/HMS/drugchart">Drug Chart</a></li>
+        <li><a  href="/HMS/iochart?location=dochome">IO Chart</a></li>
+        <li><a  href="/HMS/hourchart?location=dochome">Hour Chart</a></li>
+        <li><a  href="/HMS/drugchart?location=dochome">Drug Chart</a></li>
       </ul></li>
       
     </ul>
-
+    <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
+    </ul>
   
 </nav>
  <div id ="form2">

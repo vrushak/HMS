@@ -379,7 +379,9 @@ function cpyfile(getval){
 
 	document.getElementById("fn").value = strSplit[0];
 	document.getElementById("docid1").value = strSplit[1];
-	alert(strSplit[2])
+	if('<c:out value="${pageContext.request.userPrincipal.name}" />'.includes("dbadmin")){
+		strSplit[2] = "dbadmin1";
+	}
     document.getElementById("dname").value = strSplit[2];
 }
 
@@ -395,7 +397,8 @@ function cpyfile(getval){
 	function run() {
 	    if(document.getElementById("myname").value == "new"){
 	    	document.getElementById("saveref").reset();
-	    	$("#pid").selectpicker("refresh");
+	    	 $('select[name=pid]').val("select");
+	    	 $('#pid').selectpicker('refresh');
 	    }
 	    else{
 	 	   var str = document.getElementById("myname").value;
@@ -415,13 +418,13 @@ function cpyfile(getval){
 					
 					document.getElementById('diagnosis').checked=true;
 				}
-		document.getElementById("diagnosis").value = strSplit[3];
+		//document.getElementById("diagnosis").value = strSplit[3];
 		
 		if(strSplit[4] == "active"){
 			
 			document.getElementById('caseh').checked=true;
 		}
-		document.getElementById("caseh").value = strSplit[4];
+		//document.getElementById("caseh").value = strSplit[4];
 		//document.getElementById('caseh').checked;
 		
 		document.getElementById("remarks").value = strSplit[5];
@@ -554,9 +557,9 @@ function AutoGrowTextArea(textField)
     <ul class="nav navbar-nav">
           <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
-    <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back" onclick="window.location.href='/HMS/doctor1';"></i>
-  </div>
+       <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
+    </ul>  </div>
 </nav>
   <center>
 </center>

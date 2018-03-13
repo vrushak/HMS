@@ -318,6 +318,11 @@ function cpyfile(getval){
 
 		document.getElementById("fin").value = strSplit[0];
 		document.getElementById("docid").value = strSplit[1];
+		var useras = '<c:out value="${pageContext.request.userPrincipal.name}" />';
+		
+		if(useras.includes("dbadmin1")){
+			strSplit[2] = "dbadmin1";
+		}
 		document.getElementById("pname").value = strSplit[2];
     
 }
@@ -337,6 +342,8 @@ function cpyfile(getval){
 
 	    if(document.getElementById("myname").value == "new"){
 	    	document.getElementById("savesic").reset();
+	    	   $('select[name=pn]').val("select");
+	    	   $('#pn').selectpicker('refresh');
 	    }
 	    else{
 	 	   var str = document.getElementById("myname").value;
@@ -475,9 +482,9 @@ hr {
     <ul class="nav navbar-nav">
          <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
-    <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back" onclick="window.location.href='/HMS/doctor1';"></i>
-  </div>
+      <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
+    </ul> </div>
 </nav>
   <center>
 </center>

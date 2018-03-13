@@ -447,6 +447,9 @@ $(document).ready(function () {
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="home.html">Home</a></li>
     </ul>
+        <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/home" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Home</span></a></li>
+    </ul>
   </div>
 </nav>
   <center>

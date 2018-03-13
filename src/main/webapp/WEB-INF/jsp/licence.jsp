@@ -193,6 +193,7 @@ function validateEmail(emailField){
 }
 
 function openmd1(value){
+
 	if(value.includes("false")){
 alert("Your licence has expired. Please contact your Vendor to re-activate your licence");		
 	}

@@ -234,12 +234,18 @@ public class Logincontroller {
      	if(failed == null){
      		failed = "tre";
      	}
+     	
      	try{
     	License license = LicenseManager.decryptLicense(list.get(0).getLckey());
     	list.get(0).setCompanyName(license.getCompanyName());
     	list.get(0).setEmailId(license.getEmailId());
     	if(failed.equalsIgnoreCase("licensefailed")){
      		result = "failed";
+     		if(System.currentTimeMillis() > license.getExpirationDate()){
+        		
+    			result ="false";
+    		}
+        	
      	}
     	else if(failed.equalsIgnoreCase("diffmac")){
     		result = "diffmac";
@@ -248,8 +254,9 @@ public class Logincontroller {
     		
 			result ="true";
 		}
-    	else{
-    		result = "false";
+    	
+    	else {
+    		
     	}
      	}
      	catch(IndexOutOfBoundsException exception) {

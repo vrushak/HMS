@@ -855,9 +855,9 @@ $.confirm({
       <li class=""><a id="m2" href="/HMS/treatment">Patient Treatment Records</a></li>
       <li class=""><a id="m4" href="/HMS/discharge">Discharge Summary</a></li>        
          </ul>
-         <br>
-         <i class='fa fa-arrow-left button2 rightspace' id="back" style='font-size:20px;color : #f0ad4e' onclick="window.location.href='/HMS/doctor1';"></i>
-     <!--      
+             <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
+    </ul>   <!--      
       <ul class="nav navbar-nav navbar-right">
        <li style ="color:#ff9900;"><span class="glyphicon glyphicon-log-in"></span> Welcome : ${pageContext.request.userPrincipal.name}</li>
       </ul>

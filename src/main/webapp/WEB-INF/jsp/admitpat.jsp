@@ -105,7 +105,7 @@ function checkhome(user){
 		 element.setAttribute("href",url)
 	}
 	else if(user.includes("[ROLE_Accounts Admin]")){
-		
+		 $("#back").hide();
 		 var url = "/HMS/frontdesk" ;
 			
 		 var element = document.getElementById('ho');
@@ -299,8 +299,10 @@ $(document).ready(function () {
       <br>
     
     </ul>
-    <br>
-    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back" onclick="window.location.href='/HMS/frontdesk';"></i>
+   
+  <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/frontdesk" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Front Desk</span></a></li>
+    </ul>
     
   </div>
 </nav>

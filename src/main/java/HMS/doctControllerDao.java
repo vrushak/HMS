@@ -943,7 +943,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 			}  				
 			public List<Appointment> getappointment1(String username) {
 				// TODO Auto-generated method stub
-				return template.query("select concat(pat.fname,' ',pat.mname,' ',pat.lname)pname,fileno,pat.pid,a.docid,(select concat(fname,' ',mname,' ',lname) from assistant where aid in (select userid from users where username='"+username+"')) from appointment a join patient pat on a.pid = pat.pid join doctor d on d.docID = a.docid",new RowMapper<Appointment>(){  
+				return template.query("select concat(pat.fname,' ',pat.mname,' ',pat.lname)pname,fileno,pat.pid,a.docid,(select concat(fname,' ',mname,' ',lname) from doctor where docID in (select userid from users where username='"+username+"')) from appointment a join patient pat on a.pid = pat.pid join doctor d on d.docID = a.docid",new RowMapper<Appointment>(){  
 			        public Appointment mapRow(ResultSet rs, int row) throws SQLException {   
 			        	Appointment a = new Appointment();
 				       a.setPname(rs.getString(1));

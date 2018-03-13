@@ -1818,7 +1818,9 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
       <li class=""><a id="m2" href="/HMS/treatment">Treatment Records</a></li>  
       <li class=""><a  href="/HMS/discharge">Discharge Summary</a></li>
     </ul>
-     
+         <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
+    </ul>
   </div>
 </nav>
  <div id ="form2">

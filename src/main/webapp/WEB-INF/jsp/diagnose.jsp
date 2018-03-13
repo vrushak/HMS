@@ -1016,6 +1016,9 @@ var cu;
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
+        <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
+    </ul>
   </div>
 </nav>
  <div id ="form2">

@@ -921,12 +921,8 @@ public List<Billgen> getreceipt(String invoice) {
 	       p.setTotal(rs.getString(3));
 	       p.setCashier(rs.getString(4));
 	       float f=Float.parseFloat(rs.getString(3)); 
-	      
-		      String ab;
-		       YourNumberMyWord a = new YourNumberMyWord();
-		      YourNumberMyWord.main(Math.round(f));
-		         System.out.println();
-		        p.setPrice(rs.getString(3)); 
+	       String ab =  YourNumberMyWord.main(Math.round(f));
+		    p.setPrice(ab); 
 	      
 		return p;
         }

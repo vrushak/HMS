@@ -106,7 +106,7 @@ window.location = "/HMS/nursedesk.html";
 <font color="#228B22" class="left" >Welcome : ${pageContext.request.userPrincipal.name}</font>  <i style="font-size:20px; align: right;color : #228B22" class="fa fa-cog" ></i> 
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
 
-<i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #228B22' id="back"  onclick="window.location.href='/HMS/home';"></i>
+<a href="/HMS/home" id="back" class='button2 rightspace' ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Home</span></a>
 
 <div class="well well-lg" id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
 
@@ -131,28 +131,28 @@ window.location = "/HMS/nursedesk.html";
      <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/Vitals.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='vitals'" value="Check Vitals"></figcaption>
+      <figcaption><input type="button" onclick="location.href='vitals?location=nusedesk'" value="Check Vitals"></figcaption>
       </figure>
     </div>
     
     <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/input output.jpg'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='iochart'" value="IO Chart"></figcaption>
+      <figcaption><input type="button" onclick="location.href='iochart?location=nursedesk'" value="IO Chart"></figcaption>
       </figure>
     </div>
     
     <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/Hour Chart.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='hourchart'" value="Hour Chart"></figcaption>
+      <figcaption><input type="button" onclick="location.href='hourchart?location=nursedesk'" value="Hour Chart"></figcaption>
       </figure>
     </div>
     
       <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/drug chart icon.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='drugchart'" value="Drug Chart"></figcaption>
+      <figcaption><input type="button" onclick="location.href='drugchart?location=nursedesk'" value="Drug Chart"></figcaption>
       </figure>
     </div>
 
@@ -163,7 +163,7 @@ window.location = "/HMS/nursedesk.html";
   <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/opd1.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='opdchart'" value="OPD Other Procedures"></figcaption>
+      <figcaption><input type="button" onclick="location.href='opdchart?location=nursedesk'" value="OPD Other Procedures"></figcaption>
       </figure>
     </div>
     
@@ -177,7 +177,7 @@ window.location = "/HMS/nursedesk.html";
     <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/Lab Tests Icon.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='/HMS/labup';" value="Lab Tests"></figcaption>
+      <figcaption><input type="button" onclick="location.href='/HMS/labup?location=nursedesk';" value="Lab Tests"></figcaption>
       </figure>
     </div>
     </div>

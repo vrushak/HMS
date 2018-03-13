@@ -515,7 +515,7 @@ function AutoGrowTextArea(textField)
   -->
     </ul>
      <ul class="nav navbar-nav navbar-right">
-      <li><a href="/HMS/prdocs"><span class="glyphicon glyphicon-user"></span>Back</a></li>
+      <li><a href="/HMS/prdocs"><span class="glyphicon glyphicon-user"></span>Back to Print Documents</a></li>
       
     </ul>
   </div>

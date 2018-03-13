@@ -245,6 +245,15 @@ function checkhome(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 if(bac.includes("dochome")){
+			 $("#back").attr("href","/HMS/doctor1")
+			 $("#tit").text("Back to Doctor Home")
+		 }
+		 else{
+			 $("#back").attr("href","/HMS/nursedesk") 
+			 $("#tit").text("Back to Nurse Desk")
+		 }
+
 	}
 }
 
@@ -705,15 +714,15 @@ $(document).ready(function(){
       
  
     </ul>
-    <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back" onclick="window.location.href='/HMS/doctor1';"></i>
-  </div>
+   <ul class="nav navbar-nav navbar-right">
+  <li><a href="#" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back</span></a></li>
+    </ul>  </div>
 </nav>
   <center>
 </center>
   <div id="form1" >  
   
-     <h1><button type="button" id="refresh" class="btn btn-warning button1" form="forma" onclick="location.href='blantyrecoma';">
+     <h1><button type="button" id="refresh" class="btn btn-warning button1" form="forma" onclick="location.reload(true);">
      
 	  <span class="fa fa-refresh"></span> Refresh</button>
 	
@@ -939,6 +948,8 @@ $(document).ready(function(){
    <script>
 datasuccess('<%=request.getParameter("message")%>')
 </script>
-
+<script>
+var bac = '<c:out value='${model.bac}'/>';
+</script>
 </body>
 </html>

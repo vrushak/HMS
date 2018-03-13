@@ -159,7 +159,7 @@ public class LicenseManager {
 				result ="true";
 			}
 			else{
-				
+			
 				result="false";
 			}
 			}

@@ -40,7 +40,7 @@ public class CustomFilter extends GenericFilterBean {
         String uri = reqs.getRequestURI();
      
        if(!uri.contentEquals("/HMS/licence") && !uri.contains(".js") && !uri.contains(".css") && !uri.contains("/HMS/genlic") && !uri.contains("/HMS/sablic")){
-    	   if(k.contentEquals("false")){
+    	   if(k.contentEquals("false") ||k.contentEquals("diffmac")){
     	   resp.sendRedirect("/HMS/licence?res="+res+"");
            
       	   return;

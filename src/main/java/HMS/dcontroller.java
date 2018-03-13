@@ -908,10 +908,11 @@ public class dcontroller {
 
 }
 		   @RequestMapping(value="/glasgowcoma", method = RequestMethod.GET)
-			public ModelAndView  glasgowcoma(Principal principal,Authentication authentication) {
+			public ModelAndView  glasgowcoma(Principal principal,Authentication authentication,
+					HttpServletRequest req,HttpServletResponse res) {
 	              authentication.getAuthorities();
 		    	
-		    	System.out.println("Authentication" +authentication.getAuthorities());
+		    	
 		    	Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 		    	String b = var.toString();
 		         
@@ -921,7 +922,11 @@ public class dcontroller {
 						}
 						else
 						list3 = dao.getPatientdet();
-				return new ModelAndView("glasgowcoma","list3",list3); 
+						Map<String, Object> model = new HashMap<String, Object>();
+					    model.put("list3", list3);
+					    model.put("bac", req.getParameter("location"));
+
+				return new ModelAndView("glasgowcoma","model",model); 
 				}
 		   @RequestMapping(value="/blantyrecomasc", method = RequestMethod.POST)
 		 	public ModelAndView  saveB(@ModelAttribute("b")blantyrecoma b ) {
@@ -946,10 +951,10 @@ public class dcontroller {
 
 }
 		   @RequestMapping(value="/blantyrecoma", method = RequestMethod.GET)
-       public ModelAndView  blantyrecoma(Principal principal,Authentication authentication) {
+       public ModelAndView  blantyrecoma(Principal principal,Authentication authentication,HttpServletRequest req,HttpServletResponse res) {
     authentication.getAuthorities();
 	
-	System.out.println("Authentication" +authentication.getAuthorities());
+	
 	Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 	String b = var.toString();
    
@@ -959,7 +964,10 @@ public class dcontroller {
 			}
 			else
 			list3 = dao.getPatientdet();
-	return new ModelAndView("blantyrecoma","list3",list3); 
+			Map<String, Object> model = new HashMap<String, Object>();
+		    model.put("list3", list3);
+		    model.put("bac", req.getParameter("location"));
+	return new ModelAndView("blantyrecoma","model",model); 
 	}
 		   
 		   @RequestMapping(value="/glasgow1", method = RequestMethod.GET)

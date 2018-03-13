@@ -312,6 +312,15 @@ function checkhome(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 if(bac.includes("dochome")){
+			 $("#back").attr("href","/HMS/doctor1")
+			 $("#tit").text("Back to Doctor Home")
+		 }
+		 else{
+			 $("#back").attr("href","/HMS/nursedesk") 
+			 $("#tit").text("Back to Nurse Desk")
+		 }
+		 
 	}
 }
 
@@ -1016,9 +1025,9 @@ var user2a;
        <li class=""><a id="nob" href="/HMS/nursetr/"  onclick=' return visible();' target="_blank">Nurse observations</a></li>
   -->
     </ul>
-    <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px; color : #f0ad4e'  id="back" onclick="goBack()"></i><!-- This is for doctor -->
-         
+   <ul class="nav navbar-nav navbar-right">
+  <li><a href="#" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back</span></a></li>
+    </ul>
   </div>
 </nav>
   <center>
@@ -1051,7 +1060,7 @@ var user2a;
     <li class="active"><a data-toggle="pill" href="#home">Patient Details</a></li>
     <li><a data-toggle="pill" onclick="crtab('<c:out value="${username}" />','<c:out value="${pageContext.request.userPrincipal.name}" />')" href="#menu1">IO CHART</a></li>
    
-    <li class="pull-right"><button type="button" id="refresh" class="btn btn-primary button2" onclick="location.href='iochart';">
+    <li class="pull-right"><button type="button" id="refresh" class="btn btn-primary button2" onclick="location.reload(true);">
 	  <span class="fa fa-refresh"></span> Refresh</button></li>
 </ul>
 
@@ -1069,7 +1078,7 @@ var user2a;
             <p>Patient Name<span>*</span></p>
              <select class="selectpicker form-control" data-size="4" data-live-search="true" name = "pname" id ="pname" onchange="addname(this.options[this.selectedIndex])">
           <option value="Select" selected disabled>Select</option>
-        <c:forEach var="p"  items="${list3}">
+        <c:forEach var="p"  items="${model.list3}">
         <option value="${p.name}" data-subtext="${p.fileno},${p.admdate}"  data-value="${p.name}=${p.pid}=${p.age}=${p.gender}=${p.fileno}=${p.admdate}=${p.wardno}=${p.doctsig}=${p.nursesig}=${p.admitno}">${p.name}</option>
         </c:forEach>
       </select>
@@ -1304,8 +1313,11 @@ var user2a;
 
 datasuccess('<%=request.getParameter("message")%>')
 </script>
+<script>
 
+var bac = '<c:out value='${model.bac}'/>';
 
+</script>
 
  
  
