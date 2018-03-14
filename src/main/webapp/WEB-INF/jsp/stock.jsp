@@ -367,7 +367,7 @@ for(var i =0;i<s.length;i++){
    <div class="col-xs-4">
   <div class="form-group">
      <p>Expiry Date <span>*</span></p>
-         	<input type="date"  max="2999-12-31"   name="expdate" id="expdate" onkeydown="return false;" class="form-control input-sm"  onclick="return validDate()" required>
+         	<input type="date"  max="2999-12-31"   name="expdate" id="expdate"  class="form-control input-sm"  onclick="return validDate()" required>
   
        </div>
   </div>

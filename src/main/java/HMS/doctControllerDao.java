@@ -627,7 +627,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 			
 				//docid in (select  userid from userrole where username='"+id+"' ) and
 				if(role.contains("[ROLE_DOCTOR]")){
-			return template.query("select distinct a.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) Patient,a.docid,concat(d.fname,' ',d.mname,' ',d.lname) Doctor,a.admdate,a.fileno,a.admitno,CONCAT(wardno,'/',bedno),a.cause,pat.age,pat.gender from admitpat a join appointment ap on  a.fileno = ap.fileno join doctor d on a.docid = d.docID join discharge dc join patient pat on a.pid = pat.pid where a.fileno not in (select fileno from "+table+")",new RowMapper<Admitpat>(){  
+			return template.query("select distinct a.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) Patient,a.docid,concat(d.fname,' ',d.mname,' ',d.lname) Doctor,a.admdate,a.fileno,a.admitno,CONCAT(wardno,'/',bedno),a.cause,pat.age,pat.gender from admitpat a join appointment ap on  a.fileno = ap.fileno join doctor d on a.docid = d.docID join patient pat on a.pid = pat.pid where a.fileno not in (select fileno from "+table+")",new RowMapper<Admitpat>(){  
 					        public Admitpat mapRow(ResultSet rs, int row) throws SQLException {   
 						       Admitpat p = new Admitpat();
 						   
@@ -650,7 +650,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 			}
 				else{   
 					 
-				        	return template.query("select distinct a.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) Patient,a.docid,concat(d.fname,' ',d.mname,' ',d.lname) Doctor,a.admdate,a.fileno,a.admitno,CONCAT(wardno,'/',bedno),a.cause,pat.age,pat.gender from admitpat a join appointment ap on  a.fileno = ap.fileno join doctor d on a.docid = d.docID join discharge dc join patient pat on a.pid = pat.pid where a.fileno not in (select fileno from "+table+")",new RowMapper<Admitpat>(){  
+				        	return template.query("select distinct a.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) Patient,a.docid,concat(d.fname,' ',d.mname,' ',d.lname) Doctor,a.admdate,a.fileno,a.admitno,CONCAT(wardno,'/',bedno),a.cause,pat.age,pat.gender from admitpat a join appointment ap on  a.fileno = ap.fileno join doctor d on a.docid = d.docID join patient pat on a.pid = pat.pid where a.fileno not in (select fileno from "+table+")",new RowMapper<Admitpat>(){  
 						        public Admitpat mapRow(ResultSet rs, int row) throws SQLException {   
 							       Admitpat p = new Admitpat();
 							       
@@ -938,26 +938,41 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 			}
 			
 			public int saveS(Sick s){  
-			    String sql="insert into sicknote(pname,sdate,work,other,reason,dates,dat,pn,fin,docid ) values('"+s.getPname()+"','"+s.getSdate()+"','"+s.getWork()+"','"+s.getOther()+"','"+s.getReason()+"','"+s.getDates()+"','"+s.getDat()+"','"+s.getPn()+"','"+s.getFin()+"','"+s.getDocid()+"') on duplicate key update pname='"+s.getPname()+"',sdate='"+s.getSdate()+"',work='"+s.getWork()+"',other='"+s.getOther()+"',reason='"+s.getReason()+"',dates='"+s.getDates()+"',dat='"+s.getDat()+"',pn='"+s.getPn()+"',fin='"+s.getFin()+"',docid='"+s.getDocid()+"'";  
+			    String sql="insert into sicknote(pname,sdate,work,other,reason,dates,dat,pn,fin,docid,timestamp) values('"+s.getPname()+"','"+s.getSdate()+"','"+s.getWork()+"','"+s.getOther()+"','"+s.getReason()+"','"+s.getDates()+"','"+s.getDat()+"','"+s.getPn()+"','"+s.getFin()+"','"+s.getDocid()+"','"+s.getTimestamp()+"') on duplicate key update pname='"+s.getPname()+"',sdate='"+s.getSdate()+"',work='"+s.getWork()+"',other='"+s.getOther()+"',reason='"+s.getReason()+"',dates='"+s.getDates()+"',dat='"+s.getDat()+"',pn='"+s.getPn()+"',fin='"+s.getFin()+"',docid='"+s.getDocid()+"',timestamp = '"+s.getTimestamp()+"'";  
 			    return template.update(sql);  
 			}  				
-			public List<Appointment> getappointment1(String username) {
+			public List<Appointment> getappointment1(String username,String userrole) {
 				// TODO Auto-generated method stub
-				return template.query("select concat(pat.fname,' ',pat.mname,' ',pat.lname)pname,fileno,pat.pid,a.docid,(select concat(fname,' ',mname,' ',lname) from doctor where docID in (select userid from users where username='"+username+"')) from appointment a join patient pat on a.pid = pat.pid join doctor d on d.docID = a.docid",new RowMapper<Appointment>(){  
-			        public Appointment mapRow(ResultSet rs, int row) throws SQLException {   
-			        	Appointment a = new Appointment();
-				       a.setPname(rs.getString(1));
-				       a.setFileno(rs.getString(2));
-				       a.setPid(rs.getString(3));
-				       a.setDocid(rs.getString(4));
-				       a.setDname(rs.getString(5));
-				   return a;
-			        }
-				});
+				if(!userrole.equals("[ROLE_ADMIN]")){
+					return template.query("select concat(pat.fname,' ',pat.mname,' ',pat.lname)pname,fileno,pat.pid,a.docid,(select concat(fname,' ',mname,' ',lname) from doctor where docID in (select userid from users where username='"+username+"')) from appointment a join patient pat on a.pid = pat.pid join doctor d on d.docID = a.docid",new RowMapper<Appointment>(){  
+				        public Appointment mapRow(ResultSet rs, int row) throws SQLException {   
+				        	Appointment a = new Appointment();
+					       a.setPname(rs.getString(1));
+					       a.setFileno(rs.getString(2));
+					       a.setPid(rs.getString(3));
+					       a.setDocid(rs.getString(4));
+					       a.setDname(rs.getString(5));
+					   return a;
+				        }
+					});
+				}else{
+					return template.query("select concat(pat.fname,' ',pat.mname,' ',pat.lname)pname,fileno,pat.pid,a.docid,concat(d.fname,' ',d.mname,' ',d.lname) from appointment a join patient pat on a.pid = pat.pid join doctor d on d.docID = a.docid",new RowMapper<Appointment>(){  
+				        public Appointment mapRow(ResultSet rs, int row) throws SQLException {   
+				        	Appointment a = new Appointment();
+					       a.setPname(rs.getString(1));
+					       a.setFileno(rs.getString(2));
+					       a.setPid(rs.getString(3));
+					       a.setDocid(rs.getString(4));
+					       a.setDname(rs.getString(5));
+					   return a;
+				        }
+					});
+				}
+
 			}
 			public List<Sick> getsick() {
 				// TODO Auto-generated method stub
-				return template.query("select concat(d.fname,' ',d.mname,' ',d.lname) pname,sdate,work,other,reason,dates,dat,concat(pat.fname,' ',pat.mname,' ',pat.lname) patient,fin,pn,s.docid from sicknote s join patient pat on pat.pid = s.pn join doctor d on d.docID=s.docid;",new RowMapper<Sick>(){  
+				return template.query("select concat(d.fname,' ',d.mname,' ',d.lname) pname,sdate,work,other,reason,dates,dat,concat(pat.fname,' ',pat.mname,' ',pat.lname) patient,fin,pn,s.docid,timestamp from sicknote s join patient pat on pat.pid = s.pn join doctor d on d.docID=s.docid;",new RowMapper<Sick>(){  
 			        public Sick mapRow(ResultSet rs, int row) throws SQLException {   
 			        	Sick s = new Sick();
 				      s.setPname(rs.getString(1));
@@ -971,36 +986,52 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 	                   s.setFin(rs.getString(9));
 	                   s.setPn(rs.getString(10));
 	                   s.setDocid(rs.getString(11));
-				       
+				       s.setTimestamp(rs.getString(12));
 				   return s;
 			        }
 				});
 			}
 					
 			public int saveR(Referral r){  
-			    String sql="insert into referral(redate,pname,treat,diagnosis,caseh,remarks,dname,sign,pid,fn,docid) values('"+r.getRedate()+"','"+r.getPname()+"','"+r.getTreat()+"','"+r.getDiagnosis()+"','"+r.getCaseh()+"','"+r.getRemarks()+"','"+r.getDname()+"','"+r.getSign()+"','"+r.getPid()+"','"+r.getFn()+"','"+r.getDocid()+"') on duplicate key update redate='"+r.getRedate()+"',pname='"+r.getPname()+"',treat='"+r.getTreat()+"',diagnosis='"+r.getDiagnosis()+"',caseh='"+r.getCaseh()+"',remarks='"+r.getRemarks()+"',dname='"+r.getDname()+"',sign='"+r.getSign()+"',pid='"+r.getPid()+"',fn='"+r.getFn()+"',docid='"+r.getDocid()+"'";  
+			    String sql="insert into referral(redate,pname,treat,diagnosis,caseh,remarks,dname,sign,pid,fn,docid,timestamp) values('"+r.getRedate()+"','"+r.getPname()+"','"+r.getTreat()+"','"+r.getDiagnosis()+"','"+r.getCaseh()+"','"+r.getRemarks()+"','"+r.getDname()+"','"+r.getSign()+"','"+r.getPid()+"','"+r.getFn()+"','"+r.getDocid()+"','"+r.getTimestamp()+"') on duplicate key update redate='"+r.getRedate()+"',pname='"+r.getPname()+"',treat='"+r.getTreat()+"',diagnosis='"+r.getDiagnosis()+"',caseh='"+r.getCaseh()+"',remarks='"+r.getRemarks()+"',dname='"+r.getDname()+"',sign='"+r.getSign()+"',pid='"+r.getPid()+"',fn='"+r.getFn()+"',docid='"+r.getDocid()+"',timestamp='"+r.getTimestamp()+"'";  
 			    return template.update(sql);  
 			}  				
-			public List<Appointment> getappointment(String username) {
+			public List<Appointment> getappointment(String username,String userrole) {
 				// TODO Auto-generated method stub
-				return template.query("select concat(pat.fname,' ',pat.mname,' ',pat.lname)pname,fileno,pat.pid,a.docid,(select concat(fname,' ',mname,' ',lname) from doctor where docID in (select userid from users where username='"+username+"')) from appointment a join patient pat on a.pid = pat.pid join doctor d on d.docID = a.docid",new RowMapper<Appointment>(){  
-			        public Appointment mapRow(ResultSet rs, int row) throws SQLException {   
-			        	Appointment a = new Appointment();
-				      a.setPname(rs.getString(1));
-	                   a.setFileno(rs.getString(2));
-	                   a.setPid(rs.getString(3));
-	                   a.setDocid(rs.getString(4));
-				       a.setDname(rs.getString(5));
-				       
-				   return a;
-			        }
-				});
+				if(!userrole.equals("[ROLE_ADMIN]")){
+					return template.query("select concat(pat.fname,' ',pat.mname,' ',pat.lname)pname,fileno,pat.pid,a.docid,(select concat(fname,' ',mname,' ',lname) from doctor where docID in (select userid from users where username='"+username+"')) from appointment a join patient pat on a.pid = pat.pid join doctor d on d.docID = a.docid",new RowMapper<Appointment>(){  
+				        public Appointment mapRow(ResultSet rs, int row) throws SQLException {   
+				        	Appointment a = new Appointment();
+					      a.setPname(rs.getString(1));
+		                   a.setFileno(rs.getString(2));
+		                   a.setPid(rs.getString(3));
+		                   a.setDocid(rs.getString(4));
+					       a.setDname(rs.getString(5));
+					       
+					   return a;
+				        }
+					});
+				}else{
+					return template.query("select concat(pat.fname,' ',pat.mname,' ',pat.lname)pname,fileno,pat.pid,a.docid,concat(d.fname,' ',d.mname,' ',d.lname)from appointment a join patient pat on a.pid = pat.pid join doctor d on d.docID = a.docid",new RowMapper<Appointment>(){  
+				        public Appointment mapRow(ResultSet rs, int row) throws SQLException {   
+				        	Appointment a = new Appointment();
+					      a.setPname(rs.getString(1));
+		                   a.setFileno(rs.getString(2));
+		                   a.setPid(rs.getString(3));
+		                   a.setDocid(rs.getString(4));
+					       a.setDname(rs.getString(5));
+					       
+					   return a;
+				        }
+					});
+				}
+			
 			}
 			public List<Referral> getreferral() {
 				
 				// TODO Auto-generated method stub
 				
-				return template.query("select redate,pname,treat,diagnosis,caseh,remarks,concat(d.fname,' ',d.mname,' ',d.lname)dname,sign,concat(pat.fname,' ',pat.mname,' ',pat.lname) patient,fn,r.pid,r.docid from referral r join patient pat on pat.pid = r.pid join doctor d on d.docID=r.docid;",new RowMapper<Referral>(){  
+				return template.query("select redate,pname,treat,diagnosis,caseh,remarks,concat(d.fname,' ',d.mname,' ',d.lname)dname,sign,concat(pat.fname,' ',pat.mname,' ',pat.lname) patient,fn,r.pid,r.docid,timestamp from referral r join patient pat on pat.pid = r.pid join doctor d on d.docID=r.docid;",new RowMapper<Referral>(){  
 			        public Referral mapRow(ResultSet rs, int row) throws SQLException {   
 			        	Referral r = new Referral();
 			        
@@ -1013,10 +1044,10 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 				      r.setDname(rs.getString(7));
 				      r.setSign(rs.getString(8));
 				      r.setPatient(rs.getString(9));
-	                   r.setFn(rs.getString(10));
-	                   r.setPid(rs.getString(11));
-	                   r.setDocid(rs.getString(12));
-				   
+	                  r.setFn(rs.getString(10));
+	                  r.setPid(rs.getString(11));
+	                  r.setDocid(rs.getString(12));
+	                  r.setTimestamp(rs.getString(13)); 
 				   return r;
 			        }
 				});

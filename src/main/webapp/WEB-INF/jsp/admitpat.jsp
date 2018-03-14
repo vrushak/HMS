@@ -327,7 +327,7 @@ $(document).ready(function () {
         <th width="200px;">Doctor Name</th>
         <th width="200px;">WardNo</th>
         <th width="200px;">BedNo</th>
-        <th width="200px;">Cause</th>
+        <th width="200px;">Reason For Admission</th>
         <th width="180px;">Print Admit Card</th>
         <th width="20px;"></th>
         
@@ -342,6 +342,7 @@ $(document).ready(function () {
     <td width="200px;">${p1.bedno}</td>
     <td width="200px;">${p1.cause}</td>
     <td width="180px;"><a href="/HMS/adpdf?location=${p1.fileno}" target="_blank">Print</a></td>
+    <td width="180px;"></td>
  </tr>
     </c:forEach>
     </tbody>

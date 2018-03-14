@@ -273,28 +273,27 @@ $( function() {
 
  </div>
  <br>
-  <div id="result"  title="Bill Report">
+ <div id="result"  title="Bill Report">
    <div class="form-group row" >
         <div class="col-xs-10">
         <p>From Date<span></span></p>
        <div class="form-group">
-      <div class='input-group date dp1'>
-      <input type='text' name="admdate" id="admdate" class="form-control input-sm" required />
-      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-      </div></div>
+     
+      <input type="date" name="admdate" id="admdate"  class="form-control input-sm"  required />
+     
+      </div>
       </div>
       </div>
      <div class="form-group row" >
         <div class="col-xs-10">
         <p>To Date<span></span></p>
        <div class="form-group">
-      <div class='input-group date dp1'>
-      <input type='text' name="disdate" id="disdate" class="form-control input-sm" required />
-      <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-      </div></div>
+     <input type="date" name="disdate" id="disdate"  class="form-control input-sm"  required />
+   
+      </div>
       </div>
       </div>   
-      <a href="" target="_blank" class="btn btn-warning" onclick="return addp(this)">Bill Report</a></div>
+      <a href="#" target="_blank" class="btn btn-warning" onclick="return addp(this)">Bill Report</a></div>
   </div>
 </div>
 </body>

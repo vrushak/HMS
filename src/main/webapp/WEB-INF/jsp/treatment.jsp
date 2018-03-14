@@ -260,28 +260,24 @@ function display(userdoc){
 	
 
 	var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
-	var rowsAdd = tableRef.insertRow(tableRef.rows.length);  
+ 
 	
 	//    var m = moment().format('YYYY-MM-DD h:mm a');
 
-	  var newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td ><input  form ='forma'readonly='readonly' class= 'form-control input-sm' onkeypress='return onlyAlphabets(event,this);'  value='"+moment().format('DD/MM/YYYY HH:mm:ss')+"'  type='text' id = 'datetime' name= 'datetime'  required> </td></tr>";
-	  newCell.style.width ='160px';
-	  
-	 
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td width ='';><input form ='forma' class= 'form-control input-sm'  type='text' readonly='readonly' onkeypress='return onlyAlphabets(event,this);'  value='"+userdoc+"' id = 'dname' name= 'dname'  required  ></td></tr>";
-	  newCell.style.width ='200px';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td width ='';><textarea form ='forma' class= 'form-control input-sm' rows='1'  id = 'comments' onkeypress='' name= 'comments'  required></textarea></td></tr>";
-	  newCell.style.width ='300px'; 
+
 	/*
 	  newCell = rowsAdd.insertCell();
 	  newCell.innerHTML="<tr><td class='tds'><i class='fa fa-trash-o' style='font-size:20px'  onclick = deleteRow(this,'"+encodeURIComponent(userdoc)+"')></i></td></tr>";
 	  newCell.style.width ='50px';
 */
-	
+		var row = "tab"+ tableRef.rows.length;
+		var markup = "<tr id='"+row+"'><td style='width:160px;'><input  form ='forma'readonly='readonly' class= 'form-control input-sm' onkeypress='return onlyAlphabets(event,this);'  value='"+moment().format('DD/MM/YYYY HH:mm:ss')+"'  type='text' id = 'datetime' name= 'datetime'  required> </td><td style='width:200px;'><input form ='forma' class= 'form-control input-sm'  type='text' readonly='readonly' onkeypress='return onlyAlphabets(event,this);'  value='"+userdoc+"' id = 'dname' name= 'dname'  required  ></td><td style='width:300px;'><textarea form ='forma' class= 'form-control input-sm' rows='1'  id = 'comments' onkeypress='' name= 'comments'  required></textarea></td></tr>"
+	    $('#myTable tbody').append(markup);
+		
+		  var elmnt = document.getElementById(row);
+		     elmnt.scrollIntoView();
+		     $(row).focus(); 
+		     
 }
 function setline(id){
     var a = document.getElementById('fileno').value;

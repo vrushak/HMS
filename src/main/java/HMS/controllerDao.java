@@ -2401,14 +2401,14 @@ public List<Lab> getLabupload() {
 
 //get files based on patient fileno
 public List<Lab> getRetrfiles(String fileno) {
-	System.out.println(fileno);
+
 	return template.query("select l.docurl,l.filename,l.samplecol from storefile l where l.fileno = '"+fileno+"'",new RowMapper<Lab>(){
 			 public Lab mapRow(ResultSet rs, int row) throws SQLException { 		
 	Lab h = new Lab();
 	h.setTestname(rs.getString(1));
 	h.setIop(rs.getString(2));
     h.setSamplecol(rs.getString(3));
-    System.out.println(rs.getString(1));
+    
 	return h;
 
     }

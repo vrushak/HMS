@@ -451,7 +451,7 @@ $(document).ready(function(){
    <div class="col-xs-4">
     <div class="form-group">
             <p>Actual Date of Return<span>*</span></p>
-    <input type="date" max="2999-12-31" name="allocdate" id="allocdate" onblur="return validdate(this.id)" class="form-control input-sm" >
+    <input type="date" max="2999-12-31" name="allocdate" id="allocdate" onchange="return validdate(this.id)" class="form-control input-sm" >
 </div>
 	</div>
 	

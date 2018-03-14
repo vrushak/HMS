@@ -828,7 +828,7 @@ $.confirm({
             if(namea == null){
            	 namea=0;
             }
-            if(namea.length > 0  ){
+            if(namea.length > 0 && moba.length > 0 ){
          	   removeAll(ida,namea,moba)   
             }
         },

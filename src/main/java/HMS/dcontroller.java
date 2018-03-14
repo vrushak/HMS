@@ -839,8 +839,10 @@ public class dcontroller {
 
 }
 		   @RequestMapping(value="/sick", method = RequestMethod.GET)
-			public ModelAndView sick(@ModelAttribute("s") Appointment p,Principal principal) {
-				List<Appointment> list2=ddao.getappointment1(principal.getName());  
+			public ModelAndView sick(@ModelAttribute("s") Appointment p,Principal principal,Authentication authentication) {
+			   Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
+		    	String b = var.toString();
+				List<Appointment> list2=ddao.getappointment1(principal.getName(),b);  
 			    List<Sick> list3= ddao.getsick();
 				 Map<String, Object> model = new HashMap<String, Object>();
 			       model.put("list2",list2);
@@ -875,8 +877,11 @@ public class dcontroller {
 		  
 		
 		   @RequestMapping(value="/referral", method = RequestMethod.GET)
-			public ModelAndView referral(@ModelAttribute("r")  Referral r,Principal principal) {
-			   List<Appointment> list2=ddao.getappointment(principal.getName());			
+			public ModelAndView referral(@ModelAttribute("r")  Referral r,Principal principal,Authentication authentication) {
+			   Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
+		    	String b = var.toString();
+			   
+			   List<Appointment> list2=ddao.getappointment(principal.getName(),b);			
 				List<Referral> list3= ddao.getreferral();
 			   
 				 Map<String, Object> model = new HashMap<String, Object>();

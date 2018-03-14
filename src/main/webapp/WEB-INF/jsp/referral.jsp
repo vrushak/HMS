@@ -281,6 +281,10 @@ function vrf(){
 		alert("Please select a Patient Name")
 		return false;
 	}
+	else{
+		$("#timestamp").val('<c:out value="${pageContext.request.userPrincipal.name}" />  '+moment().format("DD-MM-YYYY hh:mm"))
+	    return true;
+	}
 }
 
 function disp(){
@@ -379,9 +383,7 @@ function cpyfile(getval){
 
 	document.getElementById("fn").value = strSplit[0];
 	document.getElementById("docid1").value = strSplit[1];
-	if('<c:out value="${pageContext.request.userPrincipal.name}" />'.includes("dbadmin")){
-		strSplit[2] = "dbadmin1";
-	}
+	
     document.getElementById("dname").value = strSplit[2];
 }
 
@@ -438,7 +440,7 @@ function cpyfile(getval){
 		$("#pid").val(encodeURI(strSplit[8]));
 		$("#pid").selectpicker("refresh");
 		
-		
+	    $('#timestamp').val(strSplit[11])
 	
 		
 		
@@ -609,7 +611,7 @@ function AutoGrowTextArea(textField)
 	        <select class="selectpicker form-control select"  data-live-search="true"  id = "myname" name="myname" onchange="run()" class="form-control input-sm" >
 	        <option value="new">New</option>
 <c:forEach var="mft"  items="${model.list3}">
-<option value="${mft.redate}=${mft.pname}=${mft.treat}=${mft.diagnosis}=${mft.caseh}=${mft.remarks}=${mft.dname}=${mft.sign}=${mft.pid}=${mft.fn}=${mft.docid}" data-subtext="${mft.patient},${mft.redate}">${mft.fn}</option>
+<option value="${mft.redate}=${mft.pname}=${mft.treat}=${mft.diagnosis}=${mft.caseh}=${mft.remarks}=${mft.dname}=${mft.sign}=${mft.pid}=${mft.fn}=${mft.docid}=${mft.timestamp}" data-subtext="${mft.patient},${mft.redate}">${mft.fn}</option>
 </c:forEach>
 	        </select>
 	        
@@ -673,10 +675,11 @@ function AutoGrowTextArea(textField)
          <br>
          <tr>&emsp;&emsp;&emsp;<b>Doctor's Name:<input type="text" id="dname" name="dname" style="border-style: none;margin-left:1%;width:30%;border-width:2px;" class="meta-head"  form="saveref"/></b>&emsp;&emsp;&emsp;<span id="ss" style="margin-left:-5px;" ><b>Doctor's Signature:</b></span> &emsp;<input type="text" id="sign"  name="sign" style="border-style: none; width:24%;border-width:2px;" class="meta-head"  form="saveref"></input> </tr><br>
                <br>
+         
               
              </tr>
         
-        
+       
         
         
         
@@ -684,11 +687,14 @@ function AutoGrowTextArea(textField)
                <br>
               
              </tr>
-             
+              
       
              </div>
+   &emsp;&emsp;&emsp;<b>Last Modified : </b><input type="text" name="timestamp" id="timestamp" form="saveref"  style="border:none;width:250px;" readonly="readonly">  
+            
              <button type="" id="gbill" class="bouton-contact" form ="saveref" disabled></button>
 </div>
+ 
     </div>
      
 </div>

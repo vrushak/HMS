@@ -1507,14 +1507,14 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
 	  
 	    var uri = "/HMS/retfil?location="+id+"";
 		var data = "0";
-		 
+		
 	   var successFn =  function(response){
 	     $.each(response.listfil, function(index, datec) {
  
 	     var url = "/HMS/downform?location="+datec.testname+"&location1="+datec.iop+"";
 	     var text = ""+datec.iop+"";
 	     $('#rf').append('\n')
-	      $('#rf').append('<a href="' + url + '" title="'+datec.iop+'" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+datec.testname+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
+	      $('#rf').append('<a href="' + url + '" title="'+datec.iop+'" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+encodeURIComponent(datec.testname)+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
 	      
 	      
 	          });    
@@ -1523,8 +1523,9 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
 		  var errorFn = function(e){
 	      	  alert('Error: ' + e);
 		  }
-		  
+		 
 			var get = "GET";
+			 
 	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","JSON");	         
 	     
 }
@@ -1588,8 +1589,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
 		
 	
 	 
-		
-	   var uri = "/HMS/deletefile?location="+$(value).attr('titlea')+"";
+	   var uri = "/HMS/deletefile?location="+decodeURIComponent($(value).attr('titlea'))+"";
 	  
 	  var data = 0;
 	 
@@ -1600,6 +1600,9 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
      $(value).prev('a').andSelf().remove();
  	  alert("File deleted Successfully")
      }
+	  else{
+		  alert("File coudn't be deleted")
+	  }
  	  unsaved = false;
      };
      
@@ -1667,6 +1670,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
     			        	  alert("File Uploaded Successfully!")
     			        	  $('#upfile').val('');
     			        	  retrievefi($("#fileno").val())
+    			        	  
 	        	           },
     			           error: function(e){
     			        	  
@@ -1674,7 +1678,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
     			        	  
     			        	           }
     			        	           });
-    		    	
+    		    
     		    	                   }
        
        
@@ -2062,7 +2066,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
             </div>
             </div>
              <div class="col-xs-2"><br><br>
-             <button class="btn btn-info btn-sm" onclick="return doAjaxPosts3('upform')" >Upload File</button>
+             <button type="button" class="btn btn-info btn-sm" onclick="return doAjaxPosts3('upform')" >Upload File</button>
              </div>
              <div class="col-xs-4">
              <input type="hidden" id="iop" name="iop" form="formc">

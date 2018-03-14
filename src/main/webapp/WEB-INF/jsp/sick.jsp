@@ -250,6 +250,10 @@ function vrf(){
 		alert("Please select a Patient Name")
 		return false;
 	}
+	else{
+		$("#timestamp").val('<c:out value="${pageContext.request.userPrincipal.name}" />  '+moment().format("DD-MM-YYYY hh:mm"))
+         return true;	
+	}
 }
 		
 	
@@ -320,9 +324,7 @@ function cpyfile(getval){
 		document.getElementById("docid").value = strSplit[1];
 		var useras = '<c:out value="${pageContext.request.userPrincipal.name}" />';
 		
-		if(useras.includes("dbadmin1")){
-			strSplit[2] = "dbadmin1";
-		}
+		
 		document.getElementById("pname").value = strSplit[2];
     
 }
@@ -376,7 +378,7 @@ function cpyfile(getval){
 		$("#pn").val(encodeURI(strSplit[7]));
 		$("#pn").selectpicker("refresh");
 		document.getElementById("docid").value = strSplit[9];
-	    
+	    $('#timestamp').val(strSplit[10])
 		
 		
 
@@ -538,7 +540,7 @@ hr {
 	        <select class="selectpicker form-control select" data-size="10"  data-live-search="true"  id = "myname" name="myname" onchange="run()"  class="form-control input-sm" required>
 	        <option value="new">New</option>
 <c:forEach var="mft"  items="${model.list3}">
-<option  value="${mft.pname}=${mft.sdate}=${mft.work}=${mft.other}=${mft.reason}=${mft.dates}=${mft.dat}=${mft.pn}=${mft.fin}=${mft.docid}" data-subtext="${mft.patient},${mft.sdate}">${mft.fin}</option>
+<option  value="${mft.pname}=${mft.sdate}=${mft.work}=${mft.other}=${mft.reason}=${mft.dates}=${mft.dat}=${mft.pn}=${mft.fin}=${mft.docid}=${mft.timestamp}" data-subtext="${mft.patient},${mft.sdate}">${mft.fin}</option>
 
 </c:forEach>
 	        </select>
@@ -626,7 +628,7 @@ hr {
             <div class="col-xs-3">
   <div class="form-group">
             <p>&emsp;&emsp;&emsp;From<span></span></p>
-       <input type="date" class="form-control input-sm"  id="dates" name="dates" form="savesic" >    
+       <input type="date" max="2999-12-31" class="form-control input-sm"  id="dates" name="dates" form="savesic" >    
        
 	</div>
   </div>
@@ -634,7 +636,7 @@ hr {
    <div class="col-xs-3">
   <div class="form-group">
             <p>&emsp;&emsp;&emsp;To<span></span></p>
-      <input  type="date"  class="form-control input-sm"  id="dat" name="dat" form="savesic"  >
+      <input  type="date" max="2999-12-31" class="form-control input-sm"  id="dat" name="dat" form="savesic"  >
 	</div>
   </div>
         </div>
@@ -652,13 +654,15 @@ hr {
    </div>
    
  
-   <hr>
+   <hr>&emsp;&emsp;&emsp;<b>Last Modified : </b><input type="text" name="timestamp" id="timestamp" form="savesic" style="border:none;width:250px;" readonly="readonly">  
+   
    <center><font color="hotpink"><i>Health family, health nation.</i></font></center>
    
    
    <button type="button" id="gbill" class="bouton-contact" form ="savesic" disabled></button>   
+   
   </div>
-</div>
+  </div>
 
     </div>         
           

@@ -14,8 +14,14 @@ public class Referral {
 	private String fn;
 	private String patient;
 	private String docid;
+	private String timestamp;
 	
-	
+	public String getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
 	public String getPatient() {
 		return patient;
 	}

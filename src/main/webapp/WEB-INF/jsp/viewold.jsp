@@ -595,12 +595,12 @@ function validchk(){
 		return false;
 	}
 	else if(c == "NA" || c == "null" || c.length == 0){
-		alert("Please fillout Policy No")
+		alert("Please fill out Policy No")
 		return false;
 	}
 	
 	else if(d == "NA"|| d=="null" || d.length == 0) {
-		alert("Please fillout Insurance Company details")
+		alert("Please fill out Insurance Company Name")
 		return false;
 	}
 	else{
