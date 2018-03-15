@@ -389,8 +389,21 @@ if(pname == "Select" && ean == "Select"){
     
 var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
 
- 
+var stop;	
+$("#myTable .tbody tr td:nth-child(2)").find('input').each(function(){
 
+  if(this.value == decodeURI(pname)){
+	  stop = "0"
+  }
+  else{
+	  stop = "1"
+  }
+   		
+   	 });
+if(stop == "0"){
+	alert("Product already added")
+	return false;
+}
 var markup = "<tr><td style='width:100px;'><input type='text'  class='form-control input-sm' id = 'ean' name= 'ean' form ='saveo' value = "+ean+" required></td><td style='width:400px;'><input type='text'  form ='saveo' class='form-control input-sm' id = 'productName' name= 'productName'  value = '"+decodeURI(pname)+"' required></td><td style='width:160px;'><input id = 'unit' form ='saveo' type='text' name= 'unit' class='form-control input-sm' required></td><td style='width:100px;'><input form ='saveo'  type='number' onkeypress='return onlyNos(event,this);'  id = 'quantity' name= 'quantity' min = '1' value = '0' class='form-control input-sm' required ></td><td style='width:100px;'><input type = 'text' form ='saveo'  readonly='readonly' type='text'  id = 'stks' name='stks' value="+Number(p)+" class='form-control input-sm' required></td><td style='width:70px;'><i class='fa fa-trash-o'  style='font-size:20px'onclick='deleteRow(this)'></i></td></tr>"
 
  $('#myTable tbody').append(markup);
@@ -834,17 +847,39 @@ $(function () {
 	
 $('#datetimepicker1').datetimepicker({
 	 
+	defaultDate: new Date(),
+	useCurrent: false,
 	format: "dd-mm-yyyy  hh:ii",
     autoclose: true,
-    endDate: '+0d',
-    todayBtn: true
    
+    todayBtn: true,
+    
 	
 });
 
 });
 
+function chdate(id){
+	var datea = $(id).val().split(' ');
 
+	var from = datea[0].split("-");
+	var f = new Date(from[2], from[1] - 1, from[0]);
+	
+
+var date1 = new Date()
+var longformat = f*1;
+
+var longformat1 = date1*1; 	
+if(longformat > longformat1){
+	alert("Cannot create orders for future dates")
+	$('#bouton-contact').prop("disabled",true)
+	return false;
+}
+else{
+	$('#bouton-contact').prop("disabled",false)
+	return true
+}
+}
 </script>  
 
 </head>
@@ -925,7 +960,7 @@ $('#datetimepicker1').datetimepicker({
 	     
         <p>Order Date<span>*</span></p>
         <div class='input-group date' id='datetimepicker1'>
-       <input type="text" class="form-control input-sm" form="saveo" name="orderDate" id ="orderDate" required>
+       <input type="text" class="form-control input-sm" form="saveo" onfocusout ="return chdate(this)" name="orderDate" id ="orderDate" required>
         <span class="input-group-addon" id="re"><span class="glyphicon glyphicon-calendar "></span></span>
    
        </div>

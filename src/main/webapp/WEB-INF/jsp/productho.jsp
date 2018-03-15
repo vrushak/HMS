@@ -291,7 +291,7 @@ $(".modal-wide").on("show.bs.modal", function() {
 	  var height = $(window).height() - 200;
 	  $(this).find(".modal-body").css("max-height", height);
 	});
-	
+	var prname;
 	function run() {
 		
 		if(document.getElementById("myname").value == "new"){
@@ -318,10 +318,11 @@ $(".modal-wide").on("show.bs.modal", function() {
 	 			 
 	    }
 	    else{
+	    	
 	 	   var str = document.getElementById("myname").value;
 		   var strSplit = str.split('=');
 		   $('#prc').prop('readonly', true);
-		
+		   prname = strSplit[0];
 		document.getElementById("name").value = strSplit[0];
 		document.getElementById("descr").value = strSplit[1];
 		document.getElementById("pc").value = strSplit[2];
@@ -592,7 +593,9 @@ var pnflag;
     	   // get the form values
 
     	       var pname = $('#name').val();
-        
+    	       if(prname == pname){
+    	    	   return false;
+    	       }
     	   $.ajax({
          	  
 	           type: "GET",

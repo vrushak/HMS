@@ -813,8 +813,7 @@ public class controllerDao {
 	}
 
 	public int savepurchase(Purchase p, String name, String batch, String expdate, String quantity,String unitprice, String discount, String free,String total,String ean1,String mpack, String mdesc,String sudesc ) {
-		System.out.println("batch is" +batch);
-		System.out.println("Name is" +name);
+		
 		//discount is total purschase price
 		String sql = "insert into purchase(allocationid,receiveddate,updatepricing,supplier,supplierInvoice,productName,Batch,expDate,mpack,mdesc,sudesc,quantity,discount,unitPrice,free,total,grandTotal,ean) values('"+p.getAllocationid()+"','"+p.getReceiveddate()+"','"+p.getUpdatepricing()+"','"+p.getSupplier()+"','"+p.getOrderDate()+"','"+name+"','"+batch+"','"+expdate+"','"+mpack+"','"+mdesc+"','"+sudesc+"','"+quantity+"','"+discount+"','"+unitprice+"','"+free+"','"+total+"','"+p.getGrandTotal()+"','"+ean1+"') on duplicate key update expDate='"+expdate+"',mpack='"+mpack+"',mdesc ='"+mdesc+"',sudesc = '"+sudesc+"',quantity= quantity + "+quantity+",discount='"+discount+"',unitPrice= unitPrice + "+unitprice+", free= free + "+free+",total='"+total+"',grandTotal='"+p.getGrandTotal()+"' ";
 		return template.update(sql);

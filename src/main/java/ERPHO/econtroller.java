@@ -813,18 +813,7 @@ public class econtroller {
 					   
 					       for(int i=0;i<name.length;i++){
 					    	   
-					    	   System.out.println(ean1[i]);
-					    	   System.out.println(name[i]);
-					    	   System.out.println(batch[i]);
-					    	   System.out.println(ean1[i]);
-					    	  // System.out.println(mdate[i]);
-					    	   System.out.println(exp[i]);
-					    	   System.out.println(qty1[i]);
-					    	//   System.out.println(unit[i]);
-					    	   System.out.println(up[i]);
-					    	//   System.out.println(tax1[i]);
-					    	   System.out.println(free[i]);
-					    	   System.out.println(price1[i]);
+					    	
 					   pur1  = 	 hodao.savepurchase(p,name[i],batch[i],exp[i],qty1[i],up[i],discount1[i],free[i],price1[i],ean1[i],mpack[i],mdesc[i],sudesc[i]);
 					   pur2  =	 hodao.saveproductpriceho(p,name[i],batch[i],up[i],free[i]);
 					    	     hodao.updatecatho(name[i]);

@@ -662,10 +662,28 @@ if($("#pname").val().includes("Select")){
 	   alert("Please add medicines")
 	   return false;
 	}
+	else{	
+		var stop;	
+		$("#myTable .tbody tr").each(function(){
+		 var x=this.cells;
+		   if(x[1].getElementsByTagName('input')[0].value =="NA" ||$.trim(x[1].getElementsByTagName('input')[0].value).length == 0){
+		    stop = "0";
+		   	}
+		   	else{
+		   	 stop = "1";
+		   	}
+		   		
+		   	 });
+	if(stop == "0"){
+		alert("Please enter the drug name")
+		return false;
+	}
 	else{
 		return true;
 	}
+	}
 	
+
 }
 function doAjaxPost2() {
 	   // get the form values

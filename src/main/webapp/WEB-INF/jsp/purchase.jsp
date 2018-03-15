@@ -153,7 +153,7 @@ var cuser;
 function checkhome2(user){
 	cuser = user;
 
-	     
+	$(".expSale").attr("min",new Date())     
 	
 	 if(user.includes("[ROLE_SALESMANAGER]")){
 	
@@ -440,7 +440,7 @@ var str = text.split(',');
          
           
           newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<input class='form-control input-sm' style='width:135px;'  form ='purchasesave'  type='date' id = 'expSale' name= 'expDate1' required>";
+          newCell.innerHTML="<input class='form-control input-sm expSale' style='width:135px;' max='2999-12-31' form ='purchasesave'  type='date' id = 'expSale' name= 'expDate1' required>";
          
    // manufacture pack desc
           newCell = rowsAdd.insertCell();

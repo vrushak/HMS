@@ -359,14 +359,24 @@ function verifyproAdd(){
 	//var x3 = document.getElementById("saleCustPhone").value;
 	//var x4 = document.getElementByName("quantity").value;
 	
+	var x5 =document.getElementsByName("unit");
+	for(var i = 0;i<x5.length;i++){
+		if(x5[i].value == 0){
+			alert("Quantity sold cannot be 0")
+			return false;
+		}
+	}
+	
 	var x5 =document.getElementsByName("qty[]");
 	for(var i = 0;i<x5.length;i++){
 		if(x5[i].value == 0){
-			alert("Selling Pack Size cannot be 0")
+			alert("	Total Quantity in Single unit cannot be zero")
 			return false;
 		}
 	}
 
+	
+	
 	var x5 =document.getElementsByName("spsize");
 	for(var i = 0;i<x5.length;i++){
 		if(x5[i].value == 0){
