@@ -1632,5 +1632,36 @@ public List<Diagnose> getLabupload() {
 	});
 	}
 
+// load diagnose and cdiagnose values in a single row
+public List<Diagnose> getCodc() {
+	
+		return template.query("select ap.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(ap.datetime),ap.fileno,'diag' from diagnose ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID union select cd.docid,CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,cd.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(cd.datetime),cd.fileno,'cdiag' from cdiagnose cd join patient p on cd.pid=p.pid join doctor d on cd.docid = d.docID;",new RowMapper<Diagnose>(){  
+        public Diagnose mapRow(ResultSet rs, int row) throws SQLException {   
+        	
+	       Diagnose p = new Diagnose();
+	     
+	      p.setDocid(rs.getString(1));
+	      p.setDname(rs.getString(2));
+	      p.setPpid(rs.getString(3));
+	      p.setPname(rs.getString(4));
+	      p.setDatetime(rs.getString(5));
+	      p.setFileno(rs.getString(6));
+	   
+	      if(rs.getString(7).equalsIgnoreCase("diag")){
+	    	  
+	    	  p.setDate1("/HMS/diagnose2?pnamea="+rs.getString(4)+"");
+	      }
+	      else{
+	    	  p.setDate1("/HMS/cdiagnose2?pnamea="+rs.getString(4)+"");
+	  	    
+	      }
+	      return p;
+        }
+	});
+	
+	
+}
+
+
 }  
 		

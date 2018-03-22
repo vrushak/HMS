@@ -319,6 +319,7 @@ public class econtroller {
 				 
 			      
 			        List<Product> list=hodao.searchProduct(); 
+			        List<Product> list5=hodao.Reorder(); 
 			        List<Order> list4 = hodao.getorderId();
 			        List<Order> list1 = hodao.getorderDetails();
 			        List<Product> list3 =hodao.searchRq();
@@ -328,6 +329,7 @@ public class econtroller {
 			        model.put("list1", list1);
 			        model.put("list3",list3);
 			        model.put("list4",list4);
+			        model.put("list5",list5);
 			        model.put("list6",list6);
 		 	        return new ModelAndView("order","model",model);//will redirect to viewemp request mapping  
 			    }  
@@ -752,10 +754,12 @@ public class econtroller {
 				  public ModelAndView checkstat(@ModelAttribute("s") Purchase s,HttpServletRequest request,HttpServletResponse response ){
 					  List<Order> list1 = hodao.getOrderid();
 					  List<Purchase> list2 = hodao.getAllocationid();
+					  List<Purchase> list2a = hodao.getAllocationid1a();
 					  Map<String, Object> model = new HashMap<String, Object>();
+					  
 				       model.put("list1",list1);
 				       model.put("list2",list2);
-				        
+				       model.put("list2a",list2a);   
 				        return new ModelAndView("purchase","model",model);//will redirect to viewemp request mapping 
 				        
 				}
@@ -893,12 +897,19 @@ public class econtroller {
 					}
 				  @RequestMapping(value="/pssearchho", method = RequestMethod.GET)
 					public ModelAndView prosearch(@ModelAttribute("ps") Productstock ps) {
-					  System.out.println(ps.getCategory());
+					
 					  List<Productstock> list = hodao.getstockSearch(ps);
 					  List<Product> list1 = hodao.getInfoSearch1();
 					  Map<String, Object> model = new HashMap<String, Object>();
 					  model.put("list", list);
 					  model.put("list1", list1);
+					  model.put("name",ps.getName());
+					  model.put("code",ps.getCode());
+					  model.put("category",ps.getCategory());
+					  model.put("exp",ps.getExpDate());
+					  model.put("to",ps.getToDate());
+					  model.put("limit",ps.getRecords());
+					  model.put("batch",ps.getBatch());
 						return new ModelAndView("productstocks","model",model); 
 					}
 
@@ -1041,4 +1052,47 @@ public JasperReport getReport(String op) throws JRException {
 
 return jr;
 }
+
+@RequestMapping(value="/salespdf1", method = RequestMethod.GET)
+public void salespdf(@ModelAttribute("s") Sale s,ModelAndView modelAndView,HttpServletRequest req, HttpServletResponse response) throws JRException, IOException {
+	
+ response.setContentType("application/pdf");
+ response.setHeader("Content-Disposition",  "inline"); 
+ 
+	List<Sale> list2 = hodao.getsaleInv(req.getParameter("invoice"));
+ JasperReport report = getReport("/invoice1.jrxml");
+      //fill the report with data source objects
+ String realPath = context.getRealPath("/");
+ Map<String,Object> parameterMap = new HashMap<String,Object>();
+ parameterMap.put("realPath", realPath);
+ 
+ JRDataSource JRdataSource = new JRBeanCollectionDataSource(list2);
+     JasperPrint jasperPrint = JasperFillManager.fillReport(report,  parameterMap, JRdataSource);
+	      
+     OutputStream out = response.getOutputStream();
+       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
+
+	}  
+
+
+@RequestMapping(value="/prpur", method = RequestMethod.GET)
+public void prpdf(@ModelAttribute("s") Purchase s,ModelAndView modelAndView,HttpServletRequest req, HttpServletResponse response) throws JRException, IOException {
+	
+ response.setContentType("application/pdf");
+ response.setHeader("Content-Disposition",  "inline"); 
+ 
+	List<Purchase> list2 = hodao.getPrpur(req.getParameter("allo"));
+ JasperReport report = getReport("/prpurchase.jrxml");
+      //fill the report with data source objects
+ String realPath = context.getRealPath("/");
+ Map<String,Object> parameterMap = new HashMap<String,Object>();
+ parameterMap.put("realPath", realPath);
+ 
+ JRDataSource JRdataSource = new JRBeanCollectionDataSource(list2);
+     JasperPrint jasperPrint = JasperFillManager.fillReport(report,  parameterMap, JRdataSource);
+	      
+     OutputStream out = response.getOutputStream();
+       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
+
+	}  
 }

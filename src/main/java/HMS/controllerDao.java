@@ -428,7 +428,7 @@ public List<Transaction> getTransid() {
 //
 public List<Transaction> getTransid1() {
 	// TODO Auto-generated method stub
-	return template.query("select pid,pname,ptype,quantity,allocatedto,allocationdate,expretdate,actdateret,quantret,pc,expiry,requant,(select quantity from addstock where addstock.pid= transaction.pid),invid,tid  from transaction where ptype='Returnable'",new RowMapper<Transaction>(){  
+	return template.query("select pid,pname,ptype,quantity,allocatedto,allocationdate,expretdate,actdateret,quantret,pc,expiry,requant,(select quantity from addstock where addstock.pid= transaction.pid),invid,tid  from transaction where ptype='Returnable' and quantret > 0",new RowMapper<Transaction>(){  
         public Transaction mapRow(ResultSet rs, int row) throws SQLException {   
 	       Transaction p = new Transaction();
 	       

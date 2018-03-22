@@ -745,7 +745,7 @@ function crtab(userr,usern){
 	else{
 		
 	
-		doAjaxPost1(document.getElementById("date").value)
+	//	doAjaxPost1(document.getElementById("date").value)
 		
 	}
 	 
@@ -943,7 +943,7 @@ user2b = user4;
        function doAjaxPost1(id) {
     	   
     		   // get the form values
-       $("#myTable1 .tbody1 tr").remove();
+      
     	      //  var name = $('#pname').val();
 
            var str = id.split(",");
@@ -970,9 +970,13 @@ user2b = user4;
 	           contentType: "application/json; charset=UTF-8",
 	           
 	           success: function(response){
-	     	 if(response.list6.length == 0){
+	        	   
+	        	   var tableRef = document.getElementById('myTable1').getElementsByTagName('tbody')[0];
+	        	  
+	     	 if(response.list6.length == 0 && tableRef.rows.length == 0){
 	     		 display(user2a,user2b)
 	     	 }
+	     	 else{  $("#myTable1 .tbody1 tr").remove();}
 	        	   $.each(response.list6, function(index, datec) {
 	        		   
 	            if ($("#date option[value="+datec.date+"]").length == 0){

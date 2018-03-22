@@ -211,7 +211,8 @@ change()
 	else if(user.includes("[ROLE_ASSISTANT]")){
 		$("#check").prop("checked",true);
 		$('#dp').hide();
-		
+		$('#back').hide();
+		$('#tit').hide();
 		change()
 		
 		 var url = "/HMS/frontdesk" ;
@@ -225,12 +226,15 @@ change()
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $('#back').hide();
+		 $('#tit').hide();
 	}
 	
 	else if(user.includes("[ROLE_Accounts Admin]")){
 		$("#check").prop("checked",true);
 		$('#dp').hide();
-	
+		$('#back').hide();
+		$('#tit').hide();
 		change()
 		
 		
@@ -243,6 +247,8 @@ change()
 	else if(user.includes("[ROLE_NURSE]")){
 		$("#check").prop("checked",true);
 		$('#dp').hide();
+		$('#back').hide();
+		$('#tit').hide();
 		change()
 		
 		
@@ -255,6 +261,8 @@ change()
 	else if(user.includes("[ROLE_CHIEFNURSE]")){
 		$("#check").prop("checked",true);
 		$('#dp').hide();
+		$('#back').hide();
+		$('#tit').hide();
 		change()
 		
 		
@@ -278,7 +286,7 @@ change()
 					 $("#tit").text("Back to Doctor Home")
 				 }
 		 else if(bac.includes("frontdesk")){
-			 $("#back").attr("href","/HMS/doctor1")
+			 $("#back").attr("href","/HMS/frontdesk")
 			 $("#tit").text("Back to Front Desk")
 		 }
 				 else{
@@ -1252,8 +1260,8 @@ function refresh(){
  
 	     var url = "/HMS/downform?location="+datec.testname+"&location1="+datec.iop+"";
 	     var text = ""+datec.iop+"";
-	      $('#rf').append('<a href="' + url + '" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+datec.testname+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
-	      
+	      $('#rf').append('<a href="' + url + '" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+encodeURIComponent(datec.testname)+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
+	      unsaved = false;
 	      
 	          });    
 	      }
@@ -1264,7 +1272,7 @@ function refresh(){
 		  
 			var get = "GET";
 	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","JSON");	         
-	     
+	    
 }
   
   function doAjaxDeletefile(value){
@@ -1274,7 +1282,7 @@ function refresh(){
 	
 	 
 		
-	   var uri = "/HMS/deletefile?location="+$(value).attr('titlea')+"";
+	   var uri = "/HMS/deletefile?location="+decodeURIComponent($(value).attr('titlea'))+"";
 	  
 	  var data = 0;
 	 
@@ -1429,7 +1437,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
  <div id ="form2">
     <h1><button id ="bouton-contact" form="formc" class="btn btn-warning btn-sm button1" class="form-control input-sm" onclick="return validsave();">Save</button>
   <font size="5" id="cd"> Lab Tests </font>
-     <button type="button" id="close" class="btn btn-warning button2" onclick="window.location.href = '/HMS/labup';">Refresh</button>
+     <button type="button" id="close" class="btn btn-warning button2" onclick="location.reload(false);">Refresh</button>
   </h1>
 <br>
  <form id = "formc" action="/HMS/labssave.html" method = "post"></form>
@@ -1556,19 +1564,21 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
   <form id="upform" action="" method="post" enctype="multipart/form-data">   
   <div class="form-group row" >
         <div class="col-xs-1"></div>
-        <div class="col-xs-4">
+        <div class="col-xs-3">
   <div class="form-group">
        <p><label for="image">Choose File</label></p>
       <input class="form-control input-sm" name="file" id="upfile" type="file" onchange="change1a(event)"/>
       <input type="hidden" name="samplecol" id="samplecol" form="upform">    
             </div>
             </div>
+               <div class="col-xs-2"><br><br>
+             <button type="button" class="btn btn-info btn-sm" onclick="return doAjaxPosts3('upform')" >Upload File</button>
+             </div>
              <div class="col-xs-4">
              <input type="hidden" id="iop" name="iop" form="upform">
                <input type="hidden" id="date1" name="date1" form="upform">
              <br><br>
-              <button class="btn btn-info" onclick="return doAjaxPosts3('upform')" id ="" type="button" >Upload File <span class="fa fa-save"></span></button>
-   </div>
+             </div>
         </div>
         <div class="form-group row">
         <div class="col-xs-1"></div> 

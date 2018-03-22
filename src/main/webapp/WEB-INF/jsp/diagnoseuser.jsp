@@ -1516,7 +1516,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
 	     $('#rf').append('\n')
 	      $('#rf').append('<a href="' + url + '" title="'+datec.iop+'" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+encodeURIComponent(datec.testname)+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
 	      
-	      
+	     unsaved = false;
 	          });    
 	      }
 		    
@@ -1552,6 +1552,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
             
             $("#vpid").append('<option class="dpa" value="'+datec.pname+'" data-subtext="DP- '+datec.fileno+'" data-value="'+datec.ppid+'=='+datec.pname+'=='+datec.fileno+'=='+datec.docid+'=='+datec.datetime+'" dv='+datec.diagnose+'>'+datec.pname+'</option>');
             $("#vpid").selectpicker("refresh");
+       
    	          });    
    	      }
    		    
@@ -1727,7 +1728,20 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
     	   };
     	}
        
+   function openmd2(pnamea){
+       $("#check").prop("checked",true);
+       change()
+       
+ 
+
+	   $('select[name=pname]').val(pnamea).change();
+       $('#vpid').selectpicker('refresh');
+       
+       $('#vpid').on('change',function(){
+    	   addcname1(this.options[this.selectedIndex])
+    	});
     
+   }
     
        </script>
        <script>
@@ -1765,7 +1779,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
       
     </ul>
     <ul class="nav navbar-nav navbar-right">
-  <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
+ <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
     </ul>
   
 </nav>
@@ -2210,6 +2224,11 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
 </div>
 <script>
 openmd1('<c:out value='${model.fileno}'/>','<c:out value='${model.pname}'/>','<c:out value='${model.pid}'/>','<c:out value='${model.docid}'/>','<c:out value='${model.sav}'/>')
+</script>
+<script>
+//if('<c:out value='${model.pnamea}'/>' != ''){
+//openmd2('<c:out value='${model.pnamea}'/>')
+//}
 </script>
 <script>
 datasuccess('<%=request.getParameter("message")%>')

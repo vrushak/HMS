@@ -368,4 +368,24 @@ public int saveiochart1(Iochart i) {
 		return template.update(sql);
 	}
 	
+	public List<Appointment> getAppsforNrs() {
+		
+		
+			return template.query("select CONCAT(d.fname,' ', d.mname,' ',d.lname) Doctor,ap.pid,CONCAT(p.fname,' ', p.mname,' ',p.lname) Patient,CONCAT(DATE_FORMAT(ap.appointment, '%d-%m-%Y'),' ',ap.time),ap.fileno from appointment ap join patient p on ap.pid=p.pid join doctor d on ap.docid = d.docID  where ap.active = 'on' and STR_TO_DATE(ap.appointment, '%Y-%m-%d')= curdate() order by STR_TO_DATE(appointment, '%Y-%m-%d')desc,time",new RowMapper<Appointment>(){  
+	        public Appointment mapRow(ResultSet rs, int row) throws SQLException {   
+	        	
+		       Appointment p = new Appointment();
+		     
+		    
+		      p.setDname(rs.getString(1));
+		      p.setPid(rs.getString(2));
+		      p.setPname(rs.getString(3));
+		      p.setAppointment(rs.getString(4));
+		      p.setFileno(rs.getString(5));
+		   
+		      return p;
+	        }
+		});
+		
+	}
 }

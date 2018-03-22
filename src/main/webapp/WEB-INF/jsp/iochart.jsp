@@ -636,7 +636,7 @@ function crtab(userr,usern){
 		doAjaxPost1(moment().format('DD-MM-YYYY')) 
 	}
 	else{
-		doAjaxPost1(document.getElementById("date").value)
+//		doAjaxPost1(document.getElementById("date").value)
 	}
 	 
 	var tableRef = document.getElementById('myTable1').getElementsByTagName('tbody')[0];
@@ -647,10 +647,7 @@ function crtab(userr,usern){
 	   else{
 		   
 	   }
-	   $(document).on('change', ':input', function(){ //triggers change in all input fields including text type
-           
-       	unsaved = false;
-       });
+	  
 }
 	    
 function addname(getval){
@@ -680,6 +677,8 @@ function addname(getval){
 		document.getElementById("flno").innerHTML = strSplit[4];
 		
 	disbut();
+	unsaved = false;
+	
 	
 }
 function cleartab1(){
@@ -784,7 +783,7 @@ var user2a;
     	   // get the form values
 
     	  
-           	    $("#myTable1 .tbody1 tr").remove();
+           	 
     	   //  var name = $('#pname').val();
           // var str = id.split(",");
     	   var admitno = $('#admitno').val();
@@ -806,7 +805,10 @@ var user2a;
 	           contentType: "application/json; charset=UTF-8",
 	           
 	           success: function(response){
-	       	   
+	        	   if(response.list5.length != 0){
+	       	    	
+	      	    	 $("#myTable1 .tbody1 tr").remove();
+	      	     }
 	       	   $.each(response.list5, function(index, datec) {
 	                   //to print name of employee
 	              //     $("#date").append('<option value="'+datec.time+'=.='+datec.oraltype+'=.='+datec.oralamt+'=.='+datec.oralcommence+'=.='+datec.amtgiv+'=.='+datec.urine+'=.='+datec.vomitus+'=.='+datec.remarks+'=.='+datec.doctord+'=.='+datec.doctsig+'=.='+datec.ratef+'=.='+datec.doctrmks+'">'+datec.date+'</option>');

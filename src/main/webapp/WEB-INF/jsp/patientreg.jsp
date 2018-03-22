@@ -695,7 +695,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
        <script type="text/javascript">
        $( document ).ready(function() {
        $('input').on('click focusin', function() {
-    	   if(this.value == "NA"){
+    	   if(this.value == "NA" || this.value == "null"){
     		   this.value = "";
     	    };
     	});

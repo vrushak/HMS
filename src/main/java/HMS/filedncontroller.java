@@ -298,7 +298,7 @@ public class filedncontroller {
 	 CategoryAxis domainAxis = plot.getDomainAxis();
 	 domainAxis.setCategoryLabelPositions(CategoryLabelPositions.UP_90);
 	 ValueAxis yAxis = plot.getRangeAxis();
-	 yAxis.setRange(80.0, 110.0);
+	 yAxis.setRange(35, 42);
 		LineAndShapeRenderer renderer = new LineAndShapeRenderer();
 		
 		renderer.setSeriesPaint(0, Color.RED);

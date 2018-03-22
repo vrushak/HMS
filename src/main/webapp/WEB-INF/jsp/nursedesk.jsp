@@ -20,11 +20,14 @@
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap.min.css" />' >
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-select.min.css" />' />
 <link rel="stylesheet" href='<c:url value="/resources/css/google.css" />' />
+<link rel="stylesheet" href='<c:url value="/resources/css/jquery-ui.css" />' >
+
 
 <script type="text/javascript" src="/HMS/resources/js/jquery-3.2.0.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/moment.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/jquery-ui.js"></script>
 <style type="text/css">
 
 .wrapper {
@@ -97,11 +100,45 @@ function datasuccess(data){
 window.location = "/HMS/nursedesk.html";
 	}
 }
+$( function() {
+	  $( "#sad" ).dialog({
+	      
+	    	dialogClass: 'result',
+	      autoOpen: false,
+	      show: {
+	        effect: "blind",
+	        duration: 1000
+	      },
+	      hide: {
+	        effect: "explode",
+	        duration: 1000
+	      }
+	    });
+	  
+	  $('#sad').dialog({height: 300, width:700 });
+	    $(".ui-dialog").find(".ui-widget-header").css("background", "#009999","text-align","center");
+	    
+	    $('#app').on( 'click',function() {
+	    	var isOpen = $( "#sad" ).dialog( "isOpen" );
+	   // 	 addpe = this.getElementsByTagName('input')[0].id;
+	      if(isOpen == true){
+	    	  
+	    	  $( "#sad" ).dialog( "open" );
+	      }
+	      else{
+	    	
+	    
+	    	 $( "#sad" ).dialog( "open" );
+	      }
+	    
+	    });
+});
 </script> 
 </head>
 <sec:authentication property="principal.authorities" var="username" />
 <body onload="chkuser('<c:out value="${username}" />')">
 <div class= "wrapper">
+
 <br>
 <font color="#228B22" class="left" >Welcome : ${pageContext.request.userPrincipal.name}</font>  <i style="font-size:20px; align: right;color : #228B22" class="fa fa-cog" ></i> 
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
@@ -110,7 +147,64 @@ window.location = "/HMS/nursedesk.html";
 
 <div class="well well-lg" id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
 
-  
+<div class="form-group row"  id="dashboard"   >
+  	 <div class="col-xs-1"></div>
+  	 <a hef="#" id="app">
+    	<div class="col-xs-2" >
+  	 <div  style="height: 85px; border: 2px solid;border-radius: 15px; background-color:#f0ad4e;border-color:#f0ad4e">
+  	 <div class="row">
+  	 <div class="co col-xs-8" style="margin-top:20px;">
+  	 <div class="text" style="margin:0px 5px 0px; color:#ffff"> Appointments</div>
+                    <div class="app" style="margin:0px 10px 0px; color:#ffff"></div>
+  	 </div>
+  	 <div class="logo col-xs-4" style="margin-top:25px;">
+  	<i style="font-size: 40px;" class="fa fa-stethoscope" aria-hidden="true"></i>
+  	 </div>
+  	 </div>
+    	 </div>
+    	</div>
+    	</a>
+    	
+    	<a href="/HMS/prescription.html">
+   	<div class="col-xs-2" >
+ 	 <div  style="height: 85px; border: 2px solid ;border-radius: 15px; background-color:#C0C0C0;border-color:#C0C0C0">
+ 	 <div class="row">
+  	 <div class="co col-xs-8" style="margin-top:20px;">
+  	 <div class="text" style="margin:0px 5px 0px;color:#ffff">OPD</div>
+                    <div class="opd" style="margin:0px 10px 0px;color:#ffff"></div>
+  	 </div>
+  	 <div class="logo col-xs-4" style="margin-top:25px;">
+  <i style="font-size: 40px;" class="fa fa-user" aria-hidden="true"></i>
+ 	 </div>
+ 	 </div>
+ 	 </div>
+   	</div>
+    	</a>
+    	<a href="/HMS/admission.html">
+    	<div class="col-xs-2" >
+  	 <div  style="height: 85px; border: 2px solid ;border-radius: 15px; background-color:#f0ad4e;border-color:#f0ad4e">
+  	 <div class="row">
+  	 <div class="co col-xs-8" style="margin-top:20px;">
+  	 <div class="text" style="margin:0px 5px 0px; color:#ffff">IPD</div>
+                    <div class="ipd" style="margin:0px 10px 0px;color:#ffff"></div>
+  	 </div>
+  	 <div class="logo col-xs-4" style="margin-top:25px;">
+  	<i style="font-size: 40px;" class="fa fa-wheelchair " aria-hidden="true"></i>
+  	 </div>
+  	 </div>
+    	 </div>
+    	</div>
+    	</a>
+	
+    	<div class="col-xs-1"></div>
+  </div>
+  <br>
+  <div class="row">
+  	<div class="col-xs-1"></div>
+  	 <div class="col-xs-10" style="height:1.5px;  background-color:#099;"></div>
+  	<div class="col-xs-1"></div>
+  </div>
+  <br>
  <div class ="container" >
  <div class="row text-center">
  
@@ -187,6 +281,32 @@ window.location = "/HMS/nursedesk.html";
  </div>
  <br>
  
+</div>
+<div id="sad" title="Appointments">
+ <div class="table-responsive">          
+  <table class="table table-striped table-bordered table-hover table-condensed">
+  <thead>
+      <tr>
+        <th>Patient ID</th>
+        <th>Patient Name</th>
+        <th>Doctor Name</th>
+        <th>Appointment Date & Time</th>
+        <th>File No</th>
+      </tr>
+    </thead>
+    <tbody class="tbody">
+    <c:forEach var="p1"  items="${model.list4}">
+    <tr>
+    <td>${p1.pid}</td>
+    <td>${p1.pname}</td>
+    <td>${p1.dname}</td>
+    <td>${p1.appointment}</td>
+    <td>${p1.fileno}</td>
+    </tr>
+    </c:forEach>
+    </tbody>
+</table>
+</div>
 </div>
 <script>
 datasuccess('<%=request.getParameter("message")%>')

@@ -86,6 +86,9 @@ function addcname(getval){
 	
 	 $('select[name=pname]').val(str[1]);
 	 $('#pname').selectpicker('refresh');
+	 
+	 $('select[name=fileid]').val('select');
+	 $('#fileid').selectpicker('refresh');
 	//document.getElementById("pname").value =str[1];
 	
 	document.getElementById("dname1").value = str[2];

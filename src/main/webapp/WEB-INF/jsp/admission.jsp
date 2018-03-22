@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -114,19 +115,21 @@ function checkhome(user){
       <tr>
         <th>Patient Id</th>
         <th>Patient Name</th>
-        <th>Date</th>
+        <th>Admission Date</th>
         <th>Doctor Name</th>
-        <th>Fileno</th>
+        <th>Fileno/AdmitNo</th>
+        <th>Ward No/Bed No</th>
       </tr>
   </thead>
     <tbody>
     <c:forEach var="p1"  items="${model.list3}">
     <tr>
-    <td><!--<a href="${p1.date1}">-->${p1.ppid}</a></td>
+    <td>${p1.pid}</td>
     <td>${p1.pname}</td>
-    <td>${p1.datetime}</td>
+    <td>${p1.admdate}</td>
     <td>${p1.dname}</td>
-    <td>${p1.fileno}</td>
+    <td>${p1.fileno}/${p1.discharge}</td>
+    <td>${p1.wardno}/${p1.bedno}</td>
  
  </tr>
     </c:forEach>

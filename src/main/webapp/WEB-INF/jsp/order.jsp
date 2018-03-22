@@ -257,7 +257,7 @@ var quanto;
 var unito;
 var upo;
 var p;
-
+var dps;
 function add1(getval){
 	
 
@@ -273,6 +273,7 @@ function add1(getval){
    	   $('select[name=pname]').val(strSplit[1]);
 	   $('#pname').selectpicker('refresh');
 	   p = strSplit[2];
+	   dps = strSplit[3];
      }
 	   
 		// document.getElementById("eans").value = strSplit[0];
@@ -297,6 +298,7 @@ function add2(getval){
 	   	   $('select[name=ean1]').val(strSplit[0]);
 		   $('#ean1').selectpicker('refresh');
 		   p = strSplit[2];
+		   dps = strSplit[3];
 		//   document.getElementById("eans").value = strSplit[0];
 	       }
 	   
@@ -404,7 +406,7 @@ if(stop == "0"){
 	alert("Product already added")
 	return false;
 }
-var markup = "<tr><td style='width:100px;'><input type='text'  class='form-control input-sm' id = 'ean' name= 'ean' form ='saveo' value = "+ean+" required></td><td style='width:400px;'><input type='text'  form ='saveo' class='form-control input-sm' id = 'productName' name= 'productName'  value = '"+decodeURI(pname)+"' required></td><td style='width:160px;'><input id = 'unit' form ='saveo' type='text' name= 'unit' class='form-control input-sm' required></td><td style='width:100px;'><input form ='saveo'  type='number' onkeypress='return onlyNos(event,this);'  id = 'quantity' name= 'quantity' min = '1' value = '0' class='form-control input-sm' required ></td><td style='width:100px;'><input type = 'text' form ='saveo'  readonly='readonly' type='text'  id = 'stks' name='stks' value="+Number(p)+" class='form-control input-sm' required></td><td style='width:70px;'><i class='fa fa-trash-o'  style='font-size:20px'onclick='deleteRow(this)'></i></td></tr>"
+var markup = "<tr><td style='width:100px;'><input type='text'  class='form-control input-sm' id = 'ean' name= 'ean' form ='saveo' value = "+ean+" required></td><td style='width:400px;'><input type='text'  form ='saveo' class='form-control input-sm' id = 'productName' name= 'productName'  value = '"+decodeURI(pname)+"' required></td><td style='width:160px;'><input id = 'unit' form ='saveo' type='text' name= 'unit' class='form-control input-sm' value='"+dps+"' required></td><td style='width:100px;'><input form ='saveo'  type='number' onkeypress='return onlyNos(event,this);'  id = 'quantity' name= 'quantity' min = '1' value = '0' class='form-control input-sm' required ></td><td style='width:100px;'><input type = 'text' form ='saveo'  readonly='readonly' type='text'  id = 'stks' name='stks' value="+Number(p)+" class='form-control input-sm' required></td><td style='width:70px;'><i class='fa fa-trash-o'  style='font-size:20px'onclick='deleteRow(this)'></i></td></tr>"
 
  $('#myTable tbody').append(markup);
 
@@ -649,7 +651,7 @@ function disp(){
 		return false;
 	}
 	if(unsaved == true){
-		alert("Please save the data")
+		alert("Please save the changes before printing")
 		return false;
 	}
 	$("#col3").css("border-style","none");
@@ -678,6 +680,7 @@ function disp(){
 	//document.getElementById("col3").style.width = "1170px";
 
 	//document.getElementById("pr").style.display = "block";
+	$("#myTable th:eq(4), #myTable td:nth-child(5)").show();
 	$("#myTable th:eq(5), #myTable td:nth-child(6)").show();
 	$("#myTable th:eq(6), #myTable td:nth-child(7)").show();
 	document.getElementById("myTable").style.width = "930px"; 	
@@ -717,10 +720,22 @@ function doAjaxdel(r){
 	//var a = document.getElementById(drug).value;
 //	var b = document.getElementById(type).value;
 	var c = $('#sinvoice').val();
-
+	var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
 	
-	    
+	
+	var ra = confirm("You are deleting a product. Do you want to proceed?");
+	if (ra == false) {
+		return false;
+	}
 	   
+	var res;
+	if(tableRef.rows.length == 1){
+		var i = confirm("You are deleting all the products in the Order. This order will not be saved. Do you want to proceed?")
+	if(i == false){
+		return false;
+	}	
+	}
+	
 	   $.ajax({
       	 
            type: "GET",
@@ -1012,7 +1027,7 @@ else{
       <select class="selectpicker form-control input-sm" data-size="6" data-show-subtext="true" data-live-search="true" name = "ean1" id ="ean1"  onchange="add1(this.options[this.selectedIndex])" required>
      <option value="Select" data-value="Select">Select</option>
      <c:forEach var="product"  items="${model.list}">
-       <option value="${product.prc}" data-value="${product.prc},${product.name},${product.stocks}">${product.prc}</option>
+       <option value="${product.prc}" data-value="${product.prc},${product.name},${product.stocks},${product.dps}">${product.prc}</option>
     </c:forEach>
 </select> 
    
@@ -1028,7 +1043,7 @@ else{
       <select class="selectpicker form-control input-sm" data-size="6"  data-show-subtext="true" data-live-search="true" name = "pname" id ="pname"  onchange="add2(this.options[this.selectedIndex])" required>
        <option value="Select" data-value="Select">Select</option>
         <c:forEach var="product"  items="${model.list}">
-       <option value="${product.name}" data-value="${product.prc},${product.name},${product.stocks}">${product.name}</option>
+       <option value="${product.name}" data-value="${product.prc},${product.name},${product.stocks},${product.dps}">${product.name}</option>
     </c:forEach>
      </select>
 	       </div>
@@ -1073,9 +1088,17 @@ else{
     </thead>
    
    <tbody class="tbody">
+     <c:forEach var="ps"  items="${model.list5}">
+     <tr>
+     <td width="100px;"><input type='text'  class='form-control input-sm' id = 'ean' name= 'ean' form ='saveo' value = "${ps.prc}" required></td>
+     <td width="390px;"><input type='text'  form ='saveo' class='form-control input-sm' id = 'productName' name= 'productName'  value = "${ps.name}" required></td>
+     <td width="160px;"><input id = 'unit' form ='saveo' type='text' name= 'unit' class='form-control input-sm' value="${ps.dps}" required></td>
+     <td width="100px;"><input form ='saveo'  type='number' onkeypress='return onlyNos(event,this);'  id = 'quantity' name= 'quantity' min = '1' value = '0' class='form-control input-sm' required ></td>
+     <td width="100px;"><input type = 'text' form ='saveo'  readonly='readonly' type='text'  id = 'stks' name='stks' value="${ps.stocks}" class='form-control input-sm' required></td>
+     <td width="43px;"><i class='fa fa-trash-o'  style='font-size:20px'onclick='deleteRow(this)'></i></td>
      
-     
-     
+     </tr>
+     </c:forEach>
      
     </tbody>
  

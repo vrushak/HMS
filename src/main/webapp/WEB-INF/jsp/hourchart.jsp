@@ -403,12 +403,13 @@ function crtab(userr,usern){
 		doAjaxPost1(moment().format('DD-MM-YYYY')) 
 	}
 	else{
-		doAjaxPost1(document.getElementById("date").value)
+	//doAjaxPost1(document.getElementById("date").value)
 	}
 	 unsaved = false;
+
 	var tableRef = document.getElementById('myTable1').getElementsByTagName('tbody')[0];
 	   if(tableRef.rows.length == 0){
-		 
+		
 		   display()
 	   }
 	   else{
@@ -455,7 +456,7 @@ function onlyNos(e, t) {
 	    
 function addname(getval){
 	
-	
+
 	var myname = getval.getAttribute('data-value'); 	
 		//var str = document.getElementById("pname").getAttribute("data-value");
 	//	alert(str);
@@ -478,8 +479,13 @@ function addname(getval){
 		document.getElementById("id").innerHTML = strSplit[1];
 		document.getElementById("nm").innerHTML = strSplit[0];
 		document.getElementById("flno").innerHTML = strSplit[4];
+		$('#myTable1 .tbody1 tr').remove();
+	   $('select[name=daten]').val('select');
+   	   $('#date').selectpicker('refresh');
+		
 	disbut();
-	
+
+	//onclick="crtab('<c:out value="${username}" />','<c:out value="${pageContext.request.userPrincipal.name}" />')"
 }
 function validmess(){
 	if(document.getElementById("pname").value == "Select"){
@@ -564,7 +570,7 @@ var user2a;
     	   // get the form values
 
     	      //  var name = $('#pname').val();
-            $("#myTable1 .tbody1 tr").remove();
+           
     	   var admitno = $('#admitno').val();
 
     	   if(admitno.length == "0"){
@@ -584,7 +590,11 @@ var user2a;
 	           contentType: "application/json; charset=UTF-8",
 	           
 	           success: function(response){
-	     //   	   alert(response);
+	        	
+	     if(response.list5.length != 0){
+	    	
+	    	 $("#myTable1 .tbody1 tr").remove();
+	     }
 	        	   $.each(response.list5, function(index, datec) {
 	                   //to print name of employee
 	              //     $("#date").append('<option value="'+datec.time+'=.='+datec.oraltype+'=.='+datec.oralamt+'=.='+datec.oralcommence+'=.='+datec.amtgiv+'=.='+datec.urine+'=.='+datec.vomitus+'=.='+datec.remarks+'=.='+datec.doctord+'=.='+datec.doctsig+'=.='+datec.ratef+'=.='+datec.doctrmks+'">'+datec.date+'</option>');
@@ -661,7 +671,7 @@ var user2a;
 	    	  newCell.style.overflow = 'hidden';   
 	                   disbut();
 	                   unsaved = false;
-	       	  	 
+	       	  
 	               });    
 	           },
 	           error: function(e){
@@ -735,6 +745,12 @@ var user2a;
        function goBack() {
     	    window.history.back();
     	}
+       
+       $(document).ready(function() {
+    	   $("a[href='#menu1']").on('shown.bs.tab', function (e) {
+    		   crtab('<c:out value="${username}" />','<c:out value="${pageContext.request.userPrincipal.name}" />')
+    		 });
+       });   
        </script>
        
 </head>
@@ -786,7 +802,7 @@ var user2a;
  
    <ul class="nav nav-pills">
     <li class="active"><a data-toggle="pill" href="#home">Patient Details</a></li>
-    <li><a data-toggle="pill" onclick="crtab('<c:out value="${username}" />','<c:out value="${pageContext.request.userPrincipal.name}" />')" href="#menu1">HOUR CHART</a></li>
+    <li><a data-toggle="pill"  href="#menu1">HOUR CHART</a></li>
      
      <li class="pull-right" style="margin-right: 170px;" ><button type="button" id="" class="btn btn-primary button2" onclick="location.reload(true);">
 	  <span class="fa fa-refresh"></span> Refresh</button></li>

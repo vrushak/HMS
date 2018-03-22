@@ -251,8 +251,8 @@ function disp(){
 	window.print();
 	
 	$(".ft").show();
-	$("#ch").text("Sales");
-	$("#chbox").next("span").andSelf().Show(); 
+	$("#ch").text("Sales");	
+	$("#chbox").next("span").andSelf().show(); 
 	$('.table-responsive').addClass('table-responsive');
 	document.getElementById("addbt").style.display = "block";
 	document.getElementById("gtot").style.visibility = "visible";
@@ -362,7 +362,7 @@ function verifyproAdd(){
 	var x5 =document.getElementsByName("unit");
 	for(var i = 0;i<x5.length;i++){
 		if(x5[i].value == 0){
-			alert("Quantity sold cannot be 0")
+			alert("Quantity sold cannot be equal to 0")
 			return false;
 		}
 	}
@@ -714,21 +714,21 @@ function checkSp(type,value){
 			var x=this.cells;
 	      
 			var qty = document.getElementById("unitSale").value;
-			var spsize = document.getElementById("spsize").value;
-			var up1 = document.getElementById("up1").value;
+			var spsize = document.getElementsByName("spsize").value;
+			var up1 = document.getElementsByName("up1").value;
 			
 			if(spsize<1){
-	   			alert("Selling Pack Size cant be equals to 0")
+	   			alert("Selling Pack Size cannot be equal to 0")
 	   			return false;
 	   		}
 			
 	   		if(qty<1){
-	   			alert("Quantity sold cant be equals to 0")
+	   			alert("Quantity sold cannot be equal to 0")
 	   			return false;
 	   		}	
 	   		
 	   		if(up1<1){
-	   			alert("Unit SP cant be equals to 0")
+	   			alert("Unit SP cannot be equal to 0")
 	   			return false;
 	   		}
 			
@@ -736,12 +736,12 @@ function checkSp(type,value){
 		    {
 		       //$(this).find("td:eq(2) span").text("matched");
 		      alert("Sales quantity cannot exceed product stocks")
-		      //  document.getElementById("bouton-contact").disabled = true;
+		      document.getElementById("bouton-contact").disabled = true;
 
 		      return false;
 		    		    }   
 		    else{
-		    //	  document.getElementById("bouton-contact").disabled = false;
+		    	  document.getElementById("bouton-contact").disabled = false;
 		    return true;	  
 		    }
 		});
@@ -1158,7 +1158,11 @@ function highlightDuplicates() {
     	   alert("Please select products")
     	   return false;
        }
-      
+       $('select[name=ean]').val("new");
+       $('#ean').selectpicker('refresh');	
+   	 		   
+   	   $('select[name=pname]').val("new");
+       $('#pname').selectpicker('refresh');	
        $.ajax({
          	  
 	           type: "GET",
@@ -1210,7 +1214,7 @@ function highlightDuplicates() {
         
         newCell = rowsAdd.insertCell();
         newCell.innerHTML="<tr><td><input form ='saveSales' class='form-control input-sm'  readonly= 'readonly' type='text' id = 'expSale' name= 'expDate' value = '"+datec.expDate+"'></td></tr>";
-   
+        
 
         // sales pack desc
         newCell = rowsAdd.insertCell();
@@ -1218,7 +1222,7 @@ function highlightDuplicates() {
         
    // single pack size
         newCell = rowsAdd.insertCell();
-        newCell.innerHTML="<tr><td><input class='form-control input-sm' form='saveSales' onkeypress='return onlyNos(event,this);'   type='number' min='1' id = 'spsize' name='spsize' required   value = '"+datec.spsize+"' required></td></tr>";
+        newCell.innerHTML="<tr><td><input class='form-control input-sm' form='saveSales' onkeypress='return onlyNos(event,this);'   type='number' min='1' id = 'spsize' name='spsize' value = '"+datec.spsize+"' required></td></tr>";
         
  
         //single unit pack size
@@ -1293,7 +1297,11 @@ if(supplier == "Select"){
 else{
     	      //  var name = $('#pname').val();
       // var user3 = document.getElementById("sinvoice").value;
+   $("#fileno").val('')
    
+   var url = "/HMS/salespdf1?invoice="+supplier+"" ;
+   var element = document.getElementById('close');
+   element.setAttribute("href",url)
       $.ajax({
          	  
 	           type: "GET",
@@ -1309,12 +1317,15 @@ else{
 	     
 	     $("#myTable tbody tr").remove();
 	        	   $.each(response, function(index, datec) {
+	        		   $("#fileno").val(datec.fileno)
+	        	   
                              	document.getElementById("chbox").disabled = true;
 	        		   document.getElementById("invoicedate").value = datec.invoiceDate;
 	        
 	        		   document.getElementById("author").value = datec.author;
 	        		   document.getElementById("sex").value  = datec.gender ;
 	        		   document.getElementById("age").value = datec.age;
+	        		  
 	        		   document.getElementById("totalItems").value = datec.titems;
 	        		  
 	        		   document.getElementById("subTotal").value = datec.subt;
@@ -1344,7 +1355,7 @@ else{
 	       var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
      //      var rowsAdd = tableRef.insertRow(tableRef.rows.length);  
        
-    	getCount();
+    	//getCount();
          
            var idx = document.getElementById("myTable").rows.length;
            var quantity =  "quantity"+idx;
@@ -1578,7 +1589,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
  <div id="form1" >  
   
      <h1> <font id="ch" size="5">Sales </font> <span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i></span>
-      <button type="button" id="close" class="btn btn-warning button2"  onclick="return disp();">Print</button>    
+      <a href="#" id="close" target="_blank" class="btn btn-warning button2" >Print</a>    
      
      </h1>
      
@@ -1689,7 +1700,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
  </c:forEach>
  
   <c:forEach var="sale1"  items="${model.list11}">
-  <option class="pat"  value = "${sale1.pid},${sale1.fname},${sale1.landphone},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.pid}</option>
+  <option class="pat"  value = "${sale1.pid},${sale1.fname},${sale1.mobile},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.pid}</option>
  </c:forEach>
  </select>
  </form>
@@ -1707,7 +1718,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
  </c:forEach>
  
    <c:forEach var="sale1"  items="${model.list11}">
-  <option class="pat" data-subtext="${sale1.dob}" value = "${sale1.pid},${sale1.fname},${sale1.landphone},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.fname}</option>
+  <option class="pat" data-subtext="${sale1.dob}" value = "${sale1.pid},${sale1.fname},${sale1.mobile},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.fname}</option>
  </c:forEach>
  
  </select>
@@ -1727,7 +1738,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
  </c:forEach>
  
    <c:forEach var="sale1"  items="${model.list11}">
-  <option class="pat" value = "${sale1.pid},${sale1.fname},${sale1.landphone},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.landphone}</option>
+  <option class="pat" value = "${sale1.pid},${sale1.fname},${sale1.mobile},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.mobile}</option>
  </c:forEach>
  </select>
  </form>
@@ -1912,7 +1923,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
                   
                 <tr>
                     <td colspan="" class="total-line meta-head">Tax%</td>
-		      <td class="total-value"><div id=""><input form ="saveSales" value="0.00" type="text" class="form-control input-sm rem" name="tax" onkeypress='return onlyNos(event,this);' min="0"  id="tax" onmouse="alert("please click on generate total");"></div></td>
+		      <td class="total-value"><div id=""><input form ="saveSales" value="0" type="text" class="form-control input-sm rem" name="tax" onkeypress='return onlyNos(event,this);' min="0"  id="tax" onmouse="alert("please click on generate total");"></div></td>
                 </tr>
                 <tr>
              

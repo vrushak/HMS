@@ -191,9 +191,11 @@ public class Logincontroller {
     }
     
     @RequestMapping(value = "/nursedesk", method = RequestMethod.GET)
-    public String ndesk(Model model, Principal principal) {
-    	
-		return "nursedesk"; 
+    public ModelAndView ndesk(Principal principal) {
+    	List<Appointment> list4 = ndao.getAppsforNrs();
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("list4",list4);
+		return new ModelAndView("nursedesk","model",model); 
     }
     
     @RequestMapping(value = "/staff", method = RequestMethod.GET)

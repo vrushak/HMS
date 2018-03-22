@@ -185,7 +185,7 @@ public class fileupcontroller {
 		if(!files.exists()){
 		files.mkdirs();
 	    }
-		
+		System.out.println("chk"+req.getParameter("name"));
 		String base64Image = req.getParameter("name").split(",")[1];
 		byte[] imageBytes = javax.xml.bind.DatatypeConverter.parseBase64Binary(base64Image);
 	//	BufferedImage img = ImageIO.read(new ByteArrayInputStream(imageBytes));
@@ -245,7 +245,7 @@ public class fileupcontroller {
 		  try{
 	    		
 	    	
-	    		
+	    		System.out.println(req.getParameter("location"));
 	    		File file = new File(UPLOAD_DIRECTORY+File.separator+req.getParameter("location"));
 
 	    		if(file.delete()){

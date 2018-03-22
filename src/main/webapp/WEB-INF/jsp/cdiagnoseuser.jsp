@@ -203,7 +203,7 @@ function calculateBmi() {
 	
 function checkhome(user){
 	$("#pir").hide();
-	
+	change()
 
 	if(user.includes("[ROLE_FDESK]")){
 		
@@ -1184,6 +1184,8 @@ function refresh(){
 
     
        function addcname1(getval){
+    	   
+       alert(getval)
     	   var myname = getval.getAttribute('data-value'); 	
    	
       
@@ -1579,8 +1581,8 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
     
    	     var url = "/HMS/downform?location="+datec.testname+"&location1="+datec.iop+"";
    	     var text = ""+datec.iop+"";
-   	      $('#rf').append('<a href="' + url + '" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+datec.testname+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
-   	      
+   	      $('#rf').append('<a href="' + url + '" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+encodeURIComponent(datec.testname)+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
+   	      unsaved = false;
    	      
    	          });    
    	      }
@@ -1655,7 +1657,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
    	
    	 
    		
-   	   var uri = "/HMS/deletefile?location="+$(value).attr('titlea')+"";
+   	   var uri = "/HMS/deletefile?location="+decodeURIComponent($(value).attr('titlea'))+"";
    	  
    	  var data = 0;
    	 
@@ -1778,6 +1780,21 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
   		return true;
   	}
     }
+    
+    function openmd2(pnamea){
+        $("#check").prop("checked",true);
+        change()
+         
+        $('select[name=pname]').val(decodeURIComponent(pnamea)).change();
+        $('#vpid').selectpicker('refresh');
+        
+       $('#vpid').on('change',function(){
+    	   alert()
+       
+       	 addcname1(this.options[this.selectedIndex]);
+     	});
+     
+    }
        
        </script>
        
@@ -1819,6 +1836,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
       <li class=""><a  href="/HMS/discharge">Discharge Summary</a></li>
     </ul>
          <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/prescription" id="back1" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to OPD Survey</span></a></li>
   <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
     </ul>
   </div>
@@ -1861,15 +1879,15 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
        <div class="form-group" id="fg">
       
        <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="pname" onchange="return addcname(this.options[this.selectedIndex])">
-          <option value="select" selected disabled >Select</option>
+          <option value="select" selected>Select</option>
         <c:forEach var="p"  items="${model.list1}">
-        <option value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pid}==${p.pname}==${p.fileno}==${p.docid}">${p.pname}</option>
+        <option value ="${p.pname}" data-subtext="in ${p.fileno}" data-value="${p.pid}==${p.pname}==${p.fileno}==${p.docid}">${p.pname}</option>
         </c:forEach>
       </select>
       </div>
       <div class="form-group" id="fg1">
        <select class="selectpicker form-control btn btn"  data-live-search="true" data-size="5" form="formc" name = "pname" id ="vpid" onchange='addcname1(this.options[this.selectedIndex])'>
-          <option value="select" selected disabled >Select</option>
+          <option value="select" selected>Select</option>
         <c:forEach var="p"  items="${model.list3}">
       
        <option class="ser1" value ="${p.pname}" data-subtext="${p.fileno}" data-value="${p.ppid}==${p.pname}==${p.fileno}==${p.docid}==${p.datetime}" dv="${fn:escapeXml(p.diagnose)}" >${p.pname}</option>
@@ -2113,19 +2131,22 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
   <form id="upform" action="" method="post" enctype="multipart/form-data">   
   <div class="form-group row" >
         <div class="col-xs-1"></div>
-        <div class="col-xs-4">
+        <div class="col-xs-3">
   <div class="form-group">
        <p><label for="image">Choose File</label></p>
       <input class="form-control input-sm" name="file" id="upfile" type="file" onchange="change1a(event)"/>
       <input type="hidden" name="samplecol" id="samplecol" form="upform">    
             </div>
             </div>
+                <div class="col-xs-2"><br><br>
+             <button type="button" class="btn btn-info btn-sm" onclick="return doAjaxPosts3('upform')" >Upload File</button>
+             </div>
+             
              <div class="col-xs-4">
              <input type="hidden" id="iop" name="iop" form="upform">
                <input type="hidden" id="date1" name="date1" form="upform">
              <br><br>
-              <button class="btn btn-info" onclick="return doAjaxPosts3('upform')" id ="" type="button" >Upload File <span class="fa fa-save"></span></button>
-   </div>
+               </div>
         </div>
         <div class="form-group row">
         <div class="col-xs-1"></div> 
@@ -2260,8 +2281,11 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
       <button type="button" class="btn btn-warning" onclick="return addp()">ADD</button></div>
       </div>
 </div>
+
 <script>
-openmd1('<c:out value='${model.fileno}'/>','<c:out value='${model.pname}'/>','<c:out value='${model.pid}'/>','<c:out value='${model.docid}'/>','<c:out value='${model.sav}'/>')
+//if('<c:out value='${model.pnamea}'/>' != ''){
+//openmd2('<c:out value='${model.pnamea}'/>')
+//}
 </script>
 <script>
 datasuccess('<%=request.getParameter("message")%>')

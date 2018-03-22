@@ -383,6 +383,17 @@ public class controller {
 				      model.put("list3", list3);
 					return new ModelAndView("admitpat","model",model); 
 					}
+				
+				//load inpatients screen
+				
+				@RequestMapping(value="/admission", method = RequestMethod.GET)
+				public ModelAndView inpatients() {
+				
+				    List<Admitpat> list3= dao.getAdmitpat();
+			 Map<String, Object> model = new HashMap<String, Object>();
+			        model.put("list3", list3);
+					return new ModelAndView("admission","model",model); 
+					}
 				@RequestMapping(value="/saveAdm", method = RequestMethod.POST)
 				public ModelAndView  saveAdmit(@ModelAttribute("s") Admitpat s) {
 				 int admp = 0;

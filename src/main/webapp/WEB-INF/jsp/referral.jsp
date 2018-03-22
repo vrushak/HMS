@@ -298,9 +298,9 @@ function disp(){
 	
    document.getElementById("hideselect").style.display = "none";
 	
-	
+	$('#lm').hide();
 	window.print();
-	
+	$('#lm').show();
 	document.getElementById("hideselect").style.display = "block";
 	document.getElementById("disp").style.display = "block";
 	document.getElementById("redate").style.visibility = "visible";
@@ -690,7 +690,7 @@ function AutoGrowTextArea(textField)
               
       
              </div>
-   &emsp;&emsp;&emsp;<b>Last Modified : </b><input type="text" name="timestamp" id="timestamp" form="saveref"  style="border:none;width:250px;" readonly="readonly">  
+   &emsp;&emsp;&emsp;<span id="lm"><b>Last Modified : </b><input type="text" name="timestamp" id="timestamp" form="saveref"  style="border:none;width:250px;" readonly="readonly"></span>  
             
              <button type="" id="gbill" class="bouton-contact" form ="saveref" disabled></button>
 </div>

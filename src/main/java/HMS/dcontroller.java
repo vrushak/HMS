@@ -91,7 +91,7 @@ public class dcontroller {
 			 RedirectView redirectView = new RedirectView();
 		     redirectView.setUrl("/HMS/doctor.html");
 	        return mav; 
-			}
+			}/*
 		 @RequestMapping(value="/prescription")
 		 public  ModelAndView prescription(@ModelAttribute("p") Prescription s,Principal principal,Authentication authentication) {
 		 	 
@@ -122,7 +122,7 @@ public class dcontroller {
 		     model.put("list4", list4);
 		       model.put("list16", list16);
 		 	return new ModelAndView("prescriptiongen2","model",model); 
-		 	}
+		 	}*/
 		 /*
 		 privsyr Prescription 
 		 
@@ -1198,7 +1198,39 @@ public class dcontroller {
 
 				 	return new ModelAndView("diagnoseuser","model",model);  
 								}
+		  //load diagnosed details data from prescription screen
 		  
+		  @RequestMapping(value="/diagnose2", method = RequestMethod.GET)
+			 public ModelAndView  diagnose2(Prescription s,Principal principal,Authentication authentication,HttpServletRequest req, HttpServletResponse response) {
+
+		 
+				  authentication.getAuthorities();
+				  Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
+				  String b = var.toString();
+				 	List<Prescription> list1= ddao.getDocID2(principal.getName(),b);
+				 	if(list1.isEmpty()){
+				 		s.setDocid(b);
+				 	list1.add(s);
+				 	}
+				     List<Patient> list2= dao.getPatientId1();
+				     List<Diagnose>list3 = ddao.getHistvalue("diagnose");
+				     List<Vitals> list15= ndao.getVitals(principal.getName());
+					 List<Appointment> list16 = ddao.getAppointment1();
+					 //List<Appointment> list3= dao.getAppointment();
+				     List<Prescription>list4 = dao.search();
+				 
+				     Map<String, Object> model = new HashMap<String, Object>();
+				       model.put("list1", list1);
+				       model.put("list2", list2);
+				       model.put("list3", list3);
+				       model.put("list4", list4);
+				       model.put("list16", list16);
+				       model.put("pnamea", req.getParameter("pnamea"));
+
+				      
+
+				 	return new ModelAndView("diagnoseuser","model",model);  
+								}
 	
 		  @RequestMapping(value="/diagnosegc", method = RequestMethod.GET)
 			 public ModelAndView  diagnosegc(Prescription s,Principal principal,Authentication authentication,HttpServletRequest req, HttpServletResponse response) {
@@ -1663,6 +1695,39 @@ public ModelAndView  cdiagnose1(Prescription s,Principal principal,Authenticatio
 	 	return new ModelAndView("cdiagnoseuser","model",model);  
 					}
 
+//laod values based on history screen
+
+@RequestMapping(value="/cdiagnose2", method = RequestMethod.GET)
+public ModelAndView  cdiagnose2(Prescription s,Principal principal,Authentication authentication,HttpServletRequest req, HttpServletResponse response) {
+
+
+	  authentication.getAuthorities();
+	  Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
+	  String b = var.toString();
+	 	List<Prescription> list1= ddao.getDocID2(principal.getName(),b);
+	 	if(list1.isEmpty()){
+	 		s.setDocid(b);
+	 	list1.add(s);
+	 	}
+	     List<Patient> list2= dao.getPatientId1();
+	     List<Diagnose>list3 = ddao.getHistvalue("cdiagnose");
+	     List<Vitals> list15= ndao.getVitals(principal.getName());
+		 List<Appointment> list16 = ddao.getAppointment1();
+		 //List<Appointment> list3= dao.getAppointment();
+	     List<Prescription>list4 = dao.search();
+	 
+	     Map<String, Object> model = new HashMap<String, Object>();
+	       model.put("list1", list1);
+	       model.put("list2", list2);
+	       model.put("list3", list3);
+	       model.put("list4", list4);
+	       model.put("list16", list16);
+           model.put("pnamea",req.getParameter("pnamea"));  
+	      
+
+	 	return new ModelAndView("cdiagnoseuser","model",model);  
+					}
+
 
 @RequestMapping(value="/cdiagnosegc", method = RequestMethod.GET)
 public ModelAndView  cdiagnosegc(Prescription s,Principal principal,Authentication authentication,HttpServletRequest req, HttpServletResponse response) {
@@ -2113,5 +2178,22 @@ return jsonFormatData;
 	
 
 }
+@RequestMapping(value="/prescription")
+public  ModelAndView prescription(@ModelAttribute("p") Prescription s,Principal principal,Authentication authentication) {
+	 
+	 Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
+   	String b = var.toString();
+	 
 
+    
+    List<Diagnose>list3 = ddao.getCodc();
+   
+    
+   
+Map<String, Object> model = new HashMap<String, Object>();
+     
+      model.put("list3", list3);
+
+	return new ModelAndView("prescriptiongen2","model",model); 
+	}
 }

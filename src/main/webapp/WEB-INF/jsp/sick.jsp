@@ -220,14 +220,14 @@ function disp(){
 //	document.getElementById("ff").style.display = "none";
 	document.getElementById("hideselect").style.display = "none";
 	document.getElementById("disp").style.display = "none";
-	
+	$('#lm').hide();
 	window.print();
 	document.getElementById("disp").style.display = "block";
 	document.getElementById("myname").style.display = "none";
 	//document.getElementById("ff").style.display = "none";
 	
 	document.getElementById("hideselect").style.display = "block";
-	
+	$('#lm').show();
 	/*
 	document.getElementById("pname").style.visibility = "visible";
 	document.getElementById("sdate").style.display = "visible";
@@ -654,7 +654,7 @@ hr {
    </div>
    
  
-   <hr>&emsp;&emsp;&emsp;<b>Last Modified : </b><input type="text" name="timestamp" id="timestamp" form="savesic" style="border:none;width:250px;" readonly="readonly">  
+   <hr>&emsp;&emsp;&emsp;<span id="lm"><b>Last Modified : </b><input type="text" name="timestamp" id="timestamp" form="savesic" style="border:none;width:250px;" readonly="readonly"></span>  
    
    <center><font color="hotpink"><i>Health family, health nation.</i></font></center>
    

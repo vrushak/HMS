@@ -4,6 +4,8 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
@@ -223,6 +225,8 @@ function copyName(code,name,category,expDate,toDate,batch,records){
 	document.getElementById("records").value = records;
 	}
 	document.getElementById("batch").value=batch;
+	$("#expDate").val(expDate);
+	$("#toDate").val(toDate);
 }
 
 function chdate(){
@@ -308,6 +312,10 @@ for(var i =0;i<s.length;i++){
 	 
 	}
 
+function setmin(id){
+	
+	$(id).attr('min',new Date().toJSON().split('T')[0])
+}
 </script>
    <script>
       $(document).ready( function() {
@@ -360,7 +368,7 @@ $(document).ready(function() {
 
 </head>
 <sec:authentication property="principal.authorities" var="username" />
-<body onload="getCount(),checkhome2('<c:out value="${username}" />')">
+<body onload="checkhome2('<c:out value="${username}" />')">
 
 <div class = "wrapper">
 <nav class="navbar navbar-default">
@@ -405,7 +413,7 @@ $(document).ready(function() {
 	    <div class="container">
 </div>
 <br>
-
+<c:set var="today" value="<%=new java.util.Date()%>" />
       <div id="col3">
        <form id = "form2" method="post" action ="pssaveho.html"></form>
      <form id ="form1" class="" method="get" action="pssearchho.html">
@@ -452,7 +460,7 @@ $(document).ready(function() {
 	      
 	      <div class="form-group">
             <p>Expiry Date<span>*</span></p>
-      <input type="date" class="form-control" min="2017-11-21" id="expDate" name="expDate">
+      <input type="date" class="form-control" maxlength="2999-12-31" min="2017-11-21" id="expDate" name="expDate">
      
       </div>
 	</div>
@@ -462,7 +470,7 @@ $(document).ready(function() {
 	      <div class="form-group">
 	     
         <p>To Date<span>*</span></p>
-      <input type="date" class="form-control" id="toDate" name="todate" >
+      <input type="date" class="form-control"  maxlength="2999-12-31" id="toDate" name="toDate" >
               </div>
 	
 	      </div>
@@ -547,13 +555,13 @@ $(document).ready(function() {
         <td style="width:290px;"><input type="text" name="name" form="form2" id="name" class="form-control input-sm ft" value="${ps.name}"></td>
         <td style="width:100px;"><input type="text" name="batch" form="form2" id="batch" class="form-control input-sm ft" value="${ps.batch}"></td>
         
-        <td style="width:200px;"><input type="date" name="expDate" onkeydown="return false" form="form2" id="expDate"  class="form-control input-sm ft" value="${ps.expDate}"></td>
+        <td style="width:200px;"><input type="date" maxlength="2999-12-31" name="expDate" onfocusout="setmin(this)" form="form2" id="expDate"  class="form-control input-sm ft" value="${ps.expDate}"></td>
         <td style="width:100px;"><input type="text" name="mpack" form="form2" id="mpack" class="form-control input-sm ft" value="${ps.mpack}"></td>
         <td style="width:100px;"><input type="number" min='1' name="mpsize" form="form2" id="mpsize" onkeypress='return onlyNos(event,this);' class="form-control input-sm ft" value="${ps.mpsize}"></td>
         <td style="width:100px;"><input type="number" name="cp" form="form2" id="cp" class="form-control input-sm ft" value="${ps.cp}"></td>
         <td style="width:100px;"><input type="number" min='1' name="prqty" form="form2" id="prqty" onkeypress='return onlyNos(event,this);' class="form-control input-sm ft" value="${ps.prqty}"></td>
         <td style="width:100px;"><input type="number" name="prprice" form="form2" id="prprice" class="form-control input-sm ft" value="${ps.prprice}"></td>  
-        <td style="width:100px;"><input type="text" name="quantity" form="form2" id="quantity" class="form-control input-sm ft" value="${ps.quantity}"></td>
+        <td style="width:100px;"><input type="text" name="quantity" form="form2" id="quantity" class="form-control input-sm ft" onkeypress='return onlyNos(event,this);' value="${ps.quantity}"></td>
         <td style="width:100px;"><input type="text" name="sudesc" form="form2" id="sudesc" class="form-control input-sm ft" value="${ps.sudesc}"></td>
         <td style="width:100px;"><input type="number" name="stkpr" form="form2" id="stkpr" class="form-control input-sm ft" value="${ps.stkpr}"></td>
         <td style="width:100px;"><input type="number" name="markup" form="form2" id="markup" class="form-control input-sm ft" value="${ps.markup}"></td>
@@ -572,14 +580,9 @@ $(document).ready(function() {
         </script>
       </c:forEach>
       
-       <c:forEach var="ps"  items="${model.list}">
+     
  
-   <script>
-   /*
-    copyName('<c:out value="${ps.code}" />','<c:out value="${ps.name}" />','<c:out value="${ps.category}" />','<c:out value="${ps.expDate}" />','<c:out value="${pp.toDate}" />','<c:out value="${ps.batch}" />','<c:out value="${ps.records}" />');
-   */
-   </script>
-    </c:forEach>
+  
     </tbody>
   </table>
 </div>
@@ -604,6 +607,16 @@ $(document).ready(function() {
 <script>
 datasuccess('<%=request.getParameter("message")%>')
 </script>
+<script>
+if('<c:out value="${model.exp}" />' == '' && '<c:out value="${model.to}" />'== ''){
+
+	getCount();
+}
+else{
+   copyName('<c:out value="${model.code}" />','<c:out value="${model.name}" />','<c:out value="${model.category}" />','<c:out value="${model.exp}" />','<c:out value="${model.to}" />','<c:out value="${model.batch}" />','<c:out value="${model.limit}" />');
+}
+   </script>
+
 	  </body>
 	   
 	      

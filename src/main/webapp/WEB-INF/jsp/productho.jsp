@@ -292,9 +292,9 @@ $(".modal-wide").on("show.bs.modal", function() {
 	  $(this).find(".modal-body").css("max-height", height);
 	});
 	var prname;
-	function run() {
+	function run(vali) {
 		
-		if(document.getElementById("myname").value == "new"){
+		if($(vali).val() == "new"){
 	    	
 	    	document.getElementById("form1").reset();
 	    	
@@ -319,10 +319,16 @@ $(".modal-wide").on("show.bs.modal", function() {
 	    }
 	    else{
 	    	
-	 	   var str = document.getElementById("myname").value;
+	 	   var str = $(vali).val();
 		   var strSplit = str.split('=');
 		   $('#prc').prop('readonly', true);
 		   prname = strSplit[0];
+		   
+		   $('select[name=myname1]').val(str);
+		   $('#myname1').selectpicker('refresh');
+		   
+		   $('select[name=myname]').val(str);
+		   $('#myname').selectpicker('refresh');
 		document.getElementById("name").value = strSplit[0];
 		document.getElementById("descr").value = strSplit[1];
 		document.getElementById("pc").value = strSplit[2];
@@ -344,10 +350,13 @@ $(".modal-wide").on("show.bs.modal", function() {
 		document.getElementById("stocks").value = full[0];
 		if(strSplit[15] == "active"){
 			document.getElementById("active").checked = true;
-		};
-		
+		}
+		else{
+			document.getElementById("active").checked = false;
+		}
 	    }
-		
+		$("#dps").val(strSplit[17])
+		$("#dsp").val(strSplit[18])
 	/*	
 	    if ($("#manufacturer option[value='"+strSplit[4]+"']").length == 0){
 	    	
@@ -658,7 +667,7 @@ var pnflag;
 
 </head>
 <sec:authentication property="principal.authorities" var="username" />
-<body onload="checkhome2('<c:out value="${username}" />')">
+<body onload="checkhome2('<c:out value="${username}" />'),oncheck()">
 <div class = "wrapper">
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -724,16 +733,29 @@ var pnflag;
       
       <div class="form-group row">
  
-<div class="col-xs-3"></div>
-
+<div class="col-xs-1"></div>
   <div class="col-xs-3">
   <div class="form-group">
-            <p>Select Product <span></span></p>
-     <select class="selectpicker form-control" data-size="5" data-live-search="true" name = "myname" id ="myname"  onchange = "run()" required>
+            <p>Select Product Code<span></span></p>
+     <select class="selectpicker form-control" data-size="5" data-live-search="true" name = "myname1" id ="myname1"  onchange = "run(this)" required>
         <option value ="new">New</option>
       
        <c:forEach var="stks" items="${model.list3}">
-       <option value = "${stks.name}=${stks.descr}=${stks.pc}=${stks.prc}=${stks.manufacturer}=${stks.composition}=${stks.sp}=${stks.bc}=${stks.mc}=${stks.rl}=${stks.rq}=${stks.doc}=${stks.dsc}=${stks.supplier}=${stks.stocks}=${stks.active}=${stks.product}">${stks.name}</option>
+       <option value = "${stks.name}=${stks.descr}=${stks.pc}=${stks.prc}=${stks.manufacturer}=${stks.composition}=${stks.sp}=${stks.bc}=${stks.mc}=${stks.rl}=${stks.rq}=${stks.doc}=${stks.dsc}=${stks.supplier}=${stks.stocks}=${stks.active}=${stks.product}=${stks.dps}=${stks.dsp}">${stks.prc}</option>
+       </c:forEach>
+       
+      </select>
+       </div>
+     </div>
+
+  <div class="col-xs-4">
+  <div class="form-group">
+            <p>Select Product <span></span></p>
+     <select class="selectpicker form-control" data-size="5" data-live-search="true" name = "myname" id ="myname"  onchange = "run(this)" required>
+        <option value ="new">New</option>
+      
+       <c:forEach var="stks" items="${model.list3}">
+       <option value = "${stks.name}=${stks.descr}=${stks.pc}=${stks.prc}=${stks.manufacturer}=${stks.composition}=${stks.sp}=${stks.bc}=${stks.mc}=${stks.rl}=${stks.rq}=${stks.doc}=${stks.dsc}=${stks.supplier}=${stks.stocks}=${stks.active}=${stks.product}=${stks.dps}=${stks.dsp}">${stks.name}</option>
        </c:forEach>
        
       </select>
@@ -885,10 +907,30 @@ var pnflag;
 	      </div>
 	       
 	      </div>
+	     <div class="form-group row" >
+	     <div class="col-xs-1"></div>
+	      <div class="col-xs-3">
+	       <div class="form-group">
+        <br>
+	       Active: <input type="checkbox" value="active" id="active" name="active" form="form1" >
+           
+       </div>
 	      </div>
-	      
-	      
-
+	        <div class="col-xs-4">
+	       <div class="form-group">
+         <p>Default Order Pack Size<span></span></p>
+       <input  class="form-control" type="text"  form="form1" name = "dps" id ="dps">
+           
+       </div>
+	      </div>
+	        <div class="col-xs-3">
+	       <div class="form-group">
+        <p>Default Sales Pack Size<span></span></p>
+       <input  class="form-control" type="text"  form="form1" name = "dsp" id ="dsp">
+       </div>
+	      </div>
+	   </div>
+          </div>
 	      </div>
 	       
        
@@ -936,32 +978,7 @@ var pnflag;
 	      </div>
 	      
       
-      <div class="form-group row" >
-	     <div class="col-xs-1"></div>
-	      <div class="col-xs-3">
-	       <div class="form-group">
-        <br>
-	       Active: <input type="checkbox" value="active" id="active" name="active" form="form1" >
-           
-       </div>
-	      </div>
-	      
-	       <div class="col-xs-4">
-	      <div class="form-group">
-         
       
-     </div>
-	      </div>
-	      
-	            <div class="col-xs-3">
-	        <div class="form-group">
-	      
-       </div>
-	        </div>
-	        
-	       
-	      </div>
-         
 	           
 	      
 	      

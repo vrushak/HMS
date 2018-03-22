@@ -816,7 +816,7 @@ function doAjaxSave(id){
        	if(response.toString() == "success") {
        	
       	  alert("Data Saved Successfully")
-      
+      $('#pname1').prop("disabled",true)
           }
         $(".dispr").removeClass("disabled")
          $("#intbill").removeClass("disabled")

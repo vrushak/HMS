@@ -94,7 +94,7 @@ h1 {
 }
   .tbody{
     height:300px;
-    overflow-y:auto;
+    overflow-y:scroll;
  }
   .thead,.tbody{
   
