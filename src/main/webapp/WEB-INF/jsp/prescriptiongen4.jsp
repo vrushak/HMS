@@ -377,6 +377,7 @@ function addname(getval){
 		var strSplit = myname.split('=');
 		
 //		alert(strSplit[9]);
+
 if(!sp.includes("Select")){
 $.confirm({
 	    title: 'Confirm!',
@@ -711,7 +712,7 @@ function doAjaxPost2() {
 	
 	  var counter = 1;
 	          var fileno = $('#fileno').val();
-	          $("#myTable .tbody tr").remove();	         
+	       //   $("#myTable .tbody tr").remove();	         
 	            //var docid = $('#docid').val();
 	             $.ajax({
 	        	  
@@ -731,16 +732,16 @@ function doAjaxPost2() {
 
 if(response.length == 0){
 	
-	$("#myTable .tbody tr").remove();
+//	
 	var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
 	var rowsAdd = tableRef.insertRow(tableRef.rows.length);  
 	
 	if(tableRef.rows.length == 1){
-		display();
+	//	display();
 	}
 	alert("Selected patient does not have previous records")
 }
-      
+else if(response.length != 0){$("#myTable .tbody tr").remove();}
     $.each(response, function(index, drug) {
  	
     	
@@ -980,6 +981,18 @@ if(response.length == 0){
   </script>
  <script>
  
+	function openmd2(pnamea,fileno){
+	     sp = "Select"
+		   $('#pname option[data-subtext="'+fileno+'"]').prop('selected', true).change();
+	       $('#pname').selectpicker('refresh');
+	       
+	       $('#pname').on('change',function(){
+	    	   addname(this.options[this.selectedIndex]);
+	    	});
+	    
+	   }
+	
+	
 function doAjaxDelete(r,drug,type){
 
 	var a = document.getElementById(drug).value;
@@ -1298,5 +1311,8 @@ function doAjaxDelete(r,drug,type){
 
 <script>
 datasuccess('<%=request.getParameter("message")%>')
+</script>
+<script>
+openmd2('<c:out value="${model.pname}" />','<c:out value="${model.flno}" />');
 </script>
 </html>

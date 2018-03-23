@@ -416,6 +416,30 @@ public class dcontroller {
 		 	return new ModelAndView("treatment","model",model); 
 		 	}
 		   
+		   //loading from discharge
+		   
+		   @RequestMapping(value="/treatment1", method = RequestMethod.GET)
+		 public ModelAndView treatmentrecord1(@ModelAttribute("p") Admitpat p,Principal principal,Authentication authentication,HttpServletRequest request,HttpServletResponse response) {
+			   
+			   Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
+		    	String b = var.toString();
+		    	
+		 	//List<Admitpat> list1= dao.getAdmitpat();
+		 	List<Admitpat> list1= dao.getAdmitpat(principal.getName(),b);
+		 	if(list1.isEmpty()){
+		 	
+		 		p.setIdc(b);
+		 	list1.add(p);
+		 	}
+		 	
+		 	Map<String, Object> model = new HashMap<String, Object>();
+		      
+		       model.put("list1", list1);
+		       model.put("pname", request.getParameter("location"));
+		       model.put("flno",request.getParameter("location2"));
+		 	return new ModelAndView("treatment","model",model); 
+		 	}
+		   
 		   @RequestMapping(value="/vtreatment", method = RequestMethod.GET)
 		 public ModelAndView vtreatmentrecord(@ModelAttribute("p") Treatment p,Principal principal,Authentication authentication) {
 		 		
@@ -514,12 +538,18 @@ public class dcontroller {
 		 	 int saved = 0;
 		 		saved = dao.saved(s);
 		 		ModelAndView  mav = new ModelAndView();
-		 		if(saved > 0){
+		 		if(saved > 0 && s.getFreeze().contentEquals("no")){
+		 		
 		 		mav.addObject("message", "The record has been saved sucessfully");
 		 		mav.setViewName("redirect:discharge");		    
 		 						    
 		 		}
-
+		 		else if(saved > 0 && s.getFreeze().contentEquals("yes")){
+			 		
+			 		mav.addObject("message", "Record has been saved successfully. The record is available for printing in Print Documents - Print Discharge Summary");
+			 		mav.setViewName("redirect:discharge");		    
+			 						    
+			 		}
 		 		else{
 		 		mav.addObject("message", "Record could not be saved successfully ");
 		 		mav.setViewName("redirect:discharge");
@@ -672,6 +702,22 @@ public class dcontroller {
 			      
 			       model.put("list1", list1);
 			       model.put("list4", list4);
+		 	 	return new ModelAndView("prescriptiongen4","model",model); 
+		 }		
+		   //load from discharge
+		   
+		   @RequestMapping(value="/ipdpr1", method = RequestMethod.GET)
+		   public ModelAndView prpr21(Principal principal,HttpServletRequest req, HttpServletResponse response) {
+		 	 
+				List<Admitpat> list1= ddao.getAdmitpat1();
+				List<Prescription>list4 = dao.search();
+				 Map<String, Object> model = new HashMap<String, Object>();
+			      
+			      
+			       model.put("list1", list1);
+			       model.put("list4", list4);
+			       model.put("pname", req.getParameter("location1"));
+			       model.put("flno", req.getParameter("location2"));
 		 	 	return new ModelAndView("prescriptiongen4","model",model); 
 		 }		
 		   

@@ -589,6 +589,8 @@ var user2a;
 	               //    $("#date").selectpicker("refresh");
 	        		//alert(datec.date)
 	        		document.getElementById("date").value = datec.date;
+	        		
+	        		$('#timestamp').val(datec.timestamp)
 		            /*  
 	        		if ($("#datec option[value='"+encodeURIComponent(datec.date)+"']").length == 0){
 		               
@@ -754,6 +756,10 @@ var user2a;
        });
        
 
+       function appendts(){
+     	  $('#timestamp').val('<c:out value="${pageContext.request.userPrincipal.name}" />  '+moment().format("DD-MM-YYYY HH:mm"))
+     		
+       }  
        </script>
     	    </head>
 </head>
@@ -816,7 +822,7 @@ var user2a;
             <p>Patient Name<span></span></p>
              <select class="selectpicker form-control" data-size="4" data-live-search="true" name = "pname" id ="pname" onchange="run(this.options[this.selectedIndex])">
           <option value="Select" selected disabled>Select</option>
-        <c:forEach var="p"  items="${list3}">
+        <c:forEach var="p"  items="${model.list3}">
         <option value="${p.name}" data-subtext="${p.fileno},${p.admdate}" data-value="${p.name}=${p.pid}=${p.age}=${p.gender}=${p.fileno}=${p.admdate}=${p.wardno}=${p.doctsig}=${p.nursesig}=${p.admitno}">${p.name}</option>
         </c:forEach>
       </select>
@@ -943,6 +949,10 @@ var user2a;
         </select>
       </div>
 	        </div>
+	        
+	         <div class="col-xs-5"> 
+	     <div class="form-group"><b>Last Modified : </b><input type="text" name="timestamp" id="timestamp" form="forma" style="border:none;width:200px;" readonly="readonly"></div> 
+       </div> 
 	      </div>
 	      
       
@@ -1002,7 +1012,7 @@ var user2a;
 	      </div>
 	      </div>
 	      </div>
-<button type="submit" value="submit" class="bouton-contact" id="bc" name="save" form="forma" >Save</button>
+<button type="submit" value="submit" class="bouton-contact" onclick="appendts()" id="bc" name="save" form="forma" >Save</button>
    </div>
    </div>
    <script>

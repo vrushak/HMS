@@ -80,8 +80,7 @@ function addcname(getval){
 	$('#disdate').val(moment().format("DD-MM-YYYY HH:mm"));
 	var myname = getval.getAttribute('data-value');
 	var str = myname.split('=');
-	
-
+    assUrl(str[1],str[5])
 	document.getElementById("pid2").value=str[0];
 	
 	 $('select[name=pname]').val(str[1]);
@@ -121,7 +120,7 @@ function copy(pid){
 
     document.getElementById("pid2").value = strSplit[0];
 	   
-	  
+    assUrl(strSplit[1],strSplit[7])
 	   
 	   $("#pname").append('<option value="'+strSplit[1]+'"selected="">'+strSplit[1]+'</option>');
 	   $("#pname").selectpicker("refresh");
@@ -605,7 +604,21 @@ function ze(){
 	    });
 	    
    });
+   function assUrl(pname,file){
+	   $('#tr').attr('href','/HMS/treatment1?location='+pname+'&location2='+file+'')	
+	   $('#ipd').attr('href','/HMS/ipdpr1?location='+pname+'&location2='+file+'')	
+	   $('#dr').attr('href','/HMS/drugchart1aa?location1='+pname+'&location2='+file+'')	
+   }
    
+   function chpn(id){
+	   if($('#pname').val() == "select"){
+		   alert('Please select the Patient Name')
+		   return false;
+	   }
+	   else{
+		   return true;
+	   }
+   }
    </script>    
 
 </head>
@@ -667,7 +680,7 @@ function ze(){
     </tbody>
     </table>
     </div>
-     <button type="" class="bouton-contact" onclick="" ></button>
+     <button type="" class="bouton-contact" disabled onclick="" ></button>
      </form>
       <div class="container">
  
@@ -702,7 +715,7 @@ function ze(){
   <div class="form-group">
             <p>Patient Name<span>*</span></p>
              <select class="selectpicker form-control" data-size="6" data-live-search="true"name = "pname" id ="pname" onchange="addcname(this.options[this.selectedIndex])"    required>
-          <option value="select" selected disabled>Select</option>
+          <option value="select" selected>Select</option>
         <c:forEach var="p"  items="${model.list1}">
         <option data-subtext="${p.fileno},${p.admitno}" value="${p.pname}" data-value="${p.pid}=${p.pname}=${p.dname}=${p.docid}=${p.admdate}=${p.fileno}=${p.admitno}=${p.cause}=${p.wardno}=${p.age}=${p.gender}">${p.pname}</option>
         </c:forEach>
@@ -806,19 +819,19 @@ function ze(){
   
    <div class="col-xs-3">
    <div class="form-group">
-  <a href="treatment.html" target="_blank" style="color:#fff;" class="btn btn-warning button1">Treatment Records</a>
+  <a href="treatment.html" id="tr" target="_blank" style="color:#fff;" onclick="return chpn(this)" class="btn btn-warning button1">Treatment Records</a>
    </div>
    </div>
    
    <div class="col-xs-2">
    <div class="form-group">
-  <a href="drugchart.html" target="_blank" style="color:#fff;" class="btn btn-warning button1">Drug Chart</a>
+  <a href="drugchart.html" id="dr" target="_blank"  onclick="return chpn(this)" style="color:#fff;" class="btn btn-warning button1">Drug Chart</a>
   </div>
    </div>
    
    <div class="col-xs-2">
    <div class="form-group">
-  <a href="ipdpr.html" target="_blank" style="color:#fff;" class="btn btn-warning button1">View Prescription</a>
+  <a href="ipdpr.html" id="ipd" target="_blank" style="color:#fff;"  onclick="return chpn(this)" class="btn btn-warning button1">View Prescription</a>
   </div>
    </div>
    </div>
@@ -836,6 +849,7 @@ function ze(){
 </div>
 
 </div>
+  <span style="float:left;"><b>Last Modified : </b><input type="text" name="dissum" id="dissum" form="formd" style="border:none;" readonly="readonly"></span> 
   
 </div>
 
@@ -959,9 +973,8 @@ function ze(){
                 
 </div>
   --> 
- <b>Last Modified : </b><input type="text" name="dissum" id="dissum" form="formd" style="border:none;" readonly="readonly"> 
-</div>
- 
+ </div>
+ </div>
  <script type="text/javascript">
    
 $(function () {

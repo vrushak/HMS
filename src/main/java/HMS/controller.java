@@ -943,6 +943,34 @@ public class controller {
 				       model.put("bac", req.getParameter("location"));
 			return new ModelAndView("drugchart","model",model); 
 			}
+	// drug chart load from discharge
+		
+		@RequestMapping(value="/drugchart1aa", method = RequestMethod.GET)
+		public ModelAndView  drugchart1aa(Principal principal,Authentication authentication,HttpServletRequest req,HttpServletResponse res) {
+    authentication.getAuthorities();
+	    	
+	    	System.out.println("Authentication" +authentication.getAuthorities());
+	    	Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
+	    	String b = var.toString();
+	         
+			List<Iochart> list3; 
+					if(b.contains("[ROLE_NURSE]")){
+						//list3 =dao.getPatientdet(principal.getName());
+						list3 = dao.getPatientdet();
+					}
+					else
+					list3 = dao.getPatientdet();
+					 List<Prescription>list4 = dao.search();		
+					 Map<String, Object> model = new HashMap<String, Object>();
+				      
+				      
+				       model.put("list3", list3);
+				       model.put("list4", list4);
+				       model.put("bac", req.getParameter("location"));
+				       model.put("pname",req.getParameter("location1"));
+				       model.put("flno",req.getParameter("location2"));
+			return new ModelAndView("drugchart","model",model); 
+			}
 		
 		@RequestMapping(value="/saveDr", method = RequestMethod.POST)
 		public   @ResponseBody String  saveDr(HttpServletRequest req,HttpServletResponse res,@ModelAttribute("s") Drugchart s,BindingResult result,Principal principal,Authentication authentication) throws IOException,ServletException {

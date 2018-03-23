@@ -475,6 +475,7 @@ var user2a;
 	               //    $("#date").selectpicker("refresh");
 	       // alert(datec.date)
 	       document.getElementById("date").value = datec.date;
+	       $('#timestamp').val(datec.timestamp)
 	       /*
 		                   if ($("#datec option[value='"+encodeURIComponent(datec.date)+"']").length == 0){
 		               
@@ -699,6 +700,12 @@ $(document).ready(function(){
     		    $(":checkbox[name='movement']:not(:checked)").prop('disabled', false); 
     		 });
        });
+       
+       
+      function appendts(){
+    	  $('#timestamp').val('<c:out value="${pageContext.request.userPrincipal.name}" />  '+moment().format("DD-MM-YYYY HH:mm"))
+    		
+      } 
        </script>
 </head>
 <sec:authentication property="principal.authorities" var="username" />
@@ -761,7 +768,7 @@ $(document).ready(function(){
             <p>Patient Name<span></span></p>
              <select class="selectpicker form-control" data-size="4" data-live-search="true" name = "pname" id ="pname" onchange="run(this.options[this.selectedIndex])">
           <option value="Select" selected disabled>Select</option>
-        <c:forEach var="p"  items="${list3}">
+        <c:forEach var="p"  items="${model.list3}">
         <option value="${p.name}" data-subtext="${p.fileno},${p.admdate}" data-value="${p.name}=${p.pid}=${p.age}=${p.gender}=${p.fileno}=${p.admdate}=${p.wardno}=${p.doctsig}=${p.nursesig}=${p.admitno}">${p.name}</option>
         </c:forEach>
       </select>
@@ -879,7 +886,7 @@ $(document).ready(function(){
       
       <br>
             <div class="form-group row" >
-	     <div class="col-xs-4"></div>
+	     <div class="col-xs-3"></div>
 	       <div class="col-xs-3">
 	        <div class="form-group">
 	          
@@ -889,6 +896,10 @@ $(document).ready(function(){
       </select>
       </div>
 	        </div>
+	          <div class="col-xs-5"> 
+	     <div class="form-group"><b>Last Modified : </b><input type="text" name="timestamp" id="timestamp" form="forma" style="border:none;width:200px;" readonly="readonly"></div> 
+       </div>
+	    
 	      </div>
 	      
       
@@ -941,7 +952,7 @@ $(document).ready(function(){
 	      </div>
 	      </div>
 	      
-<button type="submit" value="submit" id="bc" name="save" class="bouton-contact" form="forma" >Save</button>
+<button type="submit" value="submit" id="bc" name="save" onclick="appendts()" class="bouton-contact" form="forma" >Save</button>
    </div>
    </div>
   

@@ -324,7 +324,16 @@ function setline(id){
 	window.location = "/HMS/treatment.html";
 		}
 	}
-
+	function openmd2(pnamea,fileno){
+	     
+		   $('#pname option[data-price="'+fileno+'"]').prop('selected', true).change();
+	       $('#pname').selectpicker('refresh');
+	       
+	       $('#pname').on('change',function(){
+	    	   addname(this.options[this.selectedIndex]);
+	    	});
+	    
+	   }
 </script>
 </head>
 <sec:authentication property="principal.authorities" var="username" />
@@ -372,10 +381,10 @@ function setline(id){
 	      <div class="col-xs-3">
   <div class="form-group">
             <p>Patient Name<span>*</span></p>
-             <select class="selectpicker form-control" data-size="4" data-live-search="true" name = "pname" id ="pname" onchange="addname(addname(this.options[this.selectedIndex]))"   >
+             <select class="selectpicker form-control" data-size="4" data-live-search="true" name = "pname" id ="pname" onchange="addname(this.options[this.selectedIndex])"   >
           <option value="select" data-value="select" selected disabled>Select</option>
         <c:forEach var="p"  items="${model.list1}">
-        <option value="${p.pname}" data-subtext="${p.fileno},${p.admdate}" data-value="${p.pid},${p.pname},${p.admdate},${p.admitno},${p.fileno}">${p.pname}</option>
+        <option value="${p.pname}" data-subtext="${p.fileno},${p.admdate}" data-price="${p.fileno}" data-value="${p.pid},${p.pname},${p.admdate},${p.admitno},${p.fileno}">${p.pname}</option>
         </c:forEach>
       </select>
        
@@ -461,6 +470,9 @@ check('<c:out value="${p.pname}" />','<c:out value="${p.pid}" />','<c:out value=
 </c:forEach>
 <script>
 datasuccess('<%=request.getParameter("message")%>')
+</script>
+<script>
+openmd2('<c:out value="${model.pname}" />','<c:out value="${model.flno}" />');
 </script>
 </body>
 </html>

@@ -1053,7 +1053,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 				});
 			}
 			public int saveG(glasgowcoma g) {
-				   String sql="insert into glasgowcoma(pid,fileno,admitno,date,spontaneous,response,obey,total) values('"+g.getPid()+"','"+g.getFileno()+"','"+g.getAdmitno()+"','"+g.getDate()+"','"+g.getOpener()+"','"+g.getVerbal()+"','"+g.getMotor()+"','"+g.getTotal()+"') on duplicate key update date='"+g.getDate()+"',spontaneous='"+g.getOpener()+"',response='"+g.getVerbal()+"',obey='"+g.getMotor()+"',total='"+g.getTotal()+"'";  
+				   String sql="insert into glasgowcoma(pid,fileno,admitno,date,spontaneous,response,obey,total,timestamp) values('"+g.getPid()+"','"+g.getFileno()+"','"+g.getAdmitno()+"','"+g.getDate()+"','"+g.getOpener()+"','"+g.getVerbal()+"','"+g.getMotor()+"','"+g.getTotal()+"','"+g.getTimestamp()+"') on duplicate key update date='"+g.getDate()+"',spontaneous='"+g.getOpener()+"',response='"+g.getVerbal()+"',obey='"+g.getMotor()+"',total='"+g.getTotal()+"',timestamp='"+g.getTimestamp()+"'";  
 				    return template.update(sql);  
 				    
 				}  				
@@ -1085,7 +1085,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 				});
 			}
 			public int saveB(blantyrecoma b) {
-				   String sql="insert into blantyrecoma(pid,fileno,admitno,date,localize,cry,dir,total) values('"+b.getPid()+"','"+b.getFileno()+"','"+b.getAdmitno()+"','"+b.getDate()+"','"+b.getBestmotor()+"','"+b.getResponse()+"','"+b.getMovement()+"','"+b.getTotal()+"') on duplicate key update  date='"+b.getDate()+"',localize='"+b.getBestmotor()+"',cry='"+b.getResponse()+"',dir='"+b.getMovement()+"',total='"+b.getTotal()+"'";  
+				   String sql="insert into blantyrecoma(pid,fileno,admitno,date,localize,cry,dir,total,timestamp) values('"+b.getPid()+"','"+b.getFileno()+"','"+b.getAdmitno()+"','"+b.getDate()+"','"+b.getBestmotor()+"','"+b.getResponse()+"','"+b.getMovement()+"','"+b.getTotal()+"','"+b.getTimestamp()+"') on duplicate key update  date='"+b.getDate()+"',localize='"+b.getBestmotor()+"',cry='"+b.getResponse()+"',dir='"+b.getMovement()+"',total='"+b.getTotal()+"',timestamp='"+b.getTimestamp()+"'";  
 				    return template.update(sql);  
 				} 
 			public List<Admitpat> getAdmitpat11() {
@@ -1171,7 +1171,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 			public List<glasgowcoma> getPatientdet3(String admitno, String id) {
 				// TODO Auto-generated method stub
 				   
-				return template.query(" select spontaneous,response,obey,date,total from glasgowcoma where admitno='"+admitno+"' and date='"+id+"' ",new RowMapper<glasgowcoma>(){  
+				return template.query(" select spontaneous,response,obey,date,total,timestamp from glasgowcoma where admitno='"+admitno+"' and date='"+id+"' ",new RowMapper<glasgowcoma>(){  
 			        public glasgowcoma mapRow(ResultSet rs, int row) throws SQLException {   
 				       glasgowcoma i = new glasgowcoma();
 				       i.setOpener(rs.getString(1));
@@ -1179,6 +1179,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 				       i.setVerbal(rs.getString(2));
 				       i.setDate(rs.getString(4));
 				       i.setTotal(rs.getString(5));
+				       i.setTimestamp(rs.getString(6));
 				       return i;
 			        }
 				});
@@ -1248,7 +1249,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 			public List<blantyrecoma> getPatientdet31(String admitno, String id) {
 				// TODO Auto-generated method stub
 				   
-				return template.query(" select localize,cry,dir,date,total from blantyrecoma where admitno='"+admitno+"' and date='"+id+"' ",new RowMapper<blantyrecoma>(){  
+				return template.query(" select localize,cry,dir,date,total,timestamp from blantyrecoma where admitno='"+admitno+"' and date='"+id+"' ",new RowMapper<blantyrecoma>(){  
 			        public blantyrecoma mapRow(ResultSet rs, int row) throws SQLException {   
 			        	blantyrecoma i = new blantyrecoma();
 				       i.setBestmotor(rs.getString(1));
@@ -1256,6 +1257,7 @@ public List<Prescription> getDocIDdiag(String username,String userrole,String cd
 				       i.setMovement(rs.getString(3));
 				       i.setDate(rs.getString(4));
 				       i.setTotal(rs.getString(5));
+				       i.setTimestamp(rs.getString(6));
 				       return i;
 			        }
 				});

@@ -974,9 +974,11 @@ user2b = user4;
 	        	   var tableRef = document.getElementById('myTable1').getElementsByTagName('tbody')[0];
 	        	  
 	     	 if(response.list6.length == 0 && tableRef.rows.length == 0){
+	     	
 	     		 display(user2a,user2b)
 	     	 }
-	     	 else{  $("#myTable1 .tbody1 tr").remove();}
+	     	 else if(response.list6.length != 0){  $("#myTable1 .tbody1 tr").remove();}
+	     	 else{}
 	        	   $.each(response.list6, function(index, datec) {
 	        		   
 	            if ($("#date option[value="+datec.date+"]").length == 0){
@@ -1491,6 +1493,17 @@ $(function () {
 	    window.history.back();
 	}
   
+	function openmd2(pnamea,fileno){
+	
+		   $('#pname option[data-price="'+fileno+'"]').prop('selected', true).change();
+	       $('#pname').selectpicker('refresh');
+	       
+	       $('#pname').on('change',function(){
+	    	   addname(this.options[this.selectedIndex]);
+	    	});
+	    
+	   }
+  
   </script>
 </head>
 <sec:authentication property="principal.authorities" var="username" />
@@ -1565,7 +1578,7 @@ $(function () {
      
           <option value='Select' selected disabled>Select</option>
       <c:forEach var="p"  items="${model.list3}">
-        <option value="${p.name}" data-subtext="${p.fileno},${p.admdate}" data-value="${p.name},${p.pid},${p.age},${p.gender},${p.fileno},${p.admdate},${p.wardno},${p.doctsig},${p.nursesig},${p.admitno}">${p.name}</option>
+        <option value="${p.name}" data-subtext="${p.fileno},${p.admdate}" data-price="${p.fileno}" data-value="${p.name},${p.pid},${p.age},${p.gender},${p.fileno},${p.admdate},${p.wardno},${p.doctsig},${p.nursesig},${p.admitno}">${p.name}</option>
         </c:forEach>
       </select>
        
@@ -1847,6 +1860,9 @@ $(function () {
     
 <script>
 var bac = '<c:out value='${model.bac}'/>';
+</script>
+<script>
+openmd2('<c:out value="${model.pname}" />','<c:out value="${model.flno}" />');
 </script>
 </body>
 </html>
