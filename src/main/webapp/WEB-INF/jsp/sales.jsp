@@ -251,8 +251,8 @@ function disp(){
 	window.print();
 	
 	$(".ft").show();
-	$("#ch").text("Sales");
-	$("#chbox").next("span").andSelf().Show(); 
+	$("#ch").text("Sales");	
+	$("#chbox").next("span").andSelf().show(); 
 	$('.table-responsive').addClass('table-responsive');
 	document.getElementById("addbt").style.display = "block";
 	document.getElementById("gtot").style.visibility = "visible";
@@ -360,14 +360,24 @@ function verifyproAdd(){
 	//var x3 = document.getElementById("saleCustPhone").value;
 	//var x4 = document.getElementByName("quantity").value;
 	
+	var x5 =document.getElementsByName("unit");
+	for(var i = 0;i<x5.length;i++){
+		if(x5[i].value == 0){
+			alert("Quantity sold cannot be equal to 0")
+			return false;
+		}
+	}
+	
 	var x5 =document.getElementsByName("qty[]");
 	for(var i = 0;i<x5.length;i++){
 		if(x5[i].value == 0){
-			alert("Selling Pack Size cannot be 0")
+			alert("Selling Pack Size cannot be zero")
 			return false;
 		}
 	}
 
+	
+	
 	var x5 =document.getElementsByName("spsize");
 	for(var i = 0;i<x5.length;i++){
 		if(x5[i].value == 0){
@@ -383,18 +393,22 @@ function verifyproAdd(){
 	   return false;
 	}
 	
-    else if((document.getElementById("gTotal").value) == 0)  {
-		alert("Please click on Generate Total button to calculate total"); 
-	return false;
-	  }
+   
     
 	else{
-		
+  totalIt()
 		return true;
 	}
 	
 }
 
+function verifyproAdd1(){
+	 if((document.getElementById("gTotal").value) == 0)  {
+			alert("Please click on Generate Total button to calculate total"); 
+		return false;
+		  }
+	 else{return true;}
+}
 function getCount(){
 	var x = document.getElementById("myTable").rows.length-1;
     document.getElementById("totalItems").value=x;
@@ -705,34 +719,35 @@ function checkSp(type,value){
 			var x=this.cells;
 	      
 			var qty = document.getElementById("unitSale").value;
-			var spsize = document.getElementById("spsize").value;
-			var up1 = document.getElementById("up1").value;
+			var spsize = document.getElementsByName("spsize").value;
+			var up1 = document.getElementsByName("up1").value;
 			
 			if(spsize<1){
-	   			alert("Selling Pack Size cant be equals to 0")
+	   			alert("Selling Pack Size cannot be equal to 0")
 	   			return false;
 	   		}
 			
 	   		if(qty<1){
-	   			alert("Quantity sold cant be equals to 0")
+	   			alert("Quantity sold cannot be equal to 0")
 	   			return false;
 	   		}	
 	   		
 	   		if(up1<1){
-	   			alert("Unit SP cant be equals to 0")
+	   			alert("Unit SP cannot be equal to 0")
 	   			return false;
 	   		}
 			
 	      if(Number(x[7].getElementsByTagName('input')[0].value) < Number(x[9].getElementsByTagName('input')[0].value))
 		    {
+	    	  
 		       //$(this).find("td:eq(2) span").text("matched");
-		      alert("Sales quantity cannot exceed product stocks")
-		      //  document.getElementById("bouton-contact").disabled = true;
+		      alert("Sales quantity cannot exceed product stocks for Product Name "+x[1].getElementsByTagName('input')[0].value+" and Batch no "+x[2].getElementsByTagName('input')[0].value)
+		      document.getElementById("bouton-contact").disabled = true;
 
 		      return false;
 		    		    }   
 		    else{
-		    //	  document.getElementById("bouton-contact").disabled = false;
+		    	  document.getElementById("bouton-contact").disabled = false;
 		    return true;	  
 		    }
 		});
@@ -1149,7 +1164,11 @@ function highlightDuplicates() {
     	   alert("Please select products")
     	   return false;
        }
-      
+       $('select[name=ean]').val("new");
+       $('#ean').selectpicker('refresh');	
+   	 		   
+   	   $('select[name=pname]').val("new");
+       $('#pname').selectpicker('refresh');	
        $.ajax({
          	  
 	           type: "GET",
@@ -1200,8 +1219,8 @@ function highlightDuplicates() {
       
         
         newCell = rowsAdd.insertCell();
-        newCell.innerHTML="<tr><td><input form ='saveSales' class='form-control input-sm'  readonly= 'readonly' type='text' id = 'expSale' name= 'expDate' value = '"+datec.expDate+"'></td></tr>";
-   
+        newCell.innerHTML="<tr><td><input form ='saveSales' class='form-control input-sm'  readonly= 'readonly' type='date' id = 'expSale' name= 'expDate' value = '"+datec.expDate+"'></td></tr>";
+        
 
         // sales pack desc
         newCell = rowsAdd.insertCell();
@@ -1209,7 +1228,7 @@ function highlightDuplicates() {
         
    // single pack size
         newCell = rowsAdd.insertCell();
-        newCell.innerHTML="<tr><td><input class='form-control input-sm' form='saveSales' onkeypress='return onlyNos(event,this);'   type='number' min='1' id = 'spsize' name='spsize' required   value = '"+datec.spsize+"' required></td></tr>";
+        newCell.innerHTML="<tr><td><input class='form-control input-sm' form='saveSales' onkeypress='return onlyNos(event,this);'   type='number' min='1' id = 'spsize' name='spsize' value = '"+datec.spsize+"' required></td></tr>";
         
  
         //single unit pack size
@@ -1227,14 +1246,14 @@ function highlightDuplicates() {
        
         //tot quantity in single unit  
         newCell = rowsAdd.insertCell();
-        newCell.innerHTML="<tr><td><input form='saveSales'  class='form-control input-sm' type='text' style='width: 100px;' id = '"+quantity+"'  name='qty[]' name='quantity'   value = '0' ></td></tr>";
+        newCell.innerHTML="<tr><td><input form='saveSales'  class='form-control input-sm' type='text' readonly style='width: 100px;' id = '"+quantity+"'  name='qty[]' name='quantity'   value = '0' ></td></tr>";
      
         
         
         //unit sp 
       
         newCell = rowsAdd.insertCell();
-        newCell.innerHTML="<tr><td class='pc'><input form ='saveSales' onkeypress='return onlyNos1(event,this);' class='form-control input-sm' type='text' id = '"+unitp+"' name= 'unitprice' value = '"+Number(datec.unitprice).toFixed(2)+"'></td></tr>";
+        newCell.innerHTML="<tr><td class='pc'><input form ='saveSales' onkeypress='return onlyNos1(event,this);' class='form-control input-sm' type='text' id = '"+unitp+"' name= 'unitprice' required value = '"+Number(datec.unitprice).toFixed(2)+"'></td></tr>";
        
        
        // newCell = rowsAdd.insertCell();
@@ -1284,7 +1303,11 @@ if(supplier == "Select"){
 else{
     	      //  var name = $('#pname').val();
       // var user3 = document.getElementById("sinvoice").value;
+   $("#fileno").val('')
    
+   var url = "/HMS/salespdf1?invoice="+supplier+"" ;
+   var element = document.getElementById('close');
+   element.setAttribute("href",url)
       $.ajax({
          	  
 	           type: "GET",
@@ -1300,12 +1323,15 @@ else{
 	     
 	     $("#myTable tbody tr").remove();
 	        	   $.each(response, function(index, datec) {
+	        		   $("#fileno").val(datec.fileno)
+	        	   
                              	document.getElementById("chbox").disabled = true;
 	        		   document.getElementById("invoicedate").value = datec.invoiceDate;
 	        
 	        		   document.getElementById("author").value = datec.author;
 	        		   document.getElementById("sex").value  = datec.gender ;
 	        		   document.getElementById("age").value = datec.age;
+	        		  
 	        		   document.getElementById("totalItems").value = datec.titems;
 	        		  
 	        		   document.getElementById("subTotal").value = datec.subt;
@@ -1331,11 +1357,13 @@ else{
 	        		   document.getElementById('ean').disabled = true;
 	        		   document.getElementById('pname').disabled = true;
 	        		   document.getElementById('addbt').disabled = true;
+	        		   document.getElementById('gtot').disabled = true;
+	        		   $('#tax').prop('readonly',true)
 	                   //to print name of employee
 	       var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
      //      var rowsAdd = tableRef.insertRow(tableRef.rows.length);  
        
-    	getCount();
+    	//getCount();
          
            var idx = document.getElementById("myTable").rows.length;
            var quantity =  "quantity"+idx;
@@ -1417,7 +1445,7 @@ else{
 //}
 	        	   */
 	        	   
-	        	   var markup = "<tr><td class='pc'>"+idx+"</td><td class='pc'><input type = 'text' class='form-control input-sm' form ='saveSales' disabled name = 'ean' id='eans' value='"+datec.ean+"'></td><td><textarea rows='1' cols='30' form ='saveSales' disabled class='form-control input-sm' id = '"+pr+"' name= 'pname' value = '"+datec.pname+"' oninput='auto_grow(this)' required>"+datec.pname+"</textarea></td><td class='pc'><input form ='saveSales'  class='form-control input-sm' disabled type='text' id = 'batchSale' name= 'batch' value = '"+datec.batch+"'></td><td class='pc'><input form ='saveSales' class='form-control input-sm'  readonly= 'readonly' type='text' id = 'expSale' name= 'expDate' value = '"+datec.expDate+"'></td><td><input class='form-control input-sm' form='saveSales'   type='text'  id = 'spack' name='spack' disabled required value ='"+datec.sdesc+"' required></td><td class='pc'><input class='form-control input-sm' form='saveSales'   type='text'  id = 'spsize' name='spsize' disabled value = '"+datec.spsize+"' required></td><td class='pc'><input class='form-control input-sm ' form ='saveSales'  type='text' id = 'sudesc'   name= 'sudesc' disabled required value = '"+datec.sudesc+"' ></td><td class='pc'><input form ='saveSales'  class='form-control input-sm' disabled type='text' id = '"+stks+"' name='stk[]'  value = '"+datec.stock+"'></td><td><input  form ='saveSales' type='text' class='form-control input-sm' disabled name= 'unit' id = 'unitSale' value= "+datec.unit+"></td><td><input form='saveSales'  class='form-control input-sm' type='number'  id = '"+quantity+"'  name='qty[]' name='quantity' value='"+datec.quantity+"'disabled ></td><td class='pc'><input form ='saveSales' onkeypress='return onlyNos(event,this);' disabled class='form-control input-sm' type='text' id = '"+unitp+"' name= 'unitprice' value = '"+datec.unitprice+"'></td><td class='pc'><input  class='form-control input-sm' form ='saveSales' disabled type='text' id = '"+total+"'  name='price[]'  value = '"+datec.total+"'></td><td><i class='fa fa-trash-o' style='font-size:20px'onclick='deleteRow(this)'></i><input type='hidden' id='"+sk+"' value='"+datec.quantity+"'></td></tr>";
+	        	   var markup = "<tr><td class='pc'>"+idx+"</td><td class='pc'><input type = 'text' class='form-control input-sm' form ='saveSales' disabled name = 'ean' id='eans' value='"+datec.ean+"'></td><td><textarea rows='1' cols='30' form ='saveSales' disabled class='form-control input-sm' id = '"+pr+"' name= 'pname' value = '"+datec.pname+"' oninput='auto_grow(this)' required>"+datec.pname+"</textarea></td><td class='pc'><input form ='saveSales'  class='form-control input-sm' disabled type='text' id = 'batchSale' name= 'batch' value = '"+datec.batch+"'></td><td class='pc'><input form ='saveSales' class='form-control input-sm'  readonly= 'readonly' type='date' id = 'expSale' name= 'expDate' value = '"+datec.expDate+"'></td><td><input class='form-control input-sm' form='saveSales'   type='text'  id = 'spack' name='spack' disabled required value ='"+datec.sdesc+"' required></td><td class='pc'><input class='form-control input-sm' form='saveSales'   type='text'  id = 'spsize' name='spsize' disabled value = '"+datec.spsize+"' required></td><td class='pc'><input class='form-control input-sm ' form ='saveSales'  type='text' id = 'sudesc'   name= 'sudesc' disabled required value = '"+datec.sudesc+"' ></td><td class='pc'><input form ='saveSales'  class='form-control input-sm' disabled type='text' id = '"+stks+"' name='stk[]'  value = '"+datec.stock+"'></td><td><input  form ='saveSales' type='text' class='form-control input-sm' disabled name= 'unit' id = 'unitSale' value= "+datec.unit+"></td><td><input form='saveSales'  class='form-control input-sm' type='number'  id = '"+quantity+"'  name='qty[]' name='quantity' value='"+datec.quantity+"'disabled ></td><td class='pc'><input form ='saveSales' onkeypress='return onlyNos(event,this);' disabled class='form-control input-sm' type='text' id = '"+unitp+"' name= 'unitprice' value = '"+datec.unitprice+"'></td><td class='pc'><input  class='form-control input-sm' form ='saveSales' disabled type='text' id = '"+total+"'  name='price[]'  value = '"+datec.total+"'></td><td><i class='fa fa-trash-o' style='font-size:20px'onclick='deleteRow(this)'></i><input type='hidden' id='"+sk+"' value='"+datec.quantity+"'></td></tr>";
         $('#myTable .tbody').append(markup);   
     
         $("#myTable th:eq(0), #myTable td:nth-child(1)").hide();
@@ -1524,6 +1552,16 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
 		   
 	   }
    }
+   
+   function chid(id){
+	   if($('#sinvoice').val() == "Select"){
+		   alert("Please select Invoice Id")
+		   return false;
+	   }
+	   else{
+		   return true;
+	   }
+   }
    </script>    
 </head>
 
@@ -1569,7 +1607,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
  <div id="form1" >  
   
      <h1> <font id="ch" size="5">Sales </font> <span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i></span>
-      <button type="button" id="close" class="btn btn-warning button2"  onclick="return disp();">Print</button>    
+      <a href="#" id="close" onclick="return chid(this)" target="_blank" class="btn btn-warning button2" >Print</a>    
      
      </h1>
      
@@ -1653,7 +1691,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
   <div class="col-xs-2">
 	       <div class="form-group">
 
-   <p>Cust Discount% : <span>*</span></p>
+   <p>Cust Discount(%) : <span>*</span></p>
 <input  type="text" class="form-control input-sm" maxlength="3" name="cdiscount" id="cdiscount"  onkeypress='return onlyNos(event,this);' value="0" form ="saveSales" >
 <input  type="hidden"  id="med" name = "med" >
      </div>
@@ -1680,7 +1718,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
  </c:forEach>
  
   <c:forEach var="sale1"  items="${model.list11}">
-  <option class="pat"  value = "${sale1.pid},${sale1.fname},${sale1.landphone},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.pid}</option>
+  <option class="pat"  value = "${sale1.pid},${sale1.fname},${sale1.mobile},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.pid}</option>
  </c:forEach>
  </select>
  </form>
@@ -1698,7 +1736,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
  </c:forEach>
  
    <c:forEach var="sale1"  items="${model.list11}">
-  <option class="pat" data-subtext="${sale1.dob}" value = "${sale1.pid},${sale1.fname},${sale1.landphone},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.fname}</option>
+  <option class="pat" data-subtext="${sale1.dob}" value = "${sale1.pid},${sale1.fname},${sale1.mobile},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.fname}</option>
  </c:forEach>
  
  </select>
@@ -1718,7 +1756,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
  </c:forEach>
  
    <c:forEach var="sale1"  items="${model.list11}">
-  <option class="pat" value = "${sale1.pid},${sale1.fname},${sale1.landphone},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.landphone}</option>
+  <option class="pat" value = "${sale1.pid},${sale1.fname},${sale1.mobile},${sale1.gender},${sale1.age},${sale1.dob}">${sale1.mobile}</option>
  </c:forEach>
  </select>
  </form>
@@ -1864,7 +1902,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
 	    
 <div class="col-xs-2">
  <div class="form-group">
- <button type="button" class="btn btn-warning button1" id='gtot' onclick='totalIt()'>
+ <button type="button" class="btn btn-warning button1" id='gtot' onclick='return verifyproAdd()'>
 	  <span class="fa fa-refresh fa-spin"></span> Generate Total</button></div>
 	 
  </div>
@@ -1874,7 +1912,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
 	      <div class="col-xs-3">
 	      
 	      <div class="form-group">
-    <input type="submit" form="saveSales" class="btn btn-warning button1" id='bouton-contact' value="Save" onclick="return verifyproAdd()">
+    <input type="submit" form="saveSales" class="btn btn-warning button1" id='bouton-contact' value="Save" onclick="return verifyproAdd1()">
 	  </div>
 	  
 	  </div>
@@ -1902,8 +1940,8 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
                     
                   
                 <tr>
-                    <td colspan="" class="total-line meta-head">Tax%</td>
-		      <td class="total-value"><div id=""><input form ="saveSales" value="0.00" type="text" class="form-control input-sm rem" name="tax" onkeypress='return onlyNos(event,this);' min="0"  id="tax" onmouse="alert("please click on generate total");"></div></td>
+                    <td colspan="" class="total-line meta-head">Tax(%)</td>
+		      <td class="total-value"><div id=""><input form ="saveSales" value="0" type="text" class="form-control input-sm rem" name="tax" onkeypress='return onlyNos(event,this);' min="0"  id="tax" onmouse="alert("please click on generate total");"></div></td>
                 </tr>
                 <tr>
              

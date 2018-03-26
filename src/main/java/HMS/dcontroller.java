@@ -91,7 +91,7 @@ public class dcontroller {
 			 RedirectView redirectView = new RedirectView();
 		     redirectView.setUrl("/HMS/doctor.html");
 	        return mav; 
-			}
+			}/*
 		 @RequestMapping(value="/prescription")
 		 public  ModelAndView prescription(@ModelAttribute("p") Prescription s,Principal principal,Authentication authentication) {
 		 	 
@@ -122,7 +122,7 @@ public class dcontroller {
 		     model.put("list4", list4);
 		       model.put("list16", list16);
 		 	return new ModelAndView("prescriptiongen2","model",model); 
-		 	}
+		 	}*/
 		 /*
 		 privsyr Prescription 
 		 
@@ -416,6 +416,30 @@ public class dcontroller {
 		 	return new ModelAndView("treatment","model",model); 
 		 	}
 		   
+		   //loading from discharge
+		   
+		   @RequestMapping(value="/treatment1", method = RequestMethod.GET)
+		 public ModelAndView treatmentrecord1(@ModelAttribute("p") Admitpat p,Principal principal,Authentication authentication,HttpServletRequest request,HttpServletResponse response) {
+			   
+			   Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
+		    	String b = var.toString();
+		    	
+		 	//List<Admitpat> list1= dao.getAdmitpat();
+		 	List<Admitpat> list1= dao.getAdmitpat(principal.getName(),b);
+		 	if(list1.isEmpty()){
+		 	
+		 		p.setIdc(b);
+		 	list1.add(p);
+		 	}
+		 	
+		 	Map<String, Object> model = new HashMap<String, Object>();
+		      
+		       model.put("list1", list1);
+		       model.put("pname", request.getParameter("location"));
+		       model.put("flno",request.getParameter("location2"));
+		 	return new ModelAndView("treatment","model",model); 
+		 	}
+		   
 		   @RequestMapping(value="/vtreatment", method = RequestMethod.GET)
 		 public ModelAndView vtreatmentrecord(@ModelAttribute("p") Treatment p,Principal principal,Authentication authentication) {
 		 		
@@ -485,7 +509,7 @@ public class dcontroller {
 		 	 
 			   Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 		    	String b = var.toString();
-		 	    List<Admitpat> list1= ddao.getAdmitpat1(principal.getName(),b);
+		 	    List<Admitpat> list1= ddao.getAdmitpat1(principal.getName(),b,"discharge");
 		 	    List<Discharge> list2 = ddao.getDischarge("no"); 
 		 	    Map<String,Object> model = new HashMap<String, Object>();
 		 	
@@ -500,7 +524,7 @@ public class dcontroller {
 			   System.out.println("Authentication" +authentication.getAuthorities());
 		    	Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 		    	String b = var.toString();
-		 	    List<Admitpat> list1= ddao.getAdmitpat1(principal.getName(),b);
+		 	    List<Admitpat> list1= ddao.getAdmitpat1(principal.getName(),b,"dslip");
 		 	   List<Dslip> list2 = ddao.getDslip(); 
 		 	    Map<String,Object> model = new HashMap<String, Object>();
 		 	
@@ -514,12 +538,18 @@ public class dcontroller {
 		 	 int saved = 0;
 		 		saved = dao.saved(s);
 		 		ModelAndView  mav = new ModelAndView();
-		 		if(saved > 0){
+		 		if(saved > 0 && s.getFreeze().contentEquals("no")){
+		 		
 		 		mav.addObject("message", "The record has been saved sucessfully");
 		 		mav.setViewName("redirect:discharge");		    
 		 						    
 		 		}
-
+		 		else if(saved > 0 && s.getFreeze().contentEquals("yes")){
+			 		
+			 		mav.addObject("message", "Record has been saved successfully. The record is available for printing in Print Documents - Print Discharge Summary");
+			 		mav.setViewName("redirect:discharge");		    
+			 						    
+			 		}
 		 		else{
 		 		mav.addObject("message", "Record could not be saved successfully ");
 		 		mav.setViewName("redirect:discharge");
@@ -569,13 +599,13 @@ public class dcontroller {
 		   	return jsonFormatData; 
 		   	}
 		   
-		   @RequestMapping(value="/dischargefile/{id}", method = RequestMethod.GET)
-		   public @ResponseBody String Dischargefile(@PathVariable String id) {
+		   @RequestMapping(value="/dischargefile", method = RequestMethod.GET)
+		   public @ResponseBody String Dischargefile(HttpServletRequest req, HttpServletResponse response) {
 		 	  	 
 		   	  String jsonFormatData = "";
 		   	
 		       
-		       List<Prescription>list3a = ddao.getFilenos(id);
+		       List<Prescription>list3a = ddao.getFilenos(req.getParameter("location1"),req.getParameter("location2"));
 		     
 		  
 		        Gson gson = new Gson(); 
@@ -672,6 +702,22 @@ public class dcontroller {
 			      
 			       model.put("list1", list1);
 			       model.put("list4", list4);
+		 	 	return new ModelAndView("prescriptiongen4","model",model); 
+		 }		
+		   //load from discharge
+		   
+		   @RequestMapping(value="/ipdpr1", method = RequestMethod.GET)
+		   public ModelAndView prpr21(Principal principal,HttpServletRequest req, HttpServletResponse response) {
+		 	 
+				List<Admitpat> list1= ddao.getAdmitpat1();
+				List<Prescription>list4 = dao.search();
+				 Map<String, Object> model = new HashMap<String, Object>();
+			      
+			      
+			       model.put("list1", list1);
+			       model.put("list4", list4);
+			       model.put("pname", req.getParameter("location1"));
+			       model.put("flno", req.getParameter("location2"));
 		 	 	return new ModelAndView("prescriptiongen4","model",model); 
 		 }		
 		   
@@ -839,8 +885,10 @@ public class dcontroller {
 
 }
 		   @RequestMapping(value="/sick", method = RequestMethod.GET)
-			public ModelAndView sick(@ModelAttribute("s") Appointment p) {
-				List<Appointment> list2=ddao.getappointment1();  
+			public ModelAndView sick(@ModelAttribute("s") Appointment p,Principal principal,Authentication authentication) {
+			   Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
+		    	String b = var.toString();
+				List<Appointment> list2=ddao.getappointment1(principal.getName(),b);  
 			    List<Sick> list3= ddao.getsick();
 				 Map<String, Object> model = new HashMap<String, Object>();
 			       model.put("list2",list2);
@@ -875,8 +923,11 @@ public class dcontroller {
 		  
 		
 		   @RequestMapping(value="/referral", method = RequestMethod.GET)
-			public ModelAndView referral(@ModelAttribute("r")  Referral r) {
-			   List<Appointment> list2=ddao.getappointment();			
+			public ModelAndView referral(@ModelAttribute("r")  Referral r,Principal principal,Authentication authentication) {
+			   Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
+		    	String b = var.toString();
+			   
+			   List<Appointment> list2=ddao.getappointment(principal.getName(),b);			
 				List<Referral> list3= ddao.getreferral();
 			   
 				 Map<String, Object> model = new HashMap<String, Object>();
@@ -908,10 +959,11 @@ public class dcontroller {
 
 }
 		   @RequestMapping(value="/glasgowcoma", method = RequestMethod.GET)
-			public ModelAndView  glasgowcoma(Principal principal,Authentication authentication) {
+			public ModelAndView  glasgowcoma(Principal principal,Authentication authentication,
+					HttpServletRequest req,HttpServletResponse res) {
 	              authentication.getAuthorities();
 		    	
-		    	System.out.println("Authentication" +authentication.getAuthorities());
+		    	
 		    	Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 		    	String b = var.toString();
 		         
@@ -921,7 +973,11 @@ public class dcontroller {
 						}
 						else
 						list3 = dao.getPatientdet();
-				return new ModelAndView("glasgowcoma","list3",list3); 
+						Map<String, Object> model = new HashMap<String, Object>();
+					    model.put("list3", list3);
+					    model.put("bac", req.getParameter("location"));
+
+				return new ModelAndView("glasgowcoma","model",model); 
 				}
 		   @RequestMapping(value="/blantyrecomasc", method = RequestMethod.POST)
 		 	public ModelAndView  saveB(@ModelAttribute("b")blantyrecoma b ) {
@@ -946,10 +1002,10 @@ public class dcontroller {
 
 }
 		   @RequestMapping(value="/blantyrecoma", method = RequestMethod.GET)
-       public ModelAndView  blantyrecoma(Principal principal,Authentication authentication) {
+       public ModelAndView  blantyrecoma(Principal principal,Authentication authentication,HttpServletRequest req,HttpServletResponse res) {
     authentication.getAuthorities();
 	
-	System.out.println("Authentication" +authentication.getAuthorities());
+	
 	Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 	String b = var.toString();
    
@@ -959,7 +1015,10 @@ public class dcontroller {
 			}
 			else
 			list3 = dao.getPatientdet();
-	return new ModelAndView("blantyrecoma","list3",list3); 
+			Map<String, Object> model = new HashMap<String, Object>();
+		    model.put("list3", list3);
+		    model.put("bac", req.getParameter("location"));
+	return new ModelAndView("blantyrecoma","model",model); 
 	}
 		   
 		   @RequestMapping(value="/glasgow1", method = RequestMethod.GET)
@@ -1185,7 +1244,39 @@ public class dcontroller {
 
 				 	return new ModelAndView("diagnoseuser","model",model);  
 								}
+		  //load diagnosed details data from prescription screen
 		  
+		  @RequestMapping(value="/diagnose2", method = RequestMethod.GET)
+			 public ModelAndView  diagnose2(Prescription s,Principal principal,Authentication authentication,HttpServletRequest req, HttpServletResponse response) {
+
+		 
+				  authentication.getAuthorities();
+				  Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
+				  String b = var.toString();
+				 	List<Prescription> list1= ddao.getDocID2(principal.getName(),b);
+				 	if(list1.isEmpty()){
+				 		s.setDocid(b);
+				 	list1.add(s);
+				 	}
+				     List<Patient> list2= dao.getPatientId1();
+				     List<Diagnose>list3 = ddao.getHistvalue("diagnose");
+				     List<Vitals> list15= ndao.getVitals(principal.getName());
+					 List<Appointment> list16 = ddao.getAppointment1();
+					 //List<Appointment> list3= dao.getAppointment();
+				     List<Prescription>list4 = dao.search();
+				 
+				     Map<String, Object> model = new HashMap<String, Object>();
+				       model.put("list1", list1);
+				       model.put("list2", list2);
+				       model.put("list3", list3);
+				       model.put("list4", list4);
+				       model.put("list16", list16);
+				       model.put("pnamea", req.getParameter("pnamea"));
+
+				      
+
+				 	return new ModelAndView("diagnoseuser","model",model);  
+								}
 	
 		  @RequestMapping(value="/diagnosegc", method = RequestMethod.GET)
 			 public ModelAndView  diagnosegc(Prescription s,Principal principal,Authentication authentication,HttpServletRequest req, HttpServletResponse response) {
@@ -1271,6 +1362,8 @@ public class dcontroller {
 			      
 			 return jsonFormatData;
 	}
+	
+		  
 		  
 		  @RequestMapping(value="/loadtab", method = RequestMethod.POST)
 				public @ResponseBody String loadtab(@ModelAttribute("s") Diagnose s) {
@@ -1292,6 +1385,28 @@ public class dcontroller {
 			 return jsonFormatData;
 			
 		  }
+		  //for admission lab module
+		  @RequestMapping(value="/loadtab2", method = RequestMethod.POST)
+			public @ResponseBody String loadtab2(@ModelAttribute("s") Diagnose s) {
+					String jsonFormatData = "";
+				 int res = 0;
+				
+				 List<Diagnose> list5 = null;
+				
+				 list5 = ddao.getTabsvalue1("diagtab");
+				 
+				 Map<String, Object> model = new HashMap<String, Object>();
+			       model.put("list5", list5);
+				
+				 Gson gson = new Gson(); 
+
+				jsonFormatData = gson.toJson(list5);
+
+		       
+		 return jsonFormatData;
+		
+	  }
+		
 			
 			 @RequestMapping(value="/loadtxtvalues", method = RequestMethod.GET)
 				public @ResponseBody String loadtxt(HttpServletRequest req,@ModelAttribute("s") Diagnose s) {
@@ -1450,7 +1565,7 @@ public class dcontroller {
 			public @ResponseBody String updhtab(HttpServletRequest req,@ModelAttribute("s") Diagnose s) {
 					String jsonFormatData = "";
 				 int res = 0;
-				 int tabid = Integer.parseInt(req.getParameter("tabid"));
+				 //int tabid = Integer.parseInt(req.getParameter("tabid"));
 				 int hid = Integer.parseInt(req.getParameter("hid"));
 				 int level = Integer.parseInt(req.getParameter("level"));
 				 		
@@ -1621,6 +1736,39 @@ public ModelAndView  cdiagnose1(Prescription s,Principal principal,Authenticatio
 	       model.put("list4", list4);
 	       model.put("list16", list16);
 
+	      
+
+	 	return new ModelAndView("cdiagnoseuser","model",model);  
+					}
+
+//laod values based on history screen
+
+@RequestMapping(value="/cdiagnose2", method = RequestMethod.GET)
+public ModelAndView  cdiagnose2(Prescription s,Principal principal,Authentication authentication,HttpServletRequest req, HttpServletResponse response) {
+
+
+	  authentication.getAuthorities();
+	  Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
+	  String b = var.toString();
+	 	List<Prescription> list1= ddao.getDocID2(principal.getName(),b);
+	 	if(list1.isEmpty()){
+	 		s.setDocid(b);
+	 	list1.add(s);
+	 	}
+	     List<Patient> list2= dao.getPatientId1();
+	     List<Diagnose>list3 = ddao.getHistvalue("cdiagnose");
+	     List<Vitals> list15= ndao.getVitals(principal.getName());
+		 List<Appointment> list16 = ddao.getAppointment1();
+		 //List<Appointment> list3= dao.getAppointment();
+	     List<Prescription>list4 = dao.search();
+	 
+	     Map<String, Object> model = new HashMap<String, Object>();
+	       model.put("list1", list1);
+	       model.put("list2", list2);
+	       model.put("list3", list3);
+	       model.put("list4", list4);
+	       model.put("list16", list16);
+           model.put("pnamea",req.getParameter("pnamea"));  
 	      
 
 	 	return new ModelAndView("cdiagnoseuser","model",model);  
@@ -2049,5 +2197,49 @@ return jsonFormatData;
 
 	     return jsonFormatData;
 		}
- 
+
+//filter based on contents
+@RequestMapping(value="/retds", method = RequestMethod.GET)
+		public @ResponseBody String retds(HttpServletRequest req,@ModelAttribute("s") Diagnose s) {
+				String jsonFormatData = "";
+			
+			
+				List<Diagnose>listred = ddao.getHistvalue(req.getParameter("location2"),req.getParameter("location"));
+			// List<Diagnose> list1 = ddao.getHeaderVal1(tab,pid);
+			 Map<String, Object> model = new HashMap<String, Object>();
+		       
+		       model.put("listred", listred);
+		     //  model.put("list1", list1);
+			 Gson gson = new Gson(); 
+
+			jsonFormatData = gson.toJson(model);
+
+	       
+	 return jsonFormatData;
+	
+	
+	 
+	
+//get previous records
+	
+
+}
+@RequestMapping(value="/prescription")
+public  ModelAndView prescription(@ModelAttribute("p") Prescription s,Principal principal,Authentication authentication) {
+	 
+	 Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
+   	String b = var.toString();
+	 
+
+    
+    List<Diagnose>list3 = ddao.getCodc();
+   
+    
+   
+Map<String, Object> model = new HashMap<String, Object>();
+     
+      model.put("list3", list3);
+
+	return new ModelAndView("prescriptiongen2","model",model); 
+	}
 }

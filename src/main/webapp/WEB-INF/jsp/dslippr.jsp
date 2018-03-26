@@ -188,7 +188,7 @@ width : 1100px;
 function checkhome(user){
 	document.getElementById("hds").style.display = "none";
 	 var m = moment().format("DD-MM-YYYY");
-	document.getElementById("admdate").value= m;
+//	document.getElementById("admdate").value= m;
 	
 	if(user.includes("[ROLE_FDESK]")){
 		
@@ -345,7 +345,7 @@ function disp(){
   -->
     </ul>
      <ul class="nav navbar-nav navbar-right">
-      <li><a href="/HMS/prdocs"><span class="fa fa-arrow-left"></span>Back</a></li>
+      <li><a href="/HMS/prdocs"><span class="fa fa-arrow-left"></span>Back to Print Documents</a></li>
       
     </ul>
   </div>
@@ -452,14 +452,14 @@ function disp(){
         <div class="col-xs-1"></div>
        <div class="col-xs-3">
    <div class="form-group">
- <p>Date of admission<span></span></p>
+ <p>Date of Admission<span></span></p>
   <input type="text" name="admdate" id="admdate" form="formd" readonly="readonly" class="form-control input-sm"  >
   </div>
   </div>   
  
    <div class="col-xs-4">
    <div class="form-group">
-<p>Date of discharge<span></span></p>
+<p>Date of Discharge<span></span></p>
 <div class='input-group date' id='datetimepicker1'>
   <input type="text" name="disdate" id="disdate" form="formd" readonly class="form-control input-sm"  required>
    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar cal"></span></span>

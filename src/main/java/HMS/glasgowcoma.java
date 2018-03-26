@@ -20,7 +20,13 @@ public class glasgowcoma {
     private String obey;
 	private String total;
 	private String admitno;
-	
+	private String timestamp;
+	public String getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
 	public String getAdmitno() {
 		return admitno;
 	}

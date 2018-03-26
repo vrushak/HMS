@@ -28,7 +28,19 @@
 <script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/jquery-ui.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/jquery-confirm.min.js"></script>
+<style type="text/css">
+div.jconfirm-title-c {
+    background-color: #009999;
+    font-size : 10px;
+    color:white;
+    
+    }
+.jconfirm-buttons button{
+color : orange;
+}
 
+
+</style>
 <style type="text/css">
 
 .tab-pane{
@@ -140,15 +152,7 @@ if(adminusr.includes("[ROLE_ADMIN]")){
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		
-		  var url1 = "/HMS/prescription" ;
-			
-		 var element1 = document.getElementById('hc');
-		 element1.setAttribute("href",url1)
-		 
-		 var url2 = "/HMS/treatment" ;
-			
-		 var element = document.getElementById('m2');
-		 element.setAttribute("href",url2)
+	
 	}
 
 	else{
@@ -158,15 +162,7 @@ if(adminusr.includes("[ROLE_ADMIN]")){
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 
-		 var url1 = "/HMS/prescription";
 		
-		 var element1 = document.getElementById('hc');
-		 element1.setAttribute("href",url1)
-		 
-		  var url2 = "/HMS/treatment" ;
-			
-		 var element = document.getElementById('m2');
-		 element.setAttribute("href",url2)
 	}
 }
 
@@ -575,10 +571,20 @@ function copy(pid){
     document.getElementById("bc").style.display = "block";
    
 	
- if(moment(document.getElementById("appointment").value).format("DD-MM-YYYY") ==  moment().format("DD-MM-YYYY")){
-	
-	if(document.getElementById("time").value >=  moment().format("HH:mm")){
-	
+    if(strSplit[8].includes("on")){
+    	$("#sms").prop("checked",true)
+    }else{
+    	$("#sms").prop("checked",false)
+    }
+	 
+		var date = new Date(document.getElementById("appointment").value);
+		var date1 = new Date()
+	var longformat = date*1;
+	var longformat1 = date1*1;
+
+ if(moment(document.getElementById("appointment").value).format("DD-MM-YYYY") ==   moment().format("DD-MM-YYYY"))  {
+
+	if(document.getElementById("time").value >=  moment().format("HH:mm A")){
 	 document.getElementById("bouton-contact").disabled = false;
 	document.getElementById("bc").disabled = false;
  }
@@ -587,13 +593,20 @@ function copy(pid){
 			document.getElementById("bc").disabled = true;
 	}
  }
- else if(moment(document.getElementById("appointment").value).format("DD-MM-YYYY") <  moment().format("DD-MM-YYYY")){
+ else if(longformat < longformat1){
+
 	 document.getElementById("bouton-contact").disabled = true;
 	 document.getElementById("bc").disabled = true;
  }
+ else if(longformat >=  longformat1)  {
+	
+	 document.getElementById("bouton-contact").disabled = false;
+		document.getElementById("bc").disabled = false;
+	 }
  else{
 	 
  }
+ 
 
  if(strSplit[6] == "off"){
 	 document.getElementById("bouton-contact").disabled = true;
@@ -812,7 +825,12 @@ $.confirm({
         	
             //close
             $(val).attr("checked",false);
-            removeAll(ida,namea,moba)
+            if(namea == null){
+           	 namea=0;
+            }
+            if(namea.length > 0 && moba.length > 0 ){
+         	   removeAll(ida,namea,moba)   
+            }
         },
     }
 
@@ -833,14 +851,13 @@ $.confirm({
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a id ="ho" href="">Home</a></li>
-        <li class=""><a id="hc" href="">General Checkup</a></li>
-         <li class=""><a id="m2" href="">Treatment Records</a></li>  
-           <li class=""><a  href="/HMS/discharge">Discharge Summary</a></li>
-         
+      <li class=""><a  id="m3" href="/HMS/diagnose">Clinical Diagnosis</a></li>
+      <li class=""><a id="m2" href="/HMS/treatment">Patient Treatment Records</a></li>
+      <li class=""><a id="m4" href="/HMS/discharge">Discharge Summary</a></li>        
          </ul>
-         <br>
-         <i class='fa fa-arrow-left button2 rightspace' id="back" style='font-size:20px;color : #f0ad4e' onclick="window.location.href='/HMS/doctor1';"></i>
-     <!--      
+             <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
+    </ul>   <!--      
       <ul class="nav navbar-nav navbar-right">
        <li style ="color:#ff9900;"><span class="glyphicon glyphicon-log-in"></span> Welcome : ${pageContext.request.userPrincipal.name}</li>
       </ul>
@@ -873,7 +890,7 @@ $.confirm({
     <c:forEach var="p1"  items="${model.list1}">
     <tr>
     <td width="240px;" ><a href="" target="_self" onclick="copyval1('${p1.pid}','${p1.pname}','${p1.fileno}','${p1.docid}',this)" >${p1.pid}</a></td>
-    <td width="240px;"><a href="#"  onclick="copy('${p1.pid}==${p1.pname}==${p1.docid}==${p1.dname}==${p1.appointment}==${p1.fileno}==${p1.ac}==${p1.pas}')">${p1.pname}</a></td>
+    <td width="240px;"><a href="#"  onclick="copy('${p1.pid}==${p1.pname}==${p1.docid}==${p1.dname}==${p1.appointment}==${p1.fileno}==${p1.ac}==${p1.pas}==${p1.sms}')">${p1.pname}</a></td>
     <td width="240px;" class="trunk">${p1.dname}</td>
     <td width="240px;">${p1.appointment}</td>
 
@@ -988,7 +1005,7 @@ $.confirm({
     <input type="text" form="form1" id="fileno" value=""readonly="readonly" name="fileno" class="form-control input-sm" required>
     <input type="hidden" name="flag" form="form1" value="doc">
  
-    <input type="checkbox" name="sms" id="sms" form="form1">SMS Alerts       
+   <!--   <input type="checkbox" name="sms" id="sms" form="form1">SMS Alerts -->      
      <input type="checkbox" name="pat" id="pat" form="form1" onchange="return prompt(this)"><span>New Patient</span> 
  </div>
  

@@ -225,14 +225,14 @@ function checkhome(user){
 	else if(user.includes("[ROLE_ASSISTANT]")){
 	
 		 var url = "/HMS/frontdesk" ;
-		 $("#back").hide();
+		// $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 	}
 	else if(user.includes("[ROLE_DOCTOR]")){
 		
 		 var url = "/HMS/doctor1" ;
-		 $("#back").hide();
+	//	 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 	}
@@ -240,7 +240,7 @@ function checkhome(user){
 	else if(user.includes("[ROLE_Accounts Admin]")){
 		
 		 var url = "/HMS/frontdesk" ;
-		 $("#back").hide();
+	//	 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 
@@ -248,7 +248,7 @@ function checkhome(user){
 	else if(user.includes("[ROLE_NURSE]")){
 		
 		 var url = "/HMS/nursedesk" ;
-		 $("#back").hide();
+	//	 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 
@@ -262,7 +262,7 @@ function checkhome(user){
 	else if(user.includes("[ROLE_CHIEFNURSE]")){
 		
 		 var url = "/HMS/nursedesk" ;
-		 $("#back").hide();
+	//	 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 
@@ -324,8 +324,38 @@ function addname(getval){
 	
 }
 
-function goBack() {
-    window.history.back();
+function goBack(user) {
+	if(user.includes("[ROLE_ASSISTANT]")){
+		
+		 var url = "/HMS/frontdesk" ;
+		 window.location.href= url;
+	}
+	else if(user.includes("[ROLE_DOCTOR]")){
+		
+		 var url = "/HMS/prdocs" ;
+		 window.location.href= url;
+	}
+	
+	else if(user.includes("[ROLE_Accounts Admin]")){
+		
+		 var url = "/HMS/prdocs" ;
+		 window.location.href= url;
+		 
+		}
+	else if(user.includes("[ROLE_NURSE]")){
+		
+		 var url = "/HMS/nursedesk" ;
+		window.location.href = url;
+	}
+	else if(user.includes("[ROLE_CHIEFNURSE]")){
+		
+		    var url = "/HMS/nursedesk" ;
+			window.location.href = url;   
+	}
+	else{
+		    var url = "/HMS/prdocs" ;
+			window.location.href = url;
+	}
 }
 
 </script>
@@ -496,9 +526,10 @@ function AutoGrowTextArea(textField)
        <li class=""><a id="nob" href="/HMS/nursetr/"  onclick=' return visible();' target="_blank">Nurse observations</a></li>
   -->
     </ul>
-     <br>
-    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back"  onclick="goBack()"></i>
-
+     
+  <ul class="nav navbar-nav navbar-right">
+  <li><a href="#" onclick="goBack('<c:out value="${username}" />')"><span class="glyphicon glyphicon-user"></span>Back</a></li>
+    </ul>
   </div>
 </nav>
   <center>
@@ -509,7 +540,7 @@ function AutoGrowTextArea(textField)
 	
 	
 <font size="5">Recommended Tests</font><span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i>
-   <button type="button" id="close" class="btn btn-warning button2" onclick="return disp()">Print</button>    
+   <button type="button" id="close" class="btn btn-warning button2 rightspace" onclick="return disp()">Print</button>    
       
 		</h1>
 	<div class="form-group row" >
@@ -539,7 +570,7 @@ function AutoGrowTextArea(textField)
 	      <div class="form-group">
       
            
-   Doctor:<input type="text" name="dname" id="dname"  form="forma" class="form-control input-sm"  required>
+   Doctor:<input type="text" name="dname" id="dname"  form="forma" class="form-control input-sm" readonly required>
        
        
 	</div>
@@ -549,7 +580,7 @@ function AutoGrowTextArea(textField)
 	        <div class="form-group">
      
         
-    Date:<input type="text" name="admdate" id="admdate"  class="form-control input-sm"  required>
+    Date:<input type="text" name="admdate" id="admdate"  class="form-control input-sm" readonly required>
      
      
        
@@ -566,9 +597,15 @@ function AutoGrowTextArea(textField)
             
         Patient Name:<select class="selectpicker form-control" data-size="4" data-live-search="true" name = "pname" id ="pname" onchange="addname(this.options[this.selectedIndex])">
           <option value="Select" selected disabled>Select</option>
-        <c:forEach var="p"  items="${list3}">
-        <option value="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pname}=${p.fileno}=${p.dname}=${p.tresult}=${p.date1}=${p.pid}">${p.pname}</option>
+      
+        <c:forEach var="p"  items="${model.list4}">
+        <option value="${p.pname}" data-subtext="${p.fileno}" data-value="${p.pname}=${p.fileno}=${p.dname}=${p.tresult}=${p.date1}=${p.ppid}">${p.pname}</option>
         </c:forEach>
+        
+        <c:forEach var="p"  items="${model.list3}">
+        <option value="${p.pname}" data-subtext="IP- ${p.fileno}" data-value="${p.pname}=${p.fileno}=${p.dname}=${p.tresult}=${p.date1}=${p.pid}">${p.pname}</option>
+        </c:forEach>
+        
       </select>
        
 	</div>
@@ -578,7 +615,7 @@ function AutoGrowTextArea(textField)
 	      
 	       <div class="form-group">
        
-    Fileno:<input type="text" name="fileno" id="fileno"  form="forma" class="form-control input-sm"  required>
+    Fileno:<input type="text" name="fileno" id="fileno"  form="forma" class="form-control input-sm" readonly required>
        
        
        

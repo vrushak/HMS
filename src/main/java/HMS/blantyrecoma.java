@@ -20,9 +20,15 @@ public class blantyrecoma {
 	private String cry;
 	private String dir;
 	private String total;
+	private String timestamp;
 	
 	
-	
+	public String getTimestamp() {
+		return timestamp;
+	}
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
+	}
 	public String getAdmdate() {
 		return admdate;
 	}

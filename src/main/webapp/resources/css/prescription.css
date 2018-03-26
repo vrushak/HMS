@@ -42,7 +42,7 @@
   width:100%;
   margin: 5% auto;
   background-color: #FFFFFF;
-  overflow: hidden;
+  overflow: auto;
 }
 
 p span {
@@ -102,7 +102,7 @@ textarea {
 	margin-top : 2cm;
 }
 
-table.gamma th {
+table th {
     background-color: #009999;
     color: white;
     
@@ -110,31 +110,8 @@ table.gamma th {
 
 
 
-.table-fixed{
- 
-}
-table.gamma  .tbgamma{
-    height:300px;
-    overflow-y:auto;
- }
- 
- table.gamma .thgamma,.tbgamma{
-  
-    display:block;
-  }
-  
 
-  table.alpha .thalpha th{
-    background-color: #009999;
-    color: white;
-}
 
-table.alpha .tbalpha{
-   height:200px;
-    overflow-y :auto;
-    
-    
- }
 
 
 
@@ -160,11 +137,4 @@ table.alpha .tbalpha{
 .button2{
 	float : right;
 }
-
-#mh{
-	text-align : center;
-	background-color: #009999;
-	color: #FFF;
-	}
-
 

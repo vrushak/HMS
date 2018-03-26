@@ -102,7 +102,7 @@ function checkhome(user){
 	}
 	
 	else if(user.includes("[ROLE_Accounts Admin]")){
-		
+		$("#back").hide();
 		 var url = "/HMS/frontdesk" ;
 			
 		 var element = document.getElementById('ho');
@@ -158,7 +158,9 @@ function datasuccess(data){
     
 	   document.getElementById("lname").value = strSplit[2];
 	  
-	   document.getElementById("regdate").value =strSplit[3];
+	  document.getElementById("regdate").value = strSplit[3];
+	  
+
 	   document.getElementById("pofvisit").value = strSplit[4];
 	   document.getElementById("dob").value = strSplit[5];
 	   document.getElementById("age").value = strSplit[6];
@@ -466,20 +468,33 @@ else{
 			
 			
 		}
-		function validdate(id){
+		function validdate(id,id1){
+			var date = new Date(document.getElementById(id).value);
+			var date1 = new Date()
+			var longformat = date*1;
+			var longformat1 = date1*1;
+			
 		
 		var va	='Valid? '+ !!document.getElementById(id).value;
-	
+     
 		if(va == 'Valid? false'){
-			alert("invalid date")
+		$("#"+id1).text("invalid date!");
 			return false;
 		}
+		else if(longformat > longformat1)  {
+
+			$("#"+id1).text("invalid date!");  
+			return false;
+		 }	
 		else{
+			$("#"+id1).text(" ");
 			return true;
 		}
 		}
 
+function verdate(date){
 
+}
 		
 </script>
 
@@ -554,10 +569,10 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
              //  var errorFn = ;
            doAjaxPostNew(uri, postData, successFn, errorFn);
        }
-*/
+*/  var insflag = 0;
        function doAjaxPost() {
     	   // get the form values
-    	   
+    	 
     	         //  var name = $('#pname').val();
     	            var pid = $('#pid').val();
     	           $.ajax({
@@ -590,6 +605,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
     	        	            	   document.getElementById("policyno2").value= datec.policyno2;
     	        	            	   document.getElementById("mid1").value = datec.mid1;
     	        	            	   document.getElementById("mid2").value= datec.mid2;
+    	        	            	   insflag = 1; 
     	        	            	   
     	        	               }),    
     	        	        	   
@@ -677,11 +693,17 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
        
        
        <script type="text/javascript">
-      
+       $( document ).ready(function() {
+       $('input').on('click focusin', function() {
+    	   if(this.value == "NA" || this.value == "null"){
+    		   this.value = "";
+    	    };
+    	});
+       });
        
  jQuery().ready(function() {
 
-	
+	 
 	
 
    
@@ -710,7 +732,10 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
 	   
     });
    $(".open3").click(function() {
-	   doAjaxPost();  
+	   if(insflag == 0){
+		   doAjaxPost();    
+	   }
+	    
        $(".frm").hide("fast");
        $("#sf4").show("slow");
    
@@ -779,9 +804,9 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
-    <br>
-    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back" onclick="window.location.href='/HMS/frontdesk';"></i>
-    
+     <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/frontdesk" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Front Desk</span></a></li>
+    </ul>
   </div>
 </nav>
   <center>
@@ -806,7 +831,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
         <th style="width:150px;">First Name</th>
         <th style="width:150px;">Last Name</th>
         <th style="width:150px;">Registered Date</th>
-        <th style="width:150px;">Purpose of visit</th>
+        <th style="width:150px;">Reason of visit</th>
         <th style="width:50px;">Edit</th>
         <th style="width:100px;">Print</th>
         <th style="width:15px;"></th>
@@ -1009,6 +1034,14 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
          	<input type="date" readonly max="2999-12-31"name="regdate" id="regdate" class="form-control input-sm" required>
 	</div>
   </div>
+  
+   <div class="col-xs-3">
+  <div class="form-group">
+            <p>Reason for visit<span></span></p>
+   <input type="text"  name="pofvisit" id="pofvisit" class="form-control input-sm"   >
+    
+</div>
+  </div>
  
  </div>
     <div class="form-group">
@@ -1080,8 +1113,8 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
    <div class="col-xs-5">
     <div class="form-group">
             <p>Date of Birth <span></span></p>
-     <input type="date" maxlength="2999-312-31"name="modate" id="modate" onkeydown="return false"  onblur="return validdate(this.id)"  class="form-control input-sm" required>
-
+     <input type="date" maxlength="2999-312-31"name="modate" id="modate" onfocusout="return validdate(this.id,'sp1')"  class="form-control input-sm" required>
+      <p><span id="sp1"></span></p>
 	</div>
    </div>
   
@@ -1100,8 +1133,8 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
    <div class="col-xs-5">
     <div class="form-group">
             <p>Date of Birth <span></span></p>
-     <input type="date" maxlength="2999-312-31"  name="fodate" id="fodate" onkeydown="return false"  onblur="return validdate(this.id)" class="form-control input-sm" required>
-
+     <input type="date" maxlength="2999-312-31"  name="fodate" id="fodate"   onfocusout="return validdate(this.id,'sp2')" class="form-control input-sm" required>
+      <p><span id="sp2"></span></p>
 	</div>
    </div>
   
@@ -1263,7 +1296,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
   </div>
   <div class="col-xs-3">
    <div class="form-group">
-            <p>Po Box<span></span></p>
+            <p>PO Box<span></span></p>
     <input type="text" maxlength="6" name="pcode" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="pcode" class="form-control input-sm" >
 </div>
   </div>
@@ -1522,8 +1555,8 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
    <div class="form-group">
     
             <p>Date of Birth<span></span></p>
-         	<input type="date" name="spdate" id="spdate" onkeydown="return false"  onblur="return validdate(this.id)" class="form-control input-sm"  >
-	
+         	<input type="date" name="spdate" id="spdate" onblur="return validdate(this.id,'sp3')" class="form-control input-sm"  >
+	        <p><span id="sp3"></span></p>
 	</div>
  
   </div>
@@ -1783,13 +1816,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
   
    <div class="form-group row" >
         <div class="col-xs-1"></div>
-  <div class="col-xs-5">
-  <div class="form-group">
-            <p>Reason for visit<span></span></p>
-   <input type="text"  name="pofvisit" id="pofvisit" class="form-control input-sm"   >
-    
-</div>
-  </div>
+ 
   
   <div class="col-xs-5">
    <div class="form-group">

@@ -218,6 +218,9 @@ background-color:#ff9900 !important;
 .mymodal .ui-dialog-titlebar-close {
     visibility: hidden;
 }
+.btn-block{
+ width : 1250px;
+}
 </style>
 
 
@@ -311,6 +314,14 @@ function checkhome(user){
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		
+		 if(bac.includes("dochome")){
+			 $("#back").attr("href","/HMS/doctor1")
+			 $("#tit").text("Back to Doctor Home")
+		 }
+		 else{
+			 $("#back").attr("href","/HMS/nursedesk") 
+			 $("#tit").text("Back to Nurse Desk")
+		 }
 		}
 }
 function checkb(a,b,c){
@@ -785,7 +796,9 @@ function addname(getval){
 	document.getElementById("doctsig").value = strSplit[6];	
 	//document.getElementById("nursesig").value = strSplit[8];
 	
-	
+	document.getElementById("id").innerHTML = strSplit[1];
+		document.getElementById("nm").innerHTML = strSplit[0];
+		document.getElementById("flno").innerHTML = strSplit[4];
 	 disbut();
 	 dord = strSplit[7];
 	 
@@ -1559,9 +1572,9 @@ $(function () {
        <li class=""><a id="nob" href="/HMS/nursetr/"  onclick=' return visible();' target="_blank">Nurse observations</a></li>
  -->
     </ul>
-    <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back" onclick="goBack()"></i>
-  </div>
+   <ul class="nav navbar-nav navbar-right">
+  <li><a href="#" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back</span></a></li>
+    </ul>  </div>
 </nav>
   <center>
 </center>
@@ -1575,6 +1588,10 @@ $(function () {
 	</h1>
 
 <br>
+<div class="container" style="width:auto;height:auto">
+ <button type="button" style="background:#81BDA4",  class="btn btn-primary btn-block"><span id="pi" style="float:left">Patient Information</span><span id="flno" style="float:right">Fileno</span><span id="id" style="float:right;margin-right:15px;">Id</span><span style="float:right;margin-right:25px;" id="nm">Name</span></button>
+ <br>
+  </div>  
 
 <div class="container">
  
@@ -1583,7 +1600,7 @@ $(function () {
   <ul class="nav nav-pills">
     <li class="active"><a data-toggle="pill" href="#home">Patient Details</a></li>
     <li><a data-toggle="pill" onclick="crtab('<c:out value="${username}" />','<c:out value="${pageContext.request.userPrincipal.name}" />')" href="#menu1">Procedures</a></li>
-    <li class="pull-right"><button type="button" id="refresh" class="btn btn-primary button2" onclick="location.href='';">
+    <li class="pull-right"><button type="button" id="refresh" class="btn btn-primary button2" onclick="location.reload(true);">
 	  <span class="fa fa-refresh"></span> Refresh</button></li>
 	   <li class="pull-right" id="ph"><button type="button" id="opener" class="btn btn-primary button2" >
 	   Show Available Drugs</button></li>
@@ -1634,7 +1651,7 @@ $(function () {
   
   <div class="form-group">
          <p>Registration Id<span>*</span></p>
-     <input type="text" name="pid" id="pid"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="pid" id="pid"  form="forma" class="form-control input-sm" readonly required>
        
        
        
@@ -1649,9 +1666,9 @@ $(function () {
       <div class="col-xs-3">
      <div class="form-group">
      
-          <p>File No<span>*</span></p>
+          <p>Patient File No<span>*</span></p>
              
-             <input type="text" name="fileno" id="fileno" readonly="readonly" form="forma" class="form-control input-sm"  required>
+             <input type="text" name="fileno" id="fileno" readonly="readonly" form="forma" class="form-control input-sm" readonly required>
 	         <input type="hidden" name="name" id="name" readonly="readonly" form="forma" class="form-control input-sm"  required>
 	         <input type="hidden" name="" id="" readonly="readonly" form="forma" class="form-control input-sm"  required>
 	         
@@ -1674,7 +1691,7 @@ $(function () {
   <div class="form-group">
      
             <p>Age<span>*</span></p>
-     <input type="text" name="age" id="age"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="age" id="age"  form="forma" class="form-control input-sm" readonly required>
      </div>
  </div>
  
@@ -1682,7 +1699,7 @@ $(function () {
   
   <div class="form-group">
           <p>Gender<span>*</span></p>
-     <input type="text" name="gender" id="gender"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="gender" id="gender"  form="forma" class="form-control input-sm" readonly required>
        
      </div>
  </div>
@@ -1692,7 +1709,7 @@ $(function () {
 <div class="form-group">
      
            <p>Current Date<span>*</span></p>
-     <input type="text" name="curdate" id="curdate"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="curdate" id="curdate"  form="forma" class="form-control input-sm" readonly required>
        
      </div>
  </div>
@@ -1703,7 +1720,7 @@ $(function () {
 	     <div class="col-xs-1"></div>
 	          <div class="col-xs-3">
     <p>Doctor<span>*</span></p>    
-          <input type="text" name="doctsig" id="doctsig"  form="forma" class="form-control input-sm"  required>
+          <input type="text" name="doctsig" id="doctsig"  form="forma" class="form-control input-sm" readonly required>
      <input type="hidden" name="extflag" id="extflag" form="forma" value="doct" >
   
  </div>
@@ -1880,7 +1897,9 @@ $(function () {
   
       </div>
   </div>
-    
+    <script>
+var bac = '<c:out value='${model.bac}'/>';
+</script>
 
 </body>
 </html>

@@ -288,7 +288,7 @@ public class controllerDao {
 	//save product
 	public int savep(Product p){  
 		System.out.println(p.getProduct());
-		String sql = "insert into product(name,descr,pc,prc,manufacturer,composition,sp,bc,mc,rl,rq,doc,dsc,supplier,active,date,pid) values('"+p.getName()+"','"+p.getDescr()+"','"+p.getPc()+"','"+p.getPrc()+"','"+p.getManufacturer()+"','"+p.getComposition()+"','"+p.getSp()+"','"+p.getBc()+"','"+p.getMc()+"','"+p.getRl()+"','"+p.getRq()+"','"+p.getDoc()+"','"+p.getDsc()+"','"+p.getSupplier()+"','"+p.getActive()+"',curdate(),'"+p.getProduct()+"') on duplicate key update name = '"+p.getName()+"', descr = '"+p.getDescr()+"',pc='"+p.getPc()+"',prc = '"+p.getPrc()+"',manufacturer = '"+p.getManufacturer()+"',composition = '"+p.getComposition()+"',sp = '"+p.getSp()+"',bc = '"+p.getBc()+"',mc = '"+p.getMc()+"',rl='"+p.getRl()+"',rq='"+p.getRq()+"',doc = '"+p.getDoc()+"',dsc='"+p.getDsc()+"',supplier='"+p.getSupplier()+"',active='"+p.getActive()+"' "; 
+		String sql = "insert into product(name,descr,pc,prc,manufacturer,composition,sp,bc,mc,rl,rq,doc,dsc,supplier,active,date,pid,dps,dsp) values('"+p.getName()+"','"+p.getDescr()+"','"+p.getPc()+"','"+p.getPrc()+"','"+p.getManufacturer()+"','"+p.getComposition()+"','"+p.getSp()+"','"+p.getBc()+"','"+p.getMc()+"','"+p.getRl()+"','"+p.getRq()+"','"+p.getDoc()+"','"+p.getDsc()+"','"+p.getSupplier()+"','"+p.getActive()+"',curdate(),'"+p.getProduct()+"','"+p.getDps()+"','"+p.getDsp()+"') on duplicate key update name = '"+p.getName()+"', descr = '"+p.getDescr()+"',pc='"+p.getPc()+"',prc = '"+p.getPrc()+"',manufacturer = '"+p.getManufacturer()+"',composition = '"+p.getComposition()+"',sp = '"+p.getSp()+"',bc = '"+p.getBc()+"',mc = '"+p.getMc()+"',rl='"+p.getRl()+"',rq='"+p.getRq()+"',doc = '"+p.getDoc()+"',dsc='"+p.getDsc()+"',supplier='"+p.getSupplier()+"',active='"+p.getActive()+"',dps='"+p.getDps()+"',dsp='"+p.getDsp()+"'"; 
 	    return template.update(sql);  
 	}  
 	
@@ -333,7 +333,7 @@ public class controllerDao {
 	}
 	public List<Product> search1(){
 		//System.out.println("name:" +p.getName());
-		return template.query("select name,descr,pc,prc,manufacturer,composition,sp,bc,mc,rl,rq,doc,dsc,supplier,(select sum(currentstock) from productstock where product.name = productstock.name group by name),active,pid from product order by name",new RowMapper<Product>(){  
+		return template.query("select name,descr,pc,prc,manufacturer,composition,sp,bc,mc,rl,rq,doc,dsc,supplier,(select sum(currentstock) from productstock where product.name = productstock.name group by name),active,pid,dps,dsp from product order by name",new RowMapper<Product>(){  
 	        public Product mapRow(ResultSet rs, int row) throws SQLException {  
 	            Product s=new Product();  
 	      //      System.out.println(rs.getString(2));
@@ -354,6 +354,8 @@ public class controllerDao {
 	            s.setStocks(rs.getString(15));
 	            s.setActive(rs.getString(16));
 	            s.setProduct(rs.getInt(17));
+	            s.setDps(rs.getString(18));
+	            s.setDsp(rs.getString(19));
 	            return s;
 		
 	}
@@ -405,7 +407,7 @@ public class controllerDao {
 	//,(select Batch from purchase where purchase.ean = product.prc),(select expDate from purchase where purchase.ean=product.prc),(select unit from purchase where purchase.ean=product.prc),(select unitprice from purchase where purchase.ean=product.prc),(select quantity from purchase where purchase.ean=product.prc),(select total from purchase where purchase.ean=product.prc)
 	public List<Product> searchProduct(){
 		//System.out.println("name:" +p.getName());
-		return template.query("select name,supplier,bc,rq,prc,(select sum(currentstock) from productstock where productstock.name = product.name) from product order by name ",new RowMapper<Product>(){  
+		return template.query("select name,supplier,bc,rq,prc,(select sum(currentstock) from productstock where productstock.name = product.name),dps from product order by name ",new RowMapper<Product>(){  
 	        public Product mapRow(ResultSet rs, int row) throws SQLException {  
 	        	  Product s=new Product();  
 	    	      //      System.out.println(rs.getString(2));
@@ -415,6 +417,22 @@ public class controllerDao {
 	    	            s.setRq(rs.getString(4));
 	    	            s.setPrc(rs.getString(5));
 	    	            s.setStocks(rs.getString(6));
+	    	            s.setDps(rs.getString(7));
+	            return s;
+		
+	}
+		 }); 
+	}
+	
+	public List<Product> Reorder(){
+	    return template.query("select pr.name,pr.prc,ps.currentstock,pr.dps from product pr left outer join  productstock ps on pr.name = ps.name where ps.currentstock <= pr.rq",new RowMapper<Product>(){  
+	        public Product mapRow(ResultSet rs, int row) throws SQLException {  
+	        	  Product s=new Product();  
+	    	      //      System.out.println(rs.getString(2));
+	    	            s.setName(rs.getString(1));
+	    	            s.setPrc(rs.getString(2));
+	    	            s.setStocks(rs.getString(3));
+	    	            s.setDps(rs.getString(4));
 	            return s;
 		
 	}
@@ -796,6 +814,16 @@ public class controllerDao {
 		});
 	}
 
+	public List<Purchase> getAllocationid1a() {
+		return template.query("select distinct allocationid from purchase order by CAST(SUBSTRING_INDEX(allocationid,'-',-1) as decimal) desc",new RowMapper<Purchase>(){  
+	        public Purchase mapRow(ResultSet rs, int row) throws SQLException {
+	        	Purchase o = new Purchase();
+	        //	o.setOrderid(rs.getString(1));
+	        	o.setAllocationid(rs.getString(1));
+	        return o;
+	        }
+		});
+	}
 	public List<Purchase> getsupplyorder(String s) {
 		
 		return template.query("select name,prc from product where supplier like '%"+s+"%' and active =  'active' ",new RowMapper<Purchase>(){  
@@ -813,8 +841,7 @@ public class controllerDao {
 	}
 
 	public int savepurchase(Purchase p, String name, String batch, String expdate, String quantity,String unitprice, String discount, String free,String total,String ean1,String mpack, String mdesc,String sudesc ) {
-		System.out.println("batch is" +batch);
-		System.out.println("Name is" +name);
+		
 		//discount is total purschase price
 		String sql = "insert into purchase(allocationid,receiveddate,updatepricing,supplier,supplierInvoice,productName,Batch,expDate,mpack,mdesc,sudesc,quantity,discount,unitPrice,free,total,grandTotal,ean) values('"+p.getAllocationid()+"','"+p.getReceiveddate()+"','"+p.getUpdatepricing()+"','"+p.getSupplier()+"','"+p.getOrderDate()+"','"+name+"','"+batch+"','"+expdate+"','"+mpack+"','"+mdesc+"','"+sudesc+"','"+quantity+"','"+discount+"','"+unitprice+"','"+free+"','"+total+"','"+p.getGrandTotal()+"','"+ean1+"') on duplicate key update expDate='"+expdate+"',mpack='"+mpack+"',mdesc ='"+mdesc+"',sudesc = '"+sudesc+"',quantity= quantity + "+quantity+",discount='"+discount+"',unitPrice= unitPrice + "+unitprice+", free= free + "+free+",total='"+total+"',grandTotal='"+p.getGrandTotal()+"' ";
 		return template.update(sql);
@@ -1081,7 +1108,7 @@ public class controllerDao {
 			});
 			}
 			else if(ps.getName()!=null && ps.getName()!=""){
-				System.out.println("name");
+			
 				final String var3 = ps.getCode();
 				final String var4 = ps.getName();
 				final String var5 = ps.getCategory();
@@ -1121,20 +1148,12 @@ public class controllerDao {
 			});
 			}
 		
-			else{
-				
-				final String var3 = ps.getCode();
-				final String var4 = ps.getName();
-				final String var5 = ps.getCategory();
-				final String var6 = ps.getExpDate();
-				final String var7 = ps.getToDate();
-				final int var8 = ps.getRecords();
-				final String var9 = ps.getBatch();
+			else if(ps.getCode()!=null && ps.getCode()!=""){
 				
 			 return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from productstock p where p.code like '%"+ps.getCode()+"%' and (p.expdate between '"+ps.getExpDate()+"' and '"+ps.getToDate()+"' ) limit "+ps.getRecords()+"",new RowMapper<Productstock>(){  
 				 public Productstock mapRow(ResultSet rs, int row) throws SQLException {
 			        	Productstock p = new Productstock();
-		        	System.out.println(rs.getString(1));
+		        	
 		        	p.setCode(rs.getString(1));
 		        	p.setName(rs.getString(2));
 		        	p.setBatch(rs.getString(3));
@@ -1161,10 +1180,46 @@ public class controllerDao {
 			   }
 			});
 			}
+			else{
+				
+				return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from productstock p where (p.expdate between STR_TO_DATE('"+ps.getExpDate()+"', '%Y-%m-%d') and STR_TO_DATE('"+ps.getToDate()+"', '%Y-%m-%d')) limit "+ps.getRecords()+"",new RowMapper<Productstock>(){  
+					 public Productstock mapRow(ResultSet rs, int row) throws SQLException {
+				        	Productstock p = new Productstock();
+			        
+			        	p.setCode(rs.getString(1));
+			        	p.setName(rs.getString(2));
+			        	p.setBatch(rs.getString(3));
+			            p.setExpDate(rs.getString(4));
+			            p.setCategory(rs.getString(5));
+			            p.setMpack(rs.getString(6));
+			            p.setMpsize(rs.getString(7));
+			            p.setCp(rs.getString(8));
+			            p.setPrqty(rs.getString(9));
+			            p.setPrprice(rs.getString(10));
+			            p.setQuantity(rs.getString(11));
+			            p.setSudesc(rs.getString(12));
+			            p.setStkpr(rs.getString(13));
+			            p.setMarkup(rs.getString(14));
+			            p.setSp(rs.getString(15));
+			            p.setSpdesc(rs.getString(16));
+			            p.setSpsize(rs.getString(17));
+			            p.setStksp(rs.getString(18));
+			            p.setSellqty(rs.getString(19));
+			            p.setSunits(rs.getString(20));
+			            p.setTprice(rs.getString(21));
+			            
+			            System.out.println(rs.getString(4));
+			        
+				return p;
+				   }
+				});
+				
+		
+			}
 	}
 		
 		else{
-			System.out.println("code sec");
+			
 			if( ps.getBatch()!=null && ps.getBatch()!=""){
 				
 				final String var3 = ps.getCode();
@@ -1246,15 +1301,9 @@ public class controllerDao {
 			});
 			}
 		
-			else{
+			else if(ps.getCode()!=null && ps.getCode()!=""){
 				
-				final String var3 = ps.getCode();
-				final String var4 = ps.getName();
-				final String var5 = ps.getCategory();
-				final String var6 = ps.getExpDate();
-				final String var7 = ps.getToDate();
-				final int var8 = ps.getRecords();
-				final String var9 = ps.getBatch();
+			
 				
 			 return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from productstock p where p.code like '%"+ps.getCode()+"%' and p.category = '"+ps.getCategory()+"'and (p.expdate between '"+ps.getExpDate()+"' and '"+ps.getToDate()+"') limit "+ps.getRecords()+"",new RowMapper<Productstock>(){  
 				 public Productstock mapRow(ResultSet rs, int row) throws SQLException {
@@ -1286,6 +1335,42 @@ public class controllerDao {
 			   }
 			});
 			}
+			
+			else{
+				
+				return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from productstock p where p.category = '"+ps.getCategory()+"' and (p.expdate between STR_TO_DATE('"+ps.getExpDate()+"', '%Y-%m-%d')  and STR_TO_DATE('"+ps.getToDate()+"', '%Y-%m-%d')) limit "+ps.getRecords()+"",new RowMapper<Productstock>(){  
+					 public Productstock mapRow(ResultSet rs, int row) throws SQLException {
+				        	Productstock p = new Productstock();
+			        
+			        	p.setCode(rs.getString(1));
+			        	p.setName(rs.getString(2));
+			        	p.setBatch(rs.getString(3));
+			            p.setExpDate(rs.getString(4));
+			            p.setCategory(rs.getString(5));
+			            p.setMpack(rs.getString(6));
+			            p.setMpsize(rs.getString(7));
+			            p.setCp(rs.getString(8));
+			            p.setPrqty(rs.getString(9));
+			            p.setPrprice(rs.getString(10));
+			            p.setQuantity(rs.getString(11));
+			            p.setSudesc(rs.getString(12));
+			            p.setStkpr(rs.getString(13));
+			            p.setMarkup(rs.getString(14));
+			            p.setSp(rs.getString(15));
+			            p.setSpdesc(rs.getString(16));
+			            p.setSpsize(rs.getString(17));
+			            p.setStksp(rs.getString(18));
+			            p.setSellqty(rs.getString(19));
+			            p.setSunits(rs.getString(20));
+			            p.setTprice(rs.getString(21));
+			        
+				return p;
+				   }
+				});
+				
+		
+			}
+			
 		}
 			
 		
@@ -1372,6 +1457,38 @@ public class controllerDao {
 		        	s.setSpsize(rs.getString(26));
 		        	s.setSudesc(rs.getString(27)) ;
 		        	s.setFileno(rs.getString(28));
+			// TODO Auto-generated method stubinvoice,invoiceDate,author,cdiscount,custId,custName,custPhone,gender,age,ean,pname,batch,expDate,unit,unitprice,quantity,free,stock,total,titems,subt,discount,tax,gtotal
+		            return s;
+		        }
+			});
+		
+		}
+		
+		//print purchase
+		
+	public List<Purchase> getPrpur(String invoice) {
+			
+			return template.query("select s.allocationid,s.receiveddate,s.productName,s.Batch,s.expDate,s.quantity,s.unitprice,s.discount,s.total,s.ean,s.grandTotal,s.supplierInvoice,s.mpack,s.mdesc,s.sudesc,s.free,s.supplier from purchase s where allocationid ='"+invoice+"'",new RowMapper<Purchase>(){  
+		        public Purchase mapRow(ResultSet rs, int row) throws SQLException {
+		        	Purchase s= new Purchase();
+		        
+		        	s.setAllocationid(rs.getString(1));
+		        	s.setReceiveddate(rs.getString(2));
+		        	s.setProductName(rs.getString(3));
+		        	s.setBatch1(rs.getString(4));
+		        	s.setExpDate(rs.getString(5));
+		        	s.setQuantity(rs.getString(6));
+		        	s.setUnitPrice(rs.getString(7));
+		        	s.setDiscount(rs.getString(8));
+		        	s.setTotal(rs.getString(9));
+		        	s.setEan(rs.getString(10));
+		        	s.setGrandTotal(rs.getString(11));
+		        	s.setSupplier(rs.getString(12));
+		        	s.setMpack(rs.getString(13));
+		        	s.setMdesc(rs.getString(14));
+		        	s.setSudesc(rs.getString(15));
+		        	s.setTaxes(rs.getString(16));
+		        	s.setSinvoice(rs.getString(17));
 			// TODO Auto-generated method stubinvoice,invoiceDate,author,cdiscount,custId,custName,custPhone,gender,age,ean,pname,batch,expDate,unit,unitprice,quantity,free,stock,total,titems,subt,discount,tax,gtotal
 		            return s;
 		        }
@@ -1475,4 +1592,6 @@ public List<Sale> getsaleReports(String frdate,String edate) {
 			});
 		
 		}
+
+
 }

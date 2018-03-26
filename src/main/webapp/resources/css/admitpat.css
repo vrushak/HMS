@@ -86,7 +86,7 @@ h1 {
 #myTable th {
     background-color: #009999;
     color: white;
-    width : 200px;
+   
 }
 
 .table-fixed{
@@ -94,7 +94,7 @@ h1 {
 }
   .tbody{
     height:300px;
-    overflow-y:auto;
+    overflow-y:scroll;
  }
   .thead,.tbody{
   

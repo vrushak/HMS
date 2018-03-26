@@ -152,7 +152,7 @@ public class ncontroller {
 				// vitals screen load
 				
 				@RequestMapping(value="/vitals", method = RequestMethod.GET)
-				public ModelAndView  vitals(Principal principal,Authentication authentication) {
+				public ModelAndView  vitals(Principal principal,Authentication authentication,HttpServletRequest req,HttpServletResponse res) {
 					Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 			    	String b = var.toString();
 			    	
@@ -170,7 +170,7 @@ public class ncontroller {
 			    	Map<String, Object> model = new HashMap<String, Object>();
 			        model.put("list4",list4);
 			        model.put("list3",list3);
-				
+			        model.put("bac", req.getParameter("location"));
 					return new ModelAndView("vitals","model",model); 
 					}
 				

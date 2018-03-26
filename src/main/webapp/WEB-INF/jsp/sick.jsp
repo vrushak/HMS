@@ -220,14 +220,14 @@ function disp(){
 //	document.getElementById("ff").style.display = "none";
 	document.getElementById("hideselect").style.display = "none";
 	document.getElementById("disp").style.display = "none";
-	
+	$('#lm').hide();
 	window.print();
 	document.getElementById("disp").style.display = "block";
 	document.getElementById("myname").style.display = "none";
 	//document.getElementById("ff").style.display = "none";
 	
 	document.getElementById("hideselect").style.display = "block";
-	
+	$('#lm').show();
 	/*
 	document.getElementById("pname").style.visibility = "visible";
 	document.getElementById("sdate").style.display = "visible";
@@ -245,7 +245,16 @@ function disp(){
 
 	
 
-
+function vrf(){
+	if($("#pn").val().includes("select")){
+		alert("Please select a Patient Name")
+		return false;
+	}
+	else{
+		$("#timestamp").val('<c:out value="${pageContext.request.userPrincipal.name}" />  '+moment().format("DD-MM-YYYY hh:mm"))
+         return true;	
+	}
+}
 		
 	
 		
@@ -313,7 +322,10 @@ function cpyfile(getval){
 
 		document.getElementById("fin").value = strSplit[0];
 		document.getElementById("docid").value = strSplit[1];
-	//	document.getElementById("pn").value = strSplit[2];
+		var useras = '<c:out value="${pageContext.request.userPrincipal.name}" />';
+		
+		
+		document.getElementById("pname").value = strSplit[2];
     
 }
 
@@ -332,6 +344,8 @@ function cpyfile(getval){
 
 	    if(document.getElementById("myname").value == "new"){
 	    	document.getElementById("savesic").reset();
+	    	   $('select[name=pn]').val("select");
+	    	   $('#pn').selectpicker('refresh');
 	    }
 	    else{
 	 	   var str = document.getElementById("myname").value;
@@ -364,7 +378,7 @@ function cpyfile(getval){
 		$("#pn").val(encodeURI(strSplit[7]));
 		$("#pn").selectpicker("refresh");
 		document.getElementById("docid").value = strSplit[9];
-	    
+	    $('#timestamp').val(strSplit[10])
 		
 		
 
@@ -470,9 +484,9 @@ hr {
     <ul class="nav navbar-nav">
          <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
-    <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back" onclick="window.location.href='/HMS/doctor1';"></i>
-  </div>
+      <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
+    </ul> </div>
 </nav>
   <center>
 </center>
@@ -526,7 +540,7 @@ hr {
 	        <select class="selectpicker form-control select" data-size="10"  data-live-search="true"  id = "myname" name="myname" onchange="run()"  class="form-control input-sm" required>
 	        <option value="new">New</option>
 <c:forEach var="mft"  items="${model.list3}">
-<option  value="${mft.pname}=${mft.sdate}=${mft.work}=${mft.other}=${mft.reason}=${mft.dates}=${mft.dat}=${mft.pn}=${mft.fin}=${mft.docid}" data-subtext="${mft.patient},${mft.sdate}">${mft.fin}</option>
+<option  value="${mft.pname}=${mft.sdate}=${mft.work}=${mft.other}=${mft.reason}=${mft.dates}=${mft.dat}=${mft.pn}=${mft.fin}=${mft.docid}=${mft.timestamp}" data-subtext="${mft.patient},${mft.sdate}">${mft.fin}</option>
 
 </c:forEach>
 	        </select>
@@ -537,7 +551,7 @@ hr {
 	        </div>
 	       
      <tr>
-       <b>&emsp;&emsp;&emsp; Dr</b><input type="text" value="${pageContext.request.userPrincipal.name}"  style="border-style:none; width:80%; border-width:2px;"  id="pname" name="pname" form="savesic"  ></input>
+       <b>&emsp;&emsp;&emsp; Dr</b><input type="text"  style="border-style:none; width:80%; border-width:2px;"  id="pname" name="pname" form="savesic"  ></input>
           <br>
           <br>
          
@@ -556,7 +570,7 @@ hr {
      <div class="col-xs-3">
       <div class="form-group">
 <select class="selectpicker form-control input-sm" data-size="10" data-live-search="true" name = "pn" id ="pn"  onchange="cpyfile(this.options[this.selectedIndex])" form="savesic">
-          <option value="" selected disabled>Patient Name</option>
+          <option value="select" selected>Patient Name</option>
          <c:forEach var="p"  items="${model.list2}">
         <option value="${p.pid}" data-subtext="${p.fileno}"  data-value="${p.fileno}=${p.docid}=${p.dname}">${p.pname}</option>
        
@@ -614,7 +628,7 @@ hr {
             <div class="col-xs-3">
   <div class="form-group">
             <p>&emsp;&emsp;&emsp;From<span></span></p>
-       <input type="date" class="form-control input-sm"  id="dates" name="dates" form="savesic" >    
+       <input type="date" max="2999-12-31" class="form-control input-sm"  id="dates" name="dates" form="savesic" >    
        
 	</div>
   </div>
@@ -622,7 +636,7 @@ hr {
    <div class="col-xs-3">
   <div class="form-group">
             <p>&emsp;&emsp;&emsp;To<span></span></p>
-      <input  type="date"  class="form-control input-sm"  id="dat" name="dat" form="savesic"  >
+      <input  type="date" max="2999-12-31" class="form-control input-sm"  id="dat" name="dat" form="savesic"  >
 	</div>
   </div>
         </div>
@@ -640,13 +654,15 @@ hr {
    </div>
    
  
-   <hr>
+   <hr>&emsp;&emsp;&emsp;<span id="lm"><b>Last Modified : </b><input type="text" name="timestamp" id="timestamp" form="savesic" style="border:none;width:250px;" readonly="readonly"></span>  
+   
    <center><font color="hotpink"><i>Health family, health nation.</i></font></center>
    
    
    <button type="button" id="gbill" class="bouton-contact" form ="savesic" disabled></button>   
+   
   </div>
-</div>
+  </div>
 
     </div>         
           

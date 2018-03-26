@@ -1,6 +1,7 @@
 package HMS;
 
 import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -12,7 +13,6 @@ import java.security.Principal;
 import java.sql.ResultSet;  
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import java.util.List;
 
 import org.apache.poi.util.SystemOutLogger;
 import org.apache.taglibs.standard.tag.common.core.NullAttributeException;
@@ -428,7 +428,7 @@ public List<Transaction> getTransid() {
 //
 public List<Transaction> getTransid1() {
 	// TODO Auto-generated method stub
-	return template.query("select pid,pname,ptype,quantity,allocatedto,allocationdate,expretdate,actdateret,quantret,pc,expiry,requant,(select quantity from addstock where addstock.pid= transaction.pid),invid,tid  from transaction where ptype='Returnable'",new RowMapper<Transaction>(){  
+	return template.query("select pid,pname,ptype,quantity,allocatedto,allocationdate,expretdate,actdateret,quantret,pc,expiry,requant,(select quantity from addstock where addstock.pid= transaction.pid),invid,tid  from transaction where ptype='Returnable' and quantret > 0",new RowMapper<Transaction>(){  
         public Transaction mapRow(ResultSet rs, int row) throws SQLException {   
 	       Transaction p = new Transaction();
 	       
@@ -480,7 +480,7 @@ public int returnStks(Transaction s) {
 // appointments history
 public List<Appointment> getAppointment() {
 	// TODO Auto-generated method stub
-	return template.query("select ap.pid,concat(p.fname,' ',p.mname,' ',p.lname)patient,ap.docid,CONCAT(d.fname,' ',d.mname,' ',d.lname) doctor,ap.appointment,ap.time,CONCAT(ap.appointment,' ',ap.time),ap.fileno,ap.active,p.mobile from appointment ap join patient p on p.pid = ap.pid join doctor d on d.docID = ap.docid order by appointment desc,time",new RowMapper<Appointment>(){  
+	return template.query("select ap.pid,concat(p.fname,' ',p.mname,' ',p.lname)patient,ap.docid,CONCAT(d.fname,' ',d.mname,' ',d.lname) doctor,ap.appointment,ap.time,CONCAT(ap.appointment,' ',ap.time),ap.fileno,ap.active,p.mobile,ap.diagactive from appointment ap join patient p on p.pid = ap.pid join doctor d on d.docID = ap.docid order by STR_TO_DATE(appointment, '%Y-%m-%d')desc,time",new RowMapper<Appointment>(){  
         public Appointment mapRow(ResultSet rs, int row) throws SQLException {   
 	       Appointment p = new Appointment();
 	     
@@ -494,7 +494,8 @@ public List<Appointment> getAppointment() {
 	       p.setFileno(rs.getString(8));
 	       p.setActive(rs.getString(9));
 	       p.setPhno(rs.getString(10));
-	  
+	      
+	       p.setSms(rs.getString(11));
 	   return p;
         }
 	});
@@ -502,7 +503,8 @@ public List<Appointment> getAppointment() {
 
 
 public int saveApp(Appointment p) {
-	String sql = "insert into appointment(pid,pname,docid,appointment,time,active,fileno) values('"+p.getPid()+"','"+p.getPname()+"','"+p.getDocid()+"','"+p.getAppointment()+"','"+p.getTime()+"','on','"+p.getFileno()+"') on duplicate key update pname='"+p.getPname()+"',docid='"+p.getDocid()+"',appointment='"+p.getAppointment()+"',time='"+p.getTime()+"',active = 'on',fileno='"+p.getFileno()+"'";
+	
+	String sql = "insert into appointment(pid,pname,docid,appointment,time,active,fileno,diagactive) values('"+p.getPid()+"','"+p.getPname()+"','"+p.getDocid()+"','"+p.getAppointment()+"','"+p.getTime()+"','on','"+p.getFileno()+"','"+p.getSms()+"') on duplicate key update pname='"+p.getPname()+"',docid='"+p.getDocid()+"',appointment='"+p.getAppointment()+"',time='"+p.getTime()+"',active = 'on',fileno='"+p.getFileno()+"',diagactive='"+p.getSms()+"'";
 	return template.update(sql);
 	
 }
@@ -774,8 +776,9 @@ public int saveBillconfig(String fee, String amt,String aid) {
 }
 
 
-public List<Billgen> getBill1() {
-	return template.query("select a.pid,concat(p.fname,' ',p.mname,' ',p.lname) patient,a.fileno,CONCAT(adm.wardno,'/',adm.bedno),adm.admdate,concat(d.fname,' ',d.mname,' ',d.lname) doctor,adm.admitno from appointment a join patient p on a.pid=p.pid join doctor d on d.docID = a.docid left outer join admitpat adm on a.fileno = adm.fileno ",new RowMapper<Billgen>(){  
+public List<Billgen> getBill1(String username) {
+	
+	return template.query("select a.pid,concat(p.fname,' ',p.mname,' ',p.lname) patient,a.fileno,CONCAT(adm.wardno,'/',adm.bedno),adm.admdate,concat(d.fname,' ',d.mname,' ',d.lname) doctor,adm.admitno,(select concat(fname,' ',mname,' ',lname) from assistant where aid in (select userid from users where username='"+username+"')) from appointment a join patient p on a.pid=p.pid join doctor d on d.docID = a.docid left outer join admitpat adm on a.fileno = adm.fileno",new RowMapper<Billgen>(){  
         public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
 	       Billgen p = new Billgen();
 	       p.setPid(rs.getString(1));
@@ -787,6 +790,7 @@ public List<Billgen> getBill1() {
 	      // p.setAddress(rs.getString(5));
 	       p.setDname(rs.getString(6));
 	       p.setAdmitno(rs.getString(7));
+	       p.setCashier(rs.getString(8));
 	       return p;
         }
 	});
@@ -806,7 +810,7 @@ public List<Billgen> getBill() {
 
 public List<Billgen> getBill2(String pid,String name) {
 	
-	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,GROUP_CONCAT(feetype SEPARATOR '='),GROUP_CONCAT(charges SEPARATOR '='),GROUP_CONCAT(price SEPARATOR '='),subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,GROUP_CONCAT(quantity SEPARATOR '='),GROUP_CONCAT(prch SEPARATOR '=') from billgen where pname = '"+name+"' or pid='"+pid+"' group by invoice",new RowMapper<Billgen>(){  
+	return template.query("select invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,GROUP_CONCAT(feetype SEPARATOR '='),GROUP_CONCAT(charges SEPARATOR '='),GROUP_CONCAT(price SEPARATOR '='),subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,fileno,GROUP_CONCAT(quantity SEPARATOR '='),GROUP_CONCAT(prch SEPARATOR '='),instype from billgen where pname = '"+name+"' or pid='"+pid+"' group by invoice",new RowMapper<Billgen>(){  
         public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
        
 	       Billgen p = new Billgen();
@@ -840,6 +844,7 @@ public List<Billgen> getBill2(String pid,String name) {
 	       p.setFileno(rs.getString(24));
 	       p.setQuantity(rs.getString(25));
 	       p.setPrch(rs.getString(26));
+	       p.setPs(rs.getString(27));
 		return p;
         }
 	});
@@ -898,6 +903,7 @@ public List<Billgen> getBillint(String fileno) {
 	       p.setPname(rs.getString(3));
 	       p.setTotal(rs.getString(4));
 	     
+	     
 	      
 		return p;
         }
@@ -906,14 +912,17 @@ public List<Billgen> getBillint(String fileno) {
 
 public List<Billgen> getreceipt(String invoice) {
 	
-	return template.query("select distinct p.invoice,concat(a.fname,' ',a.mname,' ',a.lname),p.total,p.cashier from billgen p join patient a on a.pid = p.pid where p.invoice='"+invoice+"'",new RowMapper<Billgen>(){  
+	return template.query("select distinct REPLACE(Lower(p.invoice),'in','R'),concat(a.fname,' ',a.mname,' ',a.lname),p.total,p.cashier from billgen p join patient a on a.pid = p.pid where p.invoice='"+invoice+"'",new RowMapper<Billgen>(){  
         public Billgen mapRow(ResultSet rs, int row) throws SQLException {   
-       
+
 	       Billgen p = new Billgen();
 	       p.setInvoice(rs.getString(1));
 	       p.setPname(rs.getString(2));
 	       p.setTotal(rs.getString(3));
 	       p.setCashier(rs.getString(4));
+	       float f=Float.parseFloat(rs.getString(3)); 
+	       String ab =  YourNumberMyWord.main(Math.round(f));
+		    p.setPrice(ab); 
 	      
 		return p;
         }
@@ -938,15 +947,15 @@ public List<Billgen> getBill3(String fdate,String edate) {
 }
 public int savebill(Billgen s,String fee,String cha,String quant,String price,String prch) {
 	// TODO Auto-generated method stub
-	String sql = "insert into billgen(invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,quantity,fileno,prch) values('"+s.getInvoice()+"','"+s.getInvoicedate()+"','"+s.getPname()+"','"+s.getPid()+"','"+s.getAddress()+"','"+s.getWardno()+"','"+s.getDoctor()+"','"+s.getAdmdate()+"','"+s.getDisdate()+"','"+s.getCashier()+"','"+fee+"','"+cha+"','"+price+"','"+s.getSubtotal()+"','"+s.getTax()+"','"+s.getDiscount()+"','"+s.getTotal()+"','"+s.getAdmitno()+"','"+s.getMid()+"','"+s.getPolicyholder()+"','"+s.getPolicyno()+"','"+s.getInsurancec()+"','"+s.getType()+"','"+quant+"','"+s.getFileno()+"','"+prch+"') on duplicate key update invoiceDate = '"+s.getInvoicedate()+"',address='"+s.getAddress()+"',wardno='"+s.getWardno()+"',doctor='"+s.getDoctor()+"',admdate='"+s.getAdmdate()+"',disdate='"+s.getDisdate()+"',cashier='"+s.getCashier()+"',feetype='"+fee+"',charges='"+cha+"',price='"+price+"',subtotal='"+s.getSubtotal()+"',tax='"+s.getTax()+"',discount='"+s.getDiscount()+"',total='"+s.getTotal()+"',admitno='"+s.getAdmitno()+"',mid='"+s.getMid()+"',policyholder='"+s.getPolicyholder()+"',policyno='"+s.getPolicyno()+"',insurancec='"+s.getInsurancec()+"',type='"+s.getType()+"',quantity='"+quant+"',fileno='"+s.getFileno()+"',prch = '"+prch+"'";
+	String sql = "insert into billgen(invoice,invoicedate,pname,pid,address,wardno,doctor,admdate,disdate,cashier,feetype,charges,price,subtotal,tax,discount,total,admitno,mid,policyholder,policyno,insurancec,type,quantity,fileno,prch,instype) values('"+s.getInvoice()+"','"+s.getInvoicedate()+"','"+s.getPname()+"','"+s.getPid()+"','"+s.getAddress()+"','"+s.getWardno()+"','"+s.getDoctor()+"','"+s.getAdmdate()+"','"+s.getDisdate()+"','"+s.getCashier()+"','"+fee+"','"+cha+"','"+price+"','"+s.getSubtotal()+"','"+s.getTax()+"','"+s.getDiscount()+"','"+s.getTotal()+"','"+s.getAdmitno()+"','"+s.getMid()+"','"+s.getPolicyholder()+"','"+s.getPolicyno()+"','"+s.getInsurancec()+"','"+s.getType()+"','"+quant+"','"+s.getFileno()+"','"+prch+"','"+s.getPs()+"') on duplicate key update invoiceDate = '"+s.getInvoicedate()+"',address='"+s.getAddress()+"',wardno='"+s.getWardno()+"',doctor='"+s.getDoctor()+"',admdate='"+s.getAdmdate()+"',disdate='"+s.getDisdate()+"',cashier='"+s.getCashier()+"',feetype='"+fee+"',charges='"+cha+"',price='"+price+"',subtotal='"+s.getSubtotal()+"',tax='"+s.getTax()+"',discount='"+s.getDiscount()+"',total='"+s.getTotal()+"',admitno='"+s.getAdmitno()+"',mid='"+s.getMid()+"',policyholder='"+s.getPolicyholder()+"',policyno='"+s.getPolicyno()+"',insurancec='"+s.getInsurancec()+"',type='"+s.getType()+"',quantity='"+quant+"',fileno='"+s.getFileno()+"',prch = '"+prch+"',instype='"+s.getPs()+"'";
 	return template.update(sql);
 }
 
 public int saved(Discharge s) {
 	// TODO Auto-generated method stub
 	
-	String sql = "insert into discharge(pid,pname,dname,docid,admdate,disdate,investigation,fileno,admitno,freeze) values(?,?,?,?,?,?,?,?,?,?) on duplicate key update disdate =values(disdate),investigation=values(investigation),freeze=values(freeze)";
-	  return template.update(sql, new Object[] {s.getPid(),s.getPname(),s.getDname(),s.getDocid(),s.getAdmdate(),s.getDisdate(),s.getInvestigation(),s.getFileno(),s.getAdmitno(),s.getFreeze()}); 
+	String sql = "insert into discharge(pid,pname,dname,docid,admdate,disdate,investigation,fileno,admitno,freeze,dissum) values(?,?,?,?,?,?,?,?,?,?,?) on duplicate key update disdate =values(disdate),investigation=values(investigation),freeze=values(freeze),dissum=values(dissum)";
+	  return template.update(sql, new Object[] {s.getPid(),s.getPname(),s.getDname(),s.getDocid(),s.getAdmdate(),s.getDisdate(),s.getInvestigation(),s.getFileno(),s.getAdmitno(),s.getFreeze(),s.getDissum()}); 
 }
 
 public List<Discharge> getDischarge() {
@@ -1145,8 +1154,8 @@ public int savescategory(Lab s,String category,String subcategory,String catcode
 	public List<Admitpat> getAdmitpat(String username, String userrole) {
 		// TODO Auto-generated method stub
 		if(userrole.contains("[ROLE_DOCTOR]")){
-			
-			return template.query("select ad.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) patient,ad.docid,concat(d.fname,' ',d.mname,' ',d.lname),wardno,bedno,discharge,cause,admdate,ad.fileno,ad.admitno from admitpat ad join patient pat on ad.pid = pat.pid join doctor d on ad.docid = d.docID where ad.docid in (select userid from userrole where username ='"+username+"')",new RowMapper<Admitpat>(){  
+		//	where ad.docid in (select userid from userrole where username ='"+username+"')
+			return template.query("select ad.pid,concat(pat.fname,' ',pat.mname,' ',pat.lname) patient,ad.docid,concat(d.fname,' ',d.mname,' ',d.lname),wardno,bedno,discharge,cause,admdate,ad.fileno,ad.admitno from admitpat ad join patient pat on ad.pid = pat.pid join doctor d on ad.docid = d.docID",new RowMapper<Admitpat>(){  
 		        public Admitpat mapRow(ResultSet rs, int row) throws SQLException {   
 			       Admitpat p = new Admitpat();
 			       
@@ -2359,19 +2368,26 @@ public void getChart2(Hourchart h) throws SQLException, Exception {
 // file upload details
 public int saveLabfile(Lab s) {
 	// TODO Auto-generated method stub
-	System.out.println(s.getDname());
-	String sql = "insert into labupload(pid,fileno,docurl,date,docid,tresult,iop,samplecol) values('"+s.getPid()+"','"+s.getFileno()+"','"+s.getTestname()+"','"+s.getDate1()+"','"+s.getDocid()+"','"+s.getTresult()+"','"+s.getIop()+"','"+s.getSamplecol()+"') on duplicate key update docurl = '"+s.getTestname()+"',docid='"+s.getDocid()+"',tresult='"+s.getTresult()+"',iop ='"+s.getIop()+"',samplecol='"+s.getSamplecol()+"'";
+	  String sql="insert into labupload(pid,fileno,date,docid,tresult) values(?,?,?,?,?) on duplicate key update docid = values(docid),tresult = values(tresult),date = values(date)";  
+	  return template.update(sql, new Object[] { s.getPid(),s.getFileno(),s.getDate1(),s.getDocid(),s.getTresult()}); 
+	
+}
+
+//file upload details
+public int saveLabfile1(Lab s) {
+	// TODO Auto-generated method stub
+	String sql = "insert into storefile(pid,fileno,docurl,samplecol,filename) values('"+s.getPid()+"','"+s.getFileno()+"','"+s.getTestname()+"','"+s.getSamplecol()+"','"+s.getIop()+"') on duplicate key update docurl = '"+s.getTestname()+"',filename ='"+s.getIop()+"',samplecol='"+s.getSamplecol()+"'";
 	return template.update(sql);
 }
 
 public List<Lab> getLabupload() {
-	return template.query("select l.pid,concat(p.fname,' ',p.mname,' ',p.lname)Patient,l.fileno,l.docurl,l.date,l.dname,l.tresult,l.iop,l.samplecol from labupload l join patient p on l.pid = p.pid ",new RowMapper<Lab>(){
+	return template.query("select l.pid,concat(p.fname,' ',p.mname,' ',p.lname)Patient,l.fileno,l.docid,l.date,concat(d.fname,' ',d.mname,' ',d.lname)Doctor,l.tresult,l.iop,l.samplecol from labupload l join patient p on l.pid = p.pid join doctor d on d.docID = l.docid",new RowMapper<Lab>(){
 			 public Lab mapRow(ResultSet rs, int row) throws SQLException { 		
 	Lab h = new Lab();
 	h.setPid(rs.getString(1));
 	h.setPname(rs.getString(2));
 	h.setFileno(rs.getString(3));
-	h.setTestname(rs.getString(4));
+	h.setDocid(rs.getString(4));
 	h.setDate1(rs.getString(5));
 	h.setDname(rs.getString(6));
 	h.setTresult(rs.getString(7));
@@ -2385,20 +2401,14 @@ public List<Lab> getLabupload() {
 
 //get files based on patient fileno
 public List<Lab> getRetrfiles(String fileno) {
-	System.out.println(fileno);
-	return template.query("select l.pid,concat(p.fname,' ',p.mname,' ',p.lname)Patient,l.fileno,l.docurl,l.date,concat(d.fname,' ',d.mname,' ',d.lname),l.tresult,l.iop,l.samplecol from labupload l join patient p on l.pid = p.pid join doctor d on l.docid = d.docid where l.fileno = '"+fileno+"'",new RowMapper<Lab>(){
+
+	return template.query("select l.docurl,l.filename,l.samplecol from storefile l where l.fileno = '"+fileno+"'",new RowMapper<Lab>(){
 			 public Lab mapRow(ResultSet rs, int row) throws SQLException { 		
 	Lab h = new Lab();
-	h.setPid(rs.getString(1));
-	h.setPname(rs.getString(2));
-	h.setFileno(rs.getString(3));
-	h.setTestname(rs.getString(4));
-	h.setDate1(rs.getString(5));
-	h.setDname(rs.getString(6));
-	h.setTresult(rs.getString(7));
-    h.setIop(rs.getString(8));
-    h.setSamplecol(rs.getString(9));
-    System.out.println(rs.getString(1));
+	h.setTestname(rs.getString(1));
+	h.setIop(rs.getString(2));
+    h.setSamplecol(rs.getString(3));
+    
 	return h;
 
     }
@@ -2510,7 +2520,7 @@ public List<License> getLusers() {
 	});
 }
 public int filedelete(String sub) {
-	String sql = "delete from labupload where docurl='"+sub+"'";
+	String sql = "delete from storefile where docurl='"+sub+"'";
 	return template.update(sql);
 	
 }

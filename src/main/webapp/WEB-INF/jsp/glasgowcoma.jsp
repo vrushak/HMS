@@ -180,7 +180,9 @@ border-radius : 10px;
 width : 1000px;
 }
 
-
+.btn-block{
+ width : 1000px;
+}
 .highlight {
     background-color: yellow;
 }
@@ -243,6 +245,14 @@ function deleteRow(r) {
 				
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
+			 if(bac.includes("dochome")){
+				 $("#back").attr("href","/HMS/doctor1")
+				 $("#tit").text("Back to Doctor Home")
+			 }
+			 else{
+				 $("#back").attr("href","/HMS/nursedesk") 
+				 $("#tit").text("Back to Nurse Desk")
+			 }
 		}
 	}
 
@@ -387,6 +397,10 @@ function run(getval){
 //		document.getElementById("doctsig").value = strSplit[7];	
 		//document.getElementById("nursesig").value = strSplit[8];
 		document.getElementById("admitno").value = strSplit[9];
+		
+		document.getElementById("id").innerHTML = strSplit[1];
+		document.getElementById("nm").innerHTML = strSplit[0];
+		document.getElementById("flno").innerHTML = strSplit[4];
 		
 	disbut();
 	
@@ -575,6 +589,8 @@ var user2a;
 	               //    $("#date").selectpicker("refresh");
 	        		//alert(datec.date)
 	        		document.getElementById("date").value = datec.date;
+	        		
+	        		$('#timestamp').val(datec.timestamp)
 		            /*  
 	        		if ($("#datec option[value='"+encodeURIComponent(datec.date)+"']").length == 0){
 		               
@@ -740,6 +756,10 @@ var user2a;
        });
        
 
+       function appendts(){
+     	  $('#timestamp').val('<c:out value="${pageContext.request.userPrincipal.name}" />  '+moment().format("DD-MM-YYYY HH:mm"))
+     		
+       }  
        </script>
     	    </head>
 </head>
@@ -755,15 +775,16 @@ var user2a;
       <li class="active"><a id="ho" href="">Home</a></li>
      
     </ul>
-    <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back"  onclick="window.location.href='/HMS/doctor1';"></i>
+   <ul class="nav navbar-nav navbar-right">
+  <li><a href="#" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back</span></a></li>
+    </ul>
   </div>
 </nav>
   <center>
 </center>
   <div id="form1" >  
   
-     <h1><button type="button" id="refresh" class="btn btn-warning button1"  onclick="location.href='glasgowcoma';">
+     <h1><button type="button" id="refresh" class="btn btn-warning button1"  onclick="location.reload(true);">
 	  <span class="fa fa-refresh"></span> Refresh</button>
 	
 	
@@ -775,6 +796,10 @@ var user2a;
 
 
    <br>
+   <div class="container" style="width:auto;height:auto">
+ <button type="button" style="background:#81BDA4",  class="btn btn-primary btn-block"><span id="pi" style="float:left">Patient Information</span><span id="flno" style="float:right">Fileno</span><span id="id" style="float:right;margin-right:15px;">Id</span><span style="float:right;margin-right:25px;" id="nm">Name</span></button>
+ <br>
+  </div>  
 	    
 	    <div class="container">
  
@@ -797,7 +822,7 @@ var user2a;
             <p>Patient Name<span></span></p>
              <select class="selectpicker form-control" data-size="4" data-live-search="true" name = "pname" id ="pname" onchange="run(this.options[this.selectedIndex])">
           <option value="Select" selected disabled>Select</option>
-        <c:forEach var="p"  items="${list3}">
+        <c:forEach var="p"  items="${model.list3}">
         <option value="${p.name}" data-subtext="${p.fileno},${p.admdate}" data-value="${p.name}=${p.pid}=${p.age}=${p.gender}=${p.fileno}=${p.admdate}=${p.wardno}=${p.doctsig}=${p.nursesig}=${p.admitno}">${p.name}</option>
         </c:forEach>
       </select>
@@ -809,7 +834,7 @@ var user2a;
 	      
 	       <div class="form-group">
          <p>Patient Id<span></span></p>
-     <input type="text" name="pid" id="pid"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="pid" id="pid"  form="forma" class="form-control input-sm" readonly required>
        
        
        
@@ -820,7 +845,7 @@ var user2a;
 	        <div class="form-group">
      
          <p>Admit No<span></span></p>
-             <input type="text" name="admitno" id="admitno"  form="forma" class="form-control input-sm"  required>
+             <input type="text" name="admitno" id="admitno"  form="forma" class="form-control input-sm" readonly required>
              <input type="hidden" name="fileno" id="fileno" readonly="readonly" form="forma" class="form-control input-sm"  required>
 	         <input type="hidden" name="name" id="name" readonly="readonly" form="forma" class="form-control input-sm"  required>
 	         <input type="hidden" name="" id="" readonly="readonly" form="forma" class="form-control input-sm"  required>
@@ -839,14 +864,14 @@ var user2a;
 	       <div class="form-group">
      
             <p>Age<span></span></p>
-     <input type="text" name="age" id="age"  form="forma" class="form-control input-sm"  >
+     <input type="text" name="age" id="age"  form="forma" class="form-control input-sm" readonly >
      </div>
 	      </div>
 	      
 	       <div class="col-xs-4">
 	      <div class="form-group">
           <p>Gender<span></span></p>
-     <input type="text" name="gender" id="gender"  form="forma" class="form-control input-sm">
+     <input type="text" name="gender" id="gender"  form="forma" class="form-control input-sm" readonly>
        
      </div>
 	      </div>
@@ -854,7 +879,7 @@ var user2a;
 	       <div class="col-xs-3">
 	      <div class="form-group">
             <p>Admission Date<span></span></p>
-     <input type="text" name="admdate" id="admdate"  form="forma" class="form-control input-sm" >
+     <input type="text" name="admdate" id="admdate"  form="forma" class="form-control input-sm" readonly>
        
 	</div>
 	      </div>
@@ -867,7 +892,7 @@ var user2a;
 	       <div class="form-group">
      
           <p>WardNo/BedNo<span></span></p>
-     <input type="text" name="wardno" id="wardno"  form="forma" class="form-control input-sm"  >
+     <input type="text" name="wardno" id="wardno"  form="forma" class="form-control input-sm" readonly >
      </div>
 	      </div>
 	      
@@ -875,7 +900,7 @@ var user2a;
 	        <div class="form-group">
      
           <p>Current Date<span></span></p>
-     <input type="text" name="date" id="date"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="date" id="date"  form="forma" class="form-control input-sm" readonly required>
      </div>
 	      </div>
 	      
@@ -924,6 +949,10 @@ var user2a;
         </select>
       </div>
 	        </div>
+	        
+	         <div class="col-xs-5"> 
+	     <div class="form-group"><b>Last Modified : </b><input type="text" name="timestamp" id="timestamp" form="forma" style="border:none;width:200px;" readonly="readonly"></div> 
+       </div> 
 	      </div>
 	      
       
@@ -983,11 +1012,14 @@ var user2a;
 	      </div>
 	      </div>
 	      </div>
-<button type="submit" value="submit" class="bouton-contact" id="bc" name="save" form="forma" >Save</button>
+<button type="submit" value="submit" class="bouton-contact" onclick="appendts()" id="bc" name="save" form="forma" >Save</button>
    </div>
    </div>
    <script>
 datasuccess('<%=request.getParameter("message")%>')
+</script>
+<script>
+var bac = '<c:out value='${model.bac}'/>';
 </script>
 </body>
 </html>

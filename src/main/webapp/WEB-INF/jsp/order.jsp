@@ -257,7 +257,7 @@ var quanto;
 var unito;
 var upo;
 var p;
-
+var dps;
 function add1(getval){
 	
 
@@ -273,6 +273,7 @@ function add1(getval){
    	   $('select[name=pname]').val(strSplit[1]);
 	   $('#pname').selectpicker('refresh');
 	   p = strSplit[2];
+	   dps = strSplit[3];
      }
 	   
 		// document.getElementById("eans").value = strSplit[0];
@@ -297,6 +298,7 @@ function add2(getval){
 	   	   $('select[name=ean1]').val(strSplit[0]);
 		   $('#ean1').selectpicker('refresh');
 		   p = strSplit[2];
+		   dps = strSplit[3];
 		//   document.getElementById("eans").value = strSplit[0];
 	       }
 	   
@@ -389,9 +391,26 @@ if(pname == "Select" && ean == "Select"){
     
 var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
 
- 
+var stop;	
 
-var markup = "<tr><td style='width:100px;'><input type='text'  class='form-control input-sm' id = 'ean' name= 'ean' form ='saveo' value = "+ean+" required></td><td style='width:400px;'><input type='text'  form ='saveo' class='form-control input-sm' id = 'productName' name= 'productName'  value = '"+decodeURI(pname)+"' required></td><td style='width:160px;'><input id = 'unit' form ='saveo' type='text' name= 'unit' class='form-control input-sm' required></td><td style='width:100px;'><input form ='saveo'  type='number' onkeypress='return onlyNos(event,this);'  id = 'quantity' name= 'quantity' min = '1' value = '0' class='form-control input-sm' required ></td><td style='width:100px;'><input type = 'text' form ='saveo'  readonly='readonly' type='text'  id = 'stks' name='stks' value="+Number(p)+" class='form-control input-sm' required></td><td style='width:70px;'><i class='fa fa-trash-o'  style='font-size:20px'onclick='deleteRow(this)'></i></td></tr>"
+$("#myTable .tbody tr td:nth-child(2)").find('input').each(function(){
+
+  if(this.value == decodeURI(pname)){
+	  stop = "0"
+  }
+  else{
+	  stop = "1"
+  }
+   		
+   	 });
+   	 
+
+if(stop == "0"){
+	unsaved = false;
+	alert("Product already added")
+	return false;
+}
+var markup = "<tr><td style='width:100px;'><input type='text'  class='form-control input-sm' id = 'ean' name= 'ean' form ='saveo' value = "+ean+" required></td><td style='width:400px;'><input type='text'  form ='saveo' class='form-control input-sm' id = 'productName' name= 'productName'  value = '"+decodeURI(pname)+"' required></td><td style='width:160px;'><input id = 'unit' form ='saveo' type='text' name= 'unit' class='form-control input-sm' value='"+dps+"' required></td><td style='width:100px;'><input form ='saveo'  type='number' onkeypress='return onlyNos(event,this);'  id = 'quantity' name= 'quantity' min = '1' value = '0' class='form-control input-sm' required ></td><td style='width:100px;'><input type = 'text' form ='saveo'  readonly='readonly' type='text'  id = 'stks' name='stks' value="+Number(p)+" class='form-control input-sm' required></td><td style='width:70px;'><i class='fa fa-trash-o'  style='font-size:20px'onclick='deleteRow(this)'></i></td></tr>"
 
  $('#myTable tbody').append(markup);
 
@@ -636,7 +655,7 @@ function disp(){
 		return false;
 	}
 	if(unsaved == true){
-		alert("Please save the data")
+		alert("Please save the changes before printing")
 		return false;
 	}
 	$("#col3").css("border-style","none");
@@ -665,6 +684,7 @@ function disp(){
 	//document.getElementById("col3").style.width = "1170px";
 
 	//document.getElementById("pr").style.display = "block";
+	$("#myTable th:eq(4), #myTable td:nth-child(5)").show();
 	$("#myTable th:eq(5), #myTable td:nth-child(6)").show();
 	$("#myTable th:eq(6), #myTable td:nth-child(7)").show();
 	document.getElementById("myTable").style.width = "930px"; 	
@@ -704,10 +724,22 @@ function doAjaxdel(r){
 	//var a = document.getElementById(drug).value;
 //	var b = document.getElementById(type).value;
 	var c = $('#sinvoice').val();
-
+	var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
 	
-	    
+	
+	var ra = confirm("You are deleting a product. Do you want to proceed?");
+	if (ra == false) {
+		return false;
+	}
 	   
+	var res;
+	if(tableRef.rows.length == 1){
+		var i = confirm("You are deleting all the products in the Order. This order will not be saved. Do you want to proceed?")
+	if(i == false){
+		return false;
+	}	
+	}
+	
 	   $.ajax({
       	 
            type: "GET",
@@ -789,12 +821,16 @@ function doAjaxdel(r){
         		 
         		   document.getElementById("count").value = datec.count;
         		   document.getElementById("orderDate").value = datec.orderDate;
-        		  
+        		   var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
+        		  var eanid = "ean" + tableRef.rows.length;
+        		  var pid = "pid" + tableRef.rows.length;
         		 
-        		   var markup = "<tr><td style='width:100px;' class='pc'><input type='text'  class='form-control input-sm' id = 'ean' name= 'ean' form ='saveo' value = '"+datec.ean+"' required></td><td style='width:400px;' class='pc1'><textarea rows = '1' form ='saveo' class='form-control input-sm' id = 'productName' name= 'productName' oninput='auto_grow(this)' required>"+datec.productName+"</textarea></td><td style='width:160px;' class='pc2'><input id = 'unit' class='form-control input-sm' form ='saveo' type='text' name= 'unit' value='"+decodeURI(datec.unit)+"' required></td><td style='width:100px;' class='pc'><input form ='saveo'  type='number' onkeypress='return onlyNos(event,this);' id = 'quantity' name= 'quantity' min = '1' value = '"+datec.quantity+"' class='form-control input-sm'  required></td><td style='width:100px;'class='pc'><input type = 'text' form ='saveo'   type='text'  id = 'stks' name='stks' value="+Number(datec.stks)+"  readonly='readonly' class='form-control input-sm' required></td><td style='width:70px;'><i class='fa fa-trash-o' id='"+encodeURI(datec.ean)+"' style='font-size:20px' onclick=doAjaxdel(this)></i></td></tr>"
+        		   var markup = "<tr><td style='width:100px;' class='pc'><input type = 'text' class='form-control input-sm' id = 'ean' name= 'ean' form ='saveo' value = '"+datec.ean+"' required></td><td style='width:400px;' class='pc1'><input type='text' form ='saveo' class='form-control input-sm' id = 'productName' name= 'productName' value='"+datec.productName+"' required></textarea></td><td style='width:160px;' class='pc2'><input id = 'unit' class='form-control input-sm' form ='saveo' type='text' name= 'unit' value='"+decodeURI(datec.unit)+"' required></td><td style='width:100px;' class='pc'><input form ='saveo'  type='number' onkeypress='return onlyNos(event,this);' id = 'quantity' name= 'quantity' min = '1' value = '"+datec.quantity+"' class='form-control input-sm'  required></td><td style='width:100px;'class='pc'><input type = 'text' form ='saveo'   type='text'  id = 'stks' name='stks' value="+Number(datec.stks)+"  readonly='readonly' class='form-control input-sm' required></td><td style='width:70px;'><i class='fa fa-trash-o' id='"+encodeURI(datec.ean)+"' style='font-size:20px' onclick=doAjaxdel(this)></i></td></tr>"
 
         		   $('#myTable tbody').append(markup);
-        		
+        		   document.getElementById(eanid).oninput();
+        		   document.getElementById(pid).oninput();
+        		   
         		   $('select[name=Supplier]').val(datec.Supplier);
         		   $('#Supplier').selectpicker('refresh');
         		
@@ -834,17 +870,49 @@ $(function () {
 	
 $('#datetimepicker1').datetimepicker({
 	 
+	defaultDate: new Date(),
+	useCurrent: false,
 	format: "dd-mm-yyyy  hh:ii",
     autoclose: true,
-    endDate: '+0d',
-    todayBtn: true
    
+    todayBtn: true,
+    
 	
 });
 
 });
 
+function chdate(id){
+	var datea = $(id).val().split(' ');
 
+	var from = datea[0].split("-");
+	var f = new Date(from[2], from[1] - 1, from[0]);
+	
+
+var date1 = new Date()
+var longformat = f*1;
+
+var longformat1 = date1*1; 	
+if(longformat > longformat1){
+	alert("Cannot create orders for future dates")
+	$('#bouton-contact').prop("disabled",true)
+	return false;
+}
+else{
+	$('#bouton-contact').prop("disabled",false)
+	return true
+}
+}
+
+function chod(id){
+	if($('#sinvoice').val() == "Select"){
+		alert("Please select order id")
+		return false;
+	}
+	else{$(id).attr('href','/HMS/orderpr?location='+$('#sinvoice').val()+'')
+		return true;}
+	
+}
 </script>  
 
 </head>
@@ -884,7 +952,7 @@ $('#datetimepicker1').datetimepicker({
   <div id="form1" >  
   
      <h1><button type="submit"  form="saveo" onclick="return verifypro();" id="bouton-contact" onkey  class="btn btn-warning button1">Save</button> 
-       <font size="5">Order & Reorder</font><span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i> <button type="button" id="close" class="btn btn-warning button2 rmt" onclick="return disp()">Print</button> 
+       <font size="5">Order & Reorder</font><span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i> <a href="#" id="close" target="_blank" class="btn btn-warning button2 rmt" onclick="return chod(this)">Print</a> 
 
 	</h1>
 	    
@@ -925,7 +993,7 @@ $('#datetimepicker1').datetimepicker({
 	     
         <p>Order Date<span>*</span></p>
         <div class='input-group date' id='datetimepicker1'>
-       <input type="text" class="form-control input-sm" form="saveo" name="orderDate" id ="orderDate" required>
+       <input type="text" class="form-control input-sm" form="saveo" onfocusout ="return chdate(this)" name="orderDate" id ="orderDate" required>
         <span class="input-group-addon" id="re"><span class="glyphicon glyphicon-calendar "></span></span>
    
        </div>
@@ -977,7 +1045,7 @@ $('#datetimepicker1').datetimepicker({
       <select class="selectpicker form-control input-sm" data-size="6" data-show-subtext="true" data-live-search="true" name = "ean1" id ="ean1"  onchange="add1(this.options[this.selectedIndex])" required>
      <option value="Select" data-value="Select">Select</option>
      <c:forEach var="product"  items="${model.list}">
-       <option value="${product.prc}" data-value="${product.prc},${product.name},${product.stocks}">${product.prc}</option>
+       <option value="${product.prc}" data-value="${product.prc},${product.name},${product.stocks},${product.dps}">${product.prc}</option>
     </c:forEach>
 </select> 
    
@@ -993,7 +1061,7 @@ $('#datetimepicker1').datetimepicker({
       <select class="selectpicker form-control input-sm" data-size="6"  data-show-subtext="true" data-live-search="true" name = "pname" id ="pname"  onchange="add2(this.options[this.selectedIndex])" required>
        <option value="Select" data-value="Select">Select</option>
         <c:forEach var="product"  items="${model.list}">
-       <option value="${product.name}" data-value="${product.prc},${product.name},${product.stocks}">${product.name}</option>
+       <option value="${product.name}" data-value="${product.prc},${product.name},${product.stocks},${product.dps}">${product.name}</option>
     </c:forEach>
      </select>
 	       </div>
@@ -1038,9 +1106,17 @@ $('#datetimepicker1').datetimepicker({
     </thead>
    
    <tbody class="tbody">
+     <c:forEach var="ps"  items="${model.list5}">
+     <tr>
+     <td width="100px;"><input type='text'  class='form-control input-sm' id = 'ean' name= 'ean' form ='saveo' value = "${ps.prc}" required></td>
+     <td width="390px;"><input type='text'  form ='saveo' class='form-control input-sm' id = 'productName' name= 'productName'  value = "${ps.name}" required></td>
+     <td width="160px;"><input id = 'unit' form ='saveo' type='text' name= 'unit' class='form-control input-sm' value="${ps.dps}" required></td>
+     <td width="100px;"><input form ='saveo'  type='number' onkeypress='return onlyNos(event,this);'  id = 'quantity' name= 'quantity' min = '1' value = '0' class='form-control input-sm' required ></td>
+     <td width="100px;"><input type = 'text' form ='saveo'  readonly='readonly' type='text'  id = 'stks' name='stks' value="${ps.stocks}" class='form-control input-sm' required></td>
+     <td width="43px;"><i class='fa fa-trash-o'  style='font-size:20px'onclick='deleteRow(this)'></i></td>
      
-     
-     
+     </tr>
+     </c:forEach>
      
     </tbody>
  

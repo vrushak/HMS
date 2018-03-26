@@ -278,6 +278,11 @@ public class controller {
 				public ModelAndView  saveAppointment(@ModelAttribute("s") Appointment s,HttpServletRequest request,HttpServletResponse response) throws KeyManagementException, NoSuchAlgorithmException, IOException {
 				 String chk = request.getParameter("pat");
 				
+				 Date date = new Date();
+				 String modifiedDate= new SimpleDateFormat("yyyy-MM-dd").format(date);
+				if(chk == null){
+					chk = "off";
+				}
 				 if(chk.contentEquals("on")){
 						Patient p = new Patient();
 						p.setPid(s.getPid());
@@ -285,6 +290,7 @@ public class controller {
 						p.setMobile(s.getPhno());
 						p.setMname(" ");
 						p.setLname(" ");
+						p.setRegdate(modifiedDate);
 						pdao.savePatient(p);
 						} 
 					int app = 0;
@@ -300,7 +306,8 @@ public class controller {
 							}
 							else{
                                 mav.setViewName("redirect:cappointment");
-					        }
+					        }/*
+							System.out.println("SMS "+s.getSms());
 		if(s.getSms() == null){
 			s.setSms("null");
 		}
@@ -309,7 +316,7 @@ public class controller {
 								sms.setparams("69iq54a4m4s4ib0agg135o3y0yfbkbmbu", "SEDEMO");
 								sms.send_sms(s.getPhno(), "Hi, this is a test message");		
 							}
-						
+						*/
 							/*
 							 Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
@@ -331,8 +338,7 @@ public class controller {
 									    mav.setViewName("redirect:cappointment");
 										}
 								}
-					 RedirectView redirectView = new RedirectView();
-				     redirectView.setUrl("/HMS/cappointment.html");
+			//	System.out.println("SMS "+s.getSms());
 			        return mav; 
 					}
 				@RequestMapping(value="/cancelapp/{path}", method = RequestMethod.GET)
@@ -348,6 +354,7 @@ public class controller {
 					else{
 						mav.setViewName("redirect:/cappointment.html");
 					}
+				    /*
 				    if(s.getSms() == null){
 						s.setSms("null");
 					}
@@ -356,7 +363,7 @@ public class controller {
 						sms.setparams("69iq54a4m4s4ib0agg135o3y0yfbkbmbu", "SEDEMO");
 						sms.send_sms(s.getPhno(), "Hi, this is a test message");		
 					}
-								
+						*/		
 	            }
 
 					
@@ -375,6 +382,17 @@ public class controller {
 			          model.put("list2", list2);
 				      model.put("list3", list3);
 					return new ModelAndView("admitpat","model",model); 
+					}
+				
+				//load inpatients screen
+				
+				@RequestMapping(value="/admission", method = RequestMethod.GET)
+				public ModelAndView inpatients() {
+				
+				    List<Admitpat> list3= dao.getAdmitpat();
+			 Map<String, Object> model = new HashMap<String, Object>();
+			        model.put("list3", list3);
+					return new ModelAndView("admission","model",model); 
 					}
 				@RequestMapping(value="/saveAdm", method = RequestMethod.POST)
 				public ModelAndView  saveAdmit(@ModelAttribute("s") Admitpat s) {
@@ -441,12 +459,11 @@ public class controller {
 		}
     
   @RequestMapping(value="/billgen", method = RequestMethod.GET)
-  public ModelAndView billgener(@ModelAttribute("p") Billgen p) {
-	
+  public ModelAndView billgener(@ModelAttribute("p") Billgen p,Principal principal,Authentication authentication) {
+	  
 	  List<Billconfig> list1= dao.getBillconfig();
-	 
 	  List<Billgen> list2= dao.getBill();
-	  List<Billgen> list3= dao.getBill1();
+	  List<Billgen> list3= dao.getBill1(principal.getName());
 	 
   Map<String,Object> model = new HashMap<String, Object>();
   model.put("list1", list1);
@@ -483,19 +500,21 @@ public class controller {
 			 return jsonFormatData;
 	}
   @RequestMapping(value="/billhistory", method = RequestMethod.GET)
-  public ModelAndView billhistory(@ModelAttribute("p") Billgen p) {
+  public ModelAndView billhistory(@ModelAttribute("p") Billgen p,HttpServletRequest req,HttpServletResponse res,Principal principal,Authentication authentication) {
 	
 	  List<Billconfig> list1= dao.getBillconfig();
 	 
 	  List<Billgen> list2= dao.getBill();
-	  List<Billgen> list3= dao.getBill1();
+	  List<Billgen> list3= dao.getBill1(principal.getName());
 	
 	  List<Billgen> list4= dao.getBill2(p.getPid(),p.getPname());
-	 
+	   
+
   Map<String,Object> model = new HashMap<String, Object>();
   model.put("list1", list1);
   model.put("list2", list2);
   model.put("list3", list3);
+  
   if(list4.isEmpty()){
 	  model.put("note", "No previous bills generated for the selected patient");
 	  return new ModelAndView("billgen","model",model);
@@ -630,12 +649,20 @@ public class controller {
 	
 	@RequestMapping(value="/labssave", method = RequestMethod.POST)
 	public ModelAndView  saveNr(@ModelAttribute("s") Lab s,HttpServletRequest req,HttpServletResponse res) {
-	
-	//	dao.savecategory(s);
-	//	dao.savescategory(s);
-		 RedirectView redirectView = new RedirectView();
-	     redirectView.setUrl("/HMS/labcmast.html");
-          return new ModelAndView(redirectView); 
+		int savefup = 0;
+		savefup = dao.saveLabfile(s);
+		ModelAndView  mav = new ModelAndView();
+		if(savefup > 0 ){
+		mav.addObject("message", "The record has been saved sucessfully");
+		mav.setViewName("redirect:labup");		    
+						    
+		}
+
+		else{
+		mav.addObject("message", "Record could not be saved successfully ");
+		mav.setViewName("redirect:labup");
+		}
+          return mav; 
 		}
 	
 	//lab config redirection
@@ -714,7 +741,7 @@ public class controller {
 		}
 //io-chart
 		@RequestMapping(value="/iochart", method = RequestMethod.GET)
-		public ModelAndView  iochart(Principal principal,Authentication authentication) {
+		public ModelAndView  iochart(Principal principal,Authentication authentication,HttpServletRequest req,HttpServletResponse res) {
               authentication.getAuthorities();
 	    	
 	    	System.out.println("Authentication" +authentication.getAuthorities());
@@ -728,7 +755,10 @@ public class controller {
 					}
 					else
 					list3 = dao.getPatientdet();
-			return new ModelAndView("iochart","list3",list3); 
+					Map<String, Object> model = new HashMap<String, Object>();
+				    model.put("list3", list3);
+				    model.put("bac", req.getParameter("location"));
+			return new ModelAndView("iochart","model",model); 
 			}
 		
 		@RequestMapping(value="/iochart1", method = RequestMethod.GET)
@@ -890,7 +920,7 @@ public class controller {
 
 		
 		@RequestMapping(value="/drugchart", method = RequestMethod.GET)
-		public ModelAndView  drugchart(Principal principal,Authentication authentication) {
+		public ModelAndView  drugchart(Principal principal,Authentication authentication,HttpServletRequest req,HttpServletResponse res) {
     authentication.getAuthorities();
 	    	
 	    	System.out.println("Authentication" +authentication.getAuthorities());
@@ -910,6 +940,35 @@ public class controller {
 				      
 				       model.put("list3", list3);
 				       model.put("list4", list4);
+				       model.put("bac", req.getParameter("location"));
+			return new ModelAndView("drugchart","model",model); 
+			}
+	// drug chart load from discharge
+		
+		@RequestMapping(value="/drugchart1aa", method = RequestMethod.GET)
+		public ModelAndView  drugchart1aa(Principal principal,Authentication authentication,HttpServletRequest req,HttpServletResponse res) {
+    authentication.getAuthorities();
+	    	
+	    	System.out.println("Authentication" +authentication.getAuthorities());
+	    	Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
+	    	String b = var.toString();
+	         
+			List<Iochart> list3; 
+					if(b.contains("[ROLE_NURSE]")){
+						//list3 =dao.getPatientdet(principal.getName());
+						list3 = dao.getPatientdet();
+					}
+					else
+					list3 = dao.getPatientdet();
+					 List<Prescription>list4 = dao.search();		
+					 Map<String, Object> model = new HashMap<String, Object>();
+				      
+				      
+				       model.put("list3", list3);
+				       model.put("list4", list4);
+				       model.put("bac", req.getParameter("location"));
+				       model.put("pname",req.getParameter("location1"));
+				       model.put("flno",req.getParameter("location2"));
 			return new ModelAndView("drugchart","model",model); 
 			}
 		
@@ -1267,7 +1326,7 @@ public class controller {
 		//load hour chart details
 		
 		@RequestMapping(value="/hourchart", method = RequestMethod.GET)
-		public ModelAndView  hourchart(Principal principal,Authentication authentication) {
+		public ModelAndView  hourchart(Principal principal,Authentication authentication,HttpServletRequest req,HttpServletResponse res) {
                  authentication.getAuthorities();
 	    	
 	    	System.out.println("Authentication" +authentication.getAuthorities());
@@ -1281,8 +1340,11 @@ public class controller {
 					}
 					else
 					list3 = dao.getPatientdet(); 
+					Map<String, Object> model = new HashMap<String, Object>();
+				    model.put("list3", list3);
+				    model.put("bac", req.getParameter("location"));
 		//	List<Iochart> list3= dao.getPatientdet(principal.getName());
-			return new ModelAndView("hourchart","list3",list3); 
+			return new ModelAndView("hourchart","model",model); 
 			}
 		
 		@RequestMapping(value="/hourchart1", method = RequestMethod.GET)
@@ -1440,7 +1502,7 @@ public class controller {
 	//opd drugchart
 							 
 							 @RequestMapping(value="/opdchart", method = RequestMethod.GET)
-								public ModelAndView  opdchart(Principal principal,Authentication authentication) {
+								public ModelAndView  opdchart(Principal principal,Authentication authentication,HttpServletRequest req,HttpServletResponse res) {
 						    authentication.getAuthorities();
 							    	
 							    	System.out.println("Authentication" +authentication.getAuthorities());
@@ -1454,7 +1516,8 @@ public class controller {
 								      
 								       model.put("list3", list3);
 								       model.put("list4", list4);
-										
+								       model.put("bac", req.getParameter("location"));
+	
 									return new ModelAndView("opdchart","model",model); 
 									}
 								
@@ -1741,19 +1804,22 @@ public class controller {
 												return new ModelAndView("lab","model",model); 
 												}	
 										 @RequestMapping(value="/labup", method = RequestMethod.GET)
-											public ModelAndView  labup(Principal principal,Authentication authentication) {
+											public ModelAndView  labup(Principal principal,Authentication authentication,HttpServletRequest req,HttpServletResponse res) {
 											 
 											 Collection<? extends GrantedAuthority> var = authentication.getAuthorities();
 										    	String b = var.toString();
 											 
-												 List<Lab> list2= dao.getLabconfig();
 												 List<Prescription> list1= ddao.getDocID3(principal.getName(),b);
 												 List<Lab> list3= dao.getLabupload();
-										    	
+												 List<Prescription> list1a= ddao.getDocID2(principal.getName(),b);
+													
 												 Map<String, Object> model = new HashMap<String, Object>();
 											        model.put("list1",list1);
-											        model.put("list2",list2);
+											        model.put("list1a",list1a);
 											        model.put("list3",list3);
+											        model.put("bac", req.getParameter("location"));
+
+
 												return new ModelAndView("lab","model",model); 
 												}			
 			//get the subcategories
@@ -1790,12 +1856,13 @@ public class controller {
 												 List<Lab> list2= dao.getLabconfig();
 												 List<Prescription> list1= ddao.getDocID2(principal.getName(),b);
 												 List<Lab> list3= dao.getLabupload();
-										    	
+												 List<Diagnose> list4= ddao.getLabupload();
 												 Map<String, Object> model = new HashMap<String, Object>();
-											        model.put("list1",list1);
+											        model.put("list4",list4);
 											        model.put("list2",list2);
 											        model.put("list3",list3);
-												return new ModelAndView("labprint","list3",list3); 
+											        
+												return new ModelAndView("labprint","model",model); 
 													
 											
 												}

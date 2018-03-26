@@ -146,6 +146,9 @@ modal-body{
 	margin-left :700px ;
 }
 
+.btn-block{
+ width : 1250px;
+}
 
 
 #col3{
@@ -193,6 +196,7 @@ function disbut(){
 }
 function checkhome(user){
 	//alert(user)
+	document.getElementById("curdate").value = new Date();
 	if(user.includes("dbfdesk")){
 		 var url = "/HMS/frontdesk" ;
 		 $("#back").hide();
@@ -234,6 +238,15 @@ function checkhome(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 
+		 if(bac.includes("dochome")){
+			 $("#back").attr("href","/HMS/doctor1")
+			 $("#tit").text("Back to Doctor Home")
+		 }
+		 else{
+			 $("#back").attr("href","/HMS/nursedesk") 
+			 $("#tit").text("Back to Nurse Desk")
+		 }
 	}
 }
 
@@ -353,7 +366,7 @@ function display(){
 	
 	
 	var tableRef = document.getElementById('myTable1').getElementsByTagName('tbody')[0];
-	var rowsAdd = tableRef.insertRow(tableRef.rows.length);  
+	  
 var nursesig;
 	 if(user2a == "[ROLE_NURSE]" ||user2a == "[ROLE_CHIEFNURSE]" ){
  		nursesig = user2c;
@@ -361,55 +374,12 @@ var nursesig;
  	else{
  		nursesig = user2c;
  	}
-                  
-	  var newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><select class='form-control input-sm' form ='forma'  style='width:100%;  border:groove;'  id = 'tabid'   name= 'tabid'  required><option value='Bowels'>Bowels</option><option value='Urine'>Urine</option><option value='Temperature'>Temperature</option><option value='Day of disease'>Day of disease</option><option value='Pulse'>Pulse</option><option value='Respire'>Respire</option><option value='BP'>BP</option><option value='Diet'>Diet</option></select></td></tr>";
-	  newCell.style.width ='100px';
-	  newCell.style.overflow = 'hidden';
-	
-
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='forma' class= 'form-control input-sm' style='width:100%;  border:groove;' value='0'  type='text' id = 'time' name= 'time'  > </td></tr>";
-	  newCell.style.width ='150px';
-	  newCell.style.overflow = 'hidden';
-	  
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input form ='forma'   class= 'form-control input-sm'  style='width:100%;  border:groove;' value='0' id = 'oraltype'  name= 'oraltype'></td></tr>";
-	  newCell.style.width ='150px';
-	  newCell.style.overflow = 'hidden';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td ><input form ='forma'  class= 'form-control input-sm' style='width:100%;  border:groove;' value='0'   type='text'  id = 'oralamt' name= 'oralamt'    ></td></tr>";
-	  newCell.style.width ='150px';
-	  newCell.style.overflow = 'hidden';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td width ='';><input form ='forma'  class= 'form-control input-sm' style='width:100%;  border:groove;' value='0' id = 'oralcommence'  name= 'oralcommence'  ></td></tr>";
-	  newCell.style.width ='150px';
-	  newCell.style.overflow = 'hidden';
-	  
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td width ='';><input form ='forma'  class= 'form-control input-sm' style='width:100%;  border:groove;' value='0' id = 'amtgiv'  name= 'amtgiv'></td></tr>";
-	  newCell.style.width ='150px';
-	  newCell.style.overflow = 'hidden';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='forma'  class= 'form-control input-sm' style='width:100%;border:groove;' type='text' value='0' id = 'urine' name= 'urine' > </td></tr>";
-	  newCell.style.width ='150px';
-	  newCell.style.overflow = 'hidden';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input  form ='forma'  class= 'form-control input-sm' style='width:100%; border:groove;' type='text' value='"+user2c+"' id = 'nsign' name= 'nsign' > </td></tr>";
-	  newCell.style.width ='100px';
-	  newCell.style.overflow = 'hidden';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td><input type='text' name='aid1'  class= 'form-control input-sm' readonly style='width:100%;border:groove;' id='aid1' value= "+m+"  form='forma'></td></tr>";
-	  newCell.style.width ='70px';
-	  newCell.style.overflow = 'hidden';
-	 
+	 var rowa = "taba"+ tableRef.rows.length;      
+	 var markup = "<tr id='"+rowa+"'><td style='width:100px;'><select class='form-control input-sm' form ='forma'  style='border:groove;'  id = 'tabid'   name= 'tabid'  required><option value='Bowels'>Bowels</option><option value='Urine'>Urine</option><option value='Temperature' selected>Temperature</option><option value='Day of disease'>Day of disease</option><option value='Pulse'>Pulse</option><option value='Respire'>Respire</option><option value='BP'>BP</option><option value='Diet'>Diet</option></select></td><td style='width:150px;'><input  form ='forma' class= 'form-control input-sm' style='border:groove;' value='0'  type='text' id = 'time' name= 'time'  > </td><td style='width:150px;'><input form ='forma'   class= 'form-control input-sm'  style='border:groove;' value='0' id = 'oraltype'  name= 'oraltype'></td><td style='width:150px'><input form ='forma'  class= 'form-control input-sm' style='border:groove;' value='0'   type='text'  id = 'oralamt' name= 'oralamt'    ></td><td style='width:150px'><input form ='forma'  class= 'form-control input-sm' style='border:groove;' value='0' id = 'oralcommence'  name= 'oralcommence'  ></td><td style='width:150px;'><input form ='forma'  class= 'form-control input-sm' style='border:groove;' value='0' id = 'amtgiv'  name= 'amtgiv'></td><td style='width :150px'><input  form ='forma'  class= 'form-control input-sm' style='border:groove;' type='text' value='0' id = 'urine' name= 'urine' > </td><td style='width:100px;'><input  form ='forma'  class= 'form-control input-sm' style='border:groove;' type='text' value='"+user2c+"' id = 'nsign' name= 'nsign' > </td><td style='width:70px;'><input type='text' name='aid1'  class= 'form-control input-sm' readonly style='border:groove;' id='aid1' value= "+m+"  form='forma'></td></tr>";
+	 $('#myTable1 .tbody1').append(markup);
+	  var elmnt = document.getElementById(rowa);
+	     elmnt.scrollIntoView();
+	     $(rowa).focus(); 
 	  disbut();       
 	 
 	
@@ -433,12 +403,13 @@ function crtab(userr,usern){
 		doAjaxPost1(moment().format('DD-MM-YYYY')) 
 	}
 	else{
-		doAjaxPost1(document.getElementById("date").value)
+	//doAjaxPost1(document.getElementById("date").value)
 	}
 	 unsaved = false;
+
 	var tableRef = document.getElementById('myTable1').getElementsByTagName('tbody')[0];
 	   if(tableRef.rows.length == 0){
-		 
+		
 		   display()
 	   }
 	   else{
@@ -485,7 +456,7 @@ function onlyNos(e, t) {
 	    
 function addname(getval){
 	
-	
+
 	var myname = getval.getAttribute('data-value'); 	
 		//var str = document.getElementById("pname").getAttribute("data-value");
 	//	alert(str);
@@ -505,8 +476,16 @@ function addname(getval){
 		document.getElementById("nursesig").value = strSplit[8];
 		document.getElementById("admitno").value = strSplit[9];
 		
+		document.getElementById("id").innerHTML = strSplit[1];
+		document.getElementById("nm").innerHTML = strSplit[0];
+		document.getElementById("flno").innerHTML = strSplit[4];
+		$('#myTable1 .tbody1 tr').remove();
+	   $('select[name=daten]').val('select');
+   	   $('#date').selectpicker('refresh');
+		
 	disbut();
-	
+
+	//onclick="crtab('<c:out value="${username}" />','<c:out value="${pageContext.request.userPrincipal.name}" />')"
 }
 function validmess(){
 	if(document.getElementById("pname").value == "Select"){
@@ -591,7 +570,7 @@ var user2a;
     	   // get the form values
 
     	      //  var name = $('#pname').val();
-            $("#myTable1 .tbody1 tr").remove();
+           
     	   var admitno = $('#admitno').val();
 
     	   if(admitno.length == "0"){
@@ -611,7 +590,11 @@ var user2a;
 	           contentType: "application/json; charset=UTF-8",
 	           
 	           success: function(response){
-	     //   	   alert(response);
+	        	
+	     if(response.list5.length != 0){
+	    	
+	    	 $("#myTable1 .tbody1 tr").remove();
+	     }
 	        	   $.each(response.list5, function(index, datec) {
 	                   //to print name of employee
 	              //     $("#date").append('<option value="'+datec.time+'=.='+datec.oraltype+'=.='+datec.oralamt+'=.='+datec.oralcommence+'=.='+datec.amtgiv+'=.='+datec.urine+'=.='+datec.vomitus+'=.='+datec.remarks+'=.='+datec.doctord+'=.='+datec.doctsig+'=.='+datec.ratef+'=.='+datec.doctrmks+'">'+datec.date+'</option>');
@@ -688,7 +671,7 @@ var user2a;
 	    	  newCell.style.overflow = 'hidden';   
 	                   disbut();
 	                   unsaved = false;
-	       	  	 
+	       	  
 	               });    
 	           },
 	           error: function(e){
@@ -762,6 +745,12 @@ var user2a;
        function goBack() {
     	    window.history.back();
     	}
+       
+       $(document).ready(function() {
+    	   $("a[href='#menu1']").on('shown.bs.tab', function (e) {
+    		   crtab('<c:out value="${username}" />','<c:out value="${pageContext.request.userPrincipal.name}" />')
+    		 });
+       });   
        </script>
        
 </head>
@@ -782,8 +771,9 @@ var user2a;
        <li class=""><a id="nob" href="/HMS/nursetr/"  onclick=' return visible();' target="_blank">Nurse observations</a></li>
     -->
     </ul>
-    <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back"  onclick="goBack()"></i>
+     <ul class="nav navbar-nav navbar-right">
+  <li><a href="#" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back</span></a></li>
+    </ul>
   </div>
 </nav>
   <center>
@@ -802,16 +792,19 @@ var user2a;
 
 
 	    <br>
-	    
+
+  <div class="container" style="width:auto;height:auto">
+ <button type="button" style="background:#81BDA4",  class="btn btn-primary btn-block"><span id="pi" style="float:left">Patient Information</span><span id="flno" style="float:right">Fileno</span><span id="id" style="float:right;margin-right:15px;">Id</span><span style="float:right;margin-right:25px;" id="nm">Name</span></button>
+ <br>
+  </div>  
 	    <div class="container">
  
-  
-
+ 
    <ul class="nav nav-pills">
     <li class="active"><a data-toggle="pill" href="#home">Patient Details</a></li>
-    <li><a data-toggle="pill" onclick="crtab('<c:out value="${username}" />','<c:out value="${pageContext.request.userPrincipal.name}" />')" href="#menu1">HOUR CHART</a></li>
+    <li><a data-toggle="pill"  href="#menu1">HOUR CHART</a></li>
      
-     <li class="pull-right" style="margin-right: 170px;" ><button type="button" id="" class="btn btn-primary button2" onclick="location.href='hourchart';">
+     <li class="pull-right" style="margin-right: 170px;" ><button type="button" id="" class="btn btn-primary button2" onclick="location.reload(true);">
 	  <span class="fa fa-refresh"></span> Refresh</button></li>
 	 <!--    <li class="pull-right" id="ph"><button type="button" id="opener" class="btn btn-primary button2" onclick="unsaved = false;doAjaxPostChart('linechart2')">
 	   Show Previous Charts</button></li>  -->
@@ -836,7 +829,7 @@ var user2a;
              <select class="selectpicker form-control" data-size="4" data-live-search="true"  name = "pname" id ="pname" onchange="addname(this.options[this.selectedIndex])">
          
           <option value='Select' selected disabled>Select</option>
-      <c:forEach var="p"  items="${list3}">
+      <c:forEach var="p"  items="${model.list3}">
         <option value="${p.name}" data-subtext="${p.fileno},${p.admdate}" data-value="${p.name},${p.pid},${p.age},${p.gender},${p.fileno},${p.admdate},${p.wardno},${p.doctsig},${p.nursesig},${p.admitno}">${p.name}</option>
         </c:forEach>
       </select>
@@ -863,7 +856,7 @@ var user2a;
   
   <div class="form-group">
          <p>Registration Id<span>*</span></p>
-     <input type="text" name="pid" id="pid"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="pid" id="pid"  form="forma" class="form-control input-sm" readonly  required>
        
        
        
@@ -879,7 +872,7 @@ var user2a;
      <div class="form-group">
      
       <p>Admit No<span>*</span></p>
-             <input type="text" name="admitno" id="admitno"  form="forma" class="form-control input-sm"  required>
+             <input type="text" name="admitno" id="admitno"  form="forma" class="form-control input-sm" readonly required>
              <input type="hidden" name="fileno" id="fileno" readonly="readonly" form="forma" class="form-control input-sm"  required>
 	         <input type="hidden" name="name" id="name" readonly="readonly" form="forma" class="form-control input-sm"  required>
 	         <input type="hidden" name="" id="" readonly="readonly" form="forma" class="form-control input-sm"  required>
@@ -905,7 +898,7 @@ var user2a;
   <div class="form-group">
      
             <p>Age<span>*</span></p>
-     <input type="text" name="age" id="age"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="age" id="age"  form="forma" class="form-control input-sm"  readonly>
      </div>
  </div>
  
@@ -913,7 +906,7 @@ var user2a;
   
   <div class="form-group">
           <p>Gender<span>*</span></p>
-     <input type="text" name="gender" id="gender"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="gender" id="gender"  form="forma" class="form-control input-sm" readonly required>
        
      </div>
  </div>
@@ -923,7 +916,7 @@ var user2a;
   <div class="form-group">
   
           <p>Admission Date<span>*</span></p>
-     <input type="text" name="admdate" id="admdate"  form="forma" class="form-control input-sm" required>
+     <input type="text" name="admdate" id="admdate"  form="forma" class="form-control input-sm" readonly required>
        
           
      </div>
@@ -933,13 +926,23 @@ var user2a;
 	
 	   <div class="form-group row" >
 	     <div class="col-xs-1"></div>
+	    <div class="col-xs-3">
+  
+  <div class="form-group">
+     
+           <p>Current Date<span>*</span></p>
+     <input type="text" name="curdate" id="curdate"  form="forma" class="form-control input-sm" readonly required>
+       
+     </div>
+ </div>       
 	        
-      <div class="col-xs-3">
+	        
+      <div class="col-xs-4">
   
   <div class="form-group">
      
           <p>WardNo/BedNo<span>*</span></p>
-     <input type="text" name="wardno" id="wardno"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="wardno" id="wardno"  form="forma" class="form-control input-sm" readonly required>
      </div>
  </div>
  
@@ -948,7 +951,7 @@ var user2a;
   <div class="form-group">
      
           <p>Nurse Assigned<span></span></p>
-     <input type="text" name="nursesig" id="nursesig"  form="forma" class="form-control input-sm" value="NA">
+     <input type="text" name="nursesig" id="nursesig"  form="forma" class="form-control input-sm" value="NA" readonly>
      </div>
  </div>
  
@@ -1032,7 +1035,9 @@ var user2a;
 
 datasuccess('<%=request.getParameter("message")%>')
 </script>
-    
+<script>
+var bac = '<c:out value='${model.bac}'/>';
+</script>    
 
 </body>
 </html>

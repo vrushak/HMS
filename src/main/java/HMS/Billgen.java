@@ -30,8 +30,14 @@ public class Billgen {
 	private String type;
 	private String quantity;
 	private String prch;
+	private String ps;
 	
-	
+	public String getPs() {
+		return ps;
+	}
+	public void setPs(String ps) {
+		this.ps = ps;
+	}
 	public String getPrch() {
 		return prch;
 	}

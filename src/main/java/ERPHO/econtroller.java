@@ -319,6 +319,7 @@ public class econtroller {
 				 
 			      
 			        List<Product> list=hodao.searchProduct(); 
+			        List<Product> list5=hodao.Reorder(); 
 			        List<Order> list4 = hodao.getorderId();
 			        List<Order> list1 = hodao.getorderDetails();
 			        List<Product> list3 =hodao.searchRq();
@@ -328,10 +329,12 @@ public class econtroller {
 			        model.put("list1", list1);
 			        model.put("list3",list3);
 			        model.put("list4",list4);
+			        model.put("list5",list5);
 			        model.put("list6",list6);
 		 	        return new ModelAndView("order","model",model);//will redirect to viewemp request mapping  
 			    }  
-			
+			 
+		
 			 //save order
 			 @RequestMapping(value="/saveOrderho",method = RequestMethod.POST)
 			    public ModelAndView save(@ModelAttribute("d") Order d,HttpServletRequest request,HttpServletResponse response){  
@@ -752,10 +755,12 @@ public class econtroller {
 				  public ModelAndView checkstat(@ModelAttribute("s") Purchase s,HttpServletRequest request,HttpServletResponse response ){
 					  List<Order> list1 = hodao.getOrderid();
 					  List<Purchase> list2 = hodao.getAllocationid();
+					  List<Purchase> list2a = hodao.getAllocationid1a();
 					  Map<String, Object> model = new HashMap<String, Object>();
+					  
 				       model.put("list1",list1);
 				       model.put("list2",list2);
-				        
+				       model.put("list2a",list2a);   
 				        return new ModelAndView("purchase","model",model);//will redirect to viewemp request mapping 
 				        
 				}
@@ -813,18 +818,7 @@ public class econtroller {
 					   
 					       for(int i=0;i<name.length;i++){
 					    	   
-					    	   System.out.println(ean1[i]);
-					    	   System.out.println(name[i]);
-					    	   System.out.println(batch[i]);
-					    	   System.out.println(ean1[i]);
-					    	  // System.out.println(mdate[i]);
-					    	   System.out.println(exp[i]);
-					    	   System.out.println(qty1[i]);
-					    	//   System.out.println(unit[i]);
-					    	   System.out.println(up[i]);
-					    	//   System.out.println(tax1[i]);
-					    	   System.out.println(free[i]);
-					    	   System.out.println(price1[i]);
+					    	
 					   pur1  = 	 hodao.savepurchase(p,name[i],batch[i],exp[i],qty1[i],up[i],discount1[i],free[i],price1[i],ean1[i],mpack[i],mdesc[i],sudesc[i]);
 					   pur2  =	 hodao.saveproductpriceho(p,name[i],batch[i],up[i],free[i]);
 					    	     hodao.updatecatho(name[i]);
@@ -904,12 +898,19 @@ public class econtroller {
 					}
 				  @RequestMapping(value="/pssearchho", method = RequestMethod.GET)
 					public ModelAndView prosearch(@ModelAttribute("ps") Productstock ps) {
-					  System.out.println(ps.getCategory());
+					
 					  List<Productstock> list = hodao.getstockSearch(ps);
 					  List<Product> list1 = hodao.getInfoSearch1();
 					  Map<String, Object> model = new HashMap<String, Object>();
 					  model.put("list", list);
 					  model.put("list1", list1);
+					  model.put("name",ps.getName());
+					  model.put("code",ps.getCode());
+					  model.put("category",ps.getCategory());
+					  model.put("exp",ps.getExpDate());
+					  model.put("to",ps.getToDate());
+					  model.put("limit",ps.getRecords());
+					  model.put("batch",ps.getBatch());
 						return new ModelAndView("productstocks","model",model); 
 					}
 
@@ -1052,4 +1053,71 @@ public JasperReport getReport(String op) throws JRException {
 
 return jr;
 }
+
+@RequestMapping(value="/salespdf1", method = RequestMethod.GET)
+public void salespdf(@ModelAttribute("s") Sale s,ModelAndView modelAndView,HttpServletRequest req, HttpServletResponse response) throws JRException, IOException {
+	
+ response.setContentType("application/pdf");
+ response.setHeader("Content-Disposition",  "inline"); 
+ 
+	List<Sale> list2 = hodao.getsaleInv(req.getParameter("invoice"));
+ JasperReport report = getReport("/invoice1.jrxml");
+      //fill the report with data source objects
+ String realPath = context.getRealPath("/");
+ Map<String,Object> parameterMap = new HashMap<String,Object>();
+ parameterMap.put("realPath", realPath);
+ 
+ JRDataSource JRdataSource = new JRBeanCollectionDataSource(list2);
+     JasperPrint jasperPrint = JasperFillManager.fillReport(report,  parameterMap, JRdataSource);
+	      
+     OutputStream out = response.getOutputStream();
+       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
+
+	}  
+
+
+@RequestMapping(value="/prpur", method = RequestMethod.GET)
+public void prpdf(@ModelAttribute("s") Purchase s,ModelAndView modelAndView,HttpServletRequest req, HttpServletResponse response) throws JRException, IOException {
+	
+ response.setContentType("application/pdf");
+ response.setHeader("Content-Disposition",  "inline"); 
+ 
+	List<Purchase> list2 = hodao.getPrpur(req.getParameter("allo"));
+ JasperReport report = getReport("/prpurchase.jrxml");
+      //fill the report with data source objects
+ String realPath = context.getRealPath("/");
+ Map<String,Object> parameterMap = new HashMap<String,Object>();
+ parameterMap.put("realPath", realPath);
+ 
+ JRDataSource JRdataSource = new JRBeanCollectionDataSource(list2);
+     JasperPrint jasperPrint = JasperFillManager.fillReport(report,  parameterMap, JRdataSource);
+	      
+     OutputStream out = response.getOutputStream();
+       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
+
+	}  
+
+//order screen print
+
+@RequestMapping(value="/orderpr", method = RequestMethod.GET)
+public void orderpr(ModelAndView modelAndView,HttpServletRequest req, HttpServletResponse response) throws JRException, IOException {
+	
+ response.setContentType("application/pdf");
+ response.setHeader("Content-Disposition",  "inline"); 
+ 
+ List<Order> list1= hodao.getorderDetails1(req.getParameter("location")); 
+ JasperReport report = getReport("/order.jrxml");
+      //fill the report with data source objects
+ String realPath = context.getRealPath("/");
+ Map<String,Object> parameterMap = new HashMap<String,Object>();
+ parameterMap.put("realPath", realPath);
+ 
+ JRDataSource JRdataSource = new JRBeanCollectionDataSource(list1);
+     JasperPrint jasperPrint = JasperFillManager.fillReport(report,  parameterMap, JRdataSource);
+	      
+     OutputStream out = response.getOutputStream();
+       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
+
+	}  
+
 }

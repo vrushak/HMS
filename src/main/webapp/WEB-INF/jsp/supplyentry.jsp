@@ -245,6 +245,7 @@ function check(id){
 	}
 }
 
+var prname;
 function run() {
 	if(document.getElementById("myname").value == "new"){
     	
@@ -262,7 +263,7 @@ function run() {
     else{
  	   var str = document.getElementById("myname").value;
 	   var strSplit = str.split('=');
-	  
+	  prname = strSplit[0];
 	document.getElementById("name").value = strSplit[0];
 	document.getElementById("medical").value = strSplit[1];
 	document.getElementById("address1").value = strSplit[2];
@@ -468,7 +469,9 @@ $(document).ready(function () {
     	   // get the form values
 
     	       var sname = $('#name').val();
-        
+        if(prname == sname){
+        	return false;
+        }
     	   $.ajax({
          	  
 	           type: "GET",

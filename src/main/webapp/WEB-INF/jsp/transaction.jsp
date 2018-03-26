@@ -433,7 +433,7 @@ else{
     
 	   <div class="form-group">
             <p>Allocation Date<span>*</span></p>
-   <input type="date" max="2999-12-31" name="allodate" id="allodate" onkeydown="return false;"  onfocus ="return validdate(this.id)" class="form-control input-sm" required >
+   <input type="date" max="2999-12-31" name="allodate" id="allodate"   onfocus ="return validdate(this.id)" class="form-control input-sm" required >
 </div>
 	</div>
  </div>
@@ -444,7 +444,7 @@ else{
        <div class="col-xs-3">
   <div class="form-group">
             <p>Expected Return Date<span>*</span></p>
-          <input type="date" max="2999-12-31" name="expdate" id="expdate" onkeydown="return false;" onfocus ="return validdate(this.id)" class="form-control input-sm" required >	</div>
+          <input type="date" max="2999-12-31" name="expdate" id="expdate"  onfocus ="return validdate(this.id)" class="form-control input-sm" required >	</div>
   </div>
   
    <div class="col-xs-4">

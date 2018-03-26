@@ -30,7 +30,11 @@
 <script type="text/javascript">
 
 
-    $("#datetime").datetimepicker({format: 'yyyy-mm-dd hh:ii'});
+    $("#datetime").datetimepicker({
+    	format: 'yyyy-mm-dd hh:ii'
+    	
+    });
+    
 </script>      
 <style type="text/css">
 .btn-block{
@@ -58,7 +62,7 @@ function checkhome1(user){
 		 var element = document.getElementById('m2');
 		 element.setAttribute("href",url2)
 		 
-		 var url3 = "/HMS/prescription" ;
+		 var url3 = "/HMS/diagnose" ;
 			
 		 var element = document.getElementById('m3');
 		 element.setAttribute("href",url3)
@@ -86,7 +90,7 @@ function checkhome1(user){
 		 var element = document.getElementById('m2');
 		 element.setAttribute("href",url2)
 		 
-		 var url3 = "/HMS/prescription" ;
+		 var url3 = "/HMS/diagnose" ;
 			
 		 var element = document.getElementById('m3');
 		 element.setAttribute("href",url3)
@@ -107,7 +111,7 @@ function checkhome1(user){
 function visible(){
 	 var pid = document.getElementById("pid").value ;
 	 if(pid == "" || pid == null){
-	 alert("Please select the patient!!");
+	 alert("Please select a Patient Name");
 	 return false;
 	 }
 	 else{
@@ -137,9 +141,10 @@ function myFunction() {
 	  tr = table.getElementsByTagName("tr");
 	 
 	  for (i = 0; i < tr.length; i++) {
-	    td = tr[i].getElementsByTagName("td")[2];
+	    td = tr[i].getElementsByTagName("td")[1];
+
 	    if (td) {
-	      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+	    	 if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
 	        tr[i].style.display = "";
 	      } else {
 	        tr[i].style.display = "none";
@@ -193,7 +198,7 @@ function onlyAlphabets(e, t) {
  	   document.getElementById("pid").value = id; 
  	   document.getElementById("admdate").value = admdatep; 
        
- 	 
+ 
     	
     	  for(var x=0; x<datetimep.length; x++) {
     		  
@@ -208,18 +213,25 @@ function onlyAlphabets(e, t) {
     		  
     		 
     		  newCell = rowsAdd.insertCell();
-    		  newCell.innerHTML="<tr><td width ='';><input form ='forma' class= 'form-control input-sm' readonly='readonly'  type='text' onkeypress='return onlyAlphabets(event,this);' id = 'dname' name= 'dname' value='"+dnamed[x]+"' required  ></td></tr>";
+    		  newCell.innerHTML="<tr><td width ='';><input form ='forma' class= 'form-control input-sm' readonly='readonly'  type='hidden' onkeypress='return onlyAlphabets(event,this);' id = 'dname' name= 'dname' value='"+dnamed[x]+"' required  >"+dnamed[x]+"</td></tr>";
     		  newCell.style.width ='200px';
     		  
     		  newCell = rowsAdd.insertCell();
-    		  newCell.innerHTML="<tr><td width ='';><textarea form ='forma' class= 'form-control input-sm'  rows='1'  id = 'comments'  name= 'comments' onkeypress='' value='"+comments+"'  required>"+comments+"</textarea></td></tr>";
+    		  newCell.innerHTML="<tr><td width ='';><textarea form ='forma' class= 'form-control input-sm'  rows='1'  id = '"+tableRef.rows.length+"'  name= 'comments' onkeypress='' value='"+comments+"'  required>"+comments+"</textarea></td></tr>";
     		  newCell.style.width ='300px';
     		  /*
     		  newCell = rowsAdd.insertCell();
     		  newCell.innerHTML="<tr><td class='tds'><i class='fa fa-trash-o' style='font-size:20px'  onclick= deleteRow(this,'"+encodeURIComponent(dnamed[x])+"')></i></td></tr>";
     		  newCell.style.width ='50px';
               */
+              if('<c:out value="${pageContext.request.userPrincipal.name}" />' != "dbadmin1"){
+               if(dnamed[x] != '<c:out value="${pageContext.request.userPrincipal.name}" />'){
+            	 
+            	$("#"+tableRef.rows.length).attr("readonly","readonly")
+              }
+              }
     	  }
+  
 	}
 
 
@@ -248,28 +260,24 @@ function display(userdoc){
 	
 
 	var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
-	var rowsAdd = tableRef.insertRow(tableRef.rows.length);  
+ 
 	
 	//    var m = moment().format('YYYY-MM-DD h:mm a');
 
-	  var newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td ><input  form ='forma'readonly='readonly' class= 'form-control input-sm' onkeypress='return onlyAlphabets(event,this);'  value='"+moment().format('DD/MM/YYYY HH:mm:ss')+"'  type='text' id = 'datetime' name= 'datetime'  required> </td></tr>";
-	  newCell.style.width ='160px';
-	  
-	 
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td width ='';><input form ='forma' class= 'form-control input-sm'  type='text' readonly='readonly' onkeypress='return onlyAlphabets(event,this);'  value='"+userdoc+"' id = 'dname' name= 'dname'  required  ></td></tr>";
-	  newCell.style.width ='200px';
-	  
-	  newCell = rowsAdd.insertCell();
-	  newCell.innerHTML="<tr><td width ='';><textarea form ='forma' class= 'form-control input-sm' rows='1'  id = 'comments' onkeypress='' name= 'comments'  required></textarea></td></tr>";
-	  newCell.style.width ='300px'; 
+
 	/*
 	  newCell = rowsAdd.insertCell();
 	  newCell.innerHTML="<tr><td class='tds'><i class='fa fa-trash-o' style='font-size:20px'  onclick = deleteRow(this,'"+encodeURIComponent(userdoc)+"')></i></td></tr>";
 	  newCell.style.width ='50px';
 */
-	
+		var row = "tab"+ tableRef.rows.length;
+		var markup = "<tr id='"+row+"'><td style='width:160px;'><input  form ='forma'readonly='readonly' class= 'form-control input-sm' onkeypress='return onlyAlphabets(event,this);'  value='"+moment().format('DD/MM/YYYY HH:mm:ss')+"'  type='text' id = 'datetime' name= 'datetime'  required> </td><td style='width:200px;'><input form ='forma' class= 'form-control input-sm'  type='text' readonly='readonly' onkeypress='return onlyAlphabets(event,this);'  value='"+userdoc+"' id = 'dname' name= 'dname'  required  ></td><td style='width:300px;'><textarea form ='forma' class= 'form-control input-sm' rows='1'  id = 'comments' onkeypress='' name= 'comments'  required></textarea></td></tr>"
+	    $('#myTable tbody').append(markup);
+		
+		  var elmnt = document.getElementById(row);
+		     elmnt.scrollIntoView();
+		     $(row).focus(); 
+		     
 }
 function setline(id){
     var a = document.getElementById('fileno').value;
@@ -316,7 +324,16 @@ function setline(id){
 	window.location = "/HMS/treatment.html";
 		}
 	}
-
+	function openmd2(pnamea,fileno){
+	     
+		   $('#pname option[data-price="'+fileno+'"]').prop('selected', true).change();
+	       $('#pname').selectpicker('refresh');
+	       
+	       $('#pname').on('change',function(){
+	    	   addname(this.options[this.selectedIndex]);
+	    	});
+	    
+	   }
 </script>
 </head>
 <sec:authentication property="principal.authorities" var="username" />
@@ -330,15 +347,15 @@ function setline(id){
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
       <li class=""><a id="m2" href="">My Appointments</a></li>
-        <li class=""><a  id="m3" href="">General Checkup</a></li>
+        <li class=""><a  id="m3" href="">Clinical Diagnosis</a></li>
           <li class=""><a id="m4" href="/HMS/discharge">Discharge Summary</a></li>
  <!-- 
        <li class=""><a id="nob" href="/HMS/nursetr/"  onclick=' return visible();' target="_blank">Nurse observations</a></li>
     --> 
     </ul>
-    <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back"  onclick="window.location.href='/HMS/doctor1';"></i>
-  </div>
+       <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
+    </ul></div>
 </nav>
   <center>
 </center>
@@ -364,10 +381,10 @@ function setline(id){
 	      <div class="col-xs-3">
   <div class="form-group">
             <p>Patient Name<span>*</span></p>
-             <select class="selectpicker form-control" data-size="4" data-live-search="true" name = "pname" id ="pname" onchange="addname(addname(this.options[this.selectedIndex]))"   >
+             <select class="selectpicker form-control" data-size="4" data-live-search="true" name = "pname" id ="pname" onchange="addname(this.options[this.selectedIndex])"   >
           <option value="select" data-value="select" selected disabled>Select</option>
         <c:forEach var="p"  items="${model.list1}">
-        <option value="${p.pname}" data-subtext="${p.fileno},${p.admdate}" data-value="${p.pid},${p.pname},${p.admdate},${p.admitno},${p.fileno}">${p.pname}</option>
+        <option value="${p.pname}" data-subtext="${p.fileno},${p.admdate}" data-price="${p.fileno}" data-value="${p.pid},${p.pname},${p.admdate},${p.admitno},${p.fileno}">${p.pname}</option>
         </c:forEach>
       </select>
        
@@ -382,7 +399,7 @@ function setline(id){
 	         <input type="hidden" name="admitno" id="admitno" readonly="readonly" form="forma" class="form-control input-sm"  required>
 	</div>
 	<div class="form-group">
-            <p>Date of admission<span>*</span></p>
+            <p>Date of Admission<span>*</span></p>
      <input type="text" name="admdate" id="admdate" readonly="readonly" form="forma" class="form-control input-sm"  required>
        
 	</div>
@@ -441,7 +458,7 @@ function setline(id){
    </div>
     <c:forEach var="p"  items="${model.list1}">
     <script>
- checkhome('<c:out value="${p.idc}" />');
+ //checkhome('<c:out value="${p.idc}" />');
  </script>
     </c:forEach>
     
@@ -453,6 +470,9 @@ check('<c:out value="${p.pname}" />','<c:out value="${p.pid}" />','<c:out value=
 </c:forEach>
 <script>
 datasuccess('<%=request.getParameter("message")%>')
+</script>
+<script>
+openmd2('<c:out value="${model.pname}" />','<c:out value="${model.flno}" />');
 </script>
 </body>
 </html>

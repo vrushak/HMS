@@ -515,7 +515,7 @@ function AutoGrowTextArea(textField)
   -->
     </ul>
      <ul class="nav navbar-nav navbar-right">
-      <li><a href="/HMS/prdocs"><span class="fa fa-arrow-left"></span>Back</a></li>
+      <li><a href="/HMS/prdocs"><span class="glyphicon glyphicon-user"></span>Back to Print Documents</a></li>
       
     </ul>
   </div>
@@ -558,7 +558,7 @@ function AutoGrowTextArea(textField)
 	      <div class="form-group">
       
            
-   Doctor:<input type="text" name="dname" id="dname"  form="forma" class="form-control input-sm"  required>
+   Doctor:<input type="text" name="dname" id="dname"  form="forma" class="form-control input-sm" readonly required>
        
        
 	</div>
@@ -568,7 +568,7 @@ function AutoGrowTextArea(textField)
 	        <div class="form-group">
      
         
-          Date:<input type="text" name="admdate" id="admdate"  class="form-control input-sm"  required>
+          Date:<input type="text" name="admdate" id="admdate"  class="form-control input-sm" readonly required>
      
      
        
@@ -601,7 +601,7 @@ function AutoGrowTextArea(textField)
 	      
 	       <div class="form-group">
        
-    Age:<input type="text" name="age" id="age"  form="forma" class="form-control input-sm"  required>
+    Age:<input type="text" name="age" id="age"  form="forma" class="form-control input-sm" readonly required>
        
        
        

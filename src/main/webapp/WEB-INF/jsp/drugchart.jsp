@@ -161,7 +161,9 @@ textarea {
   
     display:block;
   }
- 
+ #myTable1 td{
+ border-style:groove;
+ }
  
      
 
@@ -185,6 +187,9 @@ modal-body{
 	width :50px;
 }
 
+.btn-block{
+ width : 1250px;
+}
 
 #col3{
 margin-left: 150px; 
@@ -297,6 +302,14 @@ function checkhome(user){
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		
+		 if(bac.includes("dochome")){
+			 $("#back").attr("href","/HMS/doctor1")
+			 $("#tit").text("Back to Doctor Home")
+		 }
+		 else{
+			 $("#back").attr("href","/HMS/nursedesk") 
+			 $("#tit").text("Back to Nurse Desk")
+		 }
 		}
 }
 function checkb(a,b,c){
@@ -384,70 +397,16 @@ var flagt;
 		    
 
 		var tableRef = document.getElementById('myTable1').getElementsByTagName('tbody')[0];
-		var rowsAdd = tableRef.insertRow(); 
-		
-		var i = tableRef.rows.length;
-		
-		
-//		var time ="time"+i;
-	 //   var ora ="oraltype"+i;
-		
-
-		  var newCell = rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><input type='hidden' name='aid1' form='forma' id='aid1'  value= "+$.now()+"><input  form ='forma' style='width:100%;  border:groove;' class= 'form-control input-sm' value = '"+m+"' readonly='readonly' type='text' id = 'time' name= 'time' required  ></td></tr>";
-		  newCell.style.width ='140px';
-		  newCell.style.border='groove'
+	    var i = tableRef.rows.length;
+	    var row = "tab"+ tableRef.rows.length;
+var markup = "<tr id='"+row+"'><td style='width:140px'><input type='hidden' name='aid1' form='forma' id='aid1'  value= "+$.now()+"><input  form ='forma' style='border:groove;' class= 'form-control input-sm' value = '"+m+"' readonly='readonly' type='text' id = 'time' name= 'time' required  ></td><td style='width:260px'><input form ='forma'  class= 'form-control input-sm drugn' style='border:groove;'  value= '' id = '"+i+"'  name= 'oraltype' required></td><td style='width:100px;'><input form ='forma' class= 'form-control input-sm' style='border:groove;' onkeypress=''  value=' ' type='text'  id = 'oralamt' name= 'oralamt' required ></td><td style='width:80px;'><input form ='forma' class= 'form-control input-sm' style='border:groove;' value=' 'onkeypress='return onlyNos(event,this);' id = 'oralcommence'  name= 'oralcommence' required></td><td style='width:80px;'><input form ='forma' class= 'form-control input-sm' value= ' ' style='border:groove;' onkeypress='return onlyNos(event,this);' id = 'amtgiv'  name= 'amtgiv' required ></td><td style='width:130px;'><input  form ='forma' class= 'form-control input-sm' value=' 'style='border:groove;' type='text' id = 'urine' name= 'urine' required ></td><td style='width:150px;'><input form ='forma' style='border:groove;' class= 'form-control input-sm' value='"+user2+"' type='text'  id = 'doctord' name= 'doctord' required ></td><td style='width:150px;'><input form ='forma' value = ' ' class= 'form-control input-sm' style='border:groove;' type='text'  id = 'discontinue' name= 'discontinue' ></td><td class='ts' style='width:80px;'><i class='fa fa-pencil Addbtn' id='"+i+"' style='font-size:20px'   onclick=display12('"+user1+"','"+user2+"',this.id)></i></td></tr>"
+      $('#myTable1 .tbody1').append(markup);
 		  
-		  
-		  newCell = rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><input form ='forma'  class= 'form-control input-sm drugn' style='width:100%;  border:groove;'  value= '' id = '"+i+"'  name= 'oraltype' required></td></tr>";
-		  newCell.style.width ='270px';
-		  newCell.style.border='groove'
-	     
-		 
-		 
-		 
-		  newCell= rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><input form ='forma' class= 'form-control input-sm' style='width:100%;  border:groove;' onkeypress=''  value=' ' type='text'  id = 'oralamt' name= 'oralamt' required ></td></tr>";
-		  newCell.style.width ='100px';
-		  newCell.style.border='groove';
-		
-		  
-		  
-		  newCell = rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><input form ='forma' class= 'form-control input-sm' value=' 'onkeypress='return onlyNos(event,this);' id = 'oralcommence'  name= 'oralcommence' required></td></tr>";
-		  newCell.style.width ='80px';
-		  newCell.style.border='groove';
-		
-		  
-		  
-		  newCell = rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><input form ='forma' class= 'form-control input-sm' value= ' ' onkeypress='return onlyNos(event,this);' id = 'amtgiv'  name= 'amtgiv' required ></td></tr>";
-		  newCell.style.width ='80px';
-		  newCell.style.border='groove';
-		 
-		  
-		  newCell = rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><input  form ='forma' class= 'form-control input-sm' value=' ' type='text' id = 'urine' name= 'urine' required ></td></tr>";
-		  newCell.style.width ='130px';
-		  newCell.style.border='groove';
-		  
-		  
-		  newCell = rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><input form ='forma' class= 'form-control input-sm' value='"+user2+"' type='text'  id = 'doctord' name= 'doctord' required ></td></tr>";
-		  newCell.style.width='150px';
-		  newCell.style.border='groove';
-
-		  newCell = rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><input form ='forma' value = ' ' class= 'form-control input-sm'  type='text'  id = 'discontinue' name= 'discontinue' ></td></tr>";
-		  newCell.style.width='150px';
-		  newCell.style.border='groove';
-		  
+	   var elmnt = document.getElementById(row);
+	     elmnt.scrollIntoView();
+	     $(row).focus(); 
 		//  if(user1.includes("[ROLE_NURSE]")){
-		  newCell = rowsAdd.insertCell();
-		  newCell.innerHTML="<tr><td><i class='fa fa-pencil Addbtn' id='"+i+"' style='font-size:20px'   onclick=display12('"+user1+"','"+user2+"',this.id)></i></td></tr>";
-	      newCell.style.width='80px';
-		  newCell.style.border='groove';
+		
 		  //}
 		disbut();
 		 
@@ -575,12 +534,12 @@ var flagt;
 		}
 
 		var tableRef = document.getElementById('myTable').getElementsByClassName('tbody2')[0];
-		var rowsAdd = tableRef.insertRow(); 
+		
 		var i = tableRef.rows.length;
 		var nursesign ="nursesig"+i;
 		var vomitus ="vomitus"+i;
 		var vomitushid ="vomitushid"+i;
-		var rowsAdd = tableRef.insertRow();  	
+			
 		
 		document.getElementById("bouton-contact").setAttribute("form","formbc");
 		document.getElementById("pid").setAttribute("form","formbc");
@@ -588,7 +547,7 @@ var flagt;
 		document.getElementById("fileno").setAttribute("form","formbc");
 
 		//if(t1a == "undefined" && t2a == "undefined" && t3a == "undefined" && t4a == "undefined" && t5a == "undefined" && t6a == "undefined" && t7a == "undefined" && t8a == "undefined" ){
-			console.log(t1a);
+		
 		
 			if(t1a == undefined){
 				t1a =  document.getElementById("time1").value;
@@ -601,28 +560,13 @@ var flagt;
 					t8a = document.getElementById("discontinue1").value;
 				
 			}
-	
-		     var newCell = rowsAdd.insertCell();
-		      newCell.innerHTML="<tr><td><input type='hidden' name='aid1' form='formbc' id='aid1'  value= '"+$.now()+"'><input  form ='formbc'  value = '"+m+"' type='hidden' id = 'time' name= 'time'  ><input form ='formbc' type='hidden' value ='"+t2a+"' id = 'oraltype'  name= 'oraltype' ><input form ='formbc' value='"+t3a+"' type='hidden'  id = 'oralamt' name= 'oralamt'  ><input type='hidden' form ='formbc'  value='"+t4a+"' id = 'oralcommence'  name= 'oralcommence'><input form ='formbc' type='hidden'  value= '"+t5a+"' id = 'amtgiv'  name= 'amtgiv' ><input  form ='formbc' value='"+t6a+"' type='hidden' id = 'urine' name= 'urine'  ><input form ='formbc'  value='"+t7a+"' type='hidden'  id = 'doctord' name= 'doctord'  ><input form ='formbc' type='hidden'  id = 'discontinue' name= 'discontinue' value='"+decodeURI(t8a)+"' ><input form ='formbc' style='width:100%;  border:groove;' class= 'form-control input-sm' value= '"+m+"' type='text' readonly='readonly' id = 'ratef' required name= 'ratef' ></td></tr>";
-			  newCell.style.width='150px';
-			  newCell.style.border='groove';
-			 
-			  newCell = rowsAdd.insertCell();
-			  newCell.innerHTML="<tr><td><input form ='formbc'style='width:100%;  border:groove;' type='checkbox' class= '' value= 'active' id = '"+vomitus+"' name= 'vomitus' onclick = checkb(this.id,'"+nursesign+"','"+user2+"') ><input type='hidden' name='vomitus' form='formbc' value='off'></td></tr>";
-			  newCell.style.width='300px';
-			  newCell.style.border='groove';
-			  
-			  newCell = rowsAdd.insertCell();
-			  newCell.innerHTML="<tr><td><input form ='formbc'style='width:100%;  border:groove;' class= 'form-control input-sm' value = ' ' type='text'  id = '"+nursesign+"' name= 'nursesig' required ></td></tr>";
-			  newCell.style.width='100px';
-			  newCell.style.border='groove';
-			  
-			
-			  newCell = rowsAdd.insertCell();
-			  newCell.innerHTML="<tr><td><input form ='formbc' style='width:100%;  border:groove;' class= 'form-control input-sm' value= ' ' type='text'  id = 'doctrmks' name= 'doctrmks' ></td></tr>";
-			  newCell.style.width='630px';
-			  newCell.style.border='groove';
-			
+			var rowa = "taba"+ tableRef.rows.length;
+var markup="<tr id='"+rowa+"'><td style='width:150px;'><input type='hidden' name='aid1' form='formbc' id='aid1'  value= '"+$.now()+"'><input  form ='formbc'  value = '"+m+"' type='hidden' id = 'time' name= 'time'  ><input form ='formbc' type='hidden' value ='"+t2a+"' id = 'oraltype'  name= 'oraltype' ><input form ='formbc' value='"+t3a+"' type='hidden'  id = 'oralamt' name= 'oralamt'  ><input type='hidden' form ='formbc'  value='"+t4a+"' id = 'oralcommence'  name= 'oralcommence'><input form ='formbc' type='hidden'  value= '"+t5a+"' id = 'amtgiv'  name= 'amtgiv' ><input  form ='formbc' value='"+t6a+"' type='hidden' id = 'urine' name= 'urine'  ><input form ='formbc'  value='"+t7a+"' type='hidden'  id = 'doctord' name= 'doctord'  ><input form ='formbc' type='hidden'  id = 'discontinue' name= 'discontinue' value='"+decodeURI(t8a)+"' ><input form ='formbc' style='border:groove;' class= 'form-control input-sm' value= '"+m+"' type='text' readonly='readonly' id = 'ratef' required name= 'ratef' ></td><td style='width:300px;'><input form ='formbc'style='border:groove;' type='checkbox' class= '' value= 'active' id = '"+vomitus+"' name= 'vomitus' onclick = checkb(this.id,'"+nursesign+"','"+user2+"') ><input type='hidden' name='vomitus' form='formbc' value='off'></td><td style='width:100px;'><input form ='formbc'style='border:groove;' class= 'form-control input-sm' value = ' ' type='text'  id = '"+nursesign+"' name= 'nursesig' required ></td><td style='width:630px;'><input form ='formbc' style='border:groove;' class= 'form-control input-sm' value= ' ' type='text'  id = 'doctrmks' name= 'doctrmks' ></td></tr>";
+			  $('#myTable .tbody2').append(markup);
+			  var elmnt = document.getElementById(rowa);
+			     elmnt.scrollIntoView();
+			     $(rowa).focus(); 
+			     
 		
 		if(user1.includes("[ROLE_NURSE]")){
 
@@ -773,6 +717,9 @@ function addname(getval){
 	//document.getElementById("nursesig").value = strSplit[8];
 	document.getElementById("admitno").value = strSplit[9];
 	
+	document.getElementById("id").innerHTML = strSplit[1];
+	document.getElementById("nm").innerHTML = strSplit[0];
+	document.getElementById("flno").innerHTML = strSplit[4];
 	 disbut();
 	 dord = strSplit[7];
 	 
@@ -798,7 +745,7 @@ function crtab(userr,usern){
 	else{
 		
 	
-		doAjaxPost1(document.getElementById("date").value)
+	//	doAjaxPost1(document.getElementById("date").value)
 		
 	}
 	 
@@ -996,7 +943,7 @@ user2b = user4;
        function doAjaxPost1(id) {
     	   
     		   // get the form values
-       $("#myTable1 .tbody1 tr").remove();
+      
     	      //  var name = $('#pname').val();
 
            var str = id.split(",");
@@ -1023,9 +970,15 @@ user2b = user4;
 	           contentType: "application/json; charset=UTF-8",
 	           
 	           success: function(response){
-	     	 if(response.list6.length == 0){
+	        	   
+	        	   var tableRef = document.getElementById('myTable1').getElementsByTagName('tbody')[0];
+	        	  
+	     	 if(response.list6.length == 0 && tableRef.rows.length == 0){
+	     	
 	     		 display(user2a,user2b)
 	     	 }
+	     	 else if(response.list6.length != 0){  $("#myTable1 .tbody1 tr").remove();}
+	     	 else{}
 	        	   $.each(response.list6, function(index, datec) {
 	        		   
 	            if ($("#date option[value="+datec.date+"]").length == 0){
@@ -1540,6 +1493,17 @@ $(function () {
 	    window.history.back();
 	}
   
+	function openmd2(pnamea,fileno){
+	
+		   $('#pname option[data-price="'+fileno+'"]').prop('selected', true).change();
+	       $('#pname').selectpicker('refresh');
+	       
+	       $('#pname').on('change',function(){
+	    	   addname(this.options[this.selectedIndex]);
+	    	});
+	    
+	   }
+  
   </script>
 </head>
 <sec:authentication property="principal.authorities" var="username" />
@@ -1560,8 +1524,9 @@ $(function () {
        <li class=""><a id="nob" href="/HMS/nursetr/"  onclick=' return visible();' target="_blank">Nurse observations</a></li>
  -->
     </ul>
-    <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back"  onclick="goBack()"></i>
+<ul class="nav navbar-nav navbar-right">
+  <li><a href="#" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back</span></a></li>
+  </ul>
   </div>
 </nav>
   <center>
@@ -1576,6 +1541,10 @@ $(function () {
 	</h1>
 
 <br>
+<div class="container" style="width:auto;height:auto">
+ <button type="button" style="background:#81BDA4",  class="btn btn-primary btn-block"><span id="pi" style="float:left">Patient Information</span><span id="flno" style="float:right">Fileno</span><span id="id" style="float:right;margin-right:15px;">Id</span><span style="float:right;margin-right:25px;" id="nm">Name</span></button>
+ <br>
+  </div>  
 
 <div class="container">
  
@@ -1584,7 +1553,7 @@ $(function () {
   <ul class="nav nav-pills">
     <li class="active"><a data-toggle="pill" href="#home">Patient Details</a></li>
     <li><a data-toggle="pill" onclick="crtab('<c:out value="${username}" />','<c:out value="${pageContext.request.userPrincipal.name}" />')" href="#menu1">Drug Chart</a></li>
-    <li class="pull-right"><button type="button" id="refresh" class="btn btn-primary button2" onclick="location.href='';">
+    <li class="pull-right"><button type="button" id="refresh" class="btn btn-primary button2" onclick="location.reload(true);">
 	  <span class="fa fa-refresh"></span> Refresh</button></li>
 	  <li class="pull-right" id="ph"><button type="button" id="opener" class="btn btn-primary button2" >
 	   Show Available Drugs</button></li>  
@@ -1609,7 +1578,7 @@ $(function () {
      
           <option value='Select' selected disabled>Select</option>
       <c:forEach var="p"  items="${model.list3}">
-        <option value="${p.name}" data-subtext="${p.fileno},${p.admdate}" data-value="${p.name},${p.pid},${p.age},${p.gender},${p.fileno},${p.admdate},${p.wardno},${p.doctsig},${p.nursesig},${p.admitno}">${p.name}</option>
+        <option value="${p.name}" data-subtext="${p.fileno},${p.admdate}" data-price="${p.fileno}" data-value="${p.name},${p.pid},${p.age},${p.gender},${p.fileno},${p.admdate},${p.wardno},${p.doctsig},${p.nursesig},${p.admitno}">${p.name}</option>
         </c:forEach>
       </select>
        
@@ -1635,7 +1604,7 @@ $(function () {
   
   <div class="form-group">
          <p>Registration Id<span>*</span></p>
-     <input type="text" name="pid" id="pid"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="pid" id="pid"  form="forma" class="form-control input-sm" readonly required>
        
        
        
@@ -1651,7 +1620,7 @@ $(function () {
      <div class="form-group">
      
           <p>Admit No<span>*</span></p>
-             <input type="text" name="admitno" id="admitno"  form="forma" class="form-control input-sm"  required>
+             <input type="text" name="admitno" id="admitno"  form="forma" class="form-control input-sm" readonly required>
              <input type="hidden" name="fileno" id="fileno" readonly="readonly" form="forma" class="form-control input-sm"  required>
 	         <input type="hidden" name="name" id="name" readonly="readonly" form="forma" class="form-control input-sm"  required>
 	         <input type="hidden" name="" id="" readonly="readonly" form="forma" class="form-control input-sm"  required>
@@ -1675,7 +1644,7 @@ $(function () {
   <div class="form-group">
      
             <p>Age<span>*</span></p>
-     <input type="text" name="age" id="age"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="age" id="age"  form="forma" class="form-control input-sm" readonly required>
      </div>
  </div>
  
@@ -1683,7 +1652,7 @@ $(function () {
   
   <div class="form-group">
           <p>Gender<span>*</span></p>
-     <input type="text" name="gender" id="gender"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="gender" id="gender"  form="forma" class="form-control input-sm" readonly required>
        
      </div>
  </div>
@@ -1693,7 +1662,7 @@ $(function () {
   <div class="form-group">
   
           <p>Admission Date<span>*</span></p>
-     <input type="text" name="admdate" id="admdate"  form="forma" class="form-control input-sm" required>
+     <input type="text" name="admdate" id="admdate"  form="forma" class="form-control input-sm" readonly required>
        
           
      </div>
@@ -1708,7 +1677,7 @@ $(function () {
   <div class="form-group">
      
            <p>Current Date<span>*</span></p>
-     <input type="text" name="curdate" id="curdate"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="curdate" id="curdate"  form="forma" class="form-control input-sm" readonly  required>
        
      </div>
  </div>
@@ -1720,7 +1689,7 @@ $(function () {
   <div class="form-group">
      
           <p>WardNo/BedNo<span>*</span></p>
-     <input type="text" name="wardno" id="wardno"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="wardno" id="wardno"  form="forma" class="form-control input-sm" readonly required>
      </div>
  </div>
  
@@ -1729,7 +1698,7 @@ $(function () {
   <div class="form-group">
      
           <p>Doctor<span>*</span></p>
-     <input type="text" name="doctsig" id="doctsig"  form="forma" class="form-control input-sm"  required>
+     <input type="text" name="doctsig" id="doctsig"  form="forma" class="form-control input-sm" readonly required>
      <input type="hidden" name="extflag" id="extflag" form="forma" value="doct" >
      </div>
  </div>
@@ -1889,6 +1858,11 @@ $(function () {
       </div>
   </div>
     
-
+<script>
+var bac = '<c:out value='${model.bac}'/>';
+</script>
+<script>
+openmd2('<c:out value="${model.pname}" />','<c:out value="${model.flno}" />');
+</script>
 </body>
 </html>

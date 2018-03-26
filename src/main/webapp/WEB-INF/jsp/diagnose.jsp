@@ -344,7 +344,7 @@ function addcheck(div,tab){
     var level = Number(div) + 1;
   if(s.length == 0){
 	var head1 =  prompt("Please enter the Header name:");
-	 var head = $.trim(head1)
+	 var head = $.trim(head1).replace(/\s+/g, " ");
 	if (head == null || head == " " || head.length == "0") {
 	      return false;
   	    } 
@@ -377,7 +377,7 @@ function addcheck(div,tab){
 	  
 
 	var person1 = prompt("Please enter the Field name:");
-	var person = $.trim(person1)
+	var person = $.trim(person1).replace(/\s+/g, " ");
 	if (person == null || person == " " || person.length == "0") {
 	       
   		return false;
@@ -437,12 +437,15 @@ function updheader(div,tab){
 	
 	var hid =  $("#tab"+tab).find(".main").find('.divin').eq(div).find(".header").attr("id");
 	var head1 =  prompt("Update the Header name");
-	var head = $.trim(head1)
+	var head = $.trim(head1).replace(/\s+/g, " ");
+	
 	if (head == null || head == " " || head.length == "0") {
 	      return false;
   	    } 
 	else {
-  	    var uri = "/HMS/updhead?hid="+hid+"&&header="+head+"&&tabid="+tab+"&&level="+Number(div+1)+"";
+	  
+  	    var uri = "/HMS/updhead?hid="+hid+"&header="+encodeURIComponent(head)+"&tabid="+tab+"&level="+Number(div+1)+"";
+	
 		var data = "0";
 		 
 	   var successFn =  function(response){
@@ -468,7 +471,7 @@ function updchname(val,div,tab,value){
 	
 	var cid =  value;
 	var head1 =  prompt("Update the Field name:");
-	var head = $.trim(head1)
+	var head = $.trim(head1).replace(/\s+/g, " ");
 	if (head == null || head == " " || head.length == 0) {
 	      return false;
   	    } 
@@ -504,7 +507,8 @@ if(cid == undefined || cid == " " || cid.length == 0){
 	return false;
 }
 	var head1 =  prompt('Update Tab name');
-	var head = $.trim(head1)
+	var head = $.trim(head1).replace(/\s+/g, " ");
+
 	if (head == null || head == " " || head.length == "0") {
 	      return false;
   	    } 
@@ -532,7 +536,7 @@ if(cid == undefined || cid == " " || cid.length == 0){
 }
 function createTabs(){
 	var person1 = prompt("Please enter the Tab Name:");
-	var person = $.trim(person1)
+	var person = $.trim(person1).replace(/\s+/g, " ");
   
 	if (person == null || person == " " || person.length == "0") {
 	       
@@ -1011,6 +1015,9 @@ var cu;
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
+    </ul>
+        <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
     </ul>
   </div>
 </nav>

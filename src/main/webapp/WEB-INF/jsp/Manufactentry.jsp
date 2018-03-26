@@ -244,7 +244,7 @@ function check(id){
 		
 	}
 }
-
+var prname;
 function run() {
 	
     if(document.getElementById("myname").value == "new"){
@@ -257,7 +257,7 @@ function run() {
     else{
  	   var str = document.getElementById("myname").value;
 	   var strSplit = str.split('=');
-	
+	prname = strSplit[0];
 	document.getElementById("name").value = strSplit[0];
 	document.getElementById("medical").value = strSplit[1];
 	document.getElementById("address1").value = strSplit[2];
@@ -358,6 +358,11 @@ $(document).ready(function () {
     	   // get the form values
 //alert("j")
     	       var mname = $('#name').val();
+    	   
+    	   if(prname == $('#name').val()){
+    		   document.getElementById("bc").disabled = false;
+    		   return false;
+    	   }
         
     	   $.ajax({
          	  

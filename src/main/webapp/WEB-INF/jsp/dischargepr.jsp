@@ -337,7 +337,7 @@ function disp(){
   -->
     </ul>
      <ul class="nav navbar-nav navbar-right">
-      <li><a href="/HMS/prdocs"><span class="fa fa-arrow-left"></span>Back</a></li>
+      <li><a href="/HMS/prdocs"><span class="fa fa-arrow-left"></span>Back to Print Documents</a></li>
       
     </ul>
   </div>

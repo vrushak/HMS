@@ -276,6 +276,17 @@ function checkhome(user){
 	}
 }
 
+function vrf(){
+	if($("#pid").val().includes("select")){
+		alert("Please select a Patient Name")
+		return false;
+	}
+	else{
+		$("#timestamp").val('<c:out value="${pageContext.request.userPrincipal.name}" />  '+moment().format("DD-MM-YYYY hh:mm"))
+	    return true;
+	}
+}
+
 function disp(){
 	AutoGrowTextArea(document.getElementById("pname"))
 	AutoGrowTextArea(document.getElementById("remarks"))
@@ -287,9 +298,9 @@ function disp(){
 	
    document.getElementById("hideselect").style.display = "none";
 	
-	
+	$('#lm').hide();
 	window.print();
-	
+	$('#lm').show();
 	document.getElementById("hideselect").style.display = "block";
 	document.getElementById("disp").style.display = "block";
 	document.getElementById("redate").style.visibility = "visible";
@@ -372,7 +383,8 @@ function cpyfile(getval){
 
 	document.getElementById("fn").value = strSplit[0];
 	document.getElementById("docid1").value = strSplit[1];
-//	document.getElementById("pid").value = strSplit[2];
+	
+    document.getElementById("dname").value = strSplit[2];
 }
 
 
@@ -387,7 +399,8 @@ function cpyfile(getval){
 	function run() {
 	    if(document.getElementById("myname").value == "new"){
 	    	document.getElementById("saveref").reset();
-	    	$("#pid").selectpicker("refresh");
+	    	 $('select[name=pid]').val("select");
+	    	 $('#pid').selectpicker('refresh');
 	    }
 	    else{
 	 	   var str = document.getElementById("myname").value;
@@ -407,13 +420,13 @@ function cpyfile(getval){
 					
 					document.getElementById('diagnosis').checked=true;
 				}
-		document.getElementById("diagnosis").value = strSplit[3];
+		//document.getElementById("diagnosis").value = strSplit[3];
 		
 		if(strSplit[4] == "active"){
 			
 			document.getElementById('caseh').checked=true;
 		}
-		document.getElementById("caseh").value = strSplit[4];
+		//document.getElementById("caseh").value = strSplit[4];
 		//document.getElementById('caseh').checked;
 		
 		document.getElementById("remarks").value = strSplit[5];
@@ -427,7 +440,7 @@ function cpyfile(getval){
 		$("#pid").val(encodeURI(strSplit[8]));
 		$("#pid").selectpicker("refresh");
 		
-		
+	    $('#timestamp').val(strSplit[11])
 	
 		
 		
@@ -546,16 +559,16 @@ function AutoGrowTextArea(textField)
     <ul class="nav navbar-nav">
           <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
-    <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back" onclick="window.location.href='/HMS/doctor1';"></i>
-  </div>
+       <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
+    </ul>  </div>
 </nav>
   <center>
 </center>
 	<div id="page-wrap">
         <h1>
         
-	     <button type="submit" form="saveref" class="btn btn-warning button1" id='bc'  value="submit">
+	     <button type="submit" form="saveref" class="btn btn-warning button1" onclick="return vrf()" id='bc'  value="submit">
 	     
 	  <span></span>Save</button>
 <font size="5">Referral Note</font><span class="button2">
@@ -598,7 +611,7 @@ function AutoGrowTextArea(textField)
 	        <select class="selectpicker form-control select"  data-live-search="true"  id = "myname" name="myname" onchange="run()" class="form-control input-sm" >
 	        <option value="new">New</option>
 <c:forEach var="mft"  items="${model.list3}">
-<option value="${mft.redate}=${mft.pname}=${mft.treat}=${mft.diagnosis}=${mft.caseh}=${mft.remarks}=${mft.dname}=${mft.sign}=${mft.pid}=${mft.fn}=${mft.docid}" data-subtext="${mft.patient},${mft.redate}">${mft.fn}</option>
+<option value="${mft.redate}=${mft.pname}=${mft.treat}=${mft.diagnosis}=${mft.caseh}=${mft.remarks}=${mft.dname}=${mft.sign}=${mft.pid}=${mft.fn}=${mft.docid}=${mft.timestamp}" data-subtext="${mft.patient},${mft.redate}">${mft.fn}</option>
 </c:forEach>
 	        </select>
 	        
@@ -625,7 +638,7 @@ function AutoGrowTextArea(textField)
                     <p style="" align="left" "meta-head"><form="saveref" >&emsp;&emsp;&emsp; <b>This will introduce my patient ,</b>
                     
            <select class="selectpicker" data-size="10" data-live-search="true" name = "pid" id ="pid"  form="saveref" onchange="cpyfile(this.options[this.selectedIndex])" >
-          <option value="" selected disabled>Patient Name</option>
+          <option value="select" selected>Patient Name</option>
          <c:forEach var="p"  items="${model.list2}">
         <option value="${p.pid}"  data-subtext="${p.fileno},${p.pid}" data-value="${p.fileno}=${p.docid}=${p.dname}">${p.pname}</option>
         
@@ -660,12 +673,13 @@ function AutoGrowTextArea(textField)
                 <textarea class="notes1" style="width :750px;" rows="2"  id="remarks" name="remarks" form="saveref" onfocus="AutoGrowTextArea(this)"  required></textarea>
           </div>
          <br>
-         <tr>&emsp;&emsp;&emsp;<b>Doctor's Name:<input type="text" id="dname" name="dname" value="${pageContext.request.userPrincipal.name}"  style="border-style: none;margin-left:1%;width:30%;border-width:2px;" class="meta-head"  form="saveref"/></b>&emsp;&emsp;&emsp;<span id="ss" style="margin-left:-5px;" ><b>Doctor's Signature:</b></span> &emsp;<input type="text" id="sign"  name="sign" style="border-style: none; width:24%;border-width:2px;" class="meta-head"  form="saveref"></input> </tr><br>
+         <tr>&emsp;&emsp;&emsp;<b>Doctor's Name:<input type="text" id="dname" name="dname" style="border-style: none;margin-left:1%;width:30%;border-width:2px;" class="meta-head"  form="saveref"/></b>&emsp;&emsp;&emsp;<span id="ss" style="margin-left:-5px;" ><b>Doctor's Signature:</b></span> &emsp;<input type="text" id="sign"  name="sign" style="border-style: none; width:24%;border-width:2px;" class="meta-head"  form="saveref"></input> </tr><br>
                <br>
+         
               
              </tr>
         
-        
+       
         
         
         
@@ -673,11 +687,14 @@ function AutoGrowTextArea(textField)
                <br>
               
              </tr>
-             
+              
       
              </div>
+   &emsp;&emsp;&emsp;<span id="lm"><b>Last Modified : </b><input type="text" name="timestamp" id="timestamp" form="saveref"  style="border:none;width:250px;" readonly="readonly"></span>  
+            
              <button type="" id="gbill" class="bouton-contact" form ="saveref" disabled></button>
 </div>
+ 
     </div>
      
 </div>

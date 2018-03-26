@@ -191,9 +191,11 @@ public class Logincontroller {
     }
     
     @RequestMapping(value = "/nursedesk", method = RequestMethod.GET)
-    public String ndesk(Model model, Principal principal) {
-    	
-		return "nursedesk"; 
+    public ModelAndView ndesk(Principal principal) {
+    	List<Appointment> list4 = ndao.getAppsforNrs();
+		Map<String, Object> model = new HashMap<String, Object>();
+		model.put("list4",list4);
+		return new ModelAndView("nursedesk","model",model); 
     }
     
     @RequestMapping(value = "/staff", method = RequestMethod.GET)
@@ -229,10 +231,35 @@ public class Logincontroller {
     @RequestMapping(value = "/licence", method = RequestMethod.GET)
    public ModelAndView licence(@ModelAttribute("p") License p ,HttpServletRequest request,Principal principal,Authentication authentication ) throws Exception {
      	List<License> list = dao.getLusers();
+     	String result = null;
+     	String failed = request.getParameter("res");
+     	if(failed == null){
+     		failed = "tre";
+     	}
+     	
      	try{
     	License license = LicenseManager.decryptLicense(list.get(0).getLckey());
     	list.get(0).setCompanyName(license.getCompanyName());
     	list.get(0).setEmailId(license.getEmailId());
+    	if(failed.equalsIgnoreCase("licensefailed")){
+     		result = "failed";
+     		if(System.currentTimeMillis() > license.getExpirationDate()){
+        		
+    			result ="false";
+    		}
+        	
+     	}
+    	else if(failed.equalsIgnoreCase("diffmac")){
+    		result = "diffmac";
+    	}
+    	else if(System.currentTimeMillis() <= license.getExpirationDate()){
+    		
+			result ="true";
+		}
+    	
+    	else {
+    		
+    	}
      	}
      	catch(IndexOutOfBoundsException exception) {
      	    System.out.println(exception);
@@ -241,6 +268,7 @@ public class Logincontroller {
      
     	Map<String, Object> model = new HashMap<String, Object>();
          model.put("list",list);
+         model.put("result",result);
         return new ModelAndView("licence","model",model);
     }
    

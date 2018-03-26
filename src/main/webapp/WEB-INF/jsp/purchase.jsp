@@ -153,7 +153,7 @@ var cuser;
 function checkhome2(user){
 	cuser = user;
 
-	     
+	$(".expSale").attr("min",new Date())     
 	
 	 if(user.includes("[ROLE_SALESMANAGER]")){
 	
@@ -440,7 +440,7 @@ var str = text.split(',');
          
           
           newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<input class='form-control input-sm' style='width:135px;'  form ='purchasesave'  type='date' id = 'expSale' name= 'expDate1' required>";
+          newCell.innerHTML="<input class='form-control input-sm expSale' style='width:135px;' max='2999-12-31' form ='purchasesave'  type='date' id = 'expSale' name= 'expDate1' required>";
          
    // manufacture pack desc
           newCell = rowsAdd.insertCell();
@@ -708,12 +708,45 @@ for(var i =0;i<s.length;i++){
 	 
 	}
 
+function setUrl(myurl){
+	var url = myurl.getAttribute('value');
+	$('#vp').attr("href","/HMS/prpur?allo="+url+"");
+}
+
+function chdate(id){
+	var datea = $(id).val().split(' ');
+
+	var from = datea[0].split("-");
+	var f = new Date(from[2], from[1] - 1, from[0]);
+	
+
+var date1 = new Date()
+var longformat = f*1;
+
+var longformat1 = date1*1; 	
+if(longformat > longformat1){
+	alert("Cannot create purchase entry for future dates")
+	$('#bouton-contact').prop("disabled",true)
+	return false;
+}
+else{
+	$('#bouton-contact').prop("disabled",false)
+	return true
+}
+}
+
+function checkUrl(valie){
+	if($("#allocationid1").val() == "select"){
+		alert("Please select Allocation Id")
+		$(valie).attr("href","javascript:;")
+	}
+}
 </script>
 <script>
 
        function doAjaxPost(user2) {
     	   // get the form values
-    	   
+    	   $("#supplier").val(user2)
     	      //  var name = $('#pname').val();
       //  document.getElementById("purchasesave").reset();
         $('#ean').find('option').not(':first').remove();
@@ -840,7 +873,7 @@ $('#datetimepicker1').datetimepicker({
 	format: "dd-mm-yyyy  hh:ii",
     autoclose: true,
     todayBtn: true,
-    endDate: '+0d'
+ 
     
 });
 
@@ -888,7 +921,7 @@ $('#datetimepicker1').datetimepicker({
   
      <h1>
       <button type="reset" id="refresh" class="btn btn-warning button1" onclick="location.href='/HMS/purchaseho.html';" >
-	  <span class="fa fa-refresh"></span> Refresh</button>
+	  <span class="fa fa-refresh"></span> Refresh</button> <a href="#" target="_blank" id="vp" class="btn btn-warning button2 rmt" onclick="return checkUrl(this)">Print</a>
 	
        <font size="5">Purchase Entry </font><span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i>
 	 
@@ -920,7 +953,7 @@ $('#datetimepicker1').datetimepicker({
 	</div>
 
 	      
-	       <div class="col-xs-3">
+	       <div class="col-xs-2">
 	      <div class="form-group">
 	     
         <p>Supplier Invoice<span>*</span></p>
@@ -930,20 +963,40 @@ $('#datetimepicker1').datetimepicker({
 	
 	      </div>
 	      
-	<div class="col-xs-3"> 
+	<div class="col-xs-2"> 
   
   <div class="form-group">
   
    <p>Received Date<span>*</span></p>
  <div class='input-group date' id='datetimepicker1'>
-    <input form="purchasesave"  type="text" data-date-end-date="0d" class="form-control" name="receiveddate" id = "receiveddate"  required>
+    <input form="purchasesave"  type="text" data-date-end-date="0d" class="form-control" name="receiveddate" id = "receiveddate" onchange ="return chdate(this)" required>
        <span class="input-group-addon"><span  class="glyphicon glyphicon-calendar"></span></span>
     </div>
 </div>
-  </div>
-  
+
+
 	      
 	  </div>
+	  
+	  <div class="col-xs-3">
+	      
+	      <div class="form-group">
+            <p>Allocation Id<span>*</span></p>
+     <select class="selectpicker" data-show-subtext="true" data-live-search="true"  name = "allocationid1" id ="allocationid1" onchange="setUrl(this.options[this.selectedIndex])"  required>
+  <option value="select">--Select--</option>
+ <c:forEach var="purchase"  items="${model.list2a}">
+ <option value = "${purchase.allocationid}">${purchase.allocationid}</option>
+ </c:forEach>
+      </select>
+      </div>
+
+  </div>  
+  <div class="col-xs-1">
+ <!--   <a href="#" target="_blank" id="vp" onclick="return checkUrl(this)">View Purchase Entry</a>-->
+  
+  </div>
+</div>
+    
 	  <input form="purchasesave" type="hidden" name="allocationid" id="allocationid">
   <input form="purchasesave" type="hidden" name="supplier" id="supplier">
 <!--  <input form="purchasesave" type="hidden" name="ean1" id="eans">-->  

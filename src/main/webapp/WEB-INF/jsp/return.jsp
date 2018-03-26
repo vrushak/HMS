@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -338,8 +339,8 @@ $(document).ready(function(){
  
      <td style="width:100px;">${p1.allocqret}</td>
     <td style="width:100px;">${p1.pack}</td>
-     <td style="width:140px;">${p1.allodate}</td>
-     <td style="width:100px;">${p1.expdate}</td>
+     <td style="width:140px;"><fmt:parseDate value="${p1.allodate}" pattern="yyyy-MM-dd" var="myDate"/><fmt:formatDate value="${myDate}" type='date' pattern="dd-MM-yyyy"/></td>
+     <td style="width:100px;"><fmt:parseDate value="${p1.expdate}" pattern="yyyy-MM-dd" var="myDate"/><fmt:formatDate value="${myDate}" type='date' pattern="dd-MM-yyyy"/></td>
     <td style="width:100px;"><i class="fa fa-pencil" style="color:#00b300" onclick="copy('${p1.pid},${p1.pname},${p1.ptype},${p1.quantity},${p1.pack},${p1.allodate},${p1.expdate},${p1.allocdate},${p1.allocqret},${p1.pc},${p1.expiry},${p1.requant},${p1.invid},${p1.tid}','${p1.quantity}')"></i></td>
    
  </tr>
@@ -450,7 +451,7 @@ $(document).ready(function(){
    <div class="col-xs-4">
     <div class="form-group">
             <p>Actual Date of Return<span>*</span></p>
-    <input type="date" max="2999-12-31" name="allocdate" id="allocdate" onblur="return validdate(this.id)" class="form-control input-sm" >
+    <input type="date" max="2999-12-31" name="allocdate" id="allocdate" onchange="return validdate(this.id)" class="form-control input-sm" >
 </div>
 	</div>
 	

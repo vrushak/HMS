@@ -70,6 +70,16 @@ function chkuser(user){
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 document.getElementById("myInput").style.visibility ="hidden";
+		 
+		 if(bac.includes("dochome")){
+			 $("#back").attr("href","/HMS/doctor1")
+			 $("#tit").text("Back to Doctor Home")
+		 }
+		 else{
+			 $("#back").attr("href","/HMS/nursedesk") 
+			 $("#tit").text("Back to Nurse Desk")
+		 }
+
 	}
 }
 
@@ -667,9 +677,10 @@ th {
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
-    <br>
-         <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back" onclick="goBack()"></i>
-  </div>
+ <ul class="nav navbar-nav navbar-right">
+  <li><a href="#" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back</span></a></li>
+    </ul>
+      </div>
 </nav>
   <center>
 </center>
@@ -929,6 +940,9 @@ displaymodal();
 </c:forEach>
 <script>
 datasuccess('<%=request.getParameter("message")%>')
+</script>
+<script>
+var bac = '<c:out value='${model.bac}'/>';
 </script>
 </body>
 </html>

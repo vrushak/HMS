@@ -191,6 +191,23 @@ function validateEmail(emailField){
         return true;
 
 }
+
+function openmd1(value){
+
+	if(value.includes("false")){
+alert("Your licence has expired. Please contact your Vendor to re-activate your licence");		
+	}
+	else if(value.includes("failed")){
+alert("Please check your network connection")		
+	}
+	else if(value.includes("diffmac")){
+		alert("Computer id not registered")
+	} 	
+	else{
+		
+	}
+
+}
 </script>
 <script>
 function doAjaxPostNew(met,uri,ctype) {
@@ -208,7 +225,7 @@ function doAjaxPostNew(met,uri,ctype) {
       	          valid()	 
    	         } 
    	         else{
-   	        	 alert("Data saved successfully")
+   	        	 alert("License activated successfully")
    	         }
 	        
 	         },
@@ -307,7 +324,7 @@ $(document).ready(function() {
             <div class="col-xs-2"></div>
             <div class="col-xs-4">
             <div class="form-group" >
-               <p>License Key<span>*</span></p>
+               <p>Licence Key<span>*</span></p>
                    <input type="text" name="lckey" id="lckey1" form="form1" class="form-control input-sm" required>
                    <input type="hidden" name="lid" id="lid" form="form1" value='1'>   
                   
@@ -326,8 +343,12 @@ $(document).ready(function() {
 <script>
 copyval('<c:out value="${p.lid}" />','<c:out value="${p.lckey}" />','<c:out value="${p.companyName}" />','<c:out value="${p.emailId}" />')
 </script>
-</c:forEach>
 
+</c:forEach>
+<script>
+
+openmd1('<c:out value='${model.result}'/>')
+</script>
 
 </body>
 </html>

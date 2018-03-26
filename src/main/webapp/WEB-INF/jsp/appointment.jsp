@@ -29,7 +29,18 @@
 <script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
 
 
+<style type="text/css">
+div.jconfirm-title-c {
+    background-color: #009999;
+    font-size :1px;
+    color:white;
+    }
+.jconfirm-buttons button{
+color : orange;
+}
 
+
+</style>
 
 <script type="text/javascript">
 
@@ -273,11 +284,20 @@ function copy(pid){
    document.getElementById("filenod").value = strSplit[6];
     document.getElementById("bc").style.display = "block";
    
-	
- if(moment(document.getElementById("appointment").value).format("DD-MM-YYYY") ==  moment().format("DD-MM-YYYY")){
-	
-	if(document.getElementById("time").value >=  moment().format("HH:mm")){
-	
+    if(strSplit[9].includes("on")){
+    	$("#sms").prop("checked",true)
+    }else{
+    	$("#sms").prop("checked",false)
+    }
+	 
+		var date = new Date(document.getElementById("appointment").value);
+		var date1 = new Date()
+	var longformat = date*1;
+	var longformat1 = date1*1;
+
+ if(moment(document.getElementById("appointment").value).format("DD-MM-YYYY") ==   moment().format("DD-MM-YYYY"))  {
+
+	if(document.getElementById("time").value >=  moment().format("HH:mm A")){
 	 document.getElementById("bouton-contact").disabled = false;
 	document.getElementById("bc").disabled = false;
  }
@@ -286,14 +306,20 @@ function copy(pid){
 			document.getElementById("bc").disabled = true;
 	}
  }
- else if(moment(document.getElementById("appointment").value).format("DD-MM-YYYY") <  moment().format("DD-MM-YYYY")){
+ else if(longformat < longformat1){
+
 	 document.getElementById("bouton-contact").disabled = true;
 	 document.getElementById("bc").disabled = true;
  }
+ else if(longformat >=  longformat1)  {
+	
+	 document.getElementById("bouton-contact").disabled = false;
+		document.getElementById("bc").disabled = false;
+	 }
  else{
 	 
  }
-
+ 
  if(strSplit[7] == "off"){
 	 document.getElementById("bouton-contact").disabled = true;
 	 document.getElementById("bc").disabled = true;
@@ -387,7 +413,7 @@ function onlyNos(e, t) {
 }
 
 function removeAll(id,pn,moba){
-	
+
 	$('#pid').find('[value='+id+']').remove();
 	$('#pid').selectpicker('refresh');
 	  
@@ -439,13 +465,16 @@ $(document).ready(function () {
 	 	 
 	 	 var currenttime  = dt.getHours() + ":" + dt.getMinutes();
 	 	
-	 	 
 if(currenttime > $("#time").val())
 	 	{
-	 	 	 alert("Appointments can be scheduled only for future time")
+	 	 	 $("#sp1").text("Appointments can be scheduled only for future time")
 		   	 $( "#time" ).val(currenttime);
 		         $(this).focus();         
 	 	}
+else{
+	$("#sp1").text(" ");
+  	 
+}
 		/*   
 		     if(currentTime.getHours() > parseInt(userTime[0]) || (currentTime.getMinutes()>parseInt(userTime[1]))){
 		   	 alert("Appointments can be scheduled only for future time")
@@ -485,11 +514,11 @@ $.confirm({
     content: '' +
     '<div class="form-group">' +
     
-    '<label>Enter Patient Id</label>' +
+    '<label>Patient Id </label>' +
     '<input type="text"  class="id form-control" value ='+patonid+' required />' +
-    '<label>Enter Patient Name</label>' +
+    '<label>Patient Name</label>' +
     '<input type="text"  class="name form-control" required />' +
-    '<label>Enter Mobile Number</label>' +
+    '<label>Mobile Number</label>' +
     '<input type="text" class="mobile form-control" onkeypress="return onlyNos(event,this);" required />' +
     '</div>' ,
  
@@ -500,20 +529,20 @@ $.confirm({
             action: function () {
                namea = this.$content.find('.name').val();
                 if(!namea){
-                    $.alert('Please provide a valid name');
+                    $.alert('Please enter Patient Name');
                     return false;
                 }
                 ida = this.$content.find('.id').val();
                 if(!ida){
-                    $.alert('Please provide a valid id');
+                    $.alert('Please enter Patient Id');
                     return false;
                 } 
                 moba = this.$content.find('.mobile').val();
                 if(!moba){
-                    $.alert('Please provide a valid mobile');
+                    $.alert('Please enter Mobile Number');
                     return false;
                 }
-              
+             
                 if ($("#pid option[value='"+patonid+"']").length == 0){
  	              
              	   $("#pid").append('<option value="'+ida+'" data-value="'+ida+','+namea+','+moba+'" selected="">'+ida+'</option>');
@@ -533,7 +562,15 @@ $.confirm({
         	
             //close
             $(val).attr("checked",false);
-            removeAll(ida,namea,moba)
+         if(namea == null){
+        	 namea=0;
+         }
+            if(namea.length > 0 && moba.length > 0 ){
+        	   removeAll(ida,namea,moba)   
+           }
+            
+           
+          
         },
     }
 
@@ -555,9 +592,9 @@ $.confirm({
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
-    <br>
-    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e' id="back" onclick="window.location.href='/HMS/frontdesk';"></i>
-    
+     <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/frontdesk" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Front Desk</span></a></li>
+    </ul>
   </div>
 </nav>
   <center>
@@ -588,7 +625,7 @@ $.confirm({
     <tbody class="tbody">
     <c:forEach var="p1"  items="${model.list3}">
     <tr>
-    <td width="240px;"><a href="#"  onclick="copy('${p1.pid},${p1.pname},${p1.docid},${p1.dname},${p1.appointment},${p1.time},${p1.fileno},${p1.active},${p1.phno}')">${p1.pid}</a></td>
+    <td width="240px;"><a href="#"  onclick="copy('${p1.pid},${p1.pname},${p1.docid},${p1.dname},${p1.appointment},${p1.time},${p1.fileno},${p1.active},${p1.phno},${p1.sms}')">${p1.pid}</a></td>
     <td width="240px;">${p1.pname}</td>
     <td width="240px;">${p1.dname}</td>
     <td width="220px;">${p1.combine}</td>
@@ -686,9 +723,8 @@ $.confirm({
   <p>Time<span>*</span></p>
 
     <input type="time"  form="form1" id="time" value="now" name="time" class="form-control input-sm" required>
-    
-           
-   </div>
+    <p><span id="sp1"></span></p>
+ </div>
 </div>
   </div>
   
@@ -701,7 +737,7 @@ $.confirm({
     <input type="text" form="form1" id="fileno" value=""readonly="readonly" name="fileno" class="form-control input-sm" required>
     <input type="hidden" name="flag" form="form1" value="fdesk"><br>
     
-    <input type="checkbox" name="sms" id="sms" form="form1">SMS Alerts
+    <input type="hidden" name="sms" id="sms" form="form1" value='on'><!-- SMS Alerts -->
     <input type="checkbox" name="pat" id="pat" form="form1" onchange="return prompt(this)"><span>New Patient</span>       
  </div>
  

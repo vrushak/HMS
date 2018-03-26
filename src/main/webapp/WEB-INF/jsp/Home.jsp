@@ -63,6 +63,27 @@ margin-left:10px;
 
 <script>
 
+function getInputDateFormat(date) {
+	 return date.toISOString().split('T')[0];
+	}
+	
+function validDate(val) {
+	 var today = new Date();
+	 var maxDate = new Date($("#admdate").val());
+	 
+if($(val).attr("id").includes("admdate")){
+
+	document.getElementById("admdate").setAttribute('max', getInputDateFormat(today));
+}
+else{
+	alert()
+    document.getElementById("disdate").setAttribute('min', getInputDateFormat(maxDate));
+}
+	 
+	}
+	
+	
+
 function myconfirm()
 {
  var r = confirm("Do you want to Logout?");
@@ -103,9 +124,7 @@ function addp1(id){
 	
 }
 
-function getInputDateFormat(date) {
-	 return date.toISOString().split('T')[0];
-	}
+
 </script>
 <script>
 $( function() {
@@ -139,10 +158,10 @@ $( function() {
 		    	  
 		    	  var date = new Date(), y = date.getFullYear(), m = date.getMonth();
 		    	  var firstDay = new Date(y, m, 1);
-		    	  $("#admdate").val('');
+		    	 // $("#admdate").val('');
 		    //	  $("#disdate").val('');
 		    	  $("#admdate").val(moment(firstDay).format("YYYY-MM-DD"))
-		         $("#disdate").val(moment().format("YYYY-MM-DD"));
+		          $("#disdate").val(moment().format("YYYY-MM-DD"));
 		    	 $( "#result" ).dialog( "open" );
 		      }
 		    	
@@ -161,11 +180,13 @@ $( function() {
 		    	 });  
 	    
 	    
-	    $( "#admdate" ).on( "change", function() {
+	    $( "#admdate" ).on( "click", function() {
 	   var a = $("#admdate").val();
+	
 	   var today = new Date(a);
 	   
-	      $("#disdate").attr('min',getInputDateFormat(today))
+	    $("#admdate").attr('max',a)
+ 	    $("#disdate").attr('min',a)
 		});
 });
 
@@ -176,49 +197,49 @@ $( function() {
 <br>
 <font  color="#228B22" class="left" >Welcome : ${pageContext.request.userPrincipal.name}</font>  <i style="font-size:20px; align: right;color : #228B22" class="fa fa-cog" ></i> 
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
-<div class="well well-lg" id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
+<div class="well well-lg" style='font-family: "Verdana","sans-serif"' id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
 
 <div class="row"  id="dashboard"   >
   	 <div class="col-lg-1"></div>
   	 <a href="/HMS/cappointment.html">
-    	<div class="col-lg-2" >
+    	<div class="col-xs-2" >
   	 <div  style="height: 85px; border: 2px solid;border-radius: 15px; background-color:#f0ad4e;border-color:#f0ad4e">
   	 <div class="row">
-  	 <div class="co col-lg-8" style="margin-top:20px;">
+  	 <div class="co col-xs-8" style="margin-top:20px;">
   	 <div class="text" style="margin:0px 5px 0px; color:#ffff"> Appointments</div>
                     <div class="app" style="margin:0px 10px 0px; color:#ffff"></div>
   	 </div>
-  	 <div class="logo col-lg-4" style="margin-top:25px;">
+  	 <div class="logo col-xs-4" style="margin-top:25px;">
   	<i style="font-size: 40px;" class="fa fa-stethoscope" aria-hidden="true"></i>
   	 </div>
   	 </div>
     	 </div>
     	</div>
     	</a>
-    	<a href="/HMS/diagnose.html">
-   	<div class="col-lg-2" >
+    	<a href="/HMS/prescription.html">
+   	<div class="col-xs-2" >
  	 <div  style="height: 85px; border: 2px solid ;border-radius: 15px; background-color:#C0C0C0;border-color:#C0C0C0">
  	 <div class="row">
-  	 <div class="co col-lg-8" style="margin-top:20px;">
+  	 <div class="co col-xs-8" style="margin-top:20px;">
   	 <div class="text" style="margin:0px 5px 0px;color:#ffff">OPD</div>
                     <div class="opd" style="margin:0px 10px 0px;color:#ffff"></div>
   	 </div>
-  	 <div class="logo col-lg-4" style="margin-top:25px;">
+  	 <div class="logo col-xs-4" style="margin-top:25px;">
   <i style="font-size: 40px;" class="fa fa-user" aria-hidden="true"></i>
  	 </div>
  	 </div>
  	 </div>
    	</div>
     	</a>
-    	<a href="/HMS/treatment.html">
-    	<div class="col-lg-2" >
+    	<a href="/HMS/admission.html">
+    	<div class="col-xs-2" >
   	 <div  style="height: 85px; border: 2px solid ;border-radius: 15px; background-color:#f0ad4e;border-color:#f0ad4e">
   	 <div class="row">
-  	 <div class="co col-lg-8" style="margin-top:20px;">
+  	 <div class="co col-xs-8" style="margin-top:20px;">
   	 <div class="text" style="margin:0px 5px 0px; color:#ffff">IPD</div>
                     <div class="ipd" style="margin:0px 10px 0px;color:#ffff"></div>
   	 </div>
-  	 <div class="logo col-lg-4" style="margin-top:25px;">
+  	 <div class="logo col-xs-4" style="margin-top:25px;">
   	<i style="font-size: 40px;" class="fa fa-wheelchair " aria-hidden="true"></i>
   	 </div>
   	 </div>
@@ -226,14 +247,14 @@ $( function() {
     	</div>
     	</a>
     	<a  id = "opener" href="#">
-    	<div class="col-lg-2" >
+    	<div class="col-xs-2" >
   	 <div  style="height: 85px; border: 2px solid  ;border-radius: 15px; background-color:#C0C0C0;border-color:#C0C0C0">
   	 <div class="row">
-  	 <div class="co col-lg-8" style="margin-top:20px;">
+  	 <div class="co col-xs-8" style="margin-top:20px;">
   	 <div class="text" style="margin:0px 5px 0px; color:#ffff">Billing for the Month</div>
                     <div class="bm" style="margin:0px 10px 0px; color:#ffff"></div>
   	 </div>
-  	 <div class="logo col-lg-4" style="margin-top:25px;">
+  	 <div class="logo col-xs-4" style="margin-top:25px;">
   	<i style="font-size: 40px;" class="fa fa-file-text" aria-hidden="true"></i>
   	 </div>
   	 </div>
@@ -241,27 +262,27 @@ $( function() {
     	</div>
     	</a>
     	<a id ="bod" target="_blank" onclick="addp1(this)" href="#">
-    	<div class="col-lg-2" >
+    	<div class="col-xs-2" >
   	 <div  style="height: 85px; border: 2px solid ;border-radius: 15px; background-color:#f0ad4e;border-color:#f0ad4e">
-  	 <div class="row">
-  	 <div class="co col-lg-8" style="margin-top:20px;">
+  	 <div class="form-group row">
+  	 <div class="co col-xs-8" style="margin-top:20px;">
   	 <div class="text" style="margin:0px 5px 0px; color:#ffff">Billing for the Day</div>
                     <div class="bd" style="margin:0px 10px 0px;color:#ffff"></div>
   	 </div>
-  	 <div class="logo col-lg-4" style="margin-top:25px;">
+  	 <div class="logo col-xs-4" style="margin-top:25px;">
   	<i style="font-size: 40px;" class="fa fa-file-text" aria-hidden="true"></i>
   	 </div>
   	 </div>
     	 </div>
     	</div>
     	</a>    	
-    	<div class="col-lg-1"></div>
+    	<div class="col-xs-1"></div>
   </div>
   <br>
   <div class="row">
-  	<div class="col-lg-1"></div>
-  	 <div class="col-lg-10" style="height:1.5px;  background-color:#099;"></div>
-  	<div class="col-lg-1"></div>
+  	<div class="col-xs-1"></div>
+  	 <div class="col-xs-10" style="height:1.5px;  background-color:#099;"></div>
+  	<div class="col-xs-1"></div>
   </div>
   <br>
 
@@ -338,20 +359,19 @@ $( function() {
         <div class="col-xs-10">
         <p>From Date<span></span></p>
        <div class="form-group">
-      <div class='input-group date dp1'>
-      <input type='date' name="admdate" id="admdate" onkeydown="return false" class="form-control input-sm" required />
      
-      </div></div>
+      <input type="date" name="admdate" id="admdate"  class="form-control input-sm"  required />
+     
+      </div>
       </div>
       </div>
      <div class="form-group row" >
         <div class="col-xs-10">
         <p>To Date<span></span></p>
        <div class="form-group">
-      <div class='input-group date dp1' id="datetimepicker">
-      <input type='date' name="disdate" id="disdate" onkeydown="return false" class="form-control input-sm" required />
+     <input type="date" name="disdate" id="disdate"  class="form-control input-sm"  required />
    
-      </div></div>
+      </div>
       </div>
       </div>   
       <a href="#" target="_blank" class="btn btn-warning" onclick="return addp(this)">Bill Report</a></div>

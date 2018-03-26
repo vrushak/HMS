@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prpurchase" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isFloatColumnFooter="true" uuid="b0662a9e-0a4f-4b2d-88f6-5ea6c063ef60">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="My Sql"/>
+	<parameter name="realPath" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[$P{realPath}+"/Images/logocms.jpg"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[select * from erpho.purchase]]>
+	</queryString>
+	<field name="allocationid" class="java.lang.String"/>
+	<field name="orderid" class="java.lang.String"/>
+	<field name="orderDate" class="java.lang.String"/>
+	<field name="receiveddate" class="java.lang.String"/>
+	<field name="updatepricing" class="java.lang.String"/>
+	<field name="productName" class="java.lang.String"/>
+	<field name="expDate" class="java.lang.String"/>
+	<field name="quantity" class="java.lang.String"/>
+	<field name="unitPrice" class="java.lang.String"/>
+	<field name="discount" class="java.lang.String"/>
+	<field name="taxes" class="java.lang.String"/>
+	<field name="total" class="java.lang.String"/>
+	<field name="grandTotal" class="java.lang.String"/>
+	<field name="ean" class="java.lang.String"/>
+	<field name="supplier" class="java.lang.String"/>
+	<field name="mpack" class="java.lang.String"/>
+	<field name="mdesc" class="java.lang.String"/>
+	<field name="sudesc" class="java.lang.String"/>
+	<field name="batch1" class="java.lang.String"/>
+	<field name="sinvoice" class="java.lang.String"/>
+	<group name="allocationid">
+		<groupExpression><![CDATA[$F{allocationid}]]></groupExpression>
+	</group>
+	<group name="orderid">
+		<groupExpression><![CDATA[$F{orderid}]]></groupExpression>
+	</group>
+	<group name="orderDate">
+		<groupExpression><![CDATA[$F{orderDate}]]></groupExpression>
+	</group>
+	<group name="receiveddate">
+		<groupExpression><![CDATA[$F{receiveddate}]]></groupExpression>
+	</group>
+	<group name="updatepricing">
+		<groupExpression><![CDATA[$F{updatepricing}]]></groupExpression>
+	</group>
+	<group name="productName">
+		<groupExpression><![CDATA[$F{productName}]]></groupExpression>
+	</group>
+	<group name="expDate">
+		<groupExpression><![CDATA[$F{expDate}]]></groupExpression>
+	</group>
+	<group name="quantity">
+		<groupExpression><![CDATA[$F{quantity}]]></groupExpression>
+	</group>
+	<group name="unitPrice">
+		<groupExpression><![CDATA[$F{unitPrice}]]></groupExpression>
+	</group>
+	<group name="discount">
+		<groupExpression><![CDATA[$F{discount}]]></groupExpression>
+	</group>
+	<group name="taxes">
+		<groupExpression><![CDATA[$F{taxes}]]></groupExpression>
+	</group>
+	<group name="total">
+		<groupExpression><![CDATA[$F{total}]]></groupExpression>
+	</group>
+	<group name="grandTotal">
+		<groupExpression><![CDATA[$F{grandTotal}]]></groupExpression>
+	</group>
+	<group name="ean">
+		<groupExpression><![CDATA[$F{ean}]]></groupExpression>
+	</group>
+	<group name="supplier">
+		<groupExpression><![CDATA[$F{supplier}]]></groupExpression>
+	</group>
+	<group name="mpack">
+		<groupExpression><![CDATA[$F{mpack}]]></groupExpression>
+	</group>
+	<group name="mdesc">
+		<groupExpression><![CDATA[$F{mdesc}]]></groupExpression>
+	</group>
+	<group name="sudesc">
+		<groupExpression><![CDATA[$F{sudesc}]]></groupExpression>
+	</group>
+	<group name="batch1">
+		<groupExpression><![CDATA[$F{batch1}]]></groupExpression>
+	</group>
+	<group name="sinvoice">
+		<groupExpression><![CDATA[$F{sinvoice}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image onErrorType="Blank">
+				<reportElement x="0" y="0" width="110" height="60" uuid="cf9084a8-50cc-40e8-a1fe-138a2b7434f8"/>
+				<imageExpression><![CDATA[$P{realPath}+"/Images/logocms.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="281" y="0" width="240" height="20" uuid="da16a0d9-4dbb-4d96-92aa-8b05a37109b9"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[LILAYI FAMILY CLINIC]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="241" y="20" width="320" height="30" uuid="d3fa5d2b-0c12-447d-b980-51a5c3f29386"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Plot 4014A,Lusaka-Zambia,P.O Box 32680,Contact: +260 962 151 935
+E-mail : lilayifamilyclinic@yahoo.com,TPIN NO :LFC098
+
+]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="336" y="0" width="130" height="35" uuid="939cc9e0-8dcf-4ff0-ab76-8b0a431c270a"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Purchase Entry]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="596" y="0" width="40" height="30" uuid="de05a5ef-425d-4856-b0b6-f20fccfa9d3a"/>
+				<text><![CDATA[Date :]]></text>
+			</staticText>
+			<textField pattern="M/d/yy h:mm a">
+				<reportElement x="636" y="0" width="80" height="30" uuid="0a0eef8c-0e05-4d49-bc67-56b8f8829e60"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="206" y="0" width="90" height="24" uuid="99eae8f7-9fd3-4025-917b-8ee3888fa1f4"/>
+				<text><![CDATA[Supplier Invoice :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="0" width="100" height="24" uuid="0adc974c-d86a-4628-aee7-9b253fd4342d"/>
+				<text><![CDATA[Received Date :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="620" y="-1" width="80" height="27" uuid="83970a0f-d4f1-43d6-96a5-5a9ba50238d6"/>
+				<text><![CDATA[Allocation ID :]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="0" y="30" width="800" height="30" uuid="5e5a1613-68ac-4a1f-b55b-07ef32014023"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="30" width="40" height="30" uuid="a52c0150-a9dc-43f4-a478-eb250c6ff7eb"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<text><![CDATA[Sl No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="30" width="60" height="30" uuid="06b525d7-0015-423a-8ae5-8f9effc4a88b"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<text><![CDATA[Product Code ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="30" width="116" height="30" uuid="130d1764-283c-494a-9c6f-929b43efc1ae"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<text><![CDATA[Product Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="216" y="30" width="54" height="30" uuid="c345bc57-628f-4685-bac3-204224add337"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<text><![CDATA[Batch]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="31" width="60" height="29" uuid="92950262-813d-4120-88e9-5907cfb84372"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<text><![CDATA[Expiry Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="31" width="66" height="28" uuid="6357621e-1121-4216-baee-09572b8d76ad"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<text><![CDATA[Manufacturing                        Pack Desc   ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="396" y="30" width="70" height="30" uuid="e9643d5d-076f-43a8-a970-4dc3a1e3ba74"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<text><![CDATA[Manufacturing                Pack Size        ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="466" y="30" width="50" height="31" uuid="423833b3-2066-4f76-ab35-f999c9b9d873"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<text><![CDATA[Single Unit                              Desc ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="516" y="30" width="50" height="30" uuid="569fe6ee-9d42-4dcc-9928-653fb12d5fd6"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<text><![CDATA[Purchase                                   Qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="566" y="31" width="70" height="28" uuid="e6935131-aed5-4dda-ba9b-48d8e89eed94"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<text><![CDATA[Total                                         Purchase Price                            ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="636" y="31" width="38" height="28" uuid="82dfb83c-64cb-4f7a-9424-198d0b73442c"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<text><![CDATA[Unit                                  Cp                              ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="674" y="30" width="36" height="30" uuid="e868744e-c19c-4fe8-b396-ff60bb292a15"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<text><![CDATA[Stock                                       No]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="710" y="31" width="90" height="28" uuid="c9bfed58-17bb-4f88-93c9-2a26b6fc1a46"/>
+				<text><![CDATA[Stock                                    Value at Purchase                                     ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="296" y="0" width="100" height="25" uuid="f34e68b5-0706-4306-863c-bf9dedc6f3d8"/>
+				<textFieldExpression><![CDATA[$F{supplier}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="510" y="0" width="100" height="24" uuid="01a186c5-83da-49fc-8a8a-fb70f68b23dd"/>
+				<textFieldExpression><![CDATA[$F{receiveddate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="700" y="0" width="100" height="24" uuid="c23c5f4c-c74d-4231-90e9-4a04321bf80f"/>
+				<textFieldExpression><![CDATA[$F{allocationid}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="0" width="60" height="25" uuid="6bb45783-37ef-4a1d-8273-879fcaaabd99"/>
+				<text><![CDATA[Supplier :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="80" y="-1" width="90" height="27" uuid="3041bf18-f711-4210-88e0-410a76cd78b1"/>
+				<textFieldExpression><![CDATA[$F{sinvoice}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="40" y="0" width="60" height="30" uuid="47453236-41ed-4718-8cc6-114da1d6e84d"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{ean}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="40" height="30" uuid="5392cea9-3c35-476c-af9f-ec78b9cd4d26"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="116" height="30" uuid="59df0af4-a4bd-4f2e-a30f-dcb5b1bdff9b"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{productName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="216" y="0" width="54" height="30" uuid="6d324023-ce23-48e7-adac-42de495bd408"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{batch1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="0" width="60" height="30" uuid="651ac670-a78e-4315-ab59-ee57225719b5"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{expDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="66" height="30" uuid="545c92ab-026f-4703-a92c-1dc75f3ce7f7"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{mdesc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="396" y="0" width="70" height="30" uuid="363c7506-fa9a-47c4-9e94-a4ea3bf63454"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{mpack}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="466" y="0" width="50" height="30" uuid="499b3806-e8b1-45d6-871f-fc010ee38928"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{sudesc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="516" y="0" width="50" height="30" uuid="f5cdd45d-6e29-478b-9567-df875c4c41fb"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="636" y="0" width="38" height="30" uuid="80d893df-96b8-4ee8-a159-6d6b49e616c0"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{unitPrice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="674" y="0" width="36" height="30" uuid="90d2843f-3d2c-4dca-add7-71c145737500"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{taxes}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="710" y="0" width="90" height="30" uuid="e13e85a2-a6e1-47c5-82bb-537f08fc00ca"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="566" y="0" width="70" height="30" uuid="afc9117b-0c59-4b5f-a397-adef5f2d1e1a"/>
+				<box>
+					<pen lineWidth="0.6"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{discount}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="420" y="0" width="60" height="30" uuid="2f4d3ccc-3db1-44f2-957c-3bca059c2216"/>
+				<text><![CDATA[Total Items :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="600" y="0" width="70" height="30" uuid="58aed9f3-a4b7-4d7b-bef0-1bdd7b52784a"/>
+				<text><![CDATA[Grand Total :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="670" y="0" width="100" height="30" uuid="94684cba-13da-48f9-9164-d33a35569ace"/>
+				<textFieldExpression><![CDATA[$F{grandTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="480" y="0" width="60" height="28" uuid="138f8004-5d4a-42f1-9e42-75ee547aeb91"/>
+				<box>
+					<pen lineWidth="0.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="58" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

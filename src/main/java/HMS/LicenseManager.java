@@ -159,12 +159,12 @@ public class LicenseManager {
 				result ="true";
 			}
 			else{
-				
+			
 				result="false";
 			}
 			}
 		else{
-			result = "false";
+			result = "diffmac";
 		}
 		// TODO Auto-generated method stub
 		return result;

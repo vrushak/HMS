@@ -18,10 +18,24 @@ public class Product {
 	private String supplier;
 	private String stocks;
 	private String active;
-   private int product;
-
+    private int product;
+    private String dps;
+    private String dsp;
+    
 	
 	
+	public String getDps() {
+		return dps;
+	}
+	public void setDps(String dps) {
+		this.dps = dps;
+	}
+	public String getDsp() {
+		return dsp;
+	}
+	public void setDsp(String dsp) {
+		this.dsp = dsp;
+	}
 	public int getProduct() {
 	return product;
 }

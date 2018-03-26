@@ -513,9 +513,10 @@ jQuery().ready(function() {
     <ul class="nav navbar-nav">
       <li class="active"><a href="/HMS/home">Home</a></li>
     </ul>
-    <br>
-    <i class='fa fa-arrow-left button2 rightspace' style='font-size:20px;color : #f0ad4e'  onclick="window.location.href='/HMS/staff';"></i>
-  </div>
+   <ul class="nav navbar-nav navbar-right">
+  <li><a href="/HMS/staff" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Staff Registration</span></a></li>
+    </ul>
+   </div>
 </nav>
   <center>
 </center>
