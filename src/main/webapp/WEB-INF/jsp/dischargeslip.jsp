@@ -514,7 +514,7 @@ function validatetab(){
       <form id="formd" action="/HMS/saveds.html" method="post"></form>
   
  <div class="container">
-<button type="button" class="btn btn-primary btn-block"><span style="float:left">Discharge Slip</span><span id="flno" style="float:right">Fileno</span><span id="id" style="float:right;margin-right:15px;">Id</span><span style="float:right;margin-right:25px;" id="nm">Name</span></button>
+<button type="button" class="btn btn-primary btn-block"><span style="float:left">Discharge Slip</span><span id="flno" style="float:right">Patient Fileno</span><span id="id" style="float:right;margin-right:15px;">Id</span><span style="float:right;margin-right:25px;" id="nm">Name</span></button>
  <br>
   <ul class="nav nav-pills nav-stacked col-md-2">
     <li class="active"><a data-toggle="pill" href="#home1">Patient Details</a></li>
@@ -574,7 +574,9 @@ function validatetab(){
         <div class="col-xs-1"></div>
        <div class="col-xs-3">
    <div class="form-group">
+
  <p>Patient File no<span></span></p>
+
   <input type="text" name="fileno" id="fileno" form="formd" readonly="readonly" class="form-control input-sm"  >
   </div>
   </div>   
