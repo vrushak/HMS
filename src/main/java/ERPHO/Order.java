@@ -8,7 +8,7 @@ private String orderDate;
 private String delivery;
 private String author; 
 private String productName;
-private String Supplier;
+private String supplier;
 private String unit;
 private String quantity;
 private String count;
@@ -18,6 +18,7 @@ private String up;
 private String total1;
 private String gtotal;
 private String ean;
+
 /*
 private String qty[];
 private String up[];
@@ -44,6 +45,14 @@ public void setTotal(String[] total) {
 }
 */
 
+
+public String getTotal1() {
+	return total1;
+}
+
+public void setTotal1(String total1) {
+	this.total1 = total1;
+}
 
 public String getEan() {
 	return ean;
@@ -123,10 +132,10 @@ public void setProductName(String productName) {
 	this.productName = productName;
 }
 public String getSupplier() {
-	return Supplier;
+	return supplier;
 }
 public void setSupplier(String supplier) {
-	Supplier = supplier;
+	this.supplier = supplier;
 }
 public String getUnit() {
 	return unit;

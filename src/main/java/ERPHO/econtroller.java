@@ -333,7 +333,8 @@ public class econtroller {
 			        model.put("list6",list6);
 		 	        return new ModelAndView("order","model",model);//will redirect to viewemp request mapping  
 			    }  
-			
+			 
+		
 			 //save order
 			 @RequestMapping(value="/saveOrderho",method = RequestMethod.POST)
 			    public ModelAndView save(@ModelAttribute("d") Order d,HttpServletRequest request,HttpServletResponse response){  
@@ -1095,4 +1096,28 @@ public void prpdf(@ModelAttribute("s") Purchase s,ModelAndView modelAndView,Http
        JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
 
 	}  
+
+//order screen print
+
+@RequestMapping(value="/orderpr", method = RequestMethod.GET)
+public void orderpr(ModelAndView modelAndView,HttpServletRequest req, HttpServletResponse response) throws JRException, IOException {
+	
+ response.setContentType("application/pdf");
+ response.setHeader("Content-Disposition",  "inline"); 
+ 
+ List<Order> list1= hodao.getorderDetails1(req.getParameter("location")); 
+ JasperReport report = getReport("/order.jrxml");
+      //fill the report with data source objects
+ String realPath = context.getRealPath("/");
+ Map<String,Object> parameterMap = new HashMap<String,Object>();
+ parameterMap.put("realPath", realPath);
+ 
+ JRDataSource JRdataSource = new JRBeanCollectionDataSource(list1);
+     JasperPrint jasperPrint = JasperFillManager.fillReport(report,  parameterMap, JRdataSource);
+	      
+     OutputStream out = response.getOutputStream();
+       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
+
+	}  
+
 }

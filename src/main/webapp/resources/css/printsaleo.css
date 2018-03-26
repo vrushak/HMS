@@ -30,3 +30,6 @@ width : 970px;
 height : 620px;
 }
 
+textarea{
+	overflow : hidden;
+}

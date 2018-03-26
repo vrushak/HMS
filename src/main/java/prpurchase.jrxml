@@ -350,7 +350,7 @@ E-mail : lilayifamilyclinic@yahoo.com,TPIN NO :LFC098
 				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="566" y="-2" width="70" height="30" uuid="afc9117b-0c59-4b5f-a397-adef5f2d1e1a"/>
+				<reportElement x="566" y="0" width="70" height="30" uuid="afc9117b-0c59-4b5f-a397-adef5f2d1e1a"/>
 				<box>
 					<pen lineWidth="0.6"/>
 				</box>

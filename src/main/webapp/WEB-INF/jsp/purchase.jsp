@@ -737,7 +737,7 @@ else{
 
 function checkUrl(valie){
 	if($("#allocationid1").val() == "select"){
-		alert("Please select the allocationid")
+		alert("Please select Allocation Id")
 		$(valie).attr("href","javascript:;")
 	}
 }
@@ -921,7 +921,7 @@ $('#datetimepicker1').datetimepicker({
   
      <h1>
       <button type="reset" id="refresh" class="btn btn-warning button1" onclick="location.href='/HMS/purchaseho.html';" >
-	  <span class="fa fa-refresh"></span> Refresh</button>
+	  <span class="fa fa-refresh"></span> Refresh</button> <a href="#" target="_blank" id="vp" class="btn btn-warning button2 rmt" onclick="return checkUrl(this)">Print</a>
 	
        <font size="5">Purchase Entry </font><span class="button2"><i class="" style="color:#ff9900;margin: 4px 8px;"></i>
 	 
@@ -969,7 +969,7 @@ $('#datetimepicker1').datetimepicker({
   
    <p>Received Date<span>*</span></p>
  <div class='input-group date' id='datetimepicker1'>
-    <input form="purchasesave"  type="text" data-date-end-date="0d" class="form-control" name="receiveddate" id = "receiveddate" onfocusout ="return chdate(this)" required>
+    <input form="purchasesave"  type="text" data-date-end-date="0d" class="form-control" name="receiveddate" id = "receiveddate" onchange ="return chdate(this)" required>
        <span class="input-group-addon"><span  class="glyphicon glyphicon-calendar"></span></span>
     </div>
 </div>
@@ -992,7 +992,7 @@ $('#datetimepicker1').datetimepicker({
 
   </div>  
   <div class="col-xs-1">
-  <a href="#" target="_blank" id="vp" onclick="return checkUrl(this)">View Purchase Entry</a>
+ <!--   <a href="#" target="_blank" id="vp" onclick="return checkUrl(this)">View Purchase Entry</a>-->
   
   </div>
 </div>

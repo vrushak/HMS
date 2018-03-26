@@ -554,7 +554,7 @@ var pnflag;
 	           type: "GET",
 	   
 	           url: "/HMS/checkpcode.html",
-	          data: "prc=" + pcode,
+	          data: "prc=" + encodeURIComponent(pcode),
 	        
 	           dataType: "JSON",
 	           contentType: "application/json; charset=UTF-8",

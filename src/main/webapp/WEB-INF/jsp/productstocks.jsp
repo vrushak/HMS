@@ -551,8 +551,8 @@ $(document).ready(function() {
     <tbody class="tbody">
     <c:forEach var="ps"  items="${model.list}">
      <tr>
-        <td style="width:100px;"><input type="text" name="code" id="code" form="form2" class="form-control input-sm ft" value="${ps.code}"></td>
-        <td style="width:290px;"><input type="text" name="name" form="form2" id="name" class="form-control input-sm ft" value="${ps.name}"></td>
+        <td style="width:100px;"><input type="text" readonly="readonly" name="code" id="code" form="form2" class="form-control input-sm ft" value="${ps.code}"></td>
+        <td style="width:290px;"><input type="text" readonly="readonly" name="name" form="form2" id="name" class="form-control input-sm ft" value="${ps.name}"></td>
         <td style="width:100px;"><input type="text" name="batch" form="form2" id="batch" class="form-control input-sm ft" value="${ps.batch}"></td>
         
         <td style="width:200px;"><input type="date" maxlength="2999-12-31" name="expDate" onfocusout="setmin(this)" form="form2" id="expDate"  class="form-control input-sm ft" value="${ps.expDate}"></td>
