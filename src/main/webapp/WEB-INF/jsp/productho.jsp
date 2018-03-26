@@ -112,45 +112,7 @@ textarea {
 
 
 
-table {
-    border-collapse: collapse;
-    width: 100%;
-    }
-th {
-    background-color: #009999;
-    color: black;
-    
-}
 
-.table-fixed{
- 
-}
-  tbody{
-    height:50px;
-    
- }
- 
-#myTable1 {
-    border-collapse: collapse;
-    width: 100%;
-    }
-#myTable1 th {
-    background-color: #009999;
-    color: black;
-    width : 180px;
-}
-
-.table-fixed{
- 
-}
-  #myTable1 .tbody1{
-    height:200px;
-    overflow-y:auto;
- }
- #myTable1 thead,.tbody1{
-  
-    display:block;
-  }
 
 modal-body{
 	background-color: #eaeaea;
@@ -174,37 +136,11 @@ margin-left: 25px;
 border-style : groove;
 border-radius : 10px;
 width : 1000px;
+
 }
 
 
-.modal.modal-wide .modal-dialog {
-  width: 90%;
-}
-.modal-wide .modal-body {
-  overflow-y: auto;
-}
 
-.borderless td, .borderless th {
-    border: none;
-}
-
-fieldset.scheduler-border {
-    border: 1px groove #ddd !important;
-    padding: 0 1.4em 1.4em 1.4em !important;
-    margin: 0 0 1.5em 0 !important;
-    -webkit-box-shadow:  0px 0px 0px 0px #000;
-            box-shadow:  0px 0px 0px 0px #000;
-}
-
-    legend.scheduler-border {
-        font-size: 1.2em !important;
-        font-weight: bold !important;
-        text-align: left !important;
-        width:auto;
-        padding:0 10px;
-        border-bottom:none;
-    }
-/* irrelevant styling */
 
 #tallModal .modal-body p { margin-bottom: 900px }
 

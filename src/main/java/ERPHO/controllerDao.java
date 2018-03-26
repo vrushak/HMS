@@ -1593,5 +1593,20 @@ public List<Sale> getsaleReports(String frdate,String edate) {
 		
 		}
 
+public List<Productstock> getBatdet(String batch) {
+	return template.query("select p.batch,p.expdate,p.mpsize,p.cp from productstock p where p.batch = '"+batch+"'",new RowMapper<Productstock>(){  
+		public Productstock mapRow(ResultSet rs, int row) throws SQLException {
+        	Productstock p = new Productstock();
+        
+        	p.setBatch(rs.getString(1));
+            p.setExpDate(rs.getString(2));
+            p.setMpsize(rs.getString(3));
+            p.setCp(rs.getString(4));
+         
+      
+	return p;
+        }
+	});
+}
 
 }

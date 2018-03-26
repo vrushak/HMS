@@ -2136,7 +2136,28 @@ public class controller {
 								 return jsonFormatData;
 						}
 					   	
-	            	
+					 @RequestMapping(value="/delbr")
+						public  @ResponseBody String  delbill(@ModelAttribute("s") Billgen s,HttpServletRequest req) {
+						 int bsave = 0;
+						 String jsonFormatData = "";
+						
+						bsave = dao.delbill(req.getParameter("location"));
+						
+						ModelAndView  mav = new ModelAndView();
+						 Gson gson = new Gson();
+						 gson.toJson(bsave);
+						if(bsave > 0){
+							jsonFormatData =  gson.toJson("success");
+										    
+						}
+
+						else{
+							jsonFormatData =gson.toJson("failure");
+						}
+					
+					
+						     return jsonFormatData;
+							}
 	              	
 	                  
 }

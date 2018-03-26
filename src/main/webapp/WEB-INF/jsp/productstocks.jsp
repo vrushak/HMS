@@ -351,6 +351,8 @@ $(document).ready(function() {
 	   //     $(this).addClass('success');
 	        
 	        var x=this.cells;
+	        x[6].getElementsByTagName('input')[0].value = (Number(x[8].getElementsByTagName('input')[0].value)/(Number(x[5].getElementsByTagName('input')[0].value)*Number(x[7].getElementsByTagName('input')[0].value))).toFixed(2);
+		    
 	        var a = x[6].getElementsByTagName('input')[0].value;
 	        var b = Number(x[12].getElementsByTagName('input')[0].value)/100;
 	        var c = Number(a) + (Number(a) * Number(b));
@@ -359,6 +361,7 @@ $(document).ready(function() {
 	        x[16].getElementsByTagName('input')[0].value = (Number( x[9].getElementsByTagName('input')[0].value) * Number(x[13].getElementsByTagName('input')[0].value)).toFixed(2);
 	        x[18].getElementsByTagName('input')[0].value = (Number(x[15].getElementsByTagName('input')[0].value) * Number(x[17].getElementsByTagName('input')[0].value)).toFixed(2);
 	        x[19].getElementsByTagName('input')[0].value = (Number(x[13].getElementsByTagName('input')[0].value) * Number(x[18].getElementsByTagName('input')[0].value)).toFixed(2);
+	        
 	    });
 	   
    });
@@ -553,12 +556,12 @@ $(document).ready(function() {
      <tr>
         <td style="width:100px;"><input type="text" readonly="readonly" name="code" id="code" form="form2" class="form-control input-sm ft" value="${ps.code}"></td>
         <td style="width:290px;"><input type="text" readonly="readonly" name="name" form="form2" id="name" class="form-control input-sm ft" value="${ps.name}"></td>
-        <td style="width:100px;"><input type="text" name="batch" form="form2" id="batch" class="form-control input-sm ft" value="${ps.batch}"></td>
+        <td style="width:100px;"><input type="text" readonly="readonly" name="batch" form="form2" id="batch" class="form-control input-sm ft" value="${ps.batch}"></td>
         
         <td style="width:200px;"><input type="date" maxlength="2999-12-31" name="expDate" onfocusout="setmin(this)" form="form2" id="expDate"  class="form-control input-sm ft" value="${ps.expDate}"></td>
         <td style="width:100px;"><input type="text" name="mpack" form="form2" id="mpack" class="form-control input-sm ft" value="${ps.mpack}"></td>
         <td style="width:100px;"><input type="number" min='1' name="mpsize" form="form2" id="mpsize" onkeypress='return onlyNos(event,this);' class="form-control input-sm ft" value="${ps.mpsize}"></td>
-        <td style="width:100px;"><input type="number" name="cp" form="form2" id="cp" class="form-control input-sm ft" value="${ps.cp}"></td>
+        <td style="width:100px;"><input type="text" name="cp" form="form2" id="cp" onkeypress='return onlyNos1(event,this);' class="form-control input-sm ft" value="${ps.cp}"></td>
         <td style="width:100px;"><input type="number" min='1' name="prqty" form="form2" id="prqty" onkeypress='return onlyNos(event,this);' class="form-control input-sm ft" value="${ps.prqty}"></td>
         <td style="width:100px;"><input type="number" name="prprice" form="form2" id="prprice" class="form-control input-sm ft" value="${ps.prprice}"></td>  
         <td style="width:100px;"><input type="text" name="quantity" form="form2" id="quantity" class="form-control input-sm ft" onkeypress='return onlyNos(event,this);' value="${ps.quantity}"></td>

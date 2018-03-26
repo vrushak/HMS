@@ -451,7 +451,7 @@ function copy(pid,ft,ch,pr,quantity,prch){
 		var tableRef = document.getElementById('items').getElementsByTagName('tbody')[0];
 	//	var rowsAdd = tableRef.insertRow(tableRef.rows.length-1);
 		
-		var markup = "<tr><td style='width:250px;'><textarea rows='1' oninput='auto_grow(this)' class='form-control input-sm feet' id = '"+fid+"' name= 'feetype' form ='billsave' value = '"+feetype[x]+"' required>"+feetype[x]+"</textarea></td><td  style='width:200px;'><input type='text'  form ='billsave'  class='form-control input-sm ftype' id = '"+charg+"' name= 'charges'  value='"+charges[x]+"' onkeypress='return onlyNos(event,this);' required></td><td style='width:100px;'><input type='text' form='billsave' class='form-control input-sm qta' name='quantity' id='"+qant+"' value='"+quantit[x]+"' onkeypress='return onlyNos(event,this);'></td><td  style='width:200px;'><input id = '"+pric+"' form ='billsave' type='text' name= 'price' class='form-control input-sm' value='"+price[x]+"' required><input type='hidden' name='prch' id='prch' value='"+prch[x]+"' form='billsave' ></td><td><i class='fa fa-close' style='font-size:20px;color:red'  onclick='deleteRow(this,"+fid+","+charg+")'></i></td></tr>"
+		var markup = "<tr><td style='width:250px;'><textarea rows='1' oninput='auto_grow(this)' class='form-control input-sm feet' id = '"+fid+"' name= 'feetype' form ='billsave' value = '"+feetype[x]+"' required>"+feetype[x]+"</textarea></td><td  style='width:200px;'><input type='text'  form ='billsave'  class='form-control input-sm ftype' id = '"+charg+"' name= 'charges'  value='"+charges[x]+"' onkeypress='return onlyNos(event,this);' required></td><td style='width:100px;'><input type='text' form='billsave' class='form-control input-sm qta' name='quantity' id='"+qant+"' value='"+quantit[x]+"' onkeypress='return onlyNos(event,this);'></td><td  style='width:200px;'><input id = '"+pric+"' form ='billsave' type='text' name= 'price' class='form-control input-sm' value='"+price[x]+"' required><input type='hidden' name='prch' id='prch' value='"+prch[x]+"' form='billsave' ></td><td><i class='fa fa-close' style='font-size:20px;color:red'  onclick='doAjaxDeletefile(this,"+fid+","+charg+","+prch[x]+")'></i></td></tr>"
 		$('#items .tbody').append(markup);
 		
 		document.getElementById(fid).oninput();
@@ -761,8 +761,61 @@ function doAjaxSave(id){
 
 	
 	        	        }
-</script>
+	        	        
+	        	        
+	        	        
+function doAjaxDeletefile(value,value1,value2,value3)
+{
+var uri = "/HMS/delbr?location="+decodeURIComponent(value3)+"";
+var data = 0;
+	 
+var successFn =  function(response){
+	
+	  if(response.toString().includes("success"))   
+  {
+		  
 
+	  alert("Record deleted Successfully")
+	  deleteRow(value,value1,value2)
+  }
+	  else{
+		  alert("Record coudn't be deleted")
+	  }
+	  unsaved = false;
+  };
+  
+
+	
+ var errorFn =  function(e){
+	  
+	           alert('Error: ' + e);
+	  
+        }
+	         
+
+var get = "POST";
+doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","text"); 	  
+}
+</script>
+<script type="text/javascript">
+       function  doAjaxPostNew(met,uri,data1,successFn,errorFn,ctype,dat) {
+                
+    	              $.ajax({
+    	        	  
+    	        	           type: met,
+    	        	   
+    	        	           url: uri,
+    	        	           data: "0",
+    	        	           async : false,
+    	        	           dataType: dat,
+    	        	           contentType: ctype,
+    	        	           success: successFn,
+    	                       error: errorFn
+    	                      
+    	        	        	           });
+    	             
+    	        	        	  }
+      </script>
 </head>
 <sec:authentication property="principal.authorities" var="username" />
 <body onload="checkhome2('<c:out value="${username}" />'),cori('cash')">

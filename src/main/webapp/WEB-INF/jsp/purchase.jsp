@@ -426,8 +426,9 @@ var str = text.split(',');
           var tax = "tax"+idx;
            
           var total = "total" + idx;
-         
-          
+         var batch = "batch" + idx;
+         var mdesc  = "mdesc" + idx;
+         var exp = "expdate"+idx; 
           var newCell = rowsAdd.insertCell();
           newCell.innerHTML="<tr><td><input class='form-control input-sm' type = 'text' form ='purchasesave' name = 'ean1' id='eans' value='"+str[0]+"'></td></tr>";
          
@@ -436,11 +437,11 @@ var str = text.split(',');
           
           
           newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><input class='form-control input-sm' type ='text'  name='Batch1' value ='NA' id='batch'  form ='purchasesave' required></td></tr>";
+          newCell.innerHTML="<tr><td><input class='form-control input-sm' type ='text'  name='Batch1' value ='NA' id='"+batch+"' onfocusout = 'doAjaxPost2(this.value)' form ='purchasesave' required></td></tr>";
          
           
           newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<input class='form-control input-sm expSale' style='width:135px;' max='2999-12-31' form ='purchasesave'  type='date' id = 'expSale' name= 'expDate1' required>";
+          newCell.innerHTML="<input class='form-control input-sm expSale' style='width:135px;' max='2999-12-31' form ='purchasesave'  type='date' id = '"+exp+"' name= 'expDate1' required>";
          
    // manufacture pack desc
           newCell = rowsAdd.insertCell();
@@ -448,7 +449,7 @@ var str = text.split(',');
           
      // maniufacture pack size
           newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><input class='form-control input-sm' form='purchasesave'  onkeypress='return onlyNos(event,this);'  type='number' min='1' id = 'mdesc' name='mdesc' required  value = '1' required></td></tr>";
+          newCell.innerHTML="<tr><td><input class='form-control input-sm' form='purchasesave'  onkeypress='return onlyNos(event,this);'  type='number' min='1' id = '"+mdesc+"' name='mdesc' required  value = '1' required></td></tr>";
           
    
           //single unit pack size
@@ -466,7 +467,7 @@ var str = text.split(',');
         
         //unit price  
           newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><input  class='form-control input-sm' form ='purchasesave'  type='text' id = '"+up+"'  name= 'up2[]'  value = '0.00' required ></td></tr>";
+          newCell.innerHTML="<tr><td><input  class='form-control input-sm' form ='purchasesave' onfocusout=checkbatch($('#"+batch+"').val(),$('#"+exp+"').val(),$('#"+mdesc+"').val(),$('#"+up+"').val()) type='text' id = '"+up+"'  name= 'up2[]'  value = '0.00' required ></td></tr>";
         
           //stockno
           newCell = rowsAdd.insertCell();
@@ -652,7 +653,7 @@ function verifyproAdd(){
 	var x5 =document.getElementsByName("expDate1");
 	for(var i = 0;i<x5.length;i++){
 		if(x5[i].value < moment().format("YYYY-MM-DD")){
-			alert("Expiry date cannot be less than Current date")
+			alert("Expiry date should be greater than Current date")
 			return false;
 		}
 	}
@@ -799,6 +800,58 @@ function checkUrl(valie){
 
 
       
+
+       
+       
+       </script>
+<script>
+var ba;
+var ex;
+var mps;
+var cps;
+       function doAjaxPost2(batch) {
+    	   // get the form values
+    	   
+       
+    	   $.ajax({
+         	  
+	           type: "GET",
+	   
+	           url: "/HMS/getBatdet?location="+encodeURIComponent(batch)+"",
+	          data: "0",
+	        
+	           dataType: "JSON",
+	           contentType: "application/json; charset=UTF-8",
+	           
+	           success: function(response){
+	   
+	        	   $.each(response, function(index, datec) {
+	               
+	        		 ba = datec.batch;
+	                 ex = datec.expDate;
+	                 mps = datec.mpsize;
+	                 cps = datec.cps;
+	        	   });    
+	           },
+	           error: function(e){
+	        	  
+	        	           alert('Error: ' + e);
+	        	  
+	        	           }
+	        	           });
+	        	        	   
+    	        	        }
+
+
+      function checkbatch(batch,exp,mpsize,cp){
+    	  
+    	  if(batch == ba){
+    		 
+    		  if(exp == ex || mpsize == mps || cp == cps){
+    			  alert("Same batch exists")
+    		  }
+    	  }
+      }
 
        
        

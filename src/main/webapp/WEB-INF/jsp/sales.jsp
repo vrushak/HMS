@@ -385,6 +385,13 @@ function verifyproAdd(){
 		}
 	}
 
+	var x5 =document.getElementsByName("unitprice");
+	for(var i = 0;i<x5.length;i++){
+		if(x5[i].value == 0){
+			alert("Unit SP should have a valid value")
+			return false;
+		}
+	}
 
 	if((document.getElementById("myTable").rows.length-1) == 0 )
 	{
@@ -399,6 +406,7 @@ function verifyproAdd(){
 		return true;
 	}
 	
+    
 }
 
 function verifyproAdd1(){
@@ -1486,7 +1494,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
    
    $(function () {
 	   
-	   var m,n;
+	   var m,n,g;
 	  
 	    $('#myTable').on('focusout','.tbody tr', function () {
 	   // 	$('.success').removeClass('success');
@@ -1495,13 +1503,19 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
 	        var x=this.cells;
 	        var a = x[5].getElementsByTagName('input')[0].value;
 	        var b = x[8].getElementsByTagName('input')[0].value;
+	        if(x[10].getElementsByTagName('input')[0].value == ""){
+	        	$('#sp').text("Unit SP should have a valid value")
+	        }
+	        else{
+	        	$('#sp').text("")
 	        
-	    
+	        }
 	        x[9].getElementsByTagName('input')[0].value = (Number(a) * Number(b)).toFixed(0);
 	        x[11].getElementsByTagName('input')[0].value =   Math.round(Number(x[9].getElementsByTagName('input')[0].value) * Number(x[10].getElementsByTagName('input')[0].value));
 	       
 	    });
-	   
+	
+	    
    });
    
    function goBack() {
@@ -1958,7 +1972,8 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
 	    
 <div class="col-xs-7">
  <div class="form-group" id="hiden">
-	  <h7> Note: Click on "Generate Total" button each time any changes are done </h7>        
+	  <h7> Note: Click on "Generate Total" button each time any changes are done </h7> 
+	  <p><h7 id="sp"></h7></p>       
  </div>
  </div>
 	    

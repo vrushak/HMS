@@ -1120,4 +1120,28 @@ public void orderpr(ModelAndView modelAndView,HttpServletRequest req, HttpServle
 
 	}  
 
+//get Batch details in purchase entry
+
+//save to customer  masters
+@RequestMapping(value="/getBatdet",method = RequestMethod.GET)
+public   @ResponseBody String batchdet(HttpServletRequest req, HttpServletResponse response){
+//		  List<Order> list1 = hodao.getOrderid();
+	String jsonFormatData = "";
+	
+	List<Productstock> list2 = hodao.getBatdet(req.getParameter("location"));
+	  Map<String, Object> model = new HashMap<String, Object>();
+  //    model.put("list1",list1);
+        model.put("list2", list2);
+      
+      Gson gson = new Gson(); 
+
+	    jsonFormatData = gson.toJson(list2);
+
+
+
+
+return jsonFormatData;
+}
+
+
 }

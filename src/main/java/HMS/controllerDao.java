@@ -2524,6 +2524,11 @@ public int filedelete(String sub) {
 	return template.update(sql);
 	
 }
+public int delbill(String rec) {
+	System.out.println("rec "+rec);
+	String sql = "delete from billgen where prch='"+rec+"'";
+	return template.update(sql);
+}
 }
 
 	
