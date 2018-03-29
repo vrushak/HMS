@@ -345,14 +345,15 @@ function caluclate(qty,stks,total){
 	}
 	else{
 		getSum1(result,cnt);
-	}
-	
-	 
+	} 
 }
 
 
 function verifyproAdd(){
-	
+	if(document.getElementById("customer").value == "new"){
+		   alert("Please select customer")
+		   return false;
+	}
 	//var x = ;
 	//var x1 =document.getElementById("saleCustId").value;
 	//var x2 = document.getElementById("saleCustName").value;
