@@ -116,7 +116,7 @@ function myFunction() {
 	}
 */
 }
-	
+var un;	
 	function copy(pid,address2){
         
 		
@@ -178,6 +178,7 @@ function myFunction() {
 	   document.getElementById("password").value = strSplit[24];
 	 document.getElementById("address2").value = address2;
 	unsaved = false;
+	un = strSplit[23];
 	   $('#myModal').modal('show');
 	 
 	}
@@ -225,6 +226,7 @@ function checkfor(){
 	
 	if(document.getElementById("password").value == document.getElementById("cpassword").value){
 		document.getElementById('open2a').disabled = false;
+		disablenxt();
 		return true;
 	}
 	else{
@@ -233,6 +235,17 @@ function checkfor(){
 		return false;
 	}
 }
+
+function disablenxt(){
+	
+	if(blok == true){
+		  document.getElementById('open2a').disabled = true;
+	}
+	  else{
+		  document.getElementById('open2a').disabled = false;
+	  }	
+}
+
 function getAge(dateString) {
 	  var now = new Date();
 	  
@@ -450,9 +463,13 @@ jQuery().ready(function() {
 </script>
 
 <script type="text/javascript">
+var blok;
        function doAjaxPost1(user) {
     	   // get the form values
-    	   
+    	   if(un == user ){
+    		   $("#open2a").prop('disabled',false)
+    		   return true;
+    	   }
     	         //  var name = $('#pname').val();
     	           // var pid = $('#pid').val();
     	           $.ajax({
@@ -470,10 +487,19 @@ jQuery().ready(function() {
     	        	                   //to print name of employee
     	        	             //    alert(datec.username)
     	        	                   
-    	        	                   if(datec.username > 0){
+    	        	        		   if(datec.username > 0){
     	        	                	   alert("Username already exists!")
-    	        	                	   
+    	        	              //  	   $("#open2a").prop('disabled',true)
+    	        	                	   blok = true;
+    	        	                	   disablenxt()
+    	        	                	   return false;
+    	        	                	
     	        	                   }
+    	        	                   else{
+    	        	                //	   $("#open2a").prop('disabled',false)
+    	        	                	   blok = false;
+    	        	                disablenxt()
+    	        	                   } 
     	        	               });    
     	        	           },
     	        	           error: function(e){
@@ -501,7 +527,7 @@ jQuery().ready(function() {
       <li class="active"><a href="/HMS/home">Home</a></li>
     </ul>
    <ul class="nav navbar-nav navbar-right">
-  <li><a href="/HMS/staff" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Staff Registration</span></a></li>
+  <li><a style="text-decoration: underline;" href="/HMS/staff" id="back" ><span id="tit">"Back to Staff Details</span></a></li>
     </ul> </div>
 </nav>
   <center>
@@ -826,7 +852,7 @@ jQuery().ready(function() {
    <div class="form-group">
     
             <p>UserName <span>*</span></p>
-         	<input type="text" name="username" id="username"  class="form-control input-sm" oninput="doAjaxPost1(this.value)" required  />
+         	<input type="text" name="username" id="username"  class="form-control input-sm" onchange="return doAjaxPost1(this.value)" required  />
 	
 	</div>
  

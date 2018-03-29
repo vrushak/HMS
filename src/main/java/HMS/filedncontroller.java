@@ -108,7 +108,7 @@ public class filedncontroller {
 		 String ext1 = FilenameUtils.getExtension(req.getParameter("location1")); // returns "txt"
 		
          if(ext1.contentEquals("jpg")){
-        	 response.setContentType("image/jpg"); 
+        	 response.setContentType("image/jpg;"); 
         	 response.setHeader("Content-disposition","inline; filename=\"" + fileno + "\"");
          }
          else if(ext1.contentEquals("jpeg")){

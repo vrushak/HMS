@@ -561,7 +561,7 @@ var markup = "<tr id='"+row+"'><td style='width:140px'><input type='hidden' name
 				
 			}
 			var rowa = "taba"+ tableRef.rows.length;
-var markup="<tr id='"+rowa+"'><td style='width:150px;'><input type='hidden' name='aid1' form='formbc' id='aid1'  value= '"+$.now()+"'><input  form ='formbc'  value = '"+m+"' type='hidden' id = 'time' name= 'time'  ><input form ='formbc' type='hidden' value ='"+t2a+"' id = 'oraltype'  name= 'oraltype' ><input form ='formbc' value='"+t3a+"' type='hidden'  id = 'oralamt' name= 'oralamt'  ><input type='hidden' form ='formbc'  value='"+t4a+"' id = 'oralcommence'  name= 'oralcommence'><input form ='formbc' type='hidden'  value= '"+t5a+"' id = 'amtgiv'  name= 'amtgiv' ><input  form ='formbc' value='"+t6a+"' type='hidden' id = 'urine' name= 'urine'  ><input form ='formbc'  value='"+t7a+"' type='hidden'  id = 'doctord' name= 'doctord'  ><input form ='formbc' type='hidden'  id = 'discontinue' name= 'discontinue' value='"+decodeURI(t8a)+"' ><input form ='formbc' style='border:groove;' class= 'form-control input-sm' value= '"+m+"' type='text' readonly='readonly' id = 'ratef' required name= 'ratef' ></td><td style='width:300px;'><input form ='formbc'style='border:groove;' type='checkbox' class= '' value= 'active' id = '"+vomitus+"' name= 'vomitus' onclick = checkb(this.id,'"+nursesign+"','"+user2+"') ><input type='hidden' name='vomitus' form='formbc' value='off'></td><td style='width:100px;'><input form ='formbc'style='border:groove;' class= 'form-control input-sm' value = ' ' type='text'  id = '"+nursesign+"' name= 'nursesig' required ></td><td style='width:630px;'><input form ='formbc' style='border:groove;' class= 'form-control input-sm' value= ' ' type='text'  id = 'doctrmks' name= 'doctrmks' ></td></tr>";
+var markup="<tr id='"+rowa+"'><td style='width:150px;'><input type='hidden' name='aid1' form='formbc' id='aid1'  value= '"+$.now()+"'><input  form ='formbc'  value = '"+m+"' type='hidden' id = 'time' name= 'time'  ><input form ='formbc' type='hidden' value ='"+t2a+"' id = 'oraltype'  name= 'oraltype' ><input form ='formbc' value='"+t3a+"' type='hidden'  id = 'oralamt' name= 'oralamt'  ><input type='hidden' form ='formbc'  value='"+t4a+"' id = 'oralcommence'  name= 'oralcommence'><input form ='formbc' type='hidden'  value= '"+t5a+"' id = 'amtgiv'  name= 'amtgiv' ><input  form ='formbc' value='"+t6a+"' type='hidden' id = 'urine' name= 'urine'  ><input form ='formbc'  value='"+t7a+"' type='hidden'  id = 'doctord' name= 'doctord'  ><input form ='formbc' type='hidden'  id = 'discontinue' name= 'discontinue' value='"+decodeURI(t8a)+"' ><input form ='formbc' style='border:groove;' class= 'form-control input-sm' value= '"+m+"' type='text' readonly='readonly' id = 'ratef' required name= 'ratef' ></td><td style='width:300px;'><center><input form ='formbc'style='border:groove;' type='checkbox' class= '' value= 'active' id = '"+vomitus+"' name= 'vomitus' onclick = checkb(this.id,'"+nursesign+"','"+user2+"') ><input type='hidden' name='vomitus' form='formbc' value='off'></center></td><td style='width:100px;'><input form ='formbc'style='border:groove;' class= 'form-control input-sm' value = ' ' type='text'  id = '"+nursesign+"' name= 'nursesig' required ></td><td style='width:630px;'><input form ='formbc' style='border:groove;' class= 'form-control input-sm' value= ' ' type='text'  id = 'doctrmks' name= 'doctrmks' ></td></tr>";
 			  $('#myTable .tbody2').append(markup);
 			  var elmnt = document.getElementById(rowa);
 			     elmnt.scrollIntoView();
@@ -1178,7 +1178,7 @@ if(datec.ratef == undefined){
 			    }
 			
 	   
-	   		if(user2a.includes("[ROLE_NURSE]")){
+	   		if(user2a.includes("[ROLE_NURSE]") || user2a.includes("[ROLE_CHIEFNURSE]") ){
 	         document.getElementById("bouton-contact").disabled = false;
 	     	document.getElementById("bc").disabled = false;
 	   		   var x = document.getElementsByName("time");
@@ -1217,6 +1217,27 @@ if(datec.ratef == undefined){
 	   		    	
 	   		    	x[i].setAttribute("readonly","readonly");
 	   		    }
+	   		    
+				
+		   		 var x = document.getElementsByName("vomitus");
+		   		    for(var i = 0;i<x.length;i++){
+		   		    	
+		   		    	x[i].setAttribute("readonly","readonly");
+		   		    }
+		   		   var x = document.getElementsByName("nursesig");
+		   		    for(var i = 0;i<x.length;i++){
+		   		    	
+		   		    	x[i].setAttribute("readonly","readonly");
+		   		    }
+		   		
+		   		   var x = document.getElementsByName("doctrmks");
+		   		    for(var i = 0;i<x.length;i++){
+		   		    	
+		   		    	x[i].setAttribute("readonly","readonly");
+		   		    }
+		   		  
+		   		
+		   	
 	   	    
 	   		}
 	   		else if(user2a.includes("[ROLE_DOCTOR]")){
@@ -1273,6 +1294,28 @@ if(datec.ratef == undefined){
  function doAjaxPostSave(id) {
 	 //alert(id)
 	
+	  var stop;
+	 $('#myTable1 .tbody1 tr td:not(:last)').each(function(){
+		 
+			var quantity=$(this).find('input').val();
+			
+			if(quantity==='' || quantity==null || quantity=='undefined' || quantity == " ")
+					{
+						stop=0;
+					     return false;
+					}
+			else
+				{
+				stop=1;
+				}
+		});
+	 
+		if(stop== 0)
+			{
+			alert("Please enter the drug details before saving")
+			return false;
+			}
+
 	 if(id == "formbc"){
 	
 
@@ -1815,7 +1858,7 @@ $(function () {
     
     </tbody>
        <tr id="hiderow">
-		    <td><i class='fa fa-plus' style='font-size:20px; color : #ff9900;'  onclick="display1('<c:out value="${username}" />','<c:out value="${pageContext.request.userPrincipal.name}" />')"></i><a href="#" id="bc" class='button2' style='color : #ff9900;'  onclick="doAjaxPostSave('formbc')"><b>Save</b></a></td>
+		    <td><i class='fa fa-plus' style='font-size:20px; color : #ff9900;'  onclick="display1('<c:out value="${username}" />','<c:out value="${pageContext.request.userPrincipal.name}" />')"></i><a href="#" id="bc" class='button2' style='color : #ff9900;'  onclick="return doAjaxPostSave('formbc')"><b>Save</b></a></td>
 		  </tr>
 		  
     </table>

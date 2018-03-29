@@ -560,7 +560,7 @@ var blok;
       <li class="active"><a href="/HMS/home">Home</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-  <li><a href="/HMS/staff" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Staff Registration</span></a></li>
+  <li><a style="text-decoration: underline;" href="/HMS/staff" id="back" ><span id="tit">"Back to Staff Details</span></a></li>
     </ul>  </div>
 </nav>
   <center>

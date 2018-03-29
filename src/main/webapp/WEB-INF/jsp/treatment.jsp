@@ -283,7 +283,7 @@ function setline(id){
     var a = document.getElementById('fileno').value;
     
     if(document.getElementById("pname").value == "select"){
-		 alert("Please Select a Patient")
+		 alert("Please select a Patient Name")
 		return false;
 	}
     
@@ -299,7 +299,7 @@ function setline(id){
 		
 		
 		 if(document.getElementById("pname").value == "select" && id=="bc"){
-			 alert("Please Select a Patient Name")
+			 alert("Please select a Patient Name")
 			return false;
 		}
 		 else if(tableRef.rows.length == 1 && id=="bc"){

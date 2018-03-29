@@ -427,9 +427,9 @@ function goBack() {
     	        	        		   
     	        	        		   if(adminusr.includes("[ROLE_ADMIN]")){
     	        	        				document.getElementById("docid").value = datec.docid;
-    	        	        				document.getElementById("dname").value = datec.docid;
+    	        	        				document.getElementById("dname").value = admne;
     	        	        				document.getElementById("nid").value = datec.docid;
-    	    	        	        		document.getElementById("nname").value = datec.docid;
+    	    	        	        		document.getElementById("nname").value = admne;
     	        	        			}
     	        	        			else{
     	        	        				
@@ -678,7 +678,7 @@ th {
       <li class="active"><a id="ho" href="">Home</a></li>
     </ul>
  <ul class="nav navbar-nav navbar-right">
-  <li><a href="#" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back</span></a></li>
+  <li><a style="text-decoration: underline;" href="#" id="back" ><span id="tit">Back</span></a></li>
     </ul>
       </div>
 </nav>

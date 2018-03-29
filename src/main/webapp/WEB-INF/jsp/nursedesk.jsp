@@ -145,7 +145,7 @@ $( function() {
 
 <a href="/HMS/home" id="back" class='button2 rightspace' ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Home</span></a>
 
-<div class="well well-lg" id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
+<div class="well well-lg" id="well" style='font-family: "Verdana","sans-serif"'> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
 
 <div class="form-group row"  id="dashboard"   >
   	 <div class="col-xs-1"></div>

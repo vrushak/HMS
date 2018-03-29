@@ -349,7 +349,7 @@ function addcheck(div,tab){
 	      return false;
   	    } 
 	else {
-  	    var uri = "/HMS/loadhead?tab="+tab+"&&header="+head+"&&level="+Number(div+1)+"";
+  	    var uri = "/HMS/loadhead?tab="+tab+"&&header="+encodeURIComponent(head)+"&&level="+Number(div+1)+"";
 		var data = "0";
 		 
 	   var successFn =  function(response){
@@ -395,7 +395,7 @@ function addcheck(div,tab){
  	 	  if(divc == -1){
  	 		pid = 0;  
  	 	  }
-  	      var uri = "/HMS/loadchk?tab="+Number(tab)+"&&chkname="+person+"&&pid="+Number(pid)+"&&hid="+Number(i)+"&&level="+Number(level)+"";
+  	      var uri = "/HMS/loadchk?tab="+Number(tab)+"&&chkname="+encodeURIComponent(person)+"&&pid="+Number(pid)+"&&hid="+Number(i)+"&&level="+Number(level)+"";
   		var data = "0";
   		 
   	   var successFn =  function(response){
@@ -476,7 +476,7 @@ function updchname(val,div,tab,value){
 	      return false;
   	    } 
 	else {
-  	    var uri = "/HMS/updchname?cid="+cid+"&&header="+head+"";
+  	    var uri = "/HMS/updchname?cid="+cid+"&&header="+encodeURIComponent(head)+"";
 		var data = "0";
 		 
 	   var successFn =  function(response){

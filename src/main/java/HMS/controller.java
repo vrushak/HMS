@@ -104,11 +104,11 @@ public class controller {
 	String message;
 
 	@RequestMapping(value="/prdocs", method = RequestMethod.GET)
-	   public ModelAndView docs() {
-	 	 
-	 	
+	   public ModelAndView docs(HttpServletRequest req) {
+		Map<String, Object> model = new HashMap<String, Object>(); 
+	    model.put("bac", req.getParameter("location"));
 	 	    
-	 	 	return new ModelAndView("printdocs"); 
+	 	 	return new ModelAndView("printdocs","model",model); 
 	 }
 
 	//load user
@@ -653,7 +653,9 @@ public class controller {
 		savefup = dao.saveLabfile(s);
 		ModelAndView  mav = new ModelAndView();
 		if(savefup > 0 ){
+			
 		mav.addObject("message", "The record has been saved sucessfully");
+		mav.addObject("bac",req.getParameter("location"));
 		mav.setViewName("redirect:labup");		    
 						    
 		}
@@ -2062,8 +2064,11 @@ public class controller {
 	                  @RequestMapping(value="/genlic", method = RequestMethod.POST)
 	  				public @ResponseBody String  genlic(@ModelAttribute("s") License s,HttpServletRequest req, HttpServletResponse response) throws Exception {
 	  				 String jsonFormatData = "";
+	  				 String data;
 	  		
-	  				String data = handleLicenseRequest(req.getParameter("location"),req.getParameter("location1"));
+	  				data = handleLicenseRequest(req.getParameter("location"),req.getParameter("location1"));
+	  		
+	  				
 	  				jsonFormatData = data;
 	  					
 	  				

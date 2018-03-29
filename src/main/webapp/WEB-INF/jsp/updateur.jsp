@@ -340,11 +340,11 @@ changetext(strSplit[2])
 
 function changetext(val){
 	if(val.includes("CHIEFNURSE")){
-		$('.text-muted').text('Chief Nurse role has access to nurse assign module as well as to other nurse modules.');
+		$('.text-muted').text('Chief Nurse role has access to "Assign Nurse" module as well as to other nurse modules.');
 	}
 	
 	else{
-		$('.text-muted').text('Nurse role has access to nurse assign module as well as to other nurse modules.');
+		$('.text-muted').text('Nurse role has access to nurse modules.');
 	}
 }
 
@@ -405,7 +405,7 @@ function validDate() {
       <li class="active"><a id="" href="home.html">Home</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-  <li><a href="/HMS/home" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Home</span></a></li>
+  <li><a style="text-decoration: underline;" href="/HMS/home" id="back" ><span id="tit">Back to Home</span></a></li>
     </ul>
   </div>
 </nav>

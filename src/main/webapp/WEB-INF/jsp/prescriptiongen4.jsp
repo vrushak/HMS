@@ -280,6 +280,7 @@ function checkhome(user){
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 $("#myTable th:eq(8), #myTable td:last-child").hide();
+		 $("#opener3").hide();
 		
 	}
 	else if(user.includes("[ROLE_ASSISTANT]")){
@@ -291,6 +292,7 @@ function checkhome(user){
 		 
 		 document.getElementById("bc").disabled = true;
 		 $("#myTable th:eq(8), #myTable td:last-child").hide();
+		 $("#opener3").hide();
 	}
 
 	else{
@@ -676,7 +678,7 @@ if($("#pname").val().includes("Select")){
 		   		
 		   	 });
 	if(stop == "0"){
-		alert("Please enter the drug name")
+		alert("Please enter the drug details before saving")
 		return false;
 	}
 	else{
@@ -801,7 +803,8 @@ else if(response.length != 0){$("#myTable .tbody tr").remove();}
    	 document.getElementById(tableRef.rows.length).oninput();
    	 document.getElementById(dac).oninput();
    	 document.getElementById(baf).oninput();
-  	 /*
+  	 checkhome(userb)
+   	 /*
   		 
   	 if(drug.dm == "on"){
 		   document.getElementById(dmc).checked = true;
@@ -1066,7 +1069,7 @@ function doAjaxDelete(r,drug,type){
   -->
     </ul>
      <ul class="nav navbar-nav navbar-right">
-      <li><a href="/HMS/prdocs"><span class="glyphicon glyphicon-user"></span>Back to Print Documents</a></li>
+      <li><a style="text-decoration: underline;" href="/HMS/prdocs">Back to Print Documents</a></li>
       
     </ul>
   </div>
@@ -1143,7 +1146,9 @@ function doAjaxDelete(r,drug,type){
        
 	</div>
 	      </div>
-	       <div class="col-xs-4"></div>
+	      
+	      
+	       <div class="col-xs-4"><br><i style="font-size:24px;color:orange" id="opener2" onclick="return doAjaxPost2()" class="fa">&#xf15b;</i></div>
 	       <div class="col-xs-3">
 	      
 	       <div class="form-group">
@@ -1227,15 +1232,17 @@ function doAjaxDelete(r,drug,type){
     <button id="opener" class="btn btn-warning button1" >OPD Prescription</button>
   
    </div>
-   </div>
+   </div> <!--
      <div class="col-xs-1">
  </div>
+ 
    <div class="col-xs-2">
    <div class="form-group">
     <button id="opener2" class="btn btn-warning button1" onclick="return doAjaxPost2()">Edit Prescription</button>
   
    </div>
    </div>
+   --> 
      <div class="col-xs-1">
  </div>    
          <div class="col-xs-2">
@@ -1246,7 +1253,8 @@ function doAjaxDelete(r,drug,type){
    </div>
   
  </div>
- 
+  <small class="text-muted">Note : Click on file icon provided next to Name drop down to view/edit records </small>
+            
   <div class="col-xs-7"></div>
    <span id="hds">Doctor's Signature ____________</span>
 
@@ -1313,6 +1321,8 @@ function doAjaxDelete(r,drug,type){
 datasuccess('<%=request.getParameter("message")%>')
 </script>
 <script>
+if('<c:out value="${model.pname}" />' != '' && '<c:out value="${model.flno}" />' != ''){
 openmd2('<c:out value="${model.pname}" />','<c:out value="${model.flno}" />');
+}
 </script>
 </html>

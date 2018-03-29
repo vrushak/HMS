@@ -214,7 +214,7 @@ function checkhome(user){
 	document.getElementById("hds").style.display = "none";
 	 var m = moment().format("DD-MM-YYYY");
 	document.getElementById("admdate").value= m;
-	
+	$("#tit").text("Back to Print Documents")
 	if(user.includes("[ROLE_FDESK]")){
 		
 		var url = "/HMS/frontdesk" ;
@@ -246,7 +246,7 @@ function checkhome(user){
 		 
 		}
 	else if(user.includes("[ROLE_NURSE]")){
-		
+		$("#tit").text("Back to Nurse desk")
 		 var url = "/HMS/nursedesk" ;
 	//	 $("#back").hide();
 		 var element = document.getElementById('ho');
@@ -260,7 +260,7 @@ function checkhome(user){
 		 document.getElementById("myInput").style.visibility ="hidden";
 	}
 	else if(user.includes("[ROLE_CHIEFNURSE]")){
-		
+		$("#tit").text("Back to Nurse desk")
 		 var url = "/HMS/nursedesk" ;
 	//	 $("#back").hide();
 		 var element = document.getElementById('ho');
@@ -325,27 +325,11 @@ function addname(getval){
 }
 
 function goBack(user) {
-	if(user.includes("[ROLE_ASSISTANT]")){
-		
-		 var url = "/HMS/frontdesk" ;
-		 window.location.href= url;
-	}
-	else if(user.includes("[ROLE_DOCTOR]")){
-		
-		 var url = "/HMS/prdocs" ;
-		 window.location.href= url;
-	}
-	
-	else if(user.includes("[ROLE_Accounts Admin]")){
-		
-		 var url = "/HMS/prdocs" ;
-		 window.location.href= url;
-		 
-		}
-	else if(user.includes("[ROLE_NURSE]")){
+ if(user.includes("[ROLE_NURSE]")){
 		
 		 var url = "/HMS/nursedesk" ;
 		window.location.href = url;
+		
 	}
 	else if(user.includes("[ROLE_CHIEFNURSE]")){
 		
@@ -528,7 +512,7 @@ function AutoGrowTextArea(textField)
     </ul>
      
   <ul class="nav navbar-nav navbar-right">
-  <li><a href="#" onclick="goBack('<c:out value="${username}" />')"><span class="glyphicon glyphicon-user"></span>Back</a></li>
+  <li><a style="text-decoration: underline;"  href="#" onclick="goBack('<c:out value="${username}" />')"><span id="tit">Back</span></a></li>
     </ul>
   </div>
 </nav>

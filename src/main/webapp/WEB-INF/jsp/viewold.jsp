@@ -587,7 +587,7 @@ function validchk(){
 		return false;
 	}
 	else if(a == "NA" || a=="null" || a.length == 0){
-		alert("Please fillout Membership ID details")
+		alert("Please fill out Membership ID")
 		return false;
 	}
 	else if(b == "NA" || b=="null" || b.length == 0){

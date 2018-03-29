@@ -22,7 +22,8 @@
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-select.min.css" />' />
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-datetimepicker.css" />' >
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-datetimepicker.min.css" />' >
-
+<link rel="stylesheet" href='<c:url value="/resources/css/jquery-confirm.min.css" />' >
+<link rel="stylesheet" href='<c:url value="/resources/css/jquery-ui.css" />' >
 
 <script type="text/javascript" src="/HMS/resources/js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap.min.js"></script>
@@ -31,6 +32,9 @@
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/jquery-confirm.min.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/jquery-ui.min.js"></script>
 
 <style type="text/css">
 
@@ -467,7 +471,7 @@ var str = text.split(',');
         
         //unit price  
           newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><input  class='form-control input-sm' form ='purchasesave' onfocusout=checkbatch($('#"+batch+"').val(),$('#"+exp+"').val(),$('#"+mdesc+"').val(),$('#"+up+"').val()) type='text' id = '"+up+"'  name= 'up2[]'  value = '0.00' required ></td></tr>";
+          newCell.innerHTML="<tr><td><input  class='form-control input-sm' form ='purchasesave' type='text' id = '"+up+"'  name= 'up2[]'  value = '0.00' onfocusout = checkbatch($('#"+batch+"').val(),$('#"+exp+"').val(),$('#"+mdesc+"').val(),$('#"+up+"').val()) required ></td></tr>";
         
           //stockno
           newCell = rowsAdd.insertCell();
@@ -830,7 +834,7 @@ var cps;
 	        		 ba = datec.batch;
 	                 ex = datec.expDate;
 	                 mps = datec.mpsize;
-	                 cps = datec.cps;
+	                 cps = datec.cp;
 	        	   });    
 	           },
 	           error: function(e){
@@ -843,15 +847,32 @@ var cps;
     	        	        }
 
 
-      function checkbatch(batch,exp,mpsize,cp){
-    	  
-    	  if(batch == ba){
-    		 
-    		  if(exp == ex || mpsize == mps || cp == cps){
-    			  alert("Same batch exists")
-    		  }
-    	  }
-      }
+       function checkbatch(batch,exp,mpsize,cp){
+     	  
+      	 
+     	  if(batch == ba){
+    
+     		  if(exp != ex || mpsize != mps || cp != cps){
+     		   
+     			 $.alert({
+     			    title: 'Warning!',
+     			    content: 'Product with same batch exists with Exp Date - '+moment(ex).format("DD-MM-YYYY")+', Manufacturing Pack Size - '+mps+' and UnitCP - '+cps+'.<br>1. Correct all the differences and continue to add.<br>2. Change the Batch name and add as a new batch.<br>3. Cancel the entry and update Quantity detail in Product Stocks & Pricing screen.',
+     			});
+     		   	  $('#ean').prop('disabled',true)
+     		   	  $('#pname').prop('disabled',true)
+     		   	  $('#bouton-contact').prop('disabled',true)
+     		   	  return false;
+     		  }
+     		  else{
+     			 $('#ean').prop('disabled',false)
+    		   	  $('#pname').prop('disabled',false) 
+     		   	  $('#bouton-contact').prop('disabled',false)
+     			  return true;
+     		  }
+     	  }
+     	  
+  
+       }
 
        
        
@@ -890,7 +911,7 @@ var cps;
 	        	b =0;
 	        	x[9].getElementsByTagName('input')[0].value = 0;
 	        	b= Number(x[8].getElementsByTagName('input')[0].value)/(Number(x[7].getElementsByTagName('input')[0].value)*Number(x[5].getElementsByTagName('input')[0].value)); 
-	        	x[9].getElementsByTagName('input')[0].value = Number(b);
+	        	x[9].getElementsByTagName('input')[0].value = Number(b).toFixed(2);
 	        	console.log(b)
 	        
 	        	

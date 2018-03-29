@@ -109,7 +109,7 @@ window.location = "/HMS/doctor1.html";
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
 <a href="/HMS/home" id="back" class='button2 rightspace' ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Home</span></a>
 
-<div class="well well-lg" id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
+<div class="well well-lg" style='font-family: "Verdana","sans-serif"' id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
 
  <div class ="container" >
  <div class="row text-center">
@@ -214,7 +214,7 @@ window.location = "/HMS/doctor1.html";
       <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/Print Prescription.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='/HMS/prdocs'" value="Print Documents"></figcaption>
+      <figcaption><input type="button" onclick="location.href='/HMS/prdocs?location=dochome'" value="Print Documents"></figcaption>
       </figure>
     </div>
     

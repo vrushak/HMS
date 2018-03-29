@@ -201,6 +201,7 @@ function calculateBmi() {
 function checkhome(user){
 uname = user;
 change()
+ $('#formc').attr("action","/HMS/labssave?location="+bac+"")
 	if(user.includes("[ROLE_FDESK]")){
 		
 		var url = "/HMS/frontdesk" ;
@@ -284,6 +285,7 @@ change()
 		 if(bac.includes("dochome")){
 					 $("#back").attr("href","/HMS/doctor1")
 					 $("#tit").text("Back to Doctor Home")
+					
 				 }
 		 else if(bac.includes("frontdesk")){
 			 $("#back").attr("href","/HMS/frontdesk")
@@ -866,12 +868,12 @@ function loadtabvalues(){
 
 }
 
-function datasuccess(data){
+function datasuccess(data,data2){
 	
-	if(data != "null"){
+	if(data != "null" && data2 != "null"){
 		
 		alert(data)
-window.location = "/HMS/labup";
+		window.location = "/HMS/labup?location="+data2+"";
 	}
 }
 /*
@@ -1260,7 +1262,7 @@ function refresh(){
  
 	     var url = "/HMS/downform?location="+datec.testname+"&location1="+datec.iop+"";
 	     var text = ""+datec.iop+"";
-	      $('#rf').append('<a href="' + url + '" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+encodeURIComponent(datec.testname)+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
+	      $('#rf').append('<a href="' + url + '" title="'+datec.iop+'" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+encodeURIComponent(datec.testname)+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
 	      unsaved = false;
 	      
 	          });    
@@ -1440,7 +1442,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
      <button type="button" id="close" class="btn btn-warning button2" onclick="location.reload(false);">Refresh</button>
   </h1>
 <br>
- <form id = "formc" action="/HMS/labssave.html" method = "post"></form>
+ <form id="formc" action="/HMS/labssave" method = "post"></form>
  <div class="container" style="width:auto;height:auto;">
  <button type="button" style="background:#81BDA4" class="btn btn-block"><span id="pi" style="float:left">Patient Information</span><span id="flno" style="float:right">Fileno</span><span id="id" style="float:right;margin-right:15px;">Id</span><span style="float:right;margin-right:25px;" id="nm">Name</span></button>
  <br>
@@ -1624,10 +1626,15 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
 
 
 <script>
-datasuccess('<%=request.getParameter("message")%>')
+
+datasuccess('<%=request.getParameter("message")%>','<%=request.getParameter("bac")%>')
 </script>
+
 <script>
-var bac = '<c:out value='${model.bac}'/>';
+if('<c:out value='${model.bac}'/>' != ''){
+	var bac = '<c:out value='${model.bac}'/>';
+
+}	
 </script>
 </body>
 </html>
