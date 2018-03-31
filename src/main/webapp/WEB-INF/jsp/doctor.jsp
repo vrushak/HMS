@@ -389,6 +389,10 @@ $(document).ready(function() {
            email :{
         	   email : true,
            },
+           dob :{
+        	   maxlength : 10,
+           },
+
       },
       
       messages: {
@@ -427,6 +431,9 @@ $(document).ready(function() {
              email :{
             	   required: "Please fill out this field",
              },
+             dob :{
+	        	   maxlength : "Year cannot be more than 4 digits",
+	           },
 		},
       errorElement: "span",
       errorClass: "help-inline",
@@ -558,9 +565,19 @@ var blok;
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="/HMS/home">Home</a></li>
+      <li class="dropdown back" id="back">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Quick Access
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/HMS/staff">Staff Details</a></li>
+          <li><a href="/HMS/doctor1">Doctor View</a></li>
+          <li><a href="/HMS/nursedesk">Nurse Station</a></li>
+          <li><a href="/HMS/frontdesk">Front Desk</a></li>
+        </ul>
+      </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-  <li><a href="/HMS/staff" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Staff Registration</span></a></li>
+     
     </ul>  </div>
 </nav>
   <center>
@@ -824,7 +841,7 @@ var blok;
      <div class="btn-group" data-toggle="buttons"><p>Gender <span></span></p>
     <label class="btn btn-default"><input class="form-control input-sm"  style="width: 0px;" id="male" value="M" type="radio" name="gender" />M</label>
  		<label class="btn btn-default"><input class="form-control input-sm" style="width: 0px;" id="female" value="F" type="radio" name="gender" />F</label>
- 	<label class="btn btn-default"><input class="form-control input-sm" type="radio" value="O" id="other" name="gender" />Other</label> 
+ 	<label class="btn btn-default"><input style="width: 0px;" class="form-control input-sm" type="radio" value="O" id="other" name="gender" />Other</label> 
  	</div>
    </div>
 	</div>

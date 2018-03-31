@@ -853,10 +853,20 @@ $.confirm({
       <li class="active"><a id ="ho" href="">Home</a></li>
       <li class=""><a  id="m3" href="/HMS/diagnose">Clinical Diagnosis</a></li>
       <li class=""><a id="m2" href="/HMS/treatment">Patient Treatment Records</a></li>
-      <li class=""><a id="m4" href="/HMS/discharge">Discharge Summary</a></li>        
+      <li class=""><a id="m4" href="/HMS/discharge">Discharge Summary</a></li>  
+      <li class="dropdown back" id="back">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Quick Access
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/HMS/staff">Staff Details</a></li>
+          <li><a href="/HMS/doctor1">Doctor View</a></li>
+          <li><a href="/HMS/nursedesk">Nurse Station</a></li>
+          <li><a href="/HMS/frontdesk">Front Desk</a></li>
+        </ul>
+      </li>
+            
          </ul>
              <ul class="nav navbar-nav navbar-right">
-  <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
     </ul>   <!--      
       <ul class="nav navbar-nav navbar-right">
        <li style ="color:#ff9900;"><span class="glyphicon glyphicon-log-in"></span> Welcome : ${pageContext.request.userPrincipal.name}</li>

@@ -368,7 +368,18 @@ function getvalue(myname) {
 	
 }
 function supply(){
-	
+	if($('#name').val().length==0){
+		alert("Enter Product Name");
+		return false
+	}
+	if($('#pc').val().length==0){
+		alert("Enter Product Category");
+		return false
+	}
+	if($('#prc').val().length==0){
+		alert("Enter Product Code");
+		return false
+	}
 	var len = document.getElementById("supplier").value;
 	if(len == 0){
 		alert("Please select Supplier");
@@ -904,7 +915,7 @@ var pnflag;
 	        <br>
 	        <br>
 	          <button id ="check" value="Select Manufacture" data-toggle="modal" data-target="#myModal" >Select Suppliers</button>
-	        
+	        <br><br><br><br><br>
        </div>
 	        </div>
 	        

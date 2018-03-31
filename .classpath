@@ -30,5 +30,15 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/techwedge3/Desktop/JAR/jasperreports-javaflow-6.0.0.jar"/>
 	<classpathentry kind="lib" path="C:/Users/techwedge3/Desktop/JAR/jstl-1.2.jar"/>
+	<classpathentry excluding="**" kind="src" output="target/classes" path="src/main/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

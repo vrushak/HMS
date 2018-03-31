@@ -620,7 +620,7 @@ $(document).ready(function () {
           <div class="btn-group" data-toggle="buttons"><p>Gender <span></span></p>
        <label class="btn btn-default"><input class="form-control input-sm" form="form1" style="width: 0px;" id="male" value="M" type="radio" name="sex" />M</label>
  		<label class="btn btn-default"><input class="form-control input-sm" form="form1" style="width: 0px;" id="female" value="F" type="radio" name="sex" />F</label>
- 	<label class="btn btn-default"><input class="form-control input-sm" type="radio" form="form1" value="O" id="other" name="sex" />Other</label> 
+ 	<label class="btn btn-default"><input style="width: 0px;" class="form-control input-sm" type="radio" form="form1" value="O" id="other" name="sex" />Other</label> 
  	</div>
      </div>
 	      </div>
@@ -631,24 +631,14 @@ $(document).ready(function () {
 	           
 	      	         <div class="form-group row" >
 	     <div class="col-xs-1"></div>
-	      <div class="col-xs-5">
-	       <div class="form-group">
-     
-            <p>Email<span></span></p>
-       <input type="email" class="form-control" form="form1" id="email" name="email" >
+	        <div class="col-xs-3">
+	        <div class="form-group">
+	         <br>
+	       Active: <input type="checkbox" id="active" name="active" value="active" form="form1"  >
        </div>
-	      </div>
-	      
-	       <div class="col-xs-5">
-	      <div class="form-group">
-          <p>Comments<span></span></p>
-        <input type="text" class="form-control" form="form1" id ="comments" name="comments" >
-        
-     </div>
-	      </div>
-	      
-	       
-	      </div>
+	        </div>
+	     
+	       </div>
 	      </div>
 	      
 	       
@@ -753,13 +743,14 @@ $(document).ready(function () {
           </div>
 	        </div>
 	        
-	        
-	         <div class="col-xs-3">
-	        <div class="form-group">
-	         <br>
-	       Active: <input type="checkbox" id="active" name="active" value="active" form="form1"  >
-       </div>
-	        </div>
+	              <div class="col-xs-5">
+	      <div class="form-group">
+          <p>Comments<span></span></p>
+        <input type="text" class="form-control" form="form1" id ="comments" name="comments" >
+        
+     </div>
+	      </div>
+	      
 	        
 	 
 	      

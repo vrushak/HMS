@@ -116,7 +116,7 @@ function myFunction() {
 	}
 */
 }
-	
+var un;	
 	function copy(pid,address2){
         
 		
@@ -178,6 +178,7 @@ function myFunction() {
 	   document.getElementById("password").value = strSplit[24];
 	 document.getElementById("address2").value = address2;
 	unsaved = false;
+	un = strSplit[23];
 	   $('#myModal').modal('show');
 	 
 	}
@@ -225,6 +226,7 @@ function checkfor(){
 	
 	if(document.getElementById("password").value == document.getElementById("cpassword").value){
 		document.getElementById('open2a').disabled = false;
+		disablenxt();
 		return true;
 	}
 	else{
@@ -233,6 +235,17 @@ function checkfor(){
 		return false;
 	}
 }
+
+function disablenxt(){
+	
+	if(blok == true){
+		  document.getElementById('open2a').disabled = true;
+	}
+	  else{
+		  document.getElementById('open2a').disabled = false;
+	  }	
+}
+
 function getAge(dateString) {
 	  var now = new Date();
 	  
@@ -350,6 +363,10 @@ jQuery().ready(function() {
 	           email :{
 	        	   email : true,
 	           },
+	           dob :{
+	        	   maxlength : 10,
+	           },
+
 	      },
 	      
 	      messages: {
@@ -382,6 +399,10 @@ jQuery().ready(function() {
 	             email :{
 	            	   required: "Please fill out this field",
 	             },
+	             dob :{
+		        	   maxlength : "Year cannot be more than 4 digits",
+		           },
+
 			},
 	      errorElement: "span",
 	      errorClass: "help-inline",
@@ -450,9 +471,13 @@ jQuery().ready(function() {
 </script>
 
 <script type="text/javascript">
+var blok;
        function doAjaxPost1(user) {
     	   // get the form values
-    	   
+    	   if(un == user ){
+    		   $("#open2a").prop('disabled',false)
+    		   return true;
+    	   }
     	         //  var name = $('#pname').val();
     	           // var pid = $('#pid').val();
     	           $.ajax({
@@ -470,10 +495,19 @@ jQuery().ready(function() {
     	        	                   //to print name of employee
     	        	             //    alert(datec.username)
     	        	                   
-    	        	                   if(datec.username > 0){
+    	        	        		   if(datec.username > 0){
     	        	                	   alert("Username already exists!")
-    	        	                	   
+    	        	              //  	   $("#open2a").prop('disabled',true)
+    	        	                	   blok = true;
+    	        	                	   disablenxt()
+    	        	                	   return false;
+    	        	                	
     	        	                   }
+    	        	                   else{
+    	        	                //	   $("#open2a").prop('disabled',false)
+    	        	                	   blok = false;
+    	        	                disablenxt()
+    	        	                   } 
     	        	               });    
     	        	           },
     	        	           error: function(e){
@@ -499,10 +533,18 @@ jQuery().ready(function() {
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="/HMS/home">Home</a></li>
+          <li class="dropdown back" id="back">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Quick Access
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/HMS/staff">Staff Details</a></li>
+          <li><a href="/HMS/doctor1">Doctor View</a></li>
+          <li><a href="/HMS/nursedesk">Nurse Station</a></li>
+          <li><a href="/HMS/frontdesk">Front Desk</a></li>
+        </ul>
+      </li>
     </ul>
-   <ul class="nav navbar-nav navbar-right">
-  <li><a href="/HMS/staff" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Staff Registration</span></a></li>
-    </ul> </div>
+  </div>
 </nav>
   <center>
 </center>
@@ -748,7 +790,7 @@ jQuery().ready(function() {
 <div class="col-xs-3">
     <div class="form-group">
             <p>Date of Birth <span></span></p>
-     <input type="date" name="dob" id="dob" maxlength="10"  onblur='getAge(this.value)' class="form-control input-sm" >
+     <input type="date" name="dob" id="dob"  onblur='getAge(this.value)' class="form-control input-sm" >
 
 	</div>
    </div>
@@ -766,7 +808,7 @@ jQuery().ready(function() {
      <div class="btn-group" data-toggle="buttons"><p>Gender <span></span></p>
       <label class="btn btn-default"><input class="form-control input-sm"  style="width: 0px;" id="male" value="M" type="radio" name="gender" />M</label>
  		<label class="btn btn-default"><input class="form-control input-sm" style="width: 0px;" id="female" value="F" type="radio" name="gender" />F</label>
- 	<label class="btn btn-default"><input class="form-control input-sm" type="radio" value="O" id="other" name="gender" />Other</label> 
+ 	<label class="btn btn-default"><input class="form-control input-sm" style="width: 0px;" type="radio" value="O" id="other" name="gender" />Other</label> 
  		</div>
    </div>
 	</div>
@@ -826,7 +868,7 @@ jQuery().ready(function() {
    <div class="form-group">
     
             <p>UserName <span>*</span></p>
-         	<input type="text" name="username" id="username"  class="form-control input-sm" oninput="doAjaxPost1(this.value)" required  />
+         	<input type="text" name="username" id="username"  class="form-control input-sm" onchange="return doAjaxPost1(this.value)" required  />
 	
 	</div>
  

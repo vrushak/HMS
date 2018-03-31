@@ -245,6 +245,7 @@ function deleteRow(r) {
 				
 			 var element = document.getElementById('ho');
 			 element.setAttribute("href",url)
+			/*
 			 if(bac.includes("dochome")){
 				 $("#back").attr("href","/HMS/doctor1")
 				 $("#tit").text("Back to Doctor Home")
@@ -252,7 +253,7 @@ function deleteRow(r) {
 			 else{
 				 $("#back").attr("href","/HMS/nursedesk") 
 				 $("#tit").text("Back to Nurse Desk")
-			 }
+			 }*/
 		}
 	}
 
@@ -773,10 +774,18 @@ var user2a;
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
-     
+     <li class="dropdown back" id="back">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Quick Access
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/HMS/staff">Staff Details</a></li>
+          <li><a href="/HMS/doctor1">Doctor View</a></li>
+          <li><a href="/HMS/nursedesk">Nurse Station</a></li>
+          <li><a href="/HMS/frontdesk">Front Desk</a></li>
+        </ul>
+      </li>
     </ul>
    <ul class="nav navbar-nav navbar-right">
-  <li><a href="#" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back</span></a></li>
     </ul>
   </div>
 </nav>
@@ -1019,7 +1028,7 @@ var user2a;
 datasuccess('<%=request.getParameter("message")%>')
 </script>
 <script>
-var bac = '<c:out value='${model.bac}'/>';
+//var bac = '<c:out value='${model.bac}'/>';
 </script>
 </body>
 </html>

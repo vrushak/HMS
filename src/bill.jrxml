@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.0.final using JasperReports Library version 6.4.1  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bill" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="89198411-bcee-4751-aed4-1b33225daccd">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="My Sql"/>
+	<parameter name="Fileno" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<queryString language="SQL">
+		<![CDATA[select * from billgen]]>
+	</queryString>
+	<field name="invoice" class="java.lang.String"/>
+	<field name="invoicedate" class="java.lang.String"/>
+	<field name="pname" class="java.lang.String"/>
+	<field name="pid" class="java.lang.String"/>
+	<field name="address" class="java.lang.String"/>
+	<field name="wardno" class="java.lang.String"/>
+	<field name="admdate" class="java.lang.String"/>
+	<field name="doctor" class="java.lang.String"/>
+	<field name="disdate" class="java.lang.String"/>
+	<field name="cashier" class="java.lang.String"/>
+	<field name="feetype" class="java.lang.String"/>
+	<field name="charges" class="java.lang.String"/>
+	<field name="price" class="java.lang.String"/>
+	<field name="subtotal" class="java.lang.String"/>
+	<field name="tax" class="java.lang.String"/>
+	<field name="discount" class="java.lang.String"/>
+	<field name="total" class="java.lang.String"/>
+	<field name="docid" class="java.lang.String"/>
+	<field name="admitno" class="java.lang.String"/>
+	<field name="mid" class="java.lang.String"/>
+	<field name="policyholder" class="java.lang.String"/>
+	<field name="policyno" class="java.lang.String"/>
+	<field name="insurancec" class="java.lang.String"/>
+	<field name="type" class="java.lang.String"/>
+	<field name="quantity" class="java.lang.String"/>
+	<field name="fileno" class="java.lang.String"/>
+	<field name="prch" class="java.lang.String"/>
+	<group name="invoice">
+		<groupExpression><![CDATA[$F{invoice}]]></groupExpression>
+	</group>
+	<group name="invoicedate">
+		<groupExpression><![CDATA[$F{invoicedate}]]></groupExpression>
+	</group>
+	<group name="pname">
+		<groupExpression><![CDATA[$F{pname}]]></groupExpression>
+	</group>
+	<group name="pid">
+		<groupExpression><![CDATA[$F{pid}]]></groupExpression>
+	</group>
+	<group name="address">
+		<groupExpression><![CDATA[$F{address}]]></groupExpression>
+	</group>
+	<group name="wardno">
+		<groupExpression><![CDATA[$F{wardno}]]></groupExpression>
+	</group>
+	<group name="admdate">
+		<groupExpression><![CDATA[$F{admdate}]]></groupExpression>
+	</group>
+	<group name="doctor">
+		<groupExpression><![CDATA[$F{doctor}]]></groupExpression>
+	</group>
+	<group name="disdate">
+		<groupExpression><![CDATA[$F{disdate}]]></groupExpression>
+	</group>
+	<group name="cashier">
+		<groupExpression><![CDATA[$F{cashier}]]></groupExpression>
+	</group>
+	<group name="feetype">
+		<groupExpression><![CDATA[$F{feetype}]]></groupExpression>
+	</group>
+	<group name="charges">
+		<groupExpression><![CDATA[$F{charges}]]></groupExpression>
+	</group>
+	<group name="price">
+		<groupExpression><![CDATA[$F{price}]]></groupExpression>
+	</group>
+	<group name="subtotal">
+		<groupExpression><![CDATA[$F{subtotal}]]></groupExpression>
+	</group>
+	<group name="tax">
+		<groupExpression><![CDATA[$F{tax}]]></groupExpression>
+	</group>
+	<group name="discount">
+		<groupExpression><![CDATA[$F{discount}]]></groupExpression>
+	</group>
+	<group name="total">
+		<groupExpression><![CDATA[$F{total}]]></groupExpression>
+	</group>
+	<group name="docid">
+		<groupExpression><![CDATA[$F{docid}]]></groupExpression>
+	</group>
+	<group name="admitno">
+		<groupExpression><![CDATA[$F{admitno}]]></groupExpression>
+	</group>
+	<group name="mid">
+		<groupExpression><![CDATA[$F{mid}]]></groupExpression>
+	</group>
+	<group name="policyholder">
+		<groupExpression><![CDATA[$F{policyholder}]]></groupExpression>
+	</group>
+	<group name="policyno">
+		<groupExpression><![CDATA[$F{policyno}]]></groupExpression>
+	</group>
+	<group name="insurancec">
+		<groupExpression><![CDATA[$F{insurancec}]]></groupExpression>
+	</group>
+	<group name="type">
+		<groupExpression><![CDATA[$F{type}]]></groupExpression>
+	</group>
+	<group name="quantity">
+		<groupExpression><![CDATA[$F{quantity}]]></groupExpression>
+	</group>
+	<group name="fileno">
+		<groupExpression><![CDATA[$F{fileno}]]></groupExpression>
+	</group>
+	<group name="prch">
+		<groupExpression><![CDATA[$F{prch}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="109" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="80" height="79" uuid="a59abb01-3798-48e8-b267-ea1896df43a3"/>
+				<imageExpression><![CDATA["src/main/webapp/Images/logocms.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="180" y="0" width="100" height="79" uuid="dfad7db1-e9f1-4b4a-a57b-d72c0a2b3482"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Invoice]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="0" width="235" height="79" uuid="126a5e5d-451d-46ca-bf5d-fc06ab522b5c"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[LILAYI FAMILY CLINIC
+Plot 4014A,Lusaka-Zambia,P.O Box 32680,
+Contact: +260 962 151 935
+E-mail : lilayifamilyclinic@yahoo.com
+TPIN NO :LFC098]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="73" splitType="Stretch">
+			<textField>
+				<reportElement x="-5" y="1" width="100" height="30" uuid="e757b159-442a-4e06-ae02-2d46d9725f63"/>
+				<textFieldExpression><![CDATA[$F{pname}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="1" width="100" height="30" uuid="08005089-2798-4698-b869-99c23f87e99a"/>
+				<textFieldExpression><![CDATA[$F{invoice}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="2" width="100" height="30" uuid="de3d8612-6b61-4d58-acf5-685c5df3248f"/>
+				<textFieldExpression><![CDATA[$F{pid}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="-5" y="43" width="100" height="30" uuid="013f055e-2707-4c70-bb9d-c369300349ae"/>
+				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="43" width="100" height="30" uuid="cfc4d24a-4c13-42a8-84fa-e1df684a6c19"/>
+				<textFieldExpression><![CDATA[$F{invoicedate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="2" width="100" height="30" uuid="6b74dcec-19bb-49ca-8435-ac944008bd61"/>
+				<textFieldExpression><![CDATA[$F{doctor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="240" y="43" width="100" height="30" uuid="7296eb45-e46d-4842-889f-28b9eaf740f3"/>
+				<textFieldExpression><![CDATA[$F{cashier}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="20" width="100" height="30" uuid="39232684-8602-4401-b64f-7bf69a54d407"/>
+				<textFieldExpression><![CDATA[$P{Fileno}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -843,7 +843,7 @@ public class controllerDao {
 	public int savepurchase(Purchase p, String name, String batch, String expdate, String quantity,String unitprice, String discount, String free,String total,String ean1,String mpack, String mdesc,String sudesc ) {
 		
 		//discount is total purschase price
-		String sql = "insert into purchase(allocationid,receiveddate,updatepricing,supplier,supplierInvoice,productName,Batch,expDate,mpack,mdesc,sudesc,quantity,discount,unitPrice,free,total,grandTotal,ean) values('"+p.getAllocationid()+"','"+p.getReceiveddate()+"','"+p.getUpdatepricing()+"','"+p.getSupplier()+"','"+p.getOrderDate()+"','"+name+"','"+batch+"','"+expdate+"','"+mpack+"','"+mdesc+"','"+sudesc+"','"+quantity+"','"+discount+"','"+unitprice+"','"+free+"','"+total+"','"+p.getGrandTotal()+"','"+ean1+"') on duplicate key update expDate='"+expdate+"',mpack='"+mpack+"',mdesc ='"+mdesc+"',sudesc = '"+sudesc+"',quantity= quantity + "+quantity+",discount='"+discount+"',unitPrice= unitPrice + "+unitprice+", free= free + "+free+",total='"+total+"',grandTotal='"+p.getGrandTotal()+"' ";
+		String sql = "insert into purchase(allocationid,receiveddate,updatepricing,supplier,supplierInvoice,productName,Batch,expDate,mpack,mdesc,sudesc,quantity,discount,unitPrice,free,total,grandTotal,ean) values('"+p.getAllocationid()+"','"+p.getReceiveddate()+"','"+p.getUpdatepricing()+"','"+p.getSupplier()+"','"+p.getOrderDate()+"','"+name+"','"+batch+"','"+expdate+"','"+mpack+"','"+mdesc+"','"+sudesc+"','"+quantity+"','"+discount+"','"+unitprice+"','"+free+"','"+total+"','"+p.getGrandTotal()+"','"+ean1+"') on duplicate key update expDate='"+expdate+"',mpack='"+mpack+"',mdesc ='"+mdesc+"',sudesc = '"+sudesc+"',quantity= quantity + "+quantity+",discount='"+discount+"',unitPrice= "+unitprice+", free= free + "+free+",total='"+total+"',grandTotal='"+p.getGrandTotal()+"' ";
 		return template.update(sql);
 	}
 	
@@ -870,7 +870,7 @@ public class controllerDao {
 	public int saveproductstockho(String ean1,String name, String batch,String expdate,String mpack,String mpsize,String cp,String prqty,String prprice,String qty,String sudesc,String stkpr,String markup,String sp,String spdesc,String spsize,String stksp,String sellqty,String sunits,String tprice) {
 		System.out.println(qty);
 		//mpack='"+mpack+"'
-		String sql = "insert into productstock(code,name,batch,expdate,mpack,mpsize,cp,prqty,prprice,currentstock,sudesc,stkpr,markup,sp,spdesc,spsize,stksp,sellqty,sunits,tprice) values('"+ean1+"','"+name+"','"+batch+"','"+expdate+"','"+mpack+"','"+mpsize+"','"+cp+"','"+prqty+"','"+prprice+"','"+qty+"','"+sudesc+"','"+stkpr+"','"+markup+"','"+sp+"','"+spdesc+"','"+spsize+"','"+stksp+"','"+sellqty+"','"+sunits+"','"+tprice+"') on duplicate key update expdate = '"+expdate+"',mpsize='"+mpsize+"',cp='"+cp+"',prqty= '"+prqty+"',prprice='"+prprice+"',currentstock='"+qty+"',sudesc='"+sudesc+"',stkpr='"+stkpr+"',markup='"+markup+"',sp='"+sp+"',spdesc='"+spdesc+"',spsize='"+spsize+"',stksp='"+stksp+"',sellqty='"+sellqty+"',sunits='"+sunits+"',tprice='"+tprice+"'";
+		String sql = "insert into productstock(code,name,batch,expdate,mpack,mpsize,cp,prqty,prprice,currentstock,sudesc,stkpr,markup,sp,spdesc,spsize,stksp,sellqty,sunits,tprice) values('"+ean1+"','"+name+"','"+batch+"','"+expdate+"','"+mpack+"','"+mpsize+"','"+cp+"','"+prqty+"','"+prprice+"','"+qty+"','"+sudesc+"','"+stkpr+"','"+markup+"','"+sp+"','"+spdesc+"','"+spsize+"','"+stksp+"','"+sellqty+"','"+sunits+"','"+tprice+"') on duplicate key update expdate = '"+expdate+"',mpsize='"+mpsize+"',cp='"+cp+"',prqty= prqty + '"+prqty+"',prprice=prprice + '"+prprice+"',currentstock= currentstock + '"+qty+"',sudesc='"+sudesc+"',stkpr=stkpr + '"+stkpr+"',markup='"+markup+"',sp='"+sp+"',spdesc='"+spdesc+"',spsize='"+spsize+"',stksp='"+stksp+"',sellqty='"+sellqty+"',sunits='"+sunits+"',tprice='"+tprice+"'";
 		return template.update(sql);
 	}
 	
@@ -1484,8 +1484,8 @@ public class controllerDao {
 		        	s.setEan(rs.getString(10));
 		        	s.setGrandTotal(rs.getString(11));
 		        	s.setSupplier(rs.getString(12));
-		        	s.setMpack(rs.getString(13));
-		        	s.setMdesc(rs.getString(14));
+		        	s.setMdesc(rs.getString(13));
+		        	s.setMpack(rs.getString(14));
 		        	s.setSudesc(rs.getString(15));
 		        	s.setTaxes(rs.getString(16));
 		        	s.setSinvoice(rs.getString(17));

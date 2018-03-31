@@ -386,7 +386,16 @@ function getPc(myname) {
 	
 	
 function manufacture(){
+	if($('#name').val().length==0){
+		alert("Enter Supplier Name");
+		return false
+	}
 	
+	if($('#medical').val().length==0){
+		alert("Enter Supplier Type");
+		return false
+	}
+
 	var len = document.getElementById("manufacturers").value;
 	if(len == 0){
 		alert("Please select Manufacturer");

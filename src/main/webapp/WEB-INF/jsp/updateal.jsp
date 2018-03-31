@@ -368,16 +368,16 @@ function validmess(){
 
 function changetext(val){
 	if(val.includes("ASSISTANT")){
-		$('.text-muted').text('Assistant role has access to edit bill modules and also to other frontdesk modules');
+		$('.text-muted').text('Accounts Admin role can edit generated bills in "Bill Generation" and can add/edit in "Bill Configuration". Also has access to other frontdesk modules.');
 	}
 	else if(val.includes("PHARMACIST")){
-		$('.text-muted').text('Pharmacist role has access to edit bill modules and also to other frontdesk modules ');
+		$('.text-muted').text('Pharmacist role has access to all modules in "Pharmacy".');
 	}
 	else if(val.includes("SALESMANAGER")){
-		$('.text-muted').text('Salesmanager role has access to edit bill modules and also to other frontdesk modules ');
+		$('.text-muted').text('SalesManager role has access to Sales module in "Pharmacy". Also has access to view "Product Master" module and "Product Stocks and Pricing" module.');
 	}
 	else{
-		$('.text-muted').text('Accounts Admin role has access to edit bill modules and also to other frontdesk modules ');
+		$('.text-muted').text('Accounts Admin role has access to edit bill modules and also to other frontdesk modules. ');
 	}
 }
 
@@ -448,7 +448,7 @@ $(document).ready(function () {
       <li class="active"><a id="ho" href="home.html">Home</a></li>
     </ul>
         <ul class="nav navbar-nav navbar-right">
-  <li><a href="/HMS/home" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Home</span></a></li>
+  <li><a style="text-decoration: underline;" href="/HMS/home" id="back" ><span id="tit">Back to Home</span></a></li>
     </ul>
   </div>
 </nav>

@@ -22,6 +22,7 @@
 <script type="text/javascript" src="/HMS/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/moment.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/jquery.validate.js"></script>
  <script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
 <script type="text/javascript">
 function check(str){
@@ -703,9 +704,24 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
        
  jQuery().ready(function() {
 
-	 
-	
+	 var v = $("#form4").validate({
+		 
+		 rules: {
+			  dob :{
+	        	   maxlength : 10,
+	           },
 
+	      },
+		  messages: {
+			  
+			    dob :{
+		        	   maxlength : "Year cannot be more than 4 digits",
+		           },
+			},
+	      errorElement: "span",
+	      errorClass: "help-inline",
+		 
+	 });
    
   // Binding next button on first step
       $(".frm").hide("fast");
@@ -803,9 +819,18 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
+      <li class="dropdown back" id="back">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Quick Access
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/HMS/staff">Staff Details</a></li>
+          <li><a href="/HMS/doctor1">Doctor View</a></li>
+          <li><a href="/HMS/nursedesk">Nurse Station</a></li>
+          <li><a href="/HMS/frontdesk">Front Desk</a></li>
+        </ul>
+      </li>
     </ul>
      <ul class="nav navbar-nav navbar-right">
-  <li><a href="/HMS/frontdesk" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Front Desk</span></a></li>
     </ul>
   </div>
 </nav>
@@ -1045,7 +1070,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
  
  </div>
     <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- open1 is given in the class that is binded with the click event -->
                 <center><button class="btn btn-primary open1" name="button1" id="button1" type="button" onclick='return validateForm1("button1")' >Next <span class="fa fa-arrow-right"></span></button> </center>
               </div>
@@ -1113,7 +1138,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
    <div class="col-xs-5">
     <div class="form-group">
             <p>Date of Birth <span></span></p>
-     <input type="date" maxlength="2999-312-31"name="modate" id="modate" onfocusout="return validdate(this.id,'sp1')"  class="form-control input-sm" required>
+     <input type="date" maxlength="10" name="modate" id="modate" onfocusout="return validdate(this.id,'sp1')"  class="form-control input-sm" required>
       <p><span id="sp1"></span></p>
 	</div>
    </div>
@@ -1207,7 +1232,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
     <div class="clearfix" style="height: 10px;clear: both;"></div>
 
             <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- back2 unique class name  -->
                 <center><button class="btn btn-warning back2" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- open2 unique class name -->
@@ -1319,7 +1344,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
   </div>
   
  <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- Unique class name -->
               <center>  <button class="btn btn-warning back3" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- Unique class name -->
@@ -1508,7 +1533,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
     <div class="clearfix" style="height: 10px;clear: both;"></div>
 
             <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- back2 unique class name  -->
                 <center><button class="btn btn-warning back4" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- open2 unique class name -->
@@ -1724,7 +1749,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
     <div class="clearfix" style="height: 10px;clear: both;"></div>
 
             <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- back2 unique class name  -->
                 <center><button class="btn btn-warning back5" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- open2 unique class name -->
@@ -1831,7 +1856,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
     <div class="clearfix" style="height: 10px;clear: both;"></div>
 
             <div class="form-group">
-              <div class="col-lg-10 col-lg-offset-2">
+              <div class="col-lg-10 col-lg-offset-1">
                 <!-- back2 unique class name  -->
                 <center><button class="btn btn-warning back6" type="button"><span class="fa fa-arrow-left"></span> Back</button> 
                 <!-- open2 unique class name -->

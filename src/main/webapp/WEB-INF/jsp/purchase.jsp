@@ -22,7 +22,8 @@
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-select.min.css" />' />
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-datetimepicker.css" />' >
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-datetimepicker.min.css" />' >
-
+<link rel="stylesheet" href='<c:url value="/resources/css/jquery-confirm.min.css" />' >
+<link rel="stylesheet" href='<c:url value="/resources/css/jquery-ui.css" />' >
 
 <script type="text/javascript" src="/HMS/resources/js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap.min.js"></script>
@@ -31,6 +32,9 @@
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/jquery-confirm.min.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/jquery-ui.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/jquery-ui.min.js"></script>
 
 <style type="text/css">
 
@@ -153,7 +157,7 @@ var cuser;
 function checkhome2(user){
 	cuser = user;
 
-	$(".expSale").attr("min",new Date())     
+	//$(".expSale").attr("min",new Date())     
 	
 	 if(user.includes("[ROLE_SALESMANAGER]")){
 	
@@ -236,7 +240,7 @@ function deleteRow(r) {
 	
     var i = r.parentNode.parentNode.rowIndex;
     document.getElementById("myTable").deleteRow(i);
-    var x = document.getElementById("myTable").rows.length-1;
+    var x = document.getElementById("myTable").rows.length;
     document.getElementById("totalItems").value=x;
    // document.getElementById("subTotal").value=x;
    disbut();
@@ -255,7 +259,7 @@ function deleteRow(r) {
 
 function getCount(){
 
-	var x = document.getElementById("myTable").rows.length-1;
+	var x = document.getElementById("myTable").rows.length;
 	    document.getElementById("totalItems").value=x;
     
     
@@ -409,11 +413,11 @@ var str = text.split(',');
 	
  	
  	      var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
- 	      var rowsAdd = tableRef.insertRow(tableRef.rows.length);  
+ 	      
  
  	      getCount();
   
-           var idx = document.getElementById("myTable").rows.length-1;
+           var idx = document.getElementById("myTable").rows.length;
            
            var quantity =  "quantity"+idx;
            
@@ -429,62 +433,10 @@ var str = text.split(',');
          var batch = "batch" + idx;
          var mdesc  = "mdesc" + idx;
          var exp = "expdate"+idx; 
-          var newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><input class='form-control input-sm' type = 'text' form ='purchasesave' name = 'ean1' id='eans' value='"+str[0]+"'></td></tr>";
-         
-          newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><input class='form-control input-sm' form ='purchasesave'  type='text' id = 'productSale' name= 'pname1' value = '"+str[1]+"'required> </td></tr>";
-          
-          
-          newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><input class='form-control input-sm' type ='text'  name='Batch1' value ='NA' id='"+batch+"' onfocusout = 'doAjaxPost2(this.value)' form ='purchasesave' required></td></tr>";
-         
-          
-          newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<input class='form-control input-sm expSale' style='width:135px;' max='2999-12-31' form ='purchasesave'  type='date' id = '"+exp+"' name= 'expDate1' required>";
-         
-   // manufacture pack desc
-          newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><input class='form-control input-sm' form='purchasesave'   type='text'  id = 'mpack' name='mpack' required value ='NA' required></td></tr>";
-          
-     // maniufacture pack size
-          newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><input class='form-control input-sm' form='purchasesave'  onkeypress='return onlyNos(event,this);'  type='number' min='1' id = '"+mdesc+"' name='mdesc' required  value = '1' required></td></tr>";
-          
-   
-          //single unit pack size
-          
-          newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><input class='form-control input-sm unitp' form ='purchasesave'  type='text' id = 'sudesc'   name= 'sudesc' required value = 'NA' ></td></tr>";
-    //quantity
-          
-          newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><input onkeypress='return onlyNos(event,this);' class='form-control input-sm' form ='purchasesave'  type='number' min='1' id = '"+quantity+"' name='qty[]'  required value ='0'></td></tr>";
-         
-          //total purchase price
-          newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><input  class='form-control input-sm caluclate' form ='purchasesave' type='text' id = '"+discount+"' name='discount1[]' required  value ='0.00'></td></tr>";
         
-        //unit price  
-          newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><input  class='form-control input-sm' form ='purchasesave' onfocusout=checkbatch($('#"+batch+"').val(),$('#"+exp+"').val(),$('#"+mdesc+"').val(),$('#"+up+"').val()) type='text' id = '"+up+"'  name= 'up2[]'  value = '0.00' required ></td></tr>";
-        
-          //stockno
-          newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><input onkeypress='return onlyNos(event,this);' class='form-control input-sm' form ='purchasesave' type='text'  id = 'freeSale' name= 'free'  value = '0'  ></td></tr>";
-         
-         //stock value at purchase
-          newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><input class='form-control input-sm'  form ='purchasesave' readonly = 'readonly' type='text' id = '"+total+"'  name='price[]'  value = '0.00'></td></tr>";
-         
-          
-          
-         
-          
-          
-          newCell = rowsAdd.insertCell();
-          newCell.innerHTML="<tr><td><i class='fa fa-trash-o' style='font-size:20px' onclick='deleteRow(this)'></i></td></tr>";
-       
+         var row = "<tr><td><input class='form-control input-sm' type = 'text' form ='purchasesave' name = 'ean1' id='eans' value='"+str[0]+"'></td><td><input class='form-control input-sm' form ='purchasesave'  type='text' id = 'productSale' name= 'pname1' value = '"+str[1]+"'required></td><td><input class='form-control input-sm' type ='text'  name='Batch1' value ='NA' id='"+batch+"' onfocusout = 'doAjaxPost2(this.value)' form ='purchasesave' required></td><td><input type='date' class='form-control input-sm expSale' max='2999-12-31' form ='purchasesave' id = '"+exp+"' name= 'expDate1' required></td><td><input class='form-control input-sm' form='purchasesave'   type='text'  id = 'mpack' name='mpack' required value ='NA' required></td><td><input class='form-control input-sm unitp' form ='purchasesave'  type='text' id = 'sudesc'   name= 'sudesc' required value = 'NA' ></td><td><input onkeypress='return onlyNos(event,this);' class='form-control input-sm' form ='purchasesave'  type='number' min='1' id = '"+quantity+"' name='qty[]'  required value ='0'></td><td><input  class='form-control input-sm caluclate' form ='purchasesave' type='text' id = '"+discount+"' name='discount1[]' required  value ='0.00'></td><td><input  class='form-control input-sm' form ='purchasesave' type='text' id = '"+up+"'  name= 'up2[]'  value = '0.00' onfocusout = checkbatch($('#"+batch+"').val(),$('#"+exp+"').val(),$('#"+mdesc+"').val(),$('#"+up+"').val()) required ></td><td><input onkeypress='return onlyNos(event,this);' class='form-control input-sm' form ='purchasesave' type='text'  id = 'freeSale' name= 'free'  value = '0'  ></td><td><input class='form-control input-sm'  form ='purchasesave' readonly = 'readonly' type='text' id = '"+total+"'  name='price[]'  value = '0.00'></td><td><i class='fa fa-trash-o' style='font-size:20px' onclick='deleteRow(this)'></i></td></tr>";
+         $('#myTable .tbody').append(row);
+    
 
 
 
@@ -664,18 +616,19 @@ function verifyproAdd(){
 	   return false;
 	}
 	
-    else if((document.getElementById("grandTotal").value) == 0)  {
-		alert("Please click on Generate total")
-	return false;
-	  }
-	
 	else{
-		
+		totalIt();
 		return true;
 	}
 	
 }
 
+function verifyproAdd1(){
+	 if((document.getElementById("grandTotal").value) == 0)  {
+			alert("Please click on Generate total")
+		return false;
+		  }
+}
 
 function validate()
 {    alert("changes saved successfully!");
@@ -830,7 +783,7 @@ var cps;
 	        		 ba = datec.batch;
 	                 ex = datec.expDate;
 	                 mps = datec.mpsize;
-	                 cps = datec.cps;
+	                 cps = datec.cp;
 	        	   });    
 	           },
 	           error: function(e){
@@ -843,15 +796,32 @@ var cps;
     	        	        }
 
 
-      function checkbatch(batch,exp,mpsize,cp){
-    	  
-    	  if(batch == ba){
-    		 
-    		  if(exp == ex || mpsize == mps || cp == cps){
-    			  alert("Same batch exists")
-    		  }
-    	  }
-      }
+       function checkbatch(batch,exp,mpsize,cp){
+     	  
+      	 
+     	  if(batch == ba){
+    
+     		  if(exp != ex || mpsize != mps || cp != cps){
+     		   
+     			 $.alert({
+     			    title: 'Warning!',
+     			    content: 'Product with same batch exists with Exp Date - '+moment(ex).format("DD-MM-YYYY")+', Manufacturing Pack Size - '+mps+' and UnitCP - '+cps+'.<br>1. Correct all the differences and continue to add.<br>2. Change the Batch name and add as a new batch.<br>3. Cancel the entry and update Quantity detail in Product Stocks & Pricing screen.',
+     			});
+     		   	  $('#ean').prop('disabled',true)
+     		   	  $('#pname').prop('disabled',true)
+     		   	  $('#bouton-contact').prop('disabled',true)
+     		   	  return false;
+     		  }
+     		  else{
+     			 $('#ean').prop('disabled',false)
+    		   	  $('#pname').prop('disabled',false) 
+     		   	  $('#bouton-contact').prop('disabled',false)
+     			  return true;
+     		  }
+     	  }
+     	  
+  
+       }
 
        
        
@@ -863,9 +833,8 @@ var cps;
  
       $(document).ready( function() {
     	  
-    	  $(document).on('keypress', 'input', function(e){ 
-    		
-    		  if (this.value.length == 0 && e.which == 48 ){
+    	  $('input[type="text"]').on('keypress',function(e){ 
+    	    		  if (this.value.length == 0 && e.which == 48 ){
     		      return false;
     		   }
     		});
@@ -890,7 +859,7 @@ var cps;
 	        	b =0;
 	        	x[9].getElementsByTagName('input')[0].value = 0;
 	        	b= Number(x[8].getElementsByTagName('input')[0].value)/(Number(x[7].getElementsByTagName('input')[0].value)*Number(x[5].getElementsByTagName('input')[0].value)); 
-	        	x[9].getElementsByTagName('input')[0].value = Number(b);
+	        	x[9].getElementsByTagName('input')[0].value = Number(b).toFixed(2);
 	        	console.log(b)
 	        
 	        	
@@ -1159,7 +1128,7 @@ $('#datetimepicker1').datetimepicker({
 	      <div class="form-group"> 
 	      
 	      
-    <button type="submit" class="btn btn-warning button1" id='gtot' onclick='totalIt()'>
+    <button type="submit" class="btn btn-warning button1" id='gtot' onclick = "return verifyproAdd()">
 	  <span class="fa fa-refresh fa-spin"></span> Generate Total</button>
 	  </div>
 	  </div>
@@ -1168,7 +1137,7 @@ $('#datetimepicker1').datetimepicker({
 	      <div class="col-xs-2">
 	      
 	      <div class="form-group"> 
-    <input type="submit"  form="purchasesave" class="btn btn-warning button1" id='bouton-contact' onclick = "return verifyproAdd()"value="Save" >
+    <input type="submit"  form="purchasesave" class="btn btn-warning button1" id='bouton-contact' value="Save" onclick = "return verifyproAdd1()">
 	  </div>
 	  </div>
   
@@ -1230,6 +1199,6 @@ datasuccess('<%=request.getParameter("message")%>')
 
 
 	  </body>
-	   
+	
 	      
 </html>  

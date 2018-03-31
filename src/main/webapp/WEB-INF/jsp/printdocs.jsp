@@ -85,57 +85,68 @@ function checkhome(user){
 		
 		var url = "/HMS/frontdesk" ;
 	//	$("#back").hide();
-		 var element = document.getElementById('ho');
-		 element.setAttribute("href",url)
+		
 	}
 	else if(user.includes("[ROLE_ASSISTANT]")){
 	
 		 var url = "/HMS/frontdesk" ;
 	//	 $("#back").hide();
-		 var element = document.getElementById('ho');
-		 element.setAttribute("href",url)
-		 
+		
+		  $("#back").attr("href","/HMS/frontdesk")
+		  $("#tit").text("Back to Frontdesk")
 		 
 	}
 	else if(user.includes("[ROLE_DOCTOR]")){
 		
 		 var url = "/HMS/doctor1" ;
-			$("#back").hide();
-		 var element = document.getElementById('ho');
-		 element.setAttribute("href",url)
+			//$("#back").hide();
+		
+		  $("#back").attr("href","/HMS/frontdesk")
+		  $("#tit").text("Back to Doctor View")
+		 
 	}
 	else if(user.includes("[ROLE_Accounts Admin]")){
 		
 		 var url = "/HMS/frontdesk" ;
 		// $("#back").hide();
-		 var element = document.getElementById('ho');
-		 element.setAttribute("href",url)
-		
+			 $("#back").attr("href","/HMS/frontdesk")
+		 $("#tit").text("Back to Frontdesk")
 	}
 	
 	else if(user.includes("[ROLE_CHIEFNURSE]")){
 		
 		 var url = "/HMS/nursedesk" ;
 		 $("#back").hide();
-		 var element = document.getElementById('ho');
-		 element.setAttribute("href",url)
-		 
+	
+		  $("#back").attr("href","/HMS/nursedesk")
+			 $("#tit").text("Back to Nurse Station")
 		 document.getElementById("samplea").style.display = "none";
 	}
 	else if(user.includes("[ROLE_NURSE]")){
 		
 		 var url = "/HMS/nursedesk" ;
 		 $("#back").hide();
-		 var element = document.getElementById('ho');
-		 element.setAttribute("href",url)
+		
 		 document.getElementById("samplea").style.display = "none";
 		 document.getElementById("myInput").style.visibility ="hidden";
+		 
+		 $("#back").attr("href","/HMS/nursedesk")
+		 $("#tit").text("Back to Nurse Station")
 	}
 	else{
 		 var url = "/HMS/home" ;
 			
-		 var element = document.getElementById('ho');
-		 element.setAttribute("href",url)
+		// var element = document.getElementById('ho');
+		 //element.setAttribute("href",url)
+		
+		 if(bac.includes("frontdesk")){
+			 $("#back").attr("href","/HMS/frontdesk")
+			 $("#tit").text("Back to Frontdesk")
+		 }
+ else{
+	 $("#back").attr("href","/HMS/doctor1")
+	 $("#tit").text("Back to Doctor home")
+ }
 	}
 	disbut()
 }
@@ -155,7 +166,8 @@ function addp(id){
 	else{
 		var url = "/HMS/pdf?location1="+$("#admdate").val()+"&location2="+$("#disdate").val()+"" ;
 		$(id).attr("href",url)
-		return true;
+		
+return true;
 	}
 }
 
@@ -219,7 +231,7 @@ $( function() {
 <body onload = "checkhome('<c:out value="${username}" />')">
 <div class= "wrapper">
 <br>
-<font color="#228B22" class="left" >Welcome : ${pageContext.request.userPrincipal.name}</font><a id="ho" href="" class="button2 rightspace" > BACK TO HOME</a>
+<font color="#228B22" class="left" >Welcome  <c:out value="${username}" /> : ${pageContext.request.userPrincipal.name}</font><a style="text-decoration: underline;" href="#" class="button2 rightspace" id="back" ><span id="tit">Back</span></a>
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
 
 <div class="well well-lg" id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
@@ -296,5 +308,11 @@ $( function() {
       <a href="#" target="_blank" class="btn btn-warning" onclick="return addp(this)">Bill Report</a></div>
   </div>
 </div>
+
+<script>
+
+var bac = '<c:out value='${model.bac}'/>';
+
+</script>
 </body>
 </html>

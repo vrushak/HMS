@@ -169,6 +169,11 @@ table.alpha .tbalpha{
     
     
  }
+ .reduce>li:nth-child(even)
+{
+background:#d8d0d0;
+}
+ 
 </style>
 <script type="text/javascript">
 
@@ -213,6 +218,7 @@ function checkhome(user){
 		
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $("#back").hide();
 	}
 	else if(user.includes("[ROLE_ASSISTANT]")){
 	
@@ -220,7 +226,7 @@ function checkhome(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
-		 
+		 $("#back").hide();
 		
 	}
 	else if(user.includes("[ROLE_DOCTOR]")){
@@ -229,6 +235,7 @@ function checkhome(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $("#back").hide();
 	}
 	
 	else if(user.includes("[ROLE_Accounts Admin]")){
@@ -237,7 +244,7 @@ function checkhome(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
-		 
+		 $("#back").hide();
 		}
 	
 	else{
@@ -1776,10 +1783,20 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
         <li><a  href="/HMS/hourchart?location=dochome">Hour Chart</a></li>
         <li><a  href="/HMS/drugchart?location=dochome">Drug Chart</a></li>
       </ul></li>
+      <li class="dropdown back" id="back">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Quick Access
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/HMS/staff">Staff Details</a></li>
+          <li><a href="/HMS/doctor1">Doctor View</a></li>
+          <li><a href="/HMS/nursedesk">Nurse Station</a></li>
+          <li><a href="/HMS/frontdesk">Front Desk</a></li>
+        </ul>
+      </li>
+      
       
     </ul>
     <ul class="nav navbar-nav navbar-right">
- <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
     </ul>
   
 </nav>
@@ -1792,7 +1809,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
  <div class="container" style="width:auto;height:auto;">
  <button type="button" style="background:#81BDA4" class="btn btn-block"><span id="pi" style="float:left">Patient Information</span><span id="flno" style="float:right">Fileno</span><span id="id" style="float:right;margin-right:15px;">Id</span><span style="float:right;margin-right:25px;" id="nm">Name</span></button>
  <br>
-         <ul class="nav nav-pills nav-stacked col-md-2 reduce" id="pills" style="height:auto;width:140px;max-height:390px;overflow : auto;">
+         <ul class="nav nav-pills nav-stacked col-md-2 reduce" id="pills" style="height:auto;width:150px;max-height:390px;overflow : auto;">
         <li class="active"><a data-toggle="pill"  id="home" href="#home1" onclick="minimize(this.id)">Patient Details</a></li>
         <li><a data-toggle="pill"  id="pv" href="#pv1" onclick="minimize(this.id)">Patient Vitals</a></li>
         

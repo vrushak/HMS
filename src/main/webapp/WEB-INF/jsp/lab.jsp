@@ -201,6 +201,7 @@ function calculateBmi() {
 function checkhome(user){
 uname = user;
 change()
+// $('#formc').attr("action","/HMS/labssave?location="+bac+"")
 	if(user.includes("[ROLE_FDESK]")){
 		
 		var url = "/HMS/frontdesk" ;
@@ -280,10 +281,11 @@ change()
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 
-
+/*
 		 if(bac.includes("dochome")){
 					 $("#back").attr("href","/HMS/doctor1")
 					 $("#tit").text("Back to Doctor Home")
+					
 				 }
 		 else if(bac.includes("frontdesk")){
 			 $("#back").attr("href","/HMS/frontdesk")
@@ -293,7 +295,7 @@ change()
 					 $("#back").attr("href","/HMS/nursedesk") 
 					 $("#tit").text("Back to Nurse Desk")
 				 }
-
+*/
 	}
 
 }
@@ -871,7 +873,7 @@ function datasuccess(data){
 	if(data != "null"){
 		
 		alert(data)
-window.location = "/HMS/labup";
+		window.location = "/HMS/labup";
 	}
 }
 /*
@@ -1260,7 +1262,7 @@ function refresh(){
  
 	     var url = "/HMS/downform?location="+datec.testname+"&location1="+datec.iop+"";
 	     var text = ""+datec.iop+"";
-	      $('#rf').append('<a href="' + url + '" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+encodeURIComponent(datec.testname)+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
+	      $('#rf').append('<a href="' + url + '" title="'+datec.iop+'" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+encodeURIComponent(datec.testname)+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
 	      unsaved = false;
 	      
 	          });    
@@ -1428,10 +1430,19 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
     </div>
     <ul class="nav navbar-nav">
       <li class="active" id="act"><a id="ho" href="">Home</a></li>
+      <li class="dropdown back" id="back">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Quick Access
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/HMS/staff">Staff Details</a></li>
+          <li><a href="/HMS/doctor1">Doctor View</a></li>
+          <li><a href="/HMS/nursedesk">Nurse Station</a></li>
+          <li><a href="/HMS/frontdesk">Front Desk</a></li>
+        </ul>
+      </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-  <li><a href="#" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back</span></a></li>
-    </ul>
+   </ul>
   </div>
 </nav>
  <div id ="form2">
@@ -1440,7 +1451,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
      <button type="button" id="close" class="btn btn-warning button2" onclick="location.reload(false);">Refresh</button>
   </h1>
 <br>
- <form id = "formc" action="/HMS/labssave.html" method = "post"></form>
+ <form id="formc" action="/HMS/labssave" method = "post"></form>
  <div class="container" style="width:auto;height:auto;">
  <button type="button" style="background:#81BDA4" class="btn btn-block"><span id="pi" style="float:left">Patient Information</span><span id="flno" style="float:right">Fileno</span><span id="id" style="float:right;margin-right:15px;">Id</span><span style="float:right;margin-right:25px;" id="nm">Name</span></button>
  <br>
@@ -1624,10 +1635,15 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
 
 
 <script>
+
 datasuccess('<%=request.getParameter("message")%>')
 </script>
+
 <script>
-var bac = '<c:out value='${model.bac}'/>';
+//if('<c:out value='${model.bac}'/>' != ''){
+	//var bac = '<c:out value='${model.bac}'/>';
+
+//}	
 </script>
 </body>
 </html>

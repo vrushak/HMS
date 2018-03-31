@@ -64,10 +64,10 @@ margin-left:10px;
 <body>
 <div class= "wrapper">
 <br>
-<font color="#228B22" style='font-family: "Verdana","sans-serif"' class="left" >Welcome : ${pageContext.request.userPrincipal.name}</font>  <i style="font-size:20px; align: right;color : #228B22" class="fa fa-cog" ></i> 
+<font color="#228B22" style='font-family: "Verdana","sans-serif"' class="left" >Welcome  <c:out value="${username}" /> : ${pageContext.request.userPrincipal.name}</font>  <i style="font-size:20px; align: right;color : #228B22" class="fa fa-cog" ></i> 
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="location.href='/HMS/logout';"></i>
-<a href="/HMS/home" id="back" class='button2 rightspace' ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Home</span></a>
-<div class="well well-lg" id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
+<a style="text-decoration: underline;" href="/HMS/home" id="back" class='button2 rightspace' ><span id="tit">Back to Home</span></a>
+<div class="well well-lg" id="well" style='font-family: "Verdana","sans-serif"'> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
 
  <div class ="container" >
  <div class="row text-center">

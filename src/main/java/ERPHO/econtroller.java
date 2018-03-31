@@ -203,8 +203,9 @@ public class econtroller {
 			
 			//saving customer masters
 			@RequestMapping(value="/savecustomerho",method = RequestMethod.POST)
-		    public ModelAndView save(@ModelAttribute("c") Customer c){  
+		    public ModelAndView save(@ModelAttribute("c") Customer c,HttpServletRequest request){  
 				int savec = 0;
+			
 		       savec = hodao.savec(c);
 		       ModelAndView  mav = new ModelAndView();
 		       if(savec > 0){

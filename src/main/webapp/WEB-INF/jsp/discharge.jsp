@@ -631,12 +631,21 @@ function ze(){
     </div>
     <ul class="nav navbar-nav">
     <li class="active"><a id="ho" href ="">Home</a></li>
+    <li class="dropdown back" id="back">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Quick Access
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/HMS/staff">Staff Details</a></li>
+          <li><a href="/HMS/doctor1">Doctor View</a></li>
+          <li><a href="/HMS/nursedesk">Nurse Station</a></li>
+          <li><a href="/HMS/frontdesk">Front Desk</a></li>
+        </ul>
+      </li>
    <!-- <li class=""><a id="hc" href="">My Appointments</a></li>
     <li class=""><a id="hp" href="">General Checkup</a></li>
  <li class=""><a id="m2" href="">Treatment Records</a></li> -->
             </ul>
      <ul class="nav navbar-nav navbar-right">
-  <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
     </ul>  </div>
 </nav>
   <center>

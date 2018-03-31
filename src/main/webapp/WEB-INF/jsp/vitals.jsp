@@ -70,7 +70,7 @@ function chkuser(user){
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 document.getElementById("myInput").style.visibility ="hidden";
-		 
+		/* 
 		 if(bac.includes("dochome")){
 			 $("#back").attr("href","/HMS/doctor1")
 			 $("#tit").text("Back to Doctor Home")
@@ -79,7 +79,7 @@ function chkuser(user){
 			 $("#back").attr("href","/HMS/nursedesk") 
 			 $("#tit").text("Back to Nurse Desk")
 		 }
-
+*/
 	}
 }
 
@@ -385,7 +385,9 @@ function goBack() {
     	        	           contentType: "application/json; charset=UTF-8",
     	        	           
     	        	           success: function(response){
-    	        		 
+    	        		 if(response.list1.length == 0){
+    	        			 alert("No Vitals found for this fileno")
+    	        		 }
     	        	        	   $.each(response.list1, function(index, datec) {
     	        	                   //to print name of employee
     	        	             
@@ -426,17 +428,24 @@ function goBack() {
     	        	        		   }
     	        	        		   
     	        	        		   if(adminusr.includes("[ROLE_ADMIN]")){
-    	        	        				document.getElementById("docid").value = datec.docid;
-    	        	        				document.getElementById("dname").value = datec.docid;
-    	        	        				document.getElementById("nid").value = datec.docid;
-    	    	        	        		document.getElementById("nname").value = datec.docid;
+    	        	        				document.getElementById("docid").value = admne;
+    	        	        				document.getElementById("dname").value = admne;
+    	        	        				document.getElementById("nid").value = admne;
+    	    	        	        		document.getElementById("nname").value = admne;
     	        	        			}
     	        	        			else{
-    	        	        				
-    	        	        				document.getElementById("docid").value = datec.docid;
-    	    	        	        	    document.getElementById("dname").value = datec.dname;
-    	    	        	        	    document.getElementById("nid").value = datec.nid;
-    	    	        	        		document.getElementById("nname").value = datec.nname;
+    	        	        				if(datec.docid.includes("dbadmin")){
+    	        	        					document.getElementById("docid").value = datec.docid;
+        	    	        	        	    document.getElementById("dname").value = "dbadmin1";
+        	    	        	        	    document.getElementById("nid").value = datec.nid;
+        	    	        	        		document.getElementById("nname").value = "dbadmin1";
+    	        	        				}else{
+    	        	        					document.getElementById("docid").value = datec.docid;
+        	    	        	        	    document.getElementById("dname").value = datec.dname;
+        	    	        	        	    document.getElementById("nid").value = datec.nid;
+        	    	        	        		document.getElementById("nname").value = datec.nname;
+    	        	        				}
+    	        	        			
     	        	        			}
     	        	        		  
     	        	        		   
@@ -676,10 +685,19 @@ th {
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
+      <li class="dropdown back" id="back">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Quick Access
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/HMS/staff">Staff Details</a></li>
+          <li><a href="/HMS/doctor1">Doctor View</a></li>
+          <li><a href="/HMS/nursedesk">Nurse Station</a></li>
+          <li><a href="/HMS/frontdesk">Front Desk</a></li>
+        </ul>
+      </li>
     </ul>
  <ul class="nav navbar-nav navbar-right">
-  <li><a href="#" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back</span></a></li>
-    </ul>
+   </ul>
       </div>
 </nav>
   <center>
@@ -942,7 +960,7 @@ displaymodal();
 datasuccess('<%=request.getParameter("message")%>')
 </script>
 <script>
-var bac = '<c:out value='${model.bac}'/>';
+//var bac = '<c:out value='${model.bac}'/>';
 </script>
 </body>
 </html>

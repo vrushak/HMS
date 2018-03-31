@@ -6,9 +6,9 @@ public class YourNumberMyWord
  public static String rt;
   public String pw(int n,String ch)
   { 
-    String  one[]={" "," one"," two"," three"," four"," five"," six"," seven"," eight"," Nine"," ten"," eleven"," twelve"," thirteen"," fourteen","fifteen"," sixteen"," seventeen"," eighteen"," nineteen"};
+    String  one[]={" "," One"," Two"," Three"," Four"," Five"," Six"," Seven"," Eight"," Nine"," Ten"," Eleven"," Twelve"," Thirteen"," Fourteen","Fifteen"," Sixteen"," Seventeen"," Eighteen"," Nineteen"};
  
-    String ten[]={" "," "," twenty"," thirty"," forty"," fifty"," sixty","seventy"," eighty"," ninety"};
+    String ten[]={" "," "," Twenty"," Thirty"," Forty"," Fifty"," Sixty","Seventy"," Eighty"," Ninety"};
  
 String res="";
 	String var;
@@ -40,10 +40,10 @@ return res;
       
    
       str.append(a.pw((n/1000000000)," Hundred"));
-      str.append(a.pw((n/10000000)%100," crore"));
-      str.append(a.pw(((n/100000)%100)," lakh"));
-      str.append(a.pw(((n/1000)%100)," thousand"));
-      str.append(a.pw(((n/100)%10)," hundred"));
+      str.append(a.pw((n/10000000)%100," Crore"));
+      str.append(a.pw(((n/100000)%100)," Lakh"));
+      str.append(a.pw(((n/1000)%100)," Thousand"));
+      str.append(a.pw(((n/100)%10)," Hundred"));
       str.append(a.pw((n%100)," "));
     }
     

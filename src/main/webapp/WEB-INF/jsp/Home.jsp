@@ -101,11 +101,11 @@ function myconfirm()
 function addp(id){
 
 	if($("#admdate").val().length == 0){
-		alert("Please select From date")
+		alert("Please select valid From date")
 		return false;
 	}
 	else if($("#disdate").val().length == 0){
-		alert("Please select To date")
+		alert("Please select valid To date")
 		return false;
 	}
 	else{
@@ -188,6 +188,22 @@ $( function() {
 	    $("#admdate").attr('max',a)
  	    $("#disdate").attr('min',a)
 		});
+	    
+
+		  $("#disdate").change(function () {
+			
+		      var startDate = document.getElementById("admdate").value.toString("YYYY-MM-DD");
+		      var endDate = document.getElementById("disdate").value.toString("YYYY-MM-DD");
+		   	
+		      if ((Date.parse(endDate) <= Date.parse(startDate))) {
+		          alert("To date should be greater than From date");
+		          document.getElementById("disdate").value = "";
+		      }
+	});
+
+	    
+	    
+	    
 });
 
 </script>

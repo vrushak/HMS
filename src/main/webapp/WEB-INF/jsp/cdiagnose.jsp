@@ -136,6 +136,7 @@ function checkhome(user){
 		
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $("#back").hide();
 	}
 	else if(user.includes("[ROLE_ASSISTANT]")){
 	
@@ -143,6 +144,7 @@ function checkhome(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $("#back").hide();
 	}
 	else if(user.includes("[ROLE_DOCTOR]")){
 		
@@ -150,6 +152,7 @@ function checkhome(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $("#back").hide();
 	}
 	
 	else if(user.includes("[ROLE_Accounts Admin]")){
@@ -158,7 +161,7 @@ function checkhome(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
-		 
+		 $("#back").hide();
 		}
 	
 	else{
@@ -763,7 +766,7 @@ function loadval(div,min){
 
     	 var checkva = $("#tab"+min).find(".main").find('.divin').eq(div).find(":checkbox[name='radio']:checked").attr("title");
        	if(checkva != datec.did){
-    	 var div1 = "<br><input type='checkbox' value='"+datec.checkval+"' name='radio' title='"+datec.did+"' class='"+datec.pid+"' onchange='return checkdiv("+div+",this,"+min+")'><span id='"+datec.did+"'>"+datec.checkval+"</span><i class='fa fa-pencil button2 '  aria-hidden='true' style='color:orange;' onclick='return updchname(this,"+div+","+min+","+datec.did+")'></i></input>";
+    	 var div1 = "<br><tr><td><input type='checkbox' value='"+datec.checkval+"' name='radio' title='"+datec.did+"' class='"+datec.pid+"' onchange='return checkdiv("+div+",this,"+min+")'></td><td><span id='"+datec.did+"'>"+datec.checkval+"</span></td><td><i class='fa fa-pencil button2 '  aria-hidden='true' style='color:orange;' onclick='return updchname(this,"+div+","+min+","+datec.did+")'></i></input></td></tr>";
            
         $("#tab"+min).find(".main").find('.divin').eq(div).append(div1);
        	}
@@ -1011,10 +1014,18 @@ var cu;
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
-     
+     <li class="dropdown back" id="back">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Quick Access
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/HMS/staff">Staff Details</a></li>
+          <li><a href="/HMS/doctor1">Doctor View</a></li>
+          <li><a href="/HMS/nursedesk">Nurse Station</a></li>
+          <li><a href="/HMS/frontdesk">Front Desk</a></li>
+        </ul>
+      </li>
     </ul>
       <ul class="nav navbar-nav navbar-right">
-  <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
     </ul>
   </div>
 </nav>

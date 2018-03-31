@@ -283,7 +283,7 @@ function setline(id){
     var a = document.getElementById('fileno').value;
     
     if(document.getElementById("pname").value == "select"){
-		 alert("Please Select a Patient")
+		 alert("Please select a Patient Name")
 		return false;
 	}
     
@@ -299,7 +299,7 @@ function setline(id){
 		
 		
 		 if(document.getElementById("pname").value == "select" && id=="bc"){
-			 alert("Please Select a Patient Name")
+			 alert("Please select a Patient Name")
 			return false;
 		}
 		 else if(tableRef.rows.length == 1 && id=="bc"){
@@ -349,12 +349,22 @@ function setline(id){
       <li class=""><a id="m2" href="">My Appointments</a></li>
         <li class=""><a  id="m3" href="">Clinical Diagnosis</a></li>
           <li class=""><a id="m4" href="/HMS/discharge">Discharge Summary</a></li>
+    <li class="dropdown back" id="back">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Quick Access
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/HMS/staff">Staff Details</a></li>
+          <li><a href="/HMS/doctor1">Doctor View</a></li>
+          <li><a href="/HMS/nursedesk">Nurse Station</a></li>
+          <li><a href="/HMS/frontdesk">Front Desk</a></li>
+        </ul>
+      </li>
+          
  <!-- 
        <li class=""><a id="nob" href="/HMS/nursetr/"  onclick=' return visible();' target="_blank">Nurse observations</a></li>
     --> 
     </ul>
        <ul class="nav navbar-nav navbar-right">
-  <li><a href="/HMS/doctor1" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back to Doctor Home </span></a></li>
     </ul></div>
 </nav>
   <center>

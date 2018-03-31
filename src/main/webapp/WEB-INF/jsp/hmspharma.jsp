@@ -3,6 +3,7 @@
  <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -32,6 +33,27 @@
 
 </head>
 <script>
+function checkhome2(user){
+
+	if(user.includes("[ROLE_PHARMACIST]")){
+	
+		 var url = "/HMS/welcome" ;
+			
+	
+		 
+		 $("#welcome").hide();
+			
+	}
+	 
+	
+	else{
+		 var url = "/HMS/welcome" ;
+		
+	
+		 
+		 $("#welcome").show();
+	}
+}
 
 $(".modal-wide").on("show.bs.modal", function() {
 	  var height = $(window).height() - 200;
@@ -296,13 +318,14 @@ $( function() {
 });
 
 </script>
-<body>
+<sec:authentication property="principal.authorities" var="username" />
+<body onload="checkhome2('<c:out value="${username}" />')">
 <div class = "wrapper">
 
 <br>
 <font color="#228B22" class="left" >Welcome : ${pageContext.request.userPrincipal.name}</font>  <i style="font-size:20px; align: right; color : #228B22;" class="fa fa-cog" ></i> 
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
-<a href="/HMS/welcome" class="button2 rightspace"><span class="glyphicon glyphicon-user"></span>Back to CMS Home </a>
+<a style="text-decoration: underline;" id="welcome" href="/HMS/welcome" class="button2 rightspace">Back to CMS Home </a>
 <div class="well well-sm" id="well"> <center><h4><font color="white">Pharmacy</font></h4></center></div>
 
 <div class="container">

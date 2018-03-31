@@ -198,7 +198,8 @@ function openmd1(value){
 alert("Your licence has expired. Please contact your Vendor to re-activate your licence");		
 	}
 	else if(value.includes("failed")){
-alert("Please check your network connection")		
+alert("Please check your network connection")	
+
 	}
 	else if(value.includes("diffmac")){
 		alert("Computer id not registered")
@@ -230,9 +231,9 @@ function doAjaxPostNew(met,uri,ctype) {
 	        
 	         },
 	           error: function(e){
-	        	  
-	        	           alert('Error: ' + e);
-	        	  
+	        	      
+	        	         //  alert('Error: ' + e);
+	        	  alert('Please check your network connection')
 	        	           }
 	        	           });
 	        	   unsaved = false;
@@ -312,7 +313,7 @@ $(document).ready(function() {
    
        </div>
              <div class="col-xs-2"></div>
-        <button class="btn btn-warning btn-sm" onclick="return postdata('genlic','form')">Generate Key</button>
+        <button class="btn btn-warning btn-sm" id="gk" onclick="return postdata('genlic','form')">Generate Key</button>
        </div>
            <div class="form-group row" >
             <div class="col-xs-1"></div>
