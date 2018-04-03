@@ -137,7 +137,7 @@ TPIN NO :LFC098]]></text>
 		<band height="50">
 			<staticText>
 				<reportElement x="124" y="10" width="366" height="30" uuid="265ecd11-b69e-4ad2-a9a2-ddaa151e2257"/>
-				<text><![CDATA[No Data Found!]]></text>
+				<text><![CDATA[No records available!]]></text>
 			</staticText>
 		</band>
 	</noData>

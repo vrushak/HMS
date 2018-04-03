@@ -710,11 +710,29 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
 			  dob :{
 	        	   maxlength : 10,
 	           },
+	           modate :{
+	        	   maxlength : 10,
+	           },
+	           fodate :{
+	        	   maxlength : 10,  
+	           },
+	           spdate :{
+	        	   maxlength : 10, 
+	           }
 
 	      },
 		  messages: {
 			  
 			    dob :{
+		        	   maxlength : "Year cannot be more than 4 digits",
+		           },
+		           modate :{
+		        	   maxlength : "Year cannot be more than 4 digits",
+		           },
+		           fodate :{
+		        	   maxlength : "Year cannot be more than 4 digits",
+		           },
+		           spdate :{
 		        	   maxlength : "Year cannot be more than 4 digits",
 		           },
 			},
@@ -1138,7 +1156,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
    <div class="col-xs-5">
     <div class="form-group">
             <p>Date of Birth <span></span></p>
-     <input type="date" maxlength="10" name="modate" id="modate" onfocusout="return validdate(this.id,'sp1')"  class="form-control input-sm" required>
+     <input type="date"  name="modate" id="modate" onfocusout="return validdate(this.id,'sp1')"  class="form-control input-sm" required>
       <p><span id="sp1"></span></p>
 	</div>
    </div>
@@ -1158,7 +1176,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
    <div class="col-xs-5">
     <div class="form-group">
             <p>Date of Birth <span></span></p>
-     <input type="date" maxlength="2999-312-31"  name="fodate" id="fodate"   onfocusout="return validdate(this.id,'sp2')" class="form-control input-sm" required>
+     <input type="date"   name="fodate" id="fodate"   onfocusout="return validdate(this.id,'sp2')" class="form-control input-sm" required>
       <p><span id="sp2"></span></p>
 	</div>
    </div>

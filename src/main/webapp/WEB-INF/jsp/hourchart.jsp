@@ -415,11 +415,8 @@ function crtab(userr,usern){
 	   else{
 		   
 	   }
-	   $(document).on('change', ':input', function(){ //triggers change in all input fields including text type
-           
-	       	unsaved = false;
-	       });
-}
+	   unsaved = false;
+	  }
 function cleartab1(){
 	$("#myTable1 .tbody1 tr").remove();
 	$("#date").val('select');
@@ -484,7 +481,10 @@ function addname(getval){
    	   $('#date').selectpicker('refresh');
 		
 	disbut();
-
+	$(document).on('change', '#pname', function(){ //triggers change in all input fields including text type
+           
+       	unsaved = false;
+       });
 	//onclick="crtab('<c:out value="${username}" />','<c:out value="${pageContext.request.userPrincipal.name}" />')"
 }
 function validmess(){
@@ -520,7 +520,7 @@ function validmess(){
 	 
 	 if(count==0)
 		 {
-		 alert("All fields cannot be 0")
+		 alert("Please enter the details before saving")
 			stop=0;
 		 return false;
 		 }
@@ -528,7 +528,7 @@ function validmess(){
 		
 	 if(stop == 0 || count>7)
 		{
-		alert("empty row cant be saved")
+		alert("empty row cant be saved")//Please enter the details before saving
 		return false;
 		}
 	 

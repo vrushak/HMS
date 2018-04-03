@@ -1965,7 +1965,7 @@ public List<Register> getNrole() {
 
 public List<Register> getArole() {
 	// TODO Auto-generated method stub
-	return template.query("select ur.userid,concat(a.fname,' ',a.mname,' ',a.lname)Assistant,ur.userrole from userrole ur join assistant a on a.aid = ur.userid  where ur.userrole='ASSISTANT' or ur.userrole='Accounts Admin' or ur.userrole ='PHARMACIST' or ur.userrole='SALESMANAGER'",new RowMapper<Register>(){  
+	return template.query("select ur.userid,concat(a.fname,' ',a.mname,' ',a.lname)Assistant,ur.userrole from userrole ur join assistant a on a.aid = ur.userid  where ur.userrole not like 'NURSE' or ur.userrole='CHIEFNURSE'",new RowMapper<Register>(){  
         public Register mapRow(ResultSet rs, int row) throws SQLException {   
 	       Register i = new Register();
 	       i.setAid(rs.getString(1));

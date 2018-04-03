@@ -165,6 +165,39 @@ table.alpha .tbalpha{
     
     
  }
+ 
+ 
+.btn-group-vertical>.btn, .btn-group>.btn {
+    position: relative;
+    float: left;
+    font-size: 12px;
+}
+
+
+.dropdown-menu>li>a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+    font-size: 12px;
+}
+
+#text1,#text2  
+{  
+   font-family:"verdana";  
+    
+}
+
+p {
+    margin: 0px;
+    font-weight: 500;
+    line-height: 2;
+    color: #333;
+    font-size: 12px;
+}
 </style>
 <script type="text/javascript">
 function calculateBmi() {
@@ -1262,9 +1295,27 @@ function refresh(){
  
 	     var url = "/HMS/downform?location="+datec.testname+"&location1="+datec.iop+"";
 	     var text = ""+datec.iop+"";
-	      $('#rf').append('<a href="' + url + '" title="'+datec.iop+'" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+encodeURIComponent(datec.testname)+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
+	      $('#rf').append('<a href="' + url + '" data-title="'+datec.iop+'" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+encodeURIComponent(datec.testname)+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
 	      unsaved = false;
 	      
+	      function openWindow(event) {
+	  	        event = event || window.event;
+
+	  	        var href = this.getAttribute("href");
+	  	        var newTitle = this.getAttribute("data-title");
+	  	        var newWin = window.open(href, "_blank");
+
+	  	        newWin.addEventListener("load", function() {
+	  	            newWin.document.title = newTitle;
+	  	        });
+
+	  	        event.returnValue =  false;
+	  	    }
+
+	  	    var links = document.querySelectorAll("a[target=_blank][data-title]");
+	  	     for(var i = 0; i < links.length; i++) {
+	  	        links[i].addEventListener("click", openWindow.bind(links[i]));
+	  	    }
 	          });    
 	      }
 		    

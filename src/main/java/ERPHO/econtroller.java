@@ -440,7 +440,7 @@ public class econtroller {
 			//		  List<Order> list1 = hodao.getOrderid();
 					String jsonFormatData = "";
 				
-					List<Sale> list2 = hodao.getsaleInv(p.getInvoice());
+					List<Sale> list2 = hodao.getsaleInv(p.getInvoice(),"saleho","productstock");
 					  Map<String, Object> model = new HashMap<String, Object>();
 				    //    model.put("list1",list1);
 				          model.put("list2", list2);
@@ -472,7 +472,7 @@ public class econtroller {
 			//		  List<Order> list1 = hodao.getOrderid();
 					String jsonFormatData = "";
 					
-					List<Sale> list1b = hodao.getinvprods(p.getPname());
+					List<Sale> list1b = hodao.getinvprods(p.getPname(),"purchase","productstock");
 				
 					  Map<String, Object> model = new HashMap<String, Object>();
 				    //    model.put("list1",list1);
@@ -523,8 +523,8 @@ public class econtroller {
 				//    System.out.println(unit.length);
 				    System.out.println(up.length);
 				       for(int i=0;i<qty1.length;i++){
-				    	savess = hodao.savess(s,name[i],batch[i],expdate[i],unit[i],up[i],qty1[i],stk1[i],price1[i],mpack[i],mdesc[i],sudesc[i],ean[i]);
-				    	updsass =  hodao.update(name[i],qty1[i],batch[i]);
+				    	savess = hodao.savess(s,name[i],batch[i],expdate[i],unit[i],up[i],qty1[i],stk1[i],price1[i],mpack[i],mdesc[i],sudesc[i],ean[i],"saleho");
+				    	updsass =  hodao.update(name[i],qty1[i],batch[i],"productstock");
 				    	 
 				    }
 				       ModelAndView  mav = new ModelAndView();
@@ -766,6 +766,21 @@ public class econtroller {
 				        
 				}
 				
+				//load dispensary purchaseho
+				@RequestMapping(value="/dpurchaseho",method = RequestMethod.GET)
+				  public ModelAndView dcheckstat(@ModelAttribute("s") Purchase s,HttpServletRequest request,HttpServletResponse response ){
+					  List<Order> list1 = hodao.getOrderid();
+					  List<Purchase> list2 = hodao.getAllocationid();
+					  List<Purchase> list2a = hodao.getAllocationid1a();
+					  Map<String, Object> model = new HashMap<String, Object>();
+					  
+				       model.put("list1",list1);
+				       model.put("list2",list2);
+				       model.put("list2a",list2a);   
+				        return new ModelAndView("dpurchase","model",model);//will redirect to viewemp request mapping 
+				        
+				}
+				
 				@RequestMapping(value="/getsupplyorder",method = RequestMethod.GET)
 				  public   @ResponseBody String Supply(@ModelAttribute("p") Purchase p){
 			//		  List<Order> list1 = hodao.getOrderid();
@@ -788,6 +803,10 @@ public class econtroller {
 				        //will redirect to viewemp request mapping 
 				        
 				}
+				
+				//for dispensary
+				
+			
 				
 				 
 				  @RequestMapping(value="/purchaseSaveho")
@@ -849,6 +868,66 @@ public class econtroller {
 				        
 					  
 				    }  
+				  
+//save dispensary purchase 
+				  @RequestMapping(value="/dpurchaseSaveho")
+				    public ModelAndView dpurchase(@ModelAttribute("p") Purchase p,HttpServletRequest request,HttpServletResponse response){
+					  int pur1 = 0;
+					  int pur2 = 0;
+					  int pur3 = 0;
+					  
+					    String ean1[] = request.getParameterValues("ean1");
+					    String name[] = request.getParameterValues("pname1");
+					    String batch[] = request.getParameterValues("Batch1");
+					   // String mdate[] = request.getParameterValues("mDate1");
+					    String exp[] = request.getParameterValues("expDate1");
+					    String mpack[] = request.getParameterValues("mpack");
+					    String mdesc[] = request.getParameterValues("mdesc");
+					    String sudesc[] = request.getParameterValues("sudesc");
+					    String  qty1[] = request.getParameterValues("qty[]"); 
+					    String  discount1[] = request.getParameterValues("discount1[]"); 
+					    String up[] = request.getParameterValues("up2[]");
+					    String  free[] = request.getParameterValues("free");
+					    String  price1[] = request.getParameterValues("price[]");
+					    
+					  //  String unit[] = request.getParameterValues("unitp");
+					  //  String  tax1[] = request.getParameterValues("tax1[]"); 
+					    
+					 
+					    
+					   
+					       for(int i=0;i<name.length;i++){
+					    	   
+					    	
+					   pur1  = 	 hodao.dsavepurchase(p,name[i],batch[i],exp[i],qty1[i],up[i],discount1[i],free[i],price1[i],ean1[i],mpack[i],mdesc[i],sudesc[i]);
+					   //pur2  =	 hodao.dsaveproductpriceho(p,name[i],batch[i],up[i],free[i]);
+					    	     hodao.dupdatecatho(name[i]);
+					    	     hodao.dupdateean(name[i]);
+					    	     hodao.dupdatecatho1(name[i]);
+					    	     hodao.dupdatecatho2(name[i]);
+					   pur3  = 	 hodao.dsaveproductstockho(ean1[i],name[i],batch[i],exp[i],mpack[i],mdesc[i],up[i],qty1[i],discount1[i],free[i],sudesc[i],price1[i],"70","0","NA","0","0","0","0","0.00");
+						  
+					    	 
+					 //   	 hodao.update(name[i],stk1[i]);
+					    }
+					    
+					       ModelAndView  mav = new ModelAndView();
+					       if(pur1 > 0 && pur3>0){
+					       mav.addObject("message", "The record has been saved sucessfully");
+					       mav.setViewName("redirect:purchaseho.html");		    
+					       				    
+					       }
+
+					       else{
+					       mav.addObject("message", "Record could not be saved successfully ");
+					       mav.setViewName("redirect:purchaseho.html");
+					       }
+					    RedirectView redirectView = new RedirectView();
+				        redirectView.setUrl("/HMS/purchaseho.html");
+				        return mav;//will redirect to viewemp request mapping 
+				        
+					  
+				    }  
 					       
 				  //get order based on id
 				  @RequestMapping(value="/pentryho",method = RequestMethod.GET)
@@ -889,7 +968,7 @@ public class econtroller {
              //product stocks
 				  @RequestMapping(value="/stopriceho", method = RequestMethod.GET)
 					public ModelAndView stopricing(HttpServletRequest request,HttpServletResponse response) {
-					  List<Productstock> list = hodao.getInfoStkSearch();
+					  List<Productstock> list = hodao.getInfoStkSearch("productstock");
 					  List<Product> list1 = hodao.getInfoSearch1();
 					  Map<String, Object> model = new HashMap<String, Object>();
 				        model.put("list",list);
@@ -900,7 +979,7 @@ public class econtroller {
 				  @RequestMapping(value="/pssearchho", method = RequestMethod.GET)
 					public ModelAndView prosearch(@ModelAttribute("ps") Productstock ps) {
 					
-					  List<Productstock> list = hodao.getstockSearch(ps);
+					  List<Productstock> list = hodao.getstockSearch(ps,"productstock");
 					  List<Product> list1 = hodao.getInfoSearch1();
 					  Map<String, Object> model = new HashMap<String, Object>();
 					  model.put("list", list);
@@ -944,8 +1023,8 @@ public ModelAndView saveprStks(@ModelAttribute("ps") Productstock ps,HttpServlet
 	    String tprice[] = request.getParameterValues("tprice");
 	    
 	    for(int i=0;i<name.length;i++){
-	    	System.out.println(qty1[i]);
-	    	 pssave =hodao.saveproductstockho1(ean1[i],name[i],batch[i],exp[i],mpack[i],mpsize[i],cp[i],prqty[i],prprice[i],qty1[i],sudesc[i],stkpr[i],markup[i],sp[i],spdesc[i],spsize[i],stksp[i],sellqty[i],sunits[i],tprice[i]);
+	    	
+	    	 pssave =hodao.saveproductstockho1(ean1[i],name[i],batch[i],exp[i],mpack[i],mpsize[i],cp[i],prqty[i],prprice[i],qty1[i],sudesc[i],stkpr[i],markup[i],sp[i],spdesc[i],spsize[i],stksp[i],sellqty[i],sunits[i],tprice[i],"productstock");
 	    }
 	    
  //pssave = hodao.saveprStks(ps);  
@@ -1032,7 +1111,7 @@ public void billpdf(@ModelAttribute("s") Sale s,ModelAndView modelAndView,HttpSe
  response.setContentType("application/pdf");
  response.setHeader("Content-Disposition",  "inline"); 
  
- List<Sale> list2 = hodao.getsaleReports(req.getParameter("location"),req.getParameter("location1"));
+ List<Sale> list2 = hodao.getsaleReports(req.getParameter("location"),req.getParameter("location1"),"saleho");
   
  JasperReport report = getReport("/invoice.jrxml");
       //fill the report with data source objects
@@ -1055,13 +1134,58 @@ public JasperReport getReport(String op) throws JRException {
 return jr;
 }
 
+//dispensary
+@RequestMapping(value="/dsalespdf", method = RequestMethod.GET)
+public void dbillpdf(@ModelAttribute("s") Sale s,ModelAndView modelAndView,HttpServletRequest req, HttpServletResponse response) throws JRException, IOException {
+	
+ response.setContentType("application/pdf");
+ response.setHeader("Content-Disposition",  "inline"); 
+ 
+ List<Sale> list2 = hodao.getsaleReports(req.getParameter("location"),req.getParameter("location1"),"dsaleho");
+  
+ JasperReport report = getReport("/invoice.jrxml");
+      //fill the report with data source objects
+ String realPath = context.getRealPath("/");
+ Map<String,Object> parameterMap = new HashMap<String,Object>();
+ parameterMap.put("realPath", realPath);
+ 
+ JRDataSource JRdataSource = new JRBeanCollectionDataSource(list2);
+     JasperPrint jasperPrint = JasperFillManager.fillReport(report,  parameterMap, JRdataSource);
+	      
+     OutputStream out = response.getOutputStream();
+       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
+
+	} 
+
 @RequestMapping(value="/salespdf1", method = RequestMethod.GET)
 public void salespdf(@ModelAttribute("s") Sale s,ModelAndView modelAndView,HttpServletRequest req, HttpServletResponse response) throws JRException, IOException {
 	
  response.setContentType("application/pdf");
  response.setHeader("Content-Disposition",  "inline"); 
  
-	List<Sale> list2 = hodao.getsaleInv(req.getParameter("invoice"));
+	List<Sale> list2 = hodao.getsaleInv(req.getParameter("invoice"),"saleho","productstock");
+ JasperReport report = getReport("/invoice1.jrxml");
+      //fill the report with data source objects
+ String realPath = context.getRealPath("/");
+ Map<String,Object> parameterMap = new HashMap<String,Object>();
+ parameterMap.put("realPath", realPath);
+ 
+ JRDataSource JRdataSource = new JRBeanCollectionDataSource(list2);
+     JasperPrint jasperPrint = JasperFillManager.fillReport(report,  parameterMap, JRdataSource);
+	      
+     OutputStream out = response.getOutputStream();
+       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
+
+	}  
+
+
+@RequestMapping(value="/dsalespdf1", method = RequestMethod.GET)
+public void dsalespdf(@ModelAttribute("s") Sale s,ModelAndView modelAndView,HttpServletRequest req, HttpServletResponse response) throws JRException, IOException {
+	
+ response.setContentType("application/pdf");
+ response.setHeader("Content-Disposition",  "inline"); 
+ 
+	List<Sale> list2 = hodao.getsaleInv(req.getParameter("invoice"),"dsaleho","dproductstock");
  JasperReport report = getReport("/invoice1.jrxml");
       //fill the report with data source objects
  String realPath = context.getRealPath("/");
@@ -1083,7 +1207,7 @@ public void prpdf(@ModelAttribute("s") Purchase s,ModelAndView modelAndView,Http
  response.setContentType("application/pdf");
  response.setHeader("Content-Disposition",  "inline"); 
  
-	List<Purchase> list2 = hodao.getPrpur(req.getParameter("allo"));
+	List<Purchase> list2 = hodao.getPrpur(req.getParameter("allo"),"purchase");
  JasperReport report = getReport("/prpurchase.jrxml");
       //fill the report with data source objects
  String realPath = context.getRealPath("/");
@@ -1097,6 +1221,27 @@ public void prpdf(@ModelAttribute("s") Purchase s,ModelAndView modelAndView,Http
        JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
 
 	}  
+
+@RequestMapping(value="/dprpur", method = RequestMethod.GET)
+public void dprpdf(@ModelAttribute("s") Purchase s,ModelAndView modelAndView,HttpServletRequest req, HttpServletResponse response) throws JRException, IOException {
+	
+ response.setContentType("application/pdf");
+ response.setHeader("Content-Disposition",  "inline"); 
+ 
+	List<Purchase> list2 = hodao.getPrpur(req.getParameter("allo"),"dpurchase");
+ JasperReport report = getReport("/prpurchase.jrxml");
+      //fill the report with data source objects
+ String realPath = context.getRealPath("/");
+ Map<String,Object> parameterMap = new HashMap<String,Object>();
+ parameterMap.put("realPath", realPath);
+ 
+ JRDataSource JRdataSource = new JRBeanCollectionDataSource(list2);
+     JasperPrint jasperPrint = JasperFillManager.fillReport(report,  parameterMap, JRdataSource);
+	      
+     OutputStream out = response.getOutputStream();
+       JasperExportManager.exportReportToPdfStream(jasperPrint,out);//export PDF directly
+
+	}
 
 //order screen print
 
@@ -1129,7 +1274,7 @@ public   @ResponseBody String batchdet(HttpServletRequest req, HttpServletRespon
 //		  List<Order> list1 = hodao.getOrderid();
 	String jsonFormatData = "";
 	
-	List<Productstock> list2 = hodao.getBatdet(req.getParameter("location"));
+	List<Productstock> list2 = hodao.getBatdet(req.getParameter("location"),"productstock");
 	  Map<String, Object> model = new HashMap<String, Object>();
   //    model.put("list1",list1);
         model.put("list2", list2);
@@ -1144,5 +1289,256 @@ public   @ResponseBody String batchdet(HttpServletRequest req, HttpServletRespon
 return jsonFormatData;
 }
 
+@RequestMapping(value="/dgetBatdet",method = RequestMethod.GET)
+public   @ResponseBody String dbatchdet(HttpServletRequest req, HttpServletResponse response){
+//		  List<Order> list1 = hodao.getOrderid();
+	String jsonFormatData = "";
+	
+	List<Productstock> list2 = hodao.getBatdet(req.getParameter("location"),"dproductstock");
+	  Map<String, Object> model = new HashMap<String, Object>();
+  //    model.put("list1",list1);
+        model.put("list2", list2);
+      
+      Gson gson = new Gson(); 
+
+	    jsonFormatData = gson.toJson(list2);
+
+
+
+
+return jsonFormatData;
+}
+
+
+//product stocks
+		  @RequestMapping(value="/dstopriceho", method = RequestMethod.GET)
+			public ModelAndView dstopricing(HttpServletRequest request,HttpServletResponse response) {
+			  List<Productstock> list = hodao.getInfoStkSearch("dproductstock");
+			  List<Product> list1 = hodao.getInfoSearch1();
+			  Map<String, Object> model = new HashMap<String, Object>();
+		        model.put("list",list);
+		       model.put("list1", list1);
+		  //      model.put("list2",list2);
+				return new ModelAndView("dproductstocks","model",model); 
+			}
+		  @RequestMapping(value="/dpssearchho", method = RequestMethod.GET)
+			public ModelAndView dprosearch(@ModelAttribute("ps") Productstock ps) {
+			
+			  List<Productstock> list = hodao.getstockSearch(ps,"dproductstock");
+			  List<Product> list1 = hodao.getInfoSearch1();
+			  Map<String, Object> model = new HashMap<String, Object>();
+			  model.put("list", list);
+			  model.put("list1", list1);
+			  model.put("name",ps.getName());
+			  model.put("code",ps.getCode());
+			  model.put("category",ps.getCategory());
+			  model.put("exp",ps.getExpDate());
+			  model.put("to",ps.getToDate());
+			  model.put("limit",ps.getRecords());
+			  model.put("batch",ps.getBatch());
+				return new ModelAndView("dproductstocks","model",model); 
+			}
+
+         //product stocks edit
+@RequestMapping("/dpssaveho")  
+public ModelAndView dsaveprStks(@ModelAttribute("ps") Productstock ps,HttpServletRequest request,HttpServletResponse response ){  
+
+int pssave = 0;
+int pur3 = 0;
+String ean1[] = request.getParameterValues("code");
+String name[] = request.getParameterValues("name");
+String batch[] = request.getParameterValues("batch");
+// String mdate[] = request.getParameterValues("mDate1");
+String exp[] = request.getParameterValues("expDate");
+String mpack[] = request.getParameterValues("mpack");
+String mpsize[] = request.getParameterValues("mpsize");
+String cp[] = request.getParameterValues("cp");
+String prqty[] = request.getParameterValues("prqty");
+String prprice[] = request.getParameterValues("prprice");
+String  qty1[] = request.getParameterValues("quantity");
+String sudesc[] = request.getParameterValues("sudesc");
+String stkpr[] = request.getParameterValues("stkpr");
+String markup[] = request.getParameterValues("markup");
+String sp[] = request.getParameterValues("sp");
+String spdesc[] = request.getParameterValues("spdesc");
+String spsize[] = request.getParameterValues("spsize");
+String stksp[] = request.getParameterValues("stksp");
+String sellqty[] = request.getParameterValues("sellqty");
+String sunits[] = request.getParameterValues("sunits");
+String tprice[] = request.getParameterValues("tprice");
+
+for(int i=0;i<name.length;i++){
+	
+	 pssave =hodao.saveproductstockho1(ean1[i],name[i],batch[i],exp[i],mpack[i],mpsize[i],cp[i],prqty[i],prprice[i],qty1[i],sudesc[i],stkpr[i],markup[i],sp[i],spdesc[i],spsize[i],stksp[i],sellqty[i],sunits[i],tprice[i],"dproductstock");
+}
+
+//pssave = hodao.saveprStks(ps);  
+ModelAndView  mav = new ModelAndView();
+if(pssave > 0){
+mav.addObject("message", "The record has been saved sucessfully");
+mav.setViewName("redirect:dstopriceho.html");		    
+		    
+}
+
+else{
+mav.addObject("message", "Record could not be saved successfully ");
+mav.setViewName("redirect:dstopriceho.html");
+}
+RedirectView redirectView = new RedirectView();
+redirectView.setUrl("/HMS/stopriceho.html");
+return mav;//will redirect to viewemp request mapping 
+}
+
+// dispensary sales screen redirection
+
+
+// sale screen redirection
+
+@RequestMapping("/dsaleho")  
+   public ModelAndView dviewCustomer1(@ModelAttribute("c") Customer c){  
+	  List<Customer> list=hodao.getCustomername();
+
+	  /*
+       List<Customer> list1=dao.getCustomername1(c); 
+     
+       List<Customer> list3=dao.getCustomername3(c); 
+       */
+       List<Purchase> list4=hodao.getProducts();
+       List<Purchase> list10=hodao.search3();
+       List<Sale>list5 = hodao.getinvId();
+       List<Sale>list9 = hodao.getinvId1();
+       List<TaxB>list6 = hodao.getTax();
+       List<custDisc>list7 = hodao.getCustDis();
+       List<Spdiscount>list8 = hodao.getSpdis();
+       List<Patient>list11 = pdao.getPatients();
+	      
+      
+       Map<String, Object> model = new HashMap<String, Object>();
+       model.put("list",list);
+       
+      // model.put("list1",list1);
+    //   model.put("list2",list2);
+      // model.put("list3",list3);
+       model.put("list4",list4);
+       model.put("list5",list5);
+       model.put("list6",list6);
+       model.put("list7",list7);
+       model.put("list8",list8);
+       model.put("list9", list9);
+       model.put("list10",list10);
+       model.put("list11", list11);
+       return new ModelAndView("sales","model",model);
+         
+   }  
+	
+	@RequestMapping(value="/dgtinvoice",method = RequestMethod.GET)
+	  public   @ResponseBody String dgetInvoice(@ModelAttribute("p") Sale p){
+//		  List<Order> list1 = hodao.getOrderid();
+		String jsonFormatData = "";
+	
+		List<Sale> list2 = hodao.getsaleInv(p.getInvoice(),"dsaleho","dproductstock");
+		  Map<String, Object> model = new HashMap<String, Object>();
+	    //    model.put("list1",list1);
+	          model.put("list2", list2);
+	        
+	        Gson gson = new Gson(); 
+
+		    jsonFormatData = gson.toJson(list2);
+
+
+
+
+	 return jsonFormatData;
+
+	        //will redirect to viewemp request mapping 
+	        
+	}
+	
+    /*
+ @RequestMapping("/pentry")  
+   public ModelAndView savePurchase(@ModelAttribute("p") Purchase p ){  
+	 dao.savepe(p);  
+	 
+	 return new ModelAndView("purchase");//will redirect to viewemp request mapping 
+   }  
+   */
+	
+	@RequestMapping(value="/getinvprds",method = RequestMethod.GET)
+	  public   @ResponseBody String dgetInvoiceprds(@ModelAttribute("p") Sale p){
+//		  List<Order> list1 = hodao.getOrderid();
+		String jsonFormatData = "";
+		
+		List<Sale> list1b = hodao.getinvprods(p.getPname(),"dpurchase","dproductstock");
+	
+		  Map<String, Object> model = new HashMap<String, Object>();
+	    //    model.put("list1",list1);
+	          model.put("list1b", list1b);
+	        
+	        Gson gson = new Gson(); 
+
+		    jsonFormatData = gson.toJson(list1b);
+
+
+
+
+	 return jsonFormatData;
+
+	        //will redirect to viewemp request mapping 
+	        
+	}
+	
+
+//sales submission
+ @RequestMapping("/dsaleho2")  
+   public ModelAndView dviewCustomer2(@ModelAttribute("s") Sale s,HttpServletRequest request,HttpServletResponse response ){
+	  System.out.println("code reacg");
+	 /* if((s.getCustName().equalsIgnoreCase("new"))||(s.getCustId().equalsIgnoreCase("new"))){
+		  dao.savecs(s);
+	  }
+	  else{
+	  */
+	 int savess = 0;
+	 int updsass = 0;
+	    System.out.println("inelse");
+	    String name[] = request.getParameterValues("pname");
+	    String batch[] = request.getParameterValues("batch");
+	    String expdate[] = request.getParameterValues("expDate");
+	    String mpack[] = request.getParameterValues("spack");
+	    String mdesc[] = request.getParameterValues("spsize");
+	    String sudesc[] = request.getParameterValues("sudesc");
+	    String  stk1[] = request.getParameterValues("stk[]");
+	    String unit[] = request.getParameterValues("unit");
+	    String  qty1[] = request.getParameterValues("qty[]"); 
+	    String up[] = request.getParameterValues("unitprice");
+	    String  price1[] = request.getParameterValues("price[]");
+	    String ean[] = request.getParameterValues("ean");
+	    
+	    System.out.println(name.length);
+	    System.out.println(batch.length);
+	    System.out.println(expdate.length);
+	//    System.out.println(unit.length);
+	    System.out.println(up.length);
+	       for(int i=0;i<qty1.length;i++){
+	    	savess = hodao.savess(s,name[i],batch[i],expdate[i],unit[i],up[i],qty1[i],stk1[i],price1[i],mpack[i],mdesc[i],sudesc[i],ean[i],"dsaleho");
+	    	updsass =  hodao.update(name[i],qty1[i],batch[i],"dproductstock");
+	    	 
+	    }
+	       ModelAndView  mav = new ModelAndView();
+	       if(savess > 0 && updsass > 0){
+	       mav.addObject("message", "The record has been saved sucessfully");
+	       mav.setViewName("redirect:saleho.html");		    
+	       				    
+	       }
+
+	       else{
+	       mav.addObject("message", "Record could not be saved successfully ");
+	       mav.setViewName("redirect:saleho.html");
+	       }
+	    RedirectView redirectView = new RedirectView();
+       redirectView.setUrl("/HMS/saleho.html");
+       return mav;//will redirect to viewemp request mapping 
+       
+	  
+   }  
 
 }

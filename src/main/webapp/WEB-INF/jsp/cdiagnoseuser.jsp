@@ -125,11 +125,7 @@ font-size:12px;
  width : 1270px;
 }
 
-#text1  
-{  
-   font-family:"Times New Roman", Times, serif;  
-    
-}
+
 .divin{
 margin-left:16px;
 }
@@ -166,7 +162,7 @@ table.gamma  .tbgamma{
 table.alpha .tbalpha{
  
     overflow-y :auto;
-    
+     font-family: verdana;
     
  }
  .reduce>li:nth-child(even)
@@ -174,6 +170,39 @@ table.alpha .tbalpha{
 background:#d8d0d0;
 }
  
+ 
+ 
+.btn-group-vertical>.btn, .btn-group>.btn {
+    position: relative;
+    float: left;
+    font-size: 12px;
+}
+
+
+.dropdown-menu>li>a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+    font-size: 12px;
+}
+
+#text1,#text2  
+{  
+   font-family:"verdana";  
+    
+}
+
+p {
+    margin: 0px;
+    font-weight: 500;
+    line-height: 2;
+    color: #333;
+    font-size: 12px;
+}
 </style>
 <script type="text/javascript">
 function calculateBmi() {
@@ -1193,7 +1222,7 @@ function refresh(){
     
        function addcname1(getval){
     	   
-       alert(getval)
+     
     	   var myname = getval.getAttribute('data-value'); 	
    	
       
@@ -1589,7 +1618,26 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
     
    	     var url = "/HMS/downform?location="+datec.testname+"&location1="+datec.iop+"";
    	     var text = ""+datec.iop+"";
-   	      $('#rf').append('<a href="' + url + '" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+encodeURIComponent(datec.testname)+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
+   	      $('#rf').append('<a href="' + url + '" data-title="'+datec.iop+'" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+encodeURIComponent(datec.testname)+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
+   	      
+   	      function openWindow(event) {
+    	        event = event || window.event;
+
+    	        var href = this.getAttribute("href");
+    	        var newTitle = this.getAttribute("data-title");
+    	        var newWin = window.open(href, "_blank");
+
+    	        newWin.addEventListener("load", function() {
+    	            newWin.document.title = newTitle;
+    	        });
+
+    	        event.returnValue =  false;
+    	    }
+
+    	    var links = document.querySelectorAll("a[target=_blank][data-title]");
+    	     for(var i = 0; i < links.length; i++) {
+    	        links[i].addEventListener("click", openWindow.bind(links[i]));
+    	    }
    	      unsaved = false;
    	      
    	          });    
@@ -1797,7 +1845,7 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
         $('#vpid').selectpicker('refresh');
         
        $('#vpid').on('change',function(){
-    	   alert()
+    	 
        
        	 addcname1(this.options[this.selectedIndex]);
      	});
@@ -2242,8 +2290,8 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
    
     <div class="col-xs-4">
     <p id="tx" style="margin-top:-10px;"><b id='dd'>Diagnosis Details</b></p>
-    <textarea name='diagnose' id='text1' required rows='18' cols='78' form="formc" ></textarea>
-    <textarea name='pir' id='pir' rows='18' cols='78' form="formc" ></textarea>
+    <textarea name='diagnose' id='text1' required rows='18' cols='68' form="formc" ></textarea>
+    <textarea name='pir' id='pir' rows='18' cols='68' form="formc" ></textarea>
     </div>
     
     

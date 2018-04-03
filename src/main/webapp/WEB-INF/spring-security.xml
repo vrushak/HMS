@@ -25,9 +25,9 @@
         <intercept-url pattern="/doctor1"  access="hasAnyRole('ROLE_DOCTOR','ROLE_ADMIN')" />
         <intercept-url pattern="/frontdesk" access="hasAnyRole('ROLE_FDESK','ROLE_ADMIN','ROLE_ASSISTANT','ROLE_Accounts Admin')" />
          <intercept-url pattern="/nursedesk" access="hasAnyRole('ROLE_NURSE','ROLE_ADMIN','ROLE_CHIEFNURSE')" />
-         <intercept-url pattern="/welcome" access="hasAnyRole('ROLE_DOCTOR','ROLE_ADMIN','ROLE_FDESK','ROLE_ASSISTANT','ROLE_NURSE','ROLE_Accounts Admin','ROLE_CHIEFNURSE','ROLE_PHARMACIST','ROLE_SALESMANAGER')" />
-         <intercept-url pattern="/hmspharma" access="hasAnyRole('ROLE_ADMIN','ROLE_FDESK','ROLE_ASSISTANT','ROLE_Accounts Admin','ROLE_PHARMACIST','ROLE_SALESMANAGER')" />
-         <intercept-url pattern="/hmspharma1" access="hasAnyRole('ROLE_ADMIN','ROLE_FDESK','ROLE_ASSISTANT','ROLE_Accounts Admin','ROLE_PHARMACIST','ROLE_SALESMANAGER')" />
+         <intercept-url pattern="/welcome" access="hasAnyRole('ROLE_DOCTOR','ROLE_ADMIN','ROLE_FDESK','ROLE_ASSISTANT','ROLE_NURSE','ROLE_Accounts Admin','ROLE_CHIEFNURSE','ROLE_PHARMACIST','ROLE_SALESMANAGER','ROLE_DISPPHARMACIST','ROLE_DISPSALESMANAGER')" />
+         <intercept-url pattern="/hmspharma" access="hasAnyRole('ROLE_ADMIN','ROLE_FDESK','ROLE_ASSISTANT','ROLE_Accounts Admin','ROLE_PHARMACIST','ROLE_SALESMANAGER','ROLE_DISPPHARMACIST','ROLE_DISPSALESMANAGER')" />
+         <intercept-url pattern="/hmspharma1" access="hasAnyRole('ROLE_ADMIN','ROLE_FDESK','ROLE_ASSISTANT','ROLE_Accounts Admin','ROLE_PHARMACIST','ROLE_SALESMANAGER','ROLE_DISPPHARMACIST','ROLE_DISPSALESMANAGER')" />
              
         <access-denied-handler error-page="/403" />
  

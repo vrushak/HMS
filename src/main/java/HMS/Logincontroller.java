@@ -166,12 +166,12 @@ public class Logincontroller {
 		        return new ModelAndView(redirectView); 
 	    		
 	    	}
-	        else if(b.contains("[ROLE_PHARMACIST]")){
+	        else if(b.contains("[ROLE_PHARMACIST]") || b.contains("[ROLE_DISPPHARMACIST]")){
 	        	RedirectView redirectView = new RedirectView();
 			     redirectView.setUrl("/HMS/hmspharma.html");
 		        return new ModelAndView(redirectView); 
 	        }
-	        else if(b.contains("[ROLE_SALESMANAGER]")){
+	        else if(b.contains("[ROLE_SALESMANAGER]") || b.contains("[ROLE_DISPSALESMANAGER]")){
 	        	RedirectView redirectView = new RedirectView();
 			     redirectView.setUrl("/HMS/hmspharma1.html");
 		        return new ModelAndView(redirectView); 
@@ -193,8 +193,14 @@ public class Logincontroller {
     @RequestMapping(value = "/nursedesk", method = RequestMethod.GET)
     public ModelAndView ndesk(Principal principal) {
     	List<Appointment> list4 = ndao.getAppsforNrs();
+        List<Appointment> list = dao.getAppointment1();
+		List<Diagnose> list1 = ddao.getOpd();
+		List<Prescription2> list2 = ddao.getIpd();
 		Map<String, Object> model = new HashMap<String, Object>();
 		model.put("list4",list4);
+		model.put("list",list);
+		model.put("list1",list1);
+		model.put("list2",list2);
 		return new ModelAndView("nursedesk","model",model); 
     }
     

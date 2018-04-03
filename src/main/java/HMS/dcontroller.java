@@ -450,10 +450,13 @@ public class dcontroller {
 		 	  
 		     List<Treatment> list2 = ddao.getTreatment(p); 
 		 Map<String, Object> model = new HashMap<String, Object>();
-		      
-		       model.put("list1", list1);
+		  model.put("list1", list1);
+		      if(list2.isEmpty() || list2.size() == 0){
+		    	  model.put("warning", "Selected patient doesn't not have records");
+		      }
+		      else{
 		       model.put("list2", list2);
-
+		      }
 		 	return new ModelAndView("treatment","model",model); 
 		 	}
 		   

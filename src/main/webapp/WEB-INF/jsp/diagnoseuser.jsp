@@ -125,11 +125,7 @@ font-size:12px;
  width : 1270px;
 }
 
-#text1,#text2  
-{  
-   font-family:"Times New Roman", Times, serif;  
-    
-}
+
 .divin{
 margin-left:16px;
 }
@@ -166,7 +162,7 @@ table.gamma  .tbgamma{
 table.alpha .tbalpha{
  
     overflow-y :auto;
-    
+     font-family: verdana;
     
  }
  .reduce>li:nth-child(even)
@@ -174,6 +170,39 @@ table.alpha .tbalpha{
 background:#d8d0d0;
 }
  
+ 
+ 
+.btn-group-vertical>.btn, .btn-group>.btn {
+    position: relative;
+    float: left;
+    font-size: 12px;
+}
+
+
+.dropdown-menu>li>a {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+    font-size: 12px;
+}
+
+#text1,#text2  
+{  
+   font-family:"verdana";  
+    
+}
+
+p {
+    margin: 0px;
+    font-weight: 500;
+    line-height: 2;
+    color: #333;
+    font-size: 12px;
+}
 </style>
 <script type="text/javascript">
 
@@ -758,6 +787,7 @@ var tabname = $('.'+id).text();
 	  $('#prv').hide();
 	  $('#pir').hide();
 	  $(".tab-pane").width(1100)
+	  $("#cpc").hide();
 	  
 	  
   }
@@ -771,7 +801,7 @@ var tabname = $('.'+id).text();
 		  $('#text1').show();
 		  $('#pir').hide()
 	
-		 
+		  $("#cpc").show();
 	  }
 	  else{
 
@@ -810,7 +840,7 @@ function loadtabvalues(){
 	  $('<li><a href="#fileupload1" id="fileupload" data-toggle="tab" class="uploadform" onclick = "minimize(this.id)">Upload File</a></li>').appendTo('#pills')
 	  
 	  $('<li><a href="#pres1" id="pres" class="pres" data-toggle="tab" onclick="minimize(this.id)">Prescription</a></li>').appendTo('#pills');
-     }
+	    }
 	    
 	  var errorFn = function(e){
      	  alert('Error: ' + e);
@@ -1324,7 +1354,20 @@ var cu;
   		        duration: 1000
   		      }
   		    });
-    		 
+    		  $( "#pc" ).dialog({
+    		      
+    		    	dialogClass: 'result',
+    		      autoOpen: false,
+    		      show: {
+    		        effect: "blind",
+    		        duration: 1000
+    		      },
+    		      hide: {
+    		        effect: "explode",
+    		        duration: 1000
+    		      }
+    		    });
+      		 
     		 
     		  $('.tbalpha').on( 'click','tr td:nth-child(2)', function() {
     		    	var isOpen = $( "#sad" ).dialog( "isOpen" );
@@ -1360,6 +1403,24 @@ var cu;
     		    });
     		  $('#vpv').dialog({height: 300, width:1000 });
     		    $(".ui-dialog").find(".ui-widget-header").css("background", "#009999","text-align","center");
+    		    
+    			  $('#pc').dialog({height: 300, width:400 });
+      		    $(".ui-dialog").find(".ui-widget-header").css("background", "#009999","text-align","center");
+      		    
+      		    $('#cpc').on( 'click',function() {
+      		    	var isOpen = $( "#pc" ).dialog( "isOpen" );
+      		   // 	 addpe = this.getElementsByTagName('input')[0].id;
+      		      if(isOpen == true){
+      		    	  
+      		    	  $( "#pc" ).dialog( "open" );
+      		      }
+      		      else{
+      		    	
+      		    
+      		    	 $( "#pc" ).dialog( "open" );
+      		      }
+      		    
+      		    });
     		    
  	  });
        
@@ -1521,8 +1582,26 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
 	     var url = "/HMS/downform?location="+datec.testname+"&location1="+datec.iop+"";
 	     var text = ""+datec.iop+"";
 	     $('#rf').append('\n')
-	      $('#rf').append('<a href="' + url + '" title="'+datec.iop+'" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+encodeURIComponent(datec.testname)+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
+	      $('#rf').append('<a href="' + url + '" data-title="'+datec.iop+'" target="_blank">' + text + '</a>  <i class="fa fa-close" titlea='+encodeURIComponent(datec.testname)+' onclick="doAjaxDeletefile(this)" style="font-size:24px"></i><br>'); 
 	      
+	      function openWindow(event) {
+	  	        event = event || window.event;
+
+	  	        var href = this.getAttribute("href");
+	  	        var newTitle = this.getAttribute("data-title");
+	  	        var newWin = window.open(href, "_blank");
+
+	  	        newWin.addEventListener("load", function() {
+	  	            newWin.document.title = newTitle;
+	  	        });
+
+	  	        event.returnValue =  false;
+	  	    }
+
+	  	    var links = document.querySelectorAll("a[target=_blank][data-title]");
+	  	     for(var i = 0; i < links.length; i++) {
+	  	        links[i].addEventListener("click", openWindow.bind(links[i]));
+	  	    } 
 	     unsaved = false;
 	          });    
 	      }
@@ -1536,6 +1615,9 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
 	   doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","JSON");	         
 	     
 }
+  
+ 
+
   // retrieve data for diseases
   function retrieveds(){
 	  $("#vpid2").find(".dpa").remove();
@@ -1591,6 +1673,8 @@ rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + dru
 	  }
   }
   
+  
+ 
   function doAjaxDeletefile(value){
 	 
 		
@@ -1761,7 +1845,127 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
     	 	    };
     	 	});
     	    }); 
+       
+       
+       
+       function isValidDate(dateStr) {
+    	
+
+    	// Checks for the following valid date formats:
+    	// MM/DD/YY   MM/DD/YYYY   MM-DD-YY   MM-DD-YYYY
+
+    	var datePat = /^(\d{1,2})(\/|-)(\d{1,2})\2(\d{4})$/; // requires 4 digit year
+
+    	var matchArray = dateStr.match(datePat); // is the format ok?
+    	if (matchArray == null) {
+    	alert("Date is not in a valid format.")
+    	return false;
+    	}
+    	month = matchArray[1]; // parse date into variables
+    	day = matchArray[3];
+    	year = matchArray[4];
+    	if (month < 1 || month > 12) { // check month range
+    	alert("Month must be between 1 and 12.");
+    	return false;
+    	}
+    	if (day < 1 || day > 31) {
+    	alert("Day must be between 1 and 31.");
+    	return false;
+    	}
+    	if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+    	alert("Month "+month+" doesn't have 31 days!")
+    	return false;
+    	}
+    	if (month == 2) { // check for february 29th
+    	var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+    	if (day>29 || (day==29 && !isleap)) {
+    	alert("February " + year + " doesn't have " + day + " days!");
+    	return false;
+    	   }
+    	}
+    	return true;
+    	}
+
+    	function dispDate(dateObj) {
+    	month = dateObj.getMonth()+1;
+    	month = (month < 10) ? "0" + month : month;
+
+    	day   = dateObj.getDate();
+    	day = (day < 10) ? "0" + day : day;
+
+    	year  = dateObj.getYear();
+    	if (year < 2000) year += 1900;
+
+    	return (month + "/" + day + "/" + year);
+    	}
+
+    	function pregnancyCalc(pregform) {
+    	menstrual = new Date(); // creates new date objects
+    	ovulation = new Date();
+    	duedate = new Date();
+    	today = new Date();
+    	cycle = 0, luteal = 0; // sets variables to invalid state ==> 0
+
+    	if (isValidDate(pregform.menstrual.value)) { // Validates menstual date 
+    	menstrualinput = new Date(pregform.menstrual.value);
+    	menstrual.setTime(menstrualinput.getTime())
+    	}
+    	else return false; // otherwise exits
+
+    	cycle = (pregform.cycle.value == "" ? 28 : pregform.cycle.value); // defaults to 28
+    	// validates cycle range, from 22 to 45
+    	if (pregform.cycle.value != "" && (pregform.cycle.value < 22 || pregform.cycle.value > 45)) {
+    	alert("Your cycle length is either too short or too long for \n"
+    	+ "calculations to be very accurate!  We will still try to \n"
+    	+ "complete the calculation with the figure you entered. ");
+    	}
+
+    	luteal = (pregform.luteal.value == "" ? 14 : pregform.luteal.value); // defaults to 14
+    	// validates luteal range, from 9 to 16
+    	if (pregform.luteal.value != "" && (pregform.luteal.value < 9 || pregform.luteal.value > 16)) {
+    	alert("Your luteal phase length is either too short or too long for \n"
+    	+ "calculations to be very accurate!  We will still try to complete \n"
+    	+ "the calculation with the figure you entered. ");
+    	}
+
+    	// sets ovulation date to menstrual date + cycle days - luteal days
+    	// the '*86400000' is necessary because date objects track time
+    	// in milliseconds;  86400000 milliseconds equals one day
+    	ovulation.setTime(menstrual.getTime() + (cycle*86400000) - (luteal*86400000));
+    	pregform.conception.value = dispDate(ovulation);
+
+    	// sets due date to ovulation date plus 266 days
+    	duedate.setTime(ovulation.getTime() + 266*86400000);
+    	pregform.duedate.value = dispDate(duedate);
+
+    	// sets fetal age to 14 + 266 (pregnancy time) - time left
+    	var fetalage = 14 + 266 - ((duedate - today) / 86400000);
+    	weeks = parseInt(fetalage / 7); // sets weeks to whole number of weeks
+    	days = Math.floor(fetalage % 7); // sets days to the whole number remainder
+
+    	// fetal age message, automatically includes 's' on week and day if necessary
+    	fetalage = weeks + " week" + (weeks > 1 ? "s" : "") + ", " + days + " days";
+    	pregform.fetalage.value = fetalage;
+
+    	return false; // form should never submit, returns false
+    	}
+    	
+    	
+    	function addTotext(){
+    		if($('#conception').val().length !=0 && $('#duedate').val().length != 0 && $('#fetalage').val().length !=0){
+    	var t1 = '\n'+$('#ec').text() + moment($('#conception').val()).format('MMMM Do YYYY')+"\n" +$('#edd').text() + moment($('#duedate').val()).format('MMMM Do YYYY') +"\n"+$('#efa').text() + $('#fetalage').val()+'\n';
+    		var head = document.getElementById("text1").value;
+       	 $('#text1').val(head + t1);
+    		}
+       	 $('#conception').val('')
+       	$('#duedate').val('')
+       	$('#fetalage').val('')
+    	$('#lmp').val('')
+    	$('#cycle').val('')
+    	$('#luteal').val('')
+    	}
        </script>
+       
 </head>
 <sec:authentication property="principal.authorities" var="username" />
 <body onload="checkhome('<c:out value="${username}" />'),loadtabvalues()">
@@ -2179,12 +2383,12 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
       
 
 
-    <div class="col-xs-1" style="height:350px;width:50px;margin-left:50px;"><i class="fa fa-angle-double-right btn btn-warning btn-sm" id="prv" onclick="preview()" style="margin-left:-13px;margin-top:150px;font-size:25px;" aria-hidden="true"></i></div>
+    <div class="col-xs-1" style="height:350px;width:50px;margin-left:50px;"><i class="fa fa-angle-double-right btn btn-warning btn-sm" id="prv" onclick="preview()" style="margin-left:-13px;margin-top:150px;font-size:25px;" aria-hidden="true"></i><br><br><br><i class="fa fa-calculator" id="cpc" title="Pregnancy Caluclator" style="margin-left:-13px;font-size:36px;color:orange"></i></div>
    
     <div class="col-xs-4">
     <p id="tx" style="margin-top:-10px;"><b id='dd'>Diagnosis Details</b></p>
-    <textarea name='diagnose' id='text1' required rows='18' cols='78' form="formc" ></textarea>
-    <textarea name='pir' id='pir'  rows='18' cols='78' form="formc" ></textarea>
+    <textarea name='diagnose' id='text1' required rows='18' cols='68' form="formc" ></textarea>
+    <textarea name='pir' id='pir'  rows='18' cols='68' form="formc" ></textarea>
     </div>
     
     
@@ -2239,6 +2443,69 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
       <button type="button" class="btn btn-warning" onclick="return addp()">ADD</button></div>
       </div>
 </div>
+
+<div id="pc" title="Pregnancy Calculator">
+  <form onSubmit="return pregnancyCalc(this);">
+  <div class="form-group row" >
+        <div class="col-xs-10">
+        <p>Last Menstrual Period(MM/DD/YYYY):<span></span></p>
+       <div class="form-group">
+      <input type="text" maxlength=10 class="form-control input-sm" name="menstrual" id="lmp">
+       </div>
+      </div>
+     
+     </div> 
+      <div class="form-group row" >
+        <div class="col-xs-10">
+        <p>Average Length of Cycles(22 to 45):<span></span></p>
+       <div class="form-group">
+      <input type="text" class="form-control input-sm" placeholder="(defaults to 28)" maxlength=3 name="cycle " id="cycle" value="">
+       </div>
+      </div>
+     </div> 
+     <div class="form-group row" >
+       <div class="col-xs-10">
+        <p>Average Luteal Phase Length(9 to 16):<span></span></p>
+       <div class="form-group">
+      <input type="text" class="form-control input-sm" placeholder="(defaults to 14)" maxlength=3 name="luteal" id="luteal" value="">
+       </div>
+      </div>
+      </div>
+          <div class="form-group row" >
+      <div class="col-xs-2">
+     <button type="submit" class="btn btn-warning">Caluclate</button></div>
+        <div class="col-xs-1"></div>
+      <div class="col-xs-2">
+     <button type="button" class="btn btn-warning" onclick="addTotext()">Add</button></div>
+     </div> 
+    
+       <div class="form-group row" >
+        <div class="col-xs-6">
+        <p id="ec">Estimated Conception:<span></span></p>
+       <div class="form-group">
+      <input type="text" maxlength="10" class="form-control input-sm" name="conception" id="conception" readonly>
+       </div>
+      </div>
+     
+     </div> 
+      <div class="form-group row" >
+        <div class="col-xs-10">
+        <p id="edd">Estimated Due Date:<span></span></p>
+       <div class="form-group">
+      <input type="text" class="form-control input-sm" name="duedate" id="duedate" readonly>
+       </div>
+      </div>
+     </div> 
+     <div class="form-group row" >
+       <div class="col-xs-10">
+        <p id="efa">Estimated Fetal Age:<span></span></p>
+       <div class="form-group">
+      <input type="text" class="form-control input-sm" name="fetalage" id="fetalage" readonly>
+       </div>
+      </div>
+      </div>
+       </form>
+       </div>
 <script>
 openmd1('<c:out value='${model.fileno}'/>','<c:out value='${model.pname}'/>','<c:out value='${model.pid}'/>','<c:out value='${model.docid}'/>','<c:out value='${model.sav}'/>')
 </script>

@@ -570,8 +570,8 @@ public class controllerDao {
 }
 	//sales save 
 	
-	public int savess(Sale s,String name,String batch,String expdate,String unit, String up, String qty1, String stk1, String price1, String mpack,String mdesc,String sudesc,String ean ) {
-		String sql = "insert into saleho(invoice,invoiceDate,author,cdiscount,custId,custName,custPhone,gender,age,ean,pname,batch,expDate,stock,unit,quantity,unitprice,total,titems,subt,discount,tax,gtotal,spack,spsize,sudesc,fileno) values('"+s.getInvoice()+"','"+s.getInvoiceDate()+"','"+s.getAuthor()+"','"+s.getCdiscount()+"','"+s.getCustId()+"','"+s.getCustName()+"','"+s.getCustPhone()+"','"+s.getGender()+"','"+s.getAge()+"','"+ean+"','"+name+"','"+batch+"','"+expdate+"','"+stk1+"','"+unit+"','"+qty1+"','"+up+"','"+price1+"','"+s.getTitems()+"','"+s.getSubt()+"','"+s.getDiscount()+"','"+s.getTax()+"','"+s.getGtotal()+"','"+mpack+"','"+mdesc+"','"+sudesc+"','"+s.getFileno()+"')"; 
+	public int savess(Sale s,String name,String batch,String expdate,String unit, String up, String qty1, String stk1, String price1, String mpack,String mdesc,String sudesc,String ean,String table) {
+		String sql = "insert into "+table+"(invoice,invoiceDate,author,cdiscount,custId,custName,custPhone,gender,age,ean,pname,batch,expDate,stock,unit,quantity,unitprice,total,titems,subt,discount,tax,gtotal,spack,spsize,sudesc,fileno) values('"+s.getInvoice()+"','"+s.getInvoiceDate()+"','"+s.getAuthor()+"','"+s.getCdiscount()+"','"+s.getCustId()+"','"+s.getCustName()+"','"+s.getCustPhone()+"','"+s.getGender()+"','"+s.getAge()+"','"+ean+"','"+name+"','"+batch+"','"+expdate+"','"+stk1+"','"+unit+"','"+qty1+"','"+up+"','"+price1+"','"+s.getTitems()+"','"+s.getSubt()+"','"+s.getDiscount()+"','"+s.getTax()+"','"+s.getGtotal()+"','"+mpack+"','"+mdesc+"','"+sudesc+"','"+s.getFileno()+"')"; 
 	    return template.update(sql);
 	}
 	
@@ -874,9 +874,9 @@ public class controllerDao {
 		return template.update(sql);
 	}
 	
-	public int saveproductstockho1(String ean1,String name, String batch,String expdate,String mpack,String mpsize,String cp,String prqty,String prprice,String qty,String sudesc,String stkpr,String markup,String sp,String spdesc,String spsize,String stksp,String sellqty,String sunits,String tprice) {
+	public int saveproductstockho1(String ean1,String name, String batch,String expdate,String mpack,String mpsize,String cp,String prqty,String prprice,String qty,String sudesc,String stkpr,String markup,String sp,String spdesc,String spsize,String stksp,String sellqty,String sunits,String tprice,String table) {
 		System.out.println(qty);
-		String sql = "insert into productstock(code,name,batch,expdate,mpack,mpsize,cp,prqty,prprice,currentstock,sudesc,stkpr,markup,sp,spdesc,spsize,stksp,sellqty,sunits,tprice) values('"+ean1+"','"+name+"','"+batch+"','"+expdate+"','"+mpack+"','"+mpsize+"','"+cp+"','"+prqty+"','"+prprice+"','"+qty+"','"+sudesc+"','"+stkpr+"','"+markup+"','"+sp+"','"+spdesc+"','"+spsize+"','"+stksp+"','"+sellqty+"','"+sunits+"','"+tprice+"') on duplicate key update expdate = '"+expdate+"',mpsize='"+mpsize+"',cp='"+cp+"',prqty= '"+prqty+"',prprice='"+prprice+"',currentstock='"+qty+"',sudesc='"+sudesc+"',stkpr='"+stkpr+"',markup='"+markup+"',sp='"+sp+"',spdesc='"+spdesc+"',spsize='"+spsize+"',stksp='"+stksp+"',sellqty='"+sellqty+"',sunits='"+sunits+"',tprice='"+tprice+"'";
+		String sql = "insert into "+table+"(code,name,batch,expdate,mpack,mpsize,cp,prqty,prprice,currentstock,sudesc,stkpr,markup,sp,spdesc,spsize,stksp,sellqty,sunits,tprice) values('"+ean1+"','"+name+"','"+batch+"','"+expdate+"','"+mpack+"','"+mpsize+"','"+cp+"','"+prqty+"','"+prprice+"','"+qty+"','"+sudesc+"','"+stkpr+"','"+markup+"','"+sp+"','"+spdesc+"','"+spsize+"','"+stksp+"','"+sellqty+"','"+sunits+"','"+tprice+"') on duplicate key update expdate = '"+expdate+"',mpsize='"+mpsize+"',cp='"+cp+"',prqty= '"+prqty+"',prprice='"+prprice+"',currentstock='"+qty+"',sudesc='"+sudesc+"',stkpr='"+stkpr+"',markup='"+markup+"',sp='"+sp+"',spdesc='"+spdesc+"',spsize='"+spsize+"',stksp='"+stksp+"',sellqty='"+sellqty+"',sunits='"+sunits+"',tprice='"+tprice+"'";
 		return template.update(sql);
 	}
 	
@@ -888,6 +888,59 @@ public class controllerDao {
 	
 	public int updatecatho1(String name) {
 		String sql = "update productprice set category = (select pc from product where name='"+name+"') where name='"+name+"'";
+		return template.update(sql);
+		
+	
+		// TODO Auto-generated method stub
+		
+	}
+	
+	// 898 to 950 product stocks for dispensary
+public int dsavepurchase(Purchase p, String name, String batch, String expdate, String quantity,String unitprice, String discount, String free,String total,String ean1,String mpack, String mdesc,String sudesc ) {
+		
+		//discount is total purschase price
+		String sql = "insert into dpurchase(allocationid,receiveddate,updatepricing,supplier,supplierInvoice,productName,Batch,expDate,mpack,mdesc,sudesc,quantity,discount,unitPrice,free,total,grandTotal,ean) values('"+p.getAllocationid()+"','"+p.getReceiveddate()+"','"+p.getUpdatepricing()+"','"+p.getSupplier()+"','"+p.getOrderDate()+"','"+name+"','"+batch+"','"+expdate+"','"+mpack+"','"+mdesc+"','"+sudesc+"','"+quantity+"','"+discount+"','"+unitprice+"','"+free+"','"+total+"','"+p.getGrandTotal()+"','"+ean1+"') on duplicate key update expDate='"+expdate+"',mpack='"+mpack+"',mdesc ='"+mdesc+"',sudesc = '"+sudesc+"',quantity= quantity + "+quantity+",discount='"+discount+"',unitPrice= "+unitprice+", free= free + "+free+",total='"+total+"',grandTotal='"+p.getGrandTotal()+"' ";
+		return template.update(sql);
+	}
+	
+	public int dupdateean(String name){
+		String sql = "update dproductprice set code =(select prc from product where name='"+name+"') where name='"+name+"'";
+		return template.update(sql);
+	}
+
+	
+	
+	public int dupdatecatho(String name) {
+		String sql = "update dpurchase set category = (select pc from product where name='"+name+"') where productName='"+name+"'";
+		return template.update(sql);
+		
+	
+		// TODO Auto-generated method stub
+		
+	}
+	// save product stocks
+	
+	public int dsaveproductstockho(String ean1,String name, String batch,String expdate,String mpack,String mpsize,String cp,String prqty,String prprice,String qty,String sudesc,String stkpr,String markup,String sp,String spdesc,String spsize,String stksp,String sellqty,String sunits,String tprice) {
+		
+		//mpack='"+mpack+"'
+		String sql = "insert into dproductstock(code,name,batch,expdate,mpack,mpsize,cp,prqty,prprice,currentstock,sudesc,stkpr,markup,sp,spdesc,spsize,stksp,sellqty,sunits,tprice) values('"+ean1+"','"+name+"','"+batch+"','"+expdate+"','"+mpack+"','"+mpsize+"','"+cp+"','"+prqty+"','"+prprice+"','"+qty+"','"+sudesc+"','"+stkpr+"','"+markup+"','"+sp+"','"+spdesc+"','"+spsize+"','"+stksp+"','"+sellqty+"','"+sunits+"','"+tprice+"') on duplicate key update expdate = '"+expdate+"',mpsize='"+mpsize+"',cp='"+cp+"',prqty= prqty + '"+prqty+"',prprice=prprice + '"+prprice+"',currentstock= currentstock + '"+qty+"',sudesc='"+sudesc+"',stkpr=stkpr + '"+stkpr+"',markup='"+markup+"',sp='"+sp+"',spdesc='"+spdesc+"',spsize='"+spsize+"',stksp='"+stksp+"',sellqty='"+sellqty+"',sunits='"+sunits+"',tprice='"+tprice+"'";
+		return template.update(sql);
+	}
+	
+	public int dsaveproductstockho1(String ean1,String name, String batch,String expdate,String mpack,String mpsize,String cp,String prqty,String prprice,String qty,String sudesc,String stkpr,String markup,String sp,String spdesc,String spsize,String stksp,String sellqty,String sunits,String tprice) {
+		
+		String sql = "insert into dproductstock(code,name,batch,expdate,mpack,mpsize,cp,prqty,prprice,currentstock,sudesc,stkpr,markup,sp,spdesc,spsize,stksp,sellqty,sunits,tprice) values('"+ean1+"','"+name+"','"+batch+"','"+expdate+"','"+mpack+"','"+mpsize+"','"+cp+"','"+prqty+"','"+prprice+"','"+qty+"','"+sudesc+"','"+stkpr+"','"+markup+"','"+sp+"','"+spdesc+"','"+spsize+"','"+stksp+"','"+sellqty+"','"+sunits+"','"+tprice+"') on duplicate key update expdate = '"+expdate+"',mpsize='"+mpsize+"',cp='"+cp+"',prqty= '"+prqty+"',prprice='"+prprice+"',currentstock='"+qty+"',sudesc='"+sudesc+"',stkpr='"+stkpr+"',markup='"+markup+"',sp='"+sp+"',spdesc='"+spdesc+"',spsize='"+spsize+"',stksp='"+stksp+"',sellqty='"+sellqty+"',sunits='"+sunits+"',tprice='"+tprice+"'";
+		return template.update(sql);
+	}
+	
+	public int dupdatecatho2(String name) {
+		String sql = "update dproductstock set category = (select pc from product where name='"+name+"') where name='"+name+"'";
+		return template.update(sql);
+}
+	
+	
+	public int dupdatecatho1(String name) {
+		String sql = "update dproductprice set category = (select pc from product where name='"+name+"') where name='"+name+"'";
 		return template.update(sql);
 		
 	
@@ -1064,7 +1117,7 @@ public class controllerDao {
 
 	//product stocks
 	
-	public List<Productstock> getstockSearch(Productstock ps) {
+	public List<Productstock> getstockSearch(Productstock ps,String table) {
 		if(ps.getCategory().equalsIgnoreCase("All") )
 		{
 			if( ps.getBatch()!=null && ps.getBatch()!=""){
@@ -1077,7 +1130,7 @@ public class controllerDao {
 				final int var8 = ps.getRecords();
 				final String var9 = ps.getBatch();
 				System.out.println(ps.getRecords());
-			 return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from productstock p where p.batch like '%"+ps.getBatch()+"%' and p.expdate between '"+ps.getExpDate()+"' and '"+ps.getToDate()+"'limit "+ps.getRecords()+"",new RowMapper<Productstock>(){  
+			 return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from "+table+" p where p.batch like '%"+ps.getBatch()+"%' and p.expdate between '"+ps.getExpDate()+"' and '"+ps.getToDate()+"'limit "+ps.getRecords()+"",new RowMapper<Productstock>(){  
 			   public Productstock mapRow(ResultSet rs, int row) throws SQLException {
 		        	Productstock p = new Productstock();
 		        	System.out.println("Batch"+rs.getString(1));
@@ -1117,7 +1170,7 @@ public class controllerDao {
 				final int var8 = ps.getRecords();
 				final String var9 = ps.getBatch();
 				
-			 return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from productstock p where p.name like '%"+ps.getName()+"%'  and (p.expdate between '"+ps.getExpDate()+"' and '"+ps.getToDate()+"' ) limit "+ps.getRecords()+" ",new RowMapper<Productstock>(){  
+			 return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from "+table+" p where p.name like '%"+ps.getName()+"%'  and (p.expdate between '"+ps.getExpDate()+"' and '"+ps.getToDate()+"' ) limit "+ps.getRecords()+" ",new RowMapper<Productstock>(){  
 			   public Productstock mapRow(ResultSet rs, int row) throws SQLException {
 		        	Productstock p = new Productstock();
 		        	System.out.println("Name"+rs.getString(1));
@@ -1150,7 +1203,7 @@ public class controllerDao {
 		
 			else if(ps.getCode()!=null && ps.getCode()!=""){
 				
-			 return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from productstock p where p.code like '%"+ps.getCode()+"%' and (p.expdate between '"+ps.getExpDate()+"' and '"+ps.getToDate()+"' ) limit "+ps.getRecords()+"",new RowMapper<Productstock>(){  
+			 return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from "+table+" p where p.code like '%"+ps.getCode()+"%' and (p.expdate between '"+ps.getExpDate()+"' and '"+ps.getToDate()+"' ) limit "+ps.getRecords()+"",new RowMapper<Productstock>(){  
 				 public Productstock mapRow(ResultSet rs, int row) throws SQLException {
 			        	Productstock p = new Productstock();
 		        	
@@ -1182,7 +1235,7 @@ public class controllerDao {
 			}
 			else{
 				
-				return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from productstock p where (p.expdate between STR_TO_DATE('"+ps.getExpDate()+"', '%Y-%m-%d') and STR_TO_DATE('"+ps.getToDate()+"', '%Y-%m-%d')) limit "+ps.getRecords()+"",new RowMapper<Productstock>(){  
+				return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from "+table+" p where (p.expdate between STR_TO_DATE('"+ps.getExpDate()+"', '%Y-%m-%d') and STR_TO_DATE('"+ps.getToDate()+"', '%Y-%m-%d')) limit "+ps.getRecords()+"",new RowMapper<Productstock>(){  
 					 public Productstock mapRow(ResultSet rs, int row) throws SQLException {
 				        	Productstock p = new Productstock();
 			        
@@ -1230,7 +1283,7 @@ public class controllerDao {
 				final int var8 = ps.getRecords();
 				final String var9 = ps.getBatch();
 				
-			 return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from productstock p where p.batch like '%"+ps.getBatch()+"%' and p.category = '"+ps.getCategory()+"' and (p.expdate between '"+ps.getExpDate()+"' and '"+ps.getToDate()+"' ) limit "+ps.getRecords()+"",new RowMapper<Productstock>(){  
+			 return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from "+table+" p where p.batch like '%"+ps.getBatch()+"%' and p.category = '"+ps.getCategory()+"' and (p.expdate between '"+ps.getExpDate()+"' and '"+ps.getToDate()+"' ) limit "+ps.getRecords()+"",new RowMapper<Productstock>(){  
 				 public Productstock mapRow(ResultSet rs, int row) throws SQLException {
 			        	Productstock p = new Productstock();
 		        	System.out.println(rs.getString(1));
@@ -1270,7 +1323,7 @@ public class controllerDao {
 				final int var8 = ps.getRecords();
 				final String var9 = ps.getBatch();
 				
-			 return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from productstock p where p.name like '%"+ps.getName()+"%' and p.category = '"+ps.getCategory()+"' and (p.expdate between '"+ps.getExpDate()+"' and '"+ps.getToDate()+"') limit "+ps.getRecords()+" ",new RowMapper<Productstock>(){  
+			 return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from "+table+" p where p.name like '%"+ps.getName()+"%' and p.category = '"+ps.getCategory()+"' and (p.expdate between '"+ps.getExpDate()+"' and '"+ps.getToDate()+"') limit "+ps.getRecords()+" ",new RowMapper<Productstock>(){  
 				 public Productstock mapRow(ResultSet rs, int row) throws SQLException {
 			        	Productstock p = new Productstock();
 		        	System.out.println(rs.getString(1));
@@ -1305,7 +1358,7 @@ public class controllerDao {
 				
 			
 				
-			 return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from productstock p where p.code like '%"+ps.getCode()+"%' and p.category = '"+ps.getCategory()+"'and (p.expdate between '"+ps.getExpDate()+"' and '"+ps.getToDate()+"') limit "+ps.getRecords()+"",new RowMapper<Productstock>(){  
+			 return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from "+table+" p where p.code like '%"+ps.getCode()+"%' and p.category = '"+ps.getCategory()+"'and (p.expdate between '"+ps.getExpDate()+"' and '"+ps.getToDate()+"') limit "+ps.getRecords()+"",new RowMapper<Productstock>(){  
 				 public Productstock mapRow(ResultSet rs, int row) throws SQLException {
 			        	Productstock p = new Productstock();
 		        	System.out.println("insd code" +rs.getString(1));
@@ -1338,7 +1391,7 @@ public class controllerDao {
 			
 			else{
 				
-				return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from productstock p where p.category = '"+ps.getCategory()+"' and (p.expdate between STR_TO_DATE('"+ps.getExpDate()+"', '%Y-%m-%d')  and STR_TO_DATE('"+ps.getToDate()+"', '%Y-%m-%d')) limit "+ps.getRecords()+"",new RowMapper<Productstock>(){  
+				return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from "+table+" p where p.category = '"+ps.getCategory()+"' and (p.expdate between STR_TO_DATE('"+ps.getExpDate()+"', '%Y-%m-%d')  and STR_TO_DATE('"+ps.getToDate()+"', '%Y-%m-%d')) limit "+ps.getRecords()+"",new RowMapper<Productstock>(){  
 					 public Productstock mapRow(ResultSet rs, int row) throws SQLException {
 				        	Productstock p = new Productstock();
 			        
@@ -1378,7 +1431,7 @@ public class controllerDao {
 	}
 	
 	
-	public List<Productstock> getInfoStkSearch() {
+	public List<Productstock> getInfoStkSearch(String table) {
 		return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from productstock p order by p.name ",new RowMapper<Productstock>(){  
 			public Productstock mapRow(ResultSet rs, int row) throws SQLException {
 	        	Productstock p = new Productstock();
@@ -1408,10 +1461,10 @@ public class controllerDao {
 	        }
 		});
 }
-	  public int saveprStks(Productstock ps) {
+	  public int saveprStks(Productstock ps,String table) {
 			// TODO Auto-generated method stub
-		    	  System.out.println("Batch" +ps.getBatch());
-			String sql = "update productstock set currentstock ='"+ps.getCstock()+"',expdate='"+ps.getExpDate()+"' where code='"+ps.getCode()+"' and name='"+ps.getName()+"' and batch='"+ps.getBatch()+"' ";	   
+		    	
+			String sql = "update "+table+" set currentstock ='"+ps.getCstock()+"',expdate='"+ps.getExpDate()+"' where code='"+ps.getCode()+"' and name='"+ps.getName()+"' and batch='"+ps.getBatch()+"' ";	   
 			return template.update(sql);
 		      }
 
@@ -1423,9 +1476,11 @@ public class controllerDao {
 		return template.update(sql);
 	      }
 */
-		public List<Sale> getsaleInv(String invoice) {
+	  
+	  
+		public List<Sale> getsaleInv(String invoice,String table,String table1) {
 			
-			return template.query("select s.invoice,s.invoiceDate,s.author,s.cdiscount,s.custId,s.custName,s.custPhone,s.gender,s.age,s.ean,s.pname,s.batch,s.expDate,s.unit,s.unitprice,s.quantity,s.free,ps.currentstock,s.total,s.titems,s.subt,s.discount,s.tax,s.gtotal,s.spack,s.spsize,s.sudesc,s.fileno from saleho s join productstock ps on s.pname = ps.name and  s.batch = ps.batch  where invoice ='"+invoice+"' and ps.batch = s.batch",new RowMapper<Sale>(){  
+			return template.query("select s.invoice,s.invoiceDate,s.author,s.cdiscount,s.custId,s.custName,s.custPhone,s.gender,s.age,s.ean,s.pname,s.batch,s.expDate,s.unit,s.unitprice,s.quantity,s.free,ps.currentstock,s.total,s.titems,s.subt,s.discount,s.tax,s.gtotal,s.spack,s.spsize,s.sudesc,s.fileno from "+table+" s join "+table1+" ps on s.pname = ps.name and  s.batch = ps.batch  where invoice ='"+invoice+"' and ps.batch = s.batch",new RowMapper<Sale>(){  
 		        public Sale mapRow(ResultSet rs, int row) throws SQLException {
 		        	Sale s= new Sale();
 		        
@@ -1466,9 +1521,9 @@ public class controllerDao {
 		
 		//print purchase
 		
-	public List<Purchase> getPrpur(String invoice) {
+	public List<Purchase> getPrpur(String invoice,String table) {
 			
-			return template.query("select s.allocationid,s.receiveddate,s.productName,s.Batch,s.expDate,s.quantity,s.unitprice,s.discount,s.total,s.ean,s.grandTotal,s.supplierInvoice,s.mpack,s.mdesc,s.sudesc,s.free,s.supplier from purchase s where allocationid ='"+invoice+"'",new RowMapper<Purchase>(){  
+			return template.query("select s.allocationid,s.receiveddate,s.productName,s.Batch,s.expDate,s.quantity,s.unitprice,s.discount,s.total,s.ean,s.grandTotal,s.supplierInvoice,s.mpack,s.mdesc,s.sudesc,s.free,s.supplier from "+table+" s where allocationid ='"+invoice+"'",new RowMapper<Purchase>(){  
 		        public Purchase mapRow(ResultSet rs, int row) throws SQLException {
 		        	Purchase s= new Purchase();
 		        
@@ -1496,8 +1551,8 @@ public class controllerDao {
 		
 		}
 		//select pr.Batch,pr.expDate,unit,unitprice,(select sum(currentstock) from productstock where productstock.batch=purchase.Batch),total,(select sum(sp) from productprice where productprice.batch=purchase.Batch) from purchase where productName='"+user3+"' and quantity > 0
-		public List<Sale> getinvprods(String user3) {
-			return template.query("select pr.Batch,ps.expDate,ps.spdesc,ps.spsize,ps.currentstock,ps.sudesc,ps.sp,ps.cp,ps.sellqty,ps.sunits from purchase pr left outer join productstock ps on pr.productName = ps.name  where ps.name = '"+user3+"' and ps.currentstock <> 0 and ps.expdate >= curdate() and pr.batch = ps.batch and pr.mpack = ps.mpack",new RowMapper<Sale>(){
+		public List<Sale> getinvprods(String user3,String table,String table1) {
+			return template.query("select pr.Batch,ps.expDate,ps.spdesc,ps.spsize,ps.currentstock,ps.sudesc,ps.sp,ps.cp,ps.sellqty,ps.sunits from "+table+" pr left outer join "+table1+" ps on pr.productName = ps.name  where ps.name = '"+user3+"' and ps.currentstock <> 0 and ps.expdate >= curdate() and pr.batch = ps.batch and pr.mpack = ps.mpack",new RowMapper<Sale>(){
 		        public Sale mapRow(ResultSet rs, int row) throws SQLException {  
 		            Sale s=new Sale();  
 		      //      System.out.println(rs.getString(2));
@@ -1519,8 +1574,8 @@ public class controllerDao {
 		}
 		
 		
-		public List<Sale> getinvprods1(String user3) {
-			return template.query("select Batch,expDate,unit,unitprice,quantity,total from purchase where productName='"+user3+"' and quantity > 0",new RowMapper<Sale>(){
+		public List<Sale> getinvprods1(String user3,String table) {
+			return template.query("select Batch,expDate,unit,unitprice,quantity,total from "+table+" where productName='"+user3+"' and quantity > 0",new RowMapper<Sale>(){
 		        public Sale mapRow(ResultSet rs, int row) throws SQLException {  
 		            Sale s=new Sale();  
 		      //      System.out.println(rs.getString(2));
@@ -1537,9 +1592,9 @@ public class controllerDao {
 			 }); 
 		}
 		
-		public int update(String name, String stk,String batch) {
+		public int update(String name, String stk,String batch,String table) {
 			// TODO Auto-generated method stub
-	       String sql = "update productstock set currentstock = currentstock - '"+stk+"' where name='"+name+"' and batch='"+batch+"'";	
+	       String sql = "update "+table+" set currentstock = currentstock - '"+stk+"' where name='"+name+"' and batch='"+batch+"'";	
 	       return template.update(sql);
 		}
 		
@@ -1572,9 +1627,9 @@ public class controllerDao {
 		
 		//display sales reports
 		
-public List<Sale> getsaleReports(String frdate,String edate) {
+public List<Sale> getsaleReports(String frdate,String edate,String table) {
 			
-			return template.query("select s.invoice,s.invoiceDate,s.custName,s.discount,s.tax,s.gtotal from saleho s where s.invoicedate between '"+frdate+"' and '"+edate+"'",new RowMapper<Sale>(){  
+			return template.query("select s.invoice,s.invoiceDate,s.custName,s.discount,s.tax,s.gtotal from "+table+" s where s.invoicedate between '"+frdate+"' and '"+edate+"'",new RowMapper<Sale>(){  
 		        public Sale mapRow(ResultSet rs, int row) throws SQLException {
 		        	Sale s= new Sale();
 		        
@@ -1593,8 +1648,8 @@ public List<Sale> getsaleReports(String frdate,String edate) {
 		
 		}
 
-public List<Productstock> getBatdet(String batch) {
-	return template.query("select p.batch,p.expdate,p.mpsize,p.cp from productstock p where p.batch = '"+batch+"'",new RowMapper<Productstock>(){  
+public List<Productstock> getBatdet(String batch,String table) {
+	return template.query("select p.batch,p.expdate,p.mpsize,p.cp from "+table+" p where p.batch = '"+batch+"'",new RowMapper<Productstock>(){  
 		public Productstock mapRow(ResultSet rs, int row) throws SQLException {
         	Productstock p = new Productstock();
         

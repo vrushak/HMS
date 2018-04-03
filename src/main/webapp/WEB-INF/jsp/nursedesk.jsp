@@ -276,7 +276,9 @@ $( function() {
     </div>
     </div>
  <br>
-
+<c:forEach var="p"  items="${model.list}"><script>$('.app').text('<c:out value="${p.appointment}" />')</script></c:forEach>
+  <c:forEach var="p"  items="${model.list1}"><script>$('.opd').text('<c:out value="${p.datetime}" />')</script></c:forEach>
+  <c:forEach var="p"  items="${model.list2}"><script>$('.ipd').text('<c:out value="${p.date}" />')</script></c:forEach>
 
  </div>
  <br>

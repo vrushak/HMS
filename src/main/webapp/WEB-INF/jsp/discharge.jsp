@@ -75,6 +75,8 @@ function ch(){
 	}
 }
 function addcname(getval){
+	
+	 $('#fileid').find('option').not(':first').remove();
 	  $("#formd").trigger("reset");
 	  $('#investigation').val("")	
 	$('#disdate').val(moment().format("DD-MM-YYYY HH:mm"));
@@ -88,6 +90,8 @@ function addcname(getval){
 	 
 	 $('select[name=fileid]').val('select');
 	 $('#fileid').selectpicker('refresh');
+	 
+
 	//document.getElementById("pname").value =str[1];
 	
 	document.getElementById("dname1").value = str[2];

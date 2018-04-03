@@ -70,7 +70,7 @@ var cuser;
 		}
 		 
 		else if(user.includes("[ROLE_Accounts Admin]")){
-			
+			 $("#back").hide();
 			 var url = "/HMS/frontdesk" ;
 				
 			 var element = document.getElementById('ho');
@@ -209,8 +209,12 @@ var cuser;
 			 document.getElementById("disdate").value =  moment().format("DD-MM-YYYY");
 		 }
 		 
+		 if(cuser == "[ROLE_ADMIN]"){
+			 $("#cashier").val("dbadmin1")
+		 }
+		 else{
 	$("#cashier").val(str[8])
-		 
+		 }
 		 
 	//	days_between(str[4],document.getElementById("disdate").value);
 	

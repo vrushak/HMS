@@ -30,10 +30,7 @@
 <script type="text/javascript">
 
 
-    $("#datetime").datetimepicker({
-    	format: 'yyyy-mm-dd hh:ii'
-    	
-    });
+  
     
 </script>      
 <style type="text/css">
@@ -474,12 +471,16 @@ function setline(id){
     
  <c:forEach var="p"  items="${model.list2}">
 <script>
-
 check('<c:out value="${p.pname}" />','<c:out value="${p.pid}" />','<c:out value="${p.admdate}" />','<c:out value="${p.datetime}" />','<c:out value="${p.dailychart}" />','<c:out value="${p.dname}" />','<c:out value="${p.comments}" />','<c:out value="${p.fileno}" />','<c:out value="${p.admitno}" />');
 </script>
 </c:forEach>
 <script>
 datasuccess('<%=request.getParameter("message")%>')
+</script>
+
+<script>
+if('<c:out value="${model.warning}" />' != '')
+alert(decodeURIComponent('<c:out value="${model.warning}" />'))
 </script>
 <script>
 openmd2('<c:out value="${model.pname}" />','<c:out value="${model.flno}" />');

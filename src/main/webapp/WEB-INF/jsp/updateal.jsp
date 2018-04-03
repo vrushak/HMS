@@ -367,8 +367,15 @@ function validmess(){
 }
 
 function changetext(val){
+	
 	if(val.includes("ASSISTANT")){
-		$('.text-muted').text('Accounts Admin role can edit generated bills in "Bill Generation" and can add/edit in "Bill Configuration". Also has access to other frontdesk modules.');
+		$('.text-muted').text('Assistant role can generate bills in "Bill Generation" and has access to other frontdesk modules.');
+	}
+	else if(val == "DISPPHARMACIST"){
+		$('.text-muted').text('Dispensary pharmacist role has access to all modules in "Pharmacy".');
+	}
+	else if(val == "DISPSALESMANAGER"){
+		$('.text-muted').text('Dispensary SalesManager role has access to Sales module in "Pharmacy". Also has access to view "Product Master" module and "Product Stocks and Pricing" module.');
 	}
 	else if(val.includes("PHARMACIST")){
 		$('.text-muted').text('Pharmacist role has access to all modules in "Pharmacy".');
@@ -376,8 +383,9 @@ function changetext(val){
 	else if(val.includes("SALESMANAGER")){
 		$('.text-muted').text('SalesManager role has access to Sales module in "Pharmacy". Also has access to view "Product Master" module and "Product Stocks and Pricing" module.');
 	}
+	
 	else{
-		$('.text-muted').text('Accounts Admin role has access to edit bill modules and also to other frontdesk modules. ');
+		$('.text-muted').text('Accounts Admin role can edit generated bills in "Bill Generation" and can add/edit in "Bill Configuration". Also has access to other frontdesk modules.');
 	}
 }
 
@@ -543,6 +551,8 @@ $(document).ready(function () {
            <option value="ASSISTANT">Assistant</option>
            <option value="PHARMACIST">PHARMACIST</option>
            <option value="SALESMANAGER">SALESMANAGER</option>
+           <option value="DISPPHARMACIST">DISPENSARY PHARMACIST</option>
+           <option value="DISPSALESMANAGER">DISPENSARY SALESMANAGER</option>
             </select>
              <small class="text-muted">Accounts Admin role has access to edit bill modules and also to other frontdesk modules.</small>
             
