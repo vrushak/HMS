@@ -17,12 +17,14 @@
 <link rel="stylesheet" href='<c:url value="/resources/css/font-awesome.min.css" />' >
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap.min.css" />' >
 <link rel="stylesheet" href='<c:url value="/resources/css/bootstrap-select.min.css" />' />
+<link rel="stylesheet" href='<c:url value="/resources/css/jquery-ui.css" />' >
 
 <script type="text/javascript" src="/HMS/resources/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/moment.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/bootstrap-select.min.js"></script>
 <script type="text/javascript" src="/HMS/resources/js/verifychange.js"></script>
+<script type="text/javascript" src="/HMS/resources/js/jquery-ui.js"></script>
 
 <script type="text/javascript">
 
@@ -362,6 +364,7 @@ function goBack() {
     window.history.back();
 }
 
+
 </script>
 
       <script type="text/javascript">
@@ -412,7 +415,7 @@ function goBack() {
     	        	        		   document.getElementById("fe").value = datec.fe;
     	        	        		   document.getElementById("rest").value = datec.rest;
     	        	        		   document.getElementById("pulse").value = datec.pulse;
-    	        	        		   
+    	        	        	       $('#prcalc').val(datec.prcalc);	   
     	        	        	
     	        	        		   if(datec.docid.length == 0 || datec.docid == "null"){
     	        	        			   datec.docid = "NA";
@@ -482,6 +485,40 @@ function goBack() {
        </script>
 <script type="text/javascript">
 
+$( function() {
+	 $( "#pc" ).dialog({
+	      
+	    	dialogClass: 'result',
+	      autoOpen: false,
+	      show: {
+	        effect: "blind",
+	        duration: 1000
+	      },
+	      hide: {
+	        effect: "explode",
+	        duration: 1000
+	      }
+	    });
+	 
+	  $('#pc').dialog({height: 300, width:400 });
+	    $(".ui-dialog").find(".ui-widget-header").css("background", "#009999","text-align","center");
+	    
+	    $('#cpc').on( 'click',function() {
+	    	var isOpen = $( "#pc" ).dialog( "isOpen" );
+	   // 	 addpe = this.getElementsByTagName('input')[0].id;
+	      if(isOpen == true){
+	    	  
+	    	  $( "#pc" ).dialog( "open" );
+	      }
+	      else{
+	    	
+	    
+	    	 $( "#pc" ).dialog( "open" );
+	      }
+	    
+	    });
+});
+
 $(document).ready(function () {
 
 	
@@ -527,6 +564,124 @@ $(document).ready(function () {
 		 });
 
 });
+
+
+function isValidDate(dateStr) {
+	
+
+	// Checks for the following valid date formats:
+	// MM/DD/YY   MM/DD/YYYY   MM-DD-YY   MM-DD-YYYY
+
+	var datePat = /^(\d{1,2})(\/|-)(\d{1,2})\2(\d{4})$/; // requires 4 digit year
+
+	var matchArray = dateStr.match(datePat); // is the format ok?
+	if (matchArray == null) {
+	alert("Date is not in a valid format.")
+	return false;
+	}
+	month = matchArray[1]; // parse date into variables
+	day = matchArray[3];
+	year = matchArray[4];
+	if (month < 1 || month > 12) { // check month range
+	alert("Month must be between 1 and 12.");
+	return false;
+	}
+	if (day < 1 || day > 31) {
+	alert("Day must be between 1 and 31.");
+	return false;
+	}
+	if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+	alert("Month "+month+" doesn't have 31 days!")
+	return false;
+	}
+	if (month == 2) { // check for february 29th
+	var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+	if (day>29 || (day==29 && !isleap)) {
+	alert("February " + year + " doesn't have " + day + " days!");
+	return false;
+	   }
+	}
+	return true;
+	}
+
+	function dispDate(dateObj) {
+	month = dateObj.getMonth()+1;
+	month = (month < 10) ? "0" + month : month;
+
+	day   = dateObj.getDate();
+	day = (day < 10) ? "0" + day : day;
+
+	year  = dateObj.getYear();
+	if (year < 2000) year += 1900;
+
+	return (month + "/" + day + "/" + year);
+	}
+
+	function pregnancyCalc(pregform) {
+	menstrual = new Date(); // creates new date objects
+	ovulation = new Date();
+	duedate = new Date();
+	today = new Date();
+	cycle = 0, luteal = 0; // sets variables to invalid state ==> 0
+
+	if (isValidDate(pregform.menstrual.value)) { // Validates menstual date 
+	menstrualinput = new Date(pregform.menstrual.value);
+	menstrual.setTime(menstrualinput.getTime())
+	}
+	else return false; // otherwise exits
+
+	cycle = (pregform.cycle.value == "" ? 28 : pregform.cycle.value); // defaults to 28
+	// validates cycle range, from 22 to 45
+	if (pregform.cycle.value != "" && (pregform.cycle.value < 22 || pregform.cycle.value > 45)) {
+	alert("Your cycle length is either too short or too long for \n"
+	+ "calculations to be very accurate!  We will still try to \n"
+	+ "complete the calculation with the figure you entered. ");
+	}
+
+	luteal = (pregform.luteal.value == "" ? 14 : pregform.luteal.value); // defaults to 14
+	// validates luteal range, from 9 to 16
+	if (pregform.luteal.value != "" && (pregform.luteal.value < 9 || pregform.luteal.value > 16)) {
+	alert("Your luteal phase length is either too short or too long for \n"
+	+ "calculations to be very accurate!  We will still try to complete \n"
+	+ "the calculation with the figure you entered. ");
+	}
+
+	// sets ovulation date to menstrual date + cycle days - luteal days
+	// the '*86400000' is necessary because date objects track time
+	// in milliseconds;  86400000 milliseconds equals one day
+	ovulation.setTime(menstrual.getTime() + (cycle*86400000) - (luteal*86400000));
+	pregform.conception.value = dispDate(ovulation);
+
+	// sets due date to ovulation date plus 266 days
+	duedate.setTime(ovulation.getTime() + 266*86400000);
+	pregform.duedate.value = dispDate(duedate);
+
+	// sets fetal age to 14 + 266 (pregnancy time) - time left
+	var fetalage = 14 + 266 - ((duedate - today) / 86400000);
+	weeks = parseInt(fetalage / 7); // sets weeks to whole number of weeks
+	days = Math.floor(fetalage % 7); // sets days to the whole number remainder
+
+	// fetal age message, automatically includes 's' on week and day if necessary
+	fetalage = weeks + " week" + (weeks > 1 ? "s" : "") + ", " + days + " days";
+	pregform.fetalage.value = fetalage;
+
+	return false; // form should never submit, returns false
+	}
+	
+	
+	function addTotext(){
+		if($('#conception').val().length !=0 && $('#duedate').val().length != 0 && $('#fetalage').val().length !=0){
+	var t1 = '\n'+$('#ec').text() + moment($('#conception').val()).format('MMMM Do YYYY')+"\n" +$('#edd').text() + moment($('#duedate').val()).format('MMMM Do YYYY') +"\n"+$('#efa').text() + $('#fetalage').val()+'\n';
+		var head = document.getElementById("prcalc").value;
+   	 $('#prcalc').val(head + t1);
+		}
+   	 $('#conception').val('')
+   	$('#duedate').val('')
+   	$('#fetalage').val('')
+	$('#lmp').val('')
+	$('#cycle').val('')
+	$('#luteal').val('')
+	}
 </script>
 <style>
 .wrapper {
@@ -856,6 +1011,22 @@ th {
   </div>
   </div>
   
+  
+      <div class="form-group row" >
+      <div class="col-xs-1"></div>
+        <div class="col-xs-6">
+  <div class="form-group">
+            <p>Due Date Detials<span></span></p>
+           <textarea type="text" class="form-control input-sm"  name="prcalc" id="prcalc" rows="3" value="NA"></textarea>
+           
+           
+      </div>
+        </div>
+        
+             <div class="col-xs-2">
+             <br><br>
+  <button type="button" class="btn btn-warning btn-sm" id="cpc" >Pregnancy Calculator</button>
+  </div></div> 
    <div class="form-group row" >
       <div class="col-xs-1"></div>
         <div class="col-xs-4">
@@ -878,6 +1049,7 @@ th {
         </div>
   </div>
    
+ 
   
 	 <button type="submit" onclick ="return validmess()" class="bouton-contact" id="bouton-contact" >Save</button>
      </form>
@@ -945,6 +1117,69 @@ th {
        </div>
    </div>
    
+   
+   <div id="pc" title="Pregnancy Calculator">
+  <form onSubmit="return pregnancyCalc(this);">
+  <div class="form-group row" >
+        <div class="col-xs-10">
+        <p>Last Menstrual Period(MM/DD/YYYY):<span></span></p>
+       <div class="form-group">
+      <input type="text" maxlength=10 class="form-control input-sm" name="menstrual" id="lmp">
+       </div>
+      </div>
+     
+     </div> 
+      <div class="form-group row" >
+        <div class="col-xs-10">
+        <p>Average Length of Cycles(22 to 45):<span></span></p>
+       <div class="form-group">
+      <input type="text" class="form-control input-sm" placeholder="(defaults to 28)" maxlength=3 name="cycle " id="cycle" value="">
+       </div>
+      </div>
+     </div> 
+     <div class="form-group row" >
+       <div class="col-xs-10">
+        <p>Average Luteal Phase Length(9 to 16):<span></span></p>
+       <div class="form-group">
+      <input type="text" class="form-control input-sm" placeholder="(defaults to 14)" maxlength=3 name="luteal" id="luteal" value="">
+       </div>
+      </div>
+      </div>
+          <div class="form-group row" >
+      <div class="col-xs-2">
+     <button type="submit" class="btn btn-warning">Caluclate</button></div>
+        <div class="col-xs-1"></div>
+      <div class="col-xs-2">
+     <button type="button" class="btn btn-warning" onclick="addTotext()">Add</button></div>
+     </div> 
+    
+       <div class="form-group row" >
+        <div class="col-xs-6">
+        <p id="ec">Estimated Conception:<span></span></p>
+       <div class="form-group">
+      <input type="text" maxlength="10" class="form-control input-sm" name="conception" id="conception" readonly>
+       </div>
+      </div>
+     
+     </div> 
+      <div class="form-group row" >
+        <div class="col-xs-10">
+        <p id="edd">Estimated Due Date:<span></span></p>
+       <div class="form-group">
+      <input type="text" class="form-control input-sm" name="duedate" id="duedate" readonly>
+       </div>
+      </div>
+     </div> 
+     <div class="form-group row" >
+       <div class="col-xs-10">
+        <p id="efa">Estimated Fetal Age:<span></span></p>
+       <div class="form-group">
+      <input type="text" class="form-control input-sm" name="fetalage" id="fetalage" readonly>
+       </div>
+      </div>
+      </div>
+       </form>
+       </div>
     <c:forEach var="p1"  items="${model.list4}">
      <script>
         checkhome('<c:out value="${p1.nid}" />','<c:out value="${p1.nname}" />')

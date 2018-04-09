@@ -61,6 +61,31 @@ margin-top: 2px;
 margin-left:10px;
 }
 
+.backhome{
+text-decoration: underline;
+font-family: "Verdana","sans-serif";
+ color: #337ab7;
+font-size: 14px;
+   line-height: 1.42857143;
+}
+.backhome{
+text-decoration: underline;
+font-family: "Verdana","sans-serif";
+ 
+font-size: 14px;
+   line-height: 1.42857143;
+       text-decoration: none;
+}
+
+.cmsfont{
+font-family: Verdana,sans-serif;
+}
+.navbar-default {
+    background-color: #eee;
+    border-color: #eee;
+    margin-bottom: 0px;
+}
+
 </style>
 <script type="text/javascript">
 function myconfirm()
@@ -90,27 +115,24 @@ function checkhome(user){
 	else if(user.includes("[ROLE_ASSISTANT]")){
 	
 		 var url = "/HMS/frontdesk" ;
-	//	 $("#back").hide();
+		 $("#back").hide();
 		
-		  $("#back").attr("href","/HMS/frontdesk")
-		  $("#tit").text("Back to Frontdesk")
+		 $('#ho').attr('href',url)	
 		 
 	}
 	else if(user.includes("[ROLE_DOCTOR]")){
 		
 		 var url = "/HMS/doctor1" ;
-			//$("#back").hide();
+			$("#back").hide();
 		
-		  $("#back").attr("href","/HMS/frontdesk")
-		  $("#tit").text("Back to Doctor View")
+			$('#ho').attr('href',url)	
 		 
 	}
 	else if(user.includes("[ROLE_Accounts Admin]")){
 		
 		 var url = "/HMS/frontdesk" ;
-		// $("#back").hide();
-			 $("#back").attr("href","/HMS/frontdesk")
-		 $("#tit").text("Back to Frontdesk")
+		 $("#back").hide();
+		 $('#ho').attr('href',url)	
 	}
 	
 	else if(user.includes("[ROLE_CHIEFNURSE]")){
@@ -118,8 +140,7 @@ function checkhome(user){
 		 var url = "/HMS/nursedesk" ;
 		 $("#back").hide();
 	
-		  $("#back").attr("href","/HMS/nursedesk")
-			 $("#tit").text("Back to Nurse Station")
+		 $('#ho').attr('href',url)	
 		 document.getElementById("samplea").style.display = "none";
 	}
 	else if(user.includes("[ROLE_NURSE]")){
@@ -130,23 +151,15 @@ function checkhome(user){
 		 document.getElementById("samplea").style.display = "none";
 		 document.getElementById("myInput").style.visibility ="hidden";
 		 
-		 $("#back").attr("href","/HMS/nursedesk")
-		 $("#tit").text("Back to Nurse Station")
+		 $('#ho').attr('href',url)	
 	}
 	else{
 		 var url = "/HMS/home" ;
-			
+		 $('#ho').attr('href',url)	
 		// var element = document.getElementById('ho');
 		 //element.setAttribute("href",url)
 		
-		 if(bac.includes("frontdesk")){
-			 $("#back").attr("href","/HMS/frontdesk")
-			 $("#tit").text("Back to Frontdesk")
-		 }
- else{
-	 $("#back").attr("href","/HMS/doctor1")
-	 $("#tit").text("Back to Doctor home")
- }
+		
 	}
 	disbut()
 }
@@ -156,18 +169,19 @@ function goBack() {
 }
 
 function addp(id){
-	if($("#admdate").length == 0){
-		alert("Please select admission date")
+
+	if($("#admdate").val().length == 0){
+		alert("Please select valid From date")
 		return false;
 	}
-	else if($("#disdate").length == 0){
-		alert("Please select disacharge date")
+	else if($("#disdate").val().length == 0){
+		alert("Please select valid To date")
+		return false;
 	}
 	else{
 		var url = "/HMS/pdf?location1="+$("#admdate").val()+"&location2="+$("#disdate").val()+"" ;
 		$(id).attr("href",url)
-		
-return true;
+		return true;
 	}
 }
 
@@ -201,26 +215,63 @@ $( function() {
 		    	  $( "#result" ).dialog( "open" );
 		      }
 		      else{
-		    	  $("#admdate").val('');
-		    	  $("#disdate").val('');
-		    
+		    	  
+		    	  var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+		    	  var firstDay = new Date(y, m, 1);
+		    	 // $("#admdate").val('');
+		    //	  $("#disdate").val('');
+		    	  $("#admdate").val(moment(firstDay).format("YYYY-MM-DD"))
+		          $("#disdate").val(moment().format("YYYY-MM-DD"));
 		    	 $( "#result" ).dialog( "open" );
 		      }
 		    	
+		    	/*
 		    	$('.dp1').datetimepicker({
 		   	   	 
-			    	defaultDate: new Date(),
+		    		
 			    	useCurrent: false,
 			    	format: "dd-mm-yyyy",
 			        autoclose: true,
 			        todayBtn: true,
-			        minView: 2
+			        minView: 2,
 			       
-			    	
-			    });
-
+			       
+			       });*/
+		    	
 		  	  
 		    });  
+	    
+	    $("#admdate").change(function(){
+			
+		      var startDate = document.getElementById("admdate").value;
+			var endDate = document.getElementById("disdate").value;
+		    
+		   		if (startDate >= endDate) {
+			          alert("From date should not be greater than "+moment(endDate).format("DD-MM-YYYY"));
+			        
+			          var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+			    	  var firstDay = new Date(y, m, 1);
+			    	 // $("#admdate").val('');
+			    //	  $("#disdate").val('');
+			    	  $("#admdate").val(moment(firstDay).format("YYYY-MM-DD"))
+			 
+			     }
+			
+		});
+	    
+		 
+	    $("#disdate").focusout(function () {
+			
+		      var startDate = document.getElementById("admdate").value;
+		      var endDate = document.getElementById("disdate").value;
+		      
+		      if (endDate <= startDate ) {
+		    	  
+		          alert("To date should be greater than "+moment(startDate).format("DD-MM-YYYY"));
+		          $("#disdate").val(moment().format("YYYY-MM-DD"));
+		      }
+		});
+	    
 	    
 });
 
@@ -230,9 +281,26 @@ $( function() {
 
 <body onload = "checkhome('<c:out value="${username}" />')">
 <div class= "wrapper">
-<br>
-<font color="#228B22" class="left" >Welcome  <c:out value="${username}" /> : ${pageContext.request.userPrincipal.name}</font><a style="text-decoration: underline;" href="#" class="button2 rightspace" id="back" ><span id="tit">Back</span></a>
-<i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
+<nav class="navbar navbar-default">
+    
+<ul class="nav navbar-nav cmsfont">
+
+<li class="active"><a id="ho" href="">Home</a></li>
+<li class="dropdown back" id="back">
+        <a class="dropdown-toggle backhome" data-toggle="dropdown" href="#">Quick Access
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu ">
+          <li><a href="/HMS/staff">Staff Details</a></li>
+          <li><a href="/HMS/doctor1">Doctor View</a></li>
+          <li><a href="/HMS/nursedesk">Nurse Station</a></li>
+          <li><a href="/HMS/frontdesk">Front Desk</a></li>
+        </ul>
+      </li>
+</ul>
+
+</nav>
+<!-- <font color="#228B22" class="left" >Welcome  <c:out value="${username}" /> : ${pageContext.request.userPrincipal.name}</font><a style="text-decoration: underline;" href="#" class="button2 rightspace backhome" id="back" ><span id="tit">Back</span></a> -->
+<!-- <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i> -->
 
 <div class="well well-lg" id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
 
@@ -305,13 +373,12 @@ $( function() {
       </div>
       </div>
       </div>   
-      <a href="#" target="_blank" class="btn btn-warning" onclick="return addp(this)">Bill Report</a></div>
+       <a href="#" target="_blank" class="btn btn-warning" onclick="return addp(this)">Bill Report</a></div>
   </div>
 </div>
 
 <script>
 
-var bac = '<c:out value='${model.bac}'/>';
 
 </script>
 </body>

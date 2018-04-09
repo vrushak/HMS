@@ -388,9 +388,20 @@ function addcheck(div,tab){
   	    } 
 	
 	  else {
-		  
+		  var rv = true;
 	  i = $("#tab"+tab).find(".main").find('.divin').eq(div).find(".header").attr("id");
-	
+	  $("#tab"+tab).find(".main").find('.divin').eq(div).each(function() {
+		    var item = $(this);
+		    var text = item.find(':checkbox[name=radio]').attr('value');
+		    if(text.toUpperCase() == person.toUpperCase()){
+		    	alert("Record already exists! Please try with a different name");
+		    	return rv = false;
+		    }
+		  	  });
+	  
+	  if(rv == false){
+			return rv;
+			}
  		
  		 var divc = div;
  	 	   divc = Number(divc) - 1;
@@ -480,6 +491,22 @@ function updchname(val,div,tab,value){
 	      return false;
   	    } 
 	else {
+		
+		
+		  var rv = true;
+	
+		  $("#tab"+tab).find(".main").find('.divin').eq(div).each(function() {
+			    var item = $(this);
+			    var text = item.find(':checkbox[name=radio]').attr('value');
+			    if(text.toUpperCase() == head.toUpperCase()){
+			    	alert("Record already exists! Please try with a different name");
+			    	return rv = false;
+			    }
+			  	  });
+		  
+		  if(rv == false){
+				return rv;
+				}
   	    var uri = "/HMS/updchname?cid="+cid+"&&header="+encodeURIComponent(head)+"";
 		var data = "0";
 		 

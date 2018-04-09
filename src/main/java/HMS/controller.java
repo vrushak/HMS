@@ -110,7 +110,48 @@ public class controller {
 	 	    
 	 	 	return new ModelAndView("printdocs","model",model); 
 	 }
-
+//Branch Access module
+	
+	//load user
+		 @RequestMapping(value="/branch", method = RequestMethod.GET)
+		   public ModelAndView Branch() {
+		 	
+		 	    List<Branch> list2 = dao.getBranch(); 
+		 	    Map<String,Object> model = new HashMap<String, Object>();
+		 	
+		 	  //  model.put("list1", list1);
+		 	    model.put("list2", list2);
+		 	    
+		 	 	return new ModelAndView("branch","model",model); 
+		 }
+		 
+		 //save branch details
+		 
+		 @RequestMapping(value="/saveBranch", method = RequestMethod.POST)
+			public ModelAndView  saveBranch(@ModelAttribute("s") Branch s,HttpServletRequest req) {
+			 int saves = 0;
+			String value = req.getParameter("cr");
+			 if(value.contentEquals("edit")){
+				 System.out.println("inside");
+				 saves = dao.updBranch(s);	 
+			 }
+			 else{
+				 
+				 saves = dao.saveBranch(s);	
+			 }
+			
+			 ModelAndView  mav = new ModelAndView();
+			 if(saves > 0){
+			 	 mav.addObject("message", "The record has been updated sucessfully");
+			 	 mav.setViewName("redirect:branch");
+			 }
+			 	 else{
+			 		 mav.addObject("message", "Update Failed");
+			 		 mav.setViewName("redirect:branch");
+			 	 }
+			   
+		        return mav; 
+				}
 	//load user
 	 @RequestMapping(value="/updateur", method = RequestMethod.GET)
 	   public ModelAndView Updateur() {

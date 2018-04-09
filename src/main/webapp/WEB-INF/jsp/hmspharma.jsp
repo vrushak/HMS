@@ -33,18 +33,23 @@
 
 </head>
 <script>
+var userss;
 function checkhome2(user){
-
-	if(user.includes("[ROLE_PHARMACIST]")){
+userss = user;
+	if(user == "[ROLE_PHARMACIST]"){
 	
 		 var url = "/HMS/welcome" ;
-			
-	
-		 
-		 $("#welcome").hide();
-			
+		$("#welcome").hide();
 	}
-	 
+	else if(user == "[ROLE_DISPPHARMACIST]"){
+			
+			 var url = "/HMS/welcome" ;
+			$("#welcome").hide();
+			$(".dp").hide();
+			$("#psap").hide();
+			$("#orps").hide();
+			$(".dp").hide();
+		} 
 	
 	else{
 		 var url = "/HMS/welcome" ;
@@ -196,6 +201,14 @@ label {
   overflow-y: auto;
 }
 
+figure {
+    display: inline-block;
+}
+.ip
+{
+white-space: normal;
+}
+
 /* irrelevant styling */
 body { }
 body p { 
@@ -323,7 +336,7 @@ $( function() {
 <div class = "wrapper">
 
 <br>
-<font color="#228B22" class="left" >Welcome : ${pageContext.request.userPrincipal.name}</font>  <i style="font-size:20px; align: right; color : #228B22;" class="fa fa-cog" ></i> 
+<font color="#228B22" class="left" >Welcome <c:out value="${username}" /> : ${pageContext.request.userPrincipal.name}</font>  <i style="font-size:20px; align: right; color : #228B22;" class="fa fa-cog" ></i> 
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
 <a style="text-decoration: underline;" id="welcome" href="/HMS/welcome" class="button2 rightspace">Back to CMS Home </a>
 <div class="well well-sm" id="well"> <center><h4><font color="white">Pharmacy</font></h4></center></div>
@@ -332,37 +345,37 @@ $( function() {
 
   <ul class="nav nav-pills nav-justified">
     <li class="active"><a  data-toggle="pill"  href="#masters">Masters</a></li>
-    <li><a  data-toggle="pill" href="#os">Order & Reorder/Purchase Entry/Sales</a></li>
+    <li id="orps"><a  data-toggle="pill" href="#os">Order & Reorder/Purchase Entry/Sales</a></li>
    <!--   <li><a  data-toggle="pill" href="#co">Configuration</a></li>
     <li><a  data-toggle="pill"  href="#re">Reports</a></li> -->
-    <li><a  data-toggle="pill"  href="#ps">Product Stocks and Pricing</a></li>
+    <li id="psap"><a  data-toggle="pill"  href="#ps">Product Stocks and Pricing</a></li>
+    <li id="dpa"><a  data-toggle="pill"  href="#dps">Dispensary</a></li>
   </ul>
   
   <div class="tab-content">
   <div id="masters" class="tab-pane fade in active">
     <div class="row text-center">
  <br><br>
-   <div class="col-xs-2">
+   <div class="col-xs-2 dp">
       <figure>
        <img src="<c:url value='/Images/Manufacture.png'/>"/><br><br>
       <figcaption><input type="button"onclick="location.href='/HMS/manufactureho.html';" value="Manufacturers"></figcaption>
       </figure>
     </div>
-  <div class="col-xs-2">
+  <div class="col-xs-2 dp">
       <figure>
        <img src="<c:url value='/Images/Supplier.png'/>"/><br><br>
       <figcaption><input type="button" onclick="location.href='/HMS/supplierho.html';" value="Suppliers"></figcaption>
       </figure>
     </div>
     
-    <div class="col-xs-2">
+    <div class="col-xs-2 dp">
       <figure>
        <img src="<c:url value='/Images/Customer.png'/>"/><br><br>
       <figcaption><input type="button" onclick="location.href='/HMS/customerho.html';" value="Customers"></figcaption>
       </figure>
     </div>
-    
-    
+   
     <div class="col-xs-2">
       <figure>
        <img src="<c:url value='/Images/Product.png'/>"/><br><br>
@@ -376,7 +389,7 @@ $( function() {
    <div class="row text-center">
  <br><br>
    
-   <div class="col-xs-2">
+   <div class="col-xs-2 dp">
       <figure>
        <img src="<c:url value='/Images/Order.png'/>"/><br><br>
       <figcaption><input type="button"onclick="location.href='/HMS/orderho.html';" value="Order & Reorder"></figcaption>
@@ -384,21 +397,21 @@ $( function() {
     </div>
     
     
-  <div class="col-xs-2">
+  <div class="col-xs-2 dp">
       <figure>
        <img src="<c:url value='/Images/Purchase.png'/>"/><br><br>
       <figcaption><input type="button" onclick="location.href='/HMS/purchaseho.html';" value="Purchase Entry"></figcaption>
       </figure>
     </div>
     
-    <div class="col-xs-2">
+    <div class="col-xs-2 dp">
       <figure>
        <img src="<c:url value='/Images/Sale.png'/>"/><br><br>
       <figcaption><input type="button" onclick="location.href='/HMS/saleho.html';" value="Sales"></figcaption>
       </figure>
     </div>
     
-    <div class="col-xs-2">
+    <div class="col-xs-2 dp">
       <figure>
        <img src="<c:url value='/Images/Print Prescription.png'/>"/><br><br>
       <figcaption><input type="button" id="opener" onclick="" value="Sales Report"></figcaption>
@@ -419,6 +432,7 @@ $( function() {
       </figure>
     </div>
     -->
+   
  </div>
   </div>
   <!--  
@@ -511,17 +525,52 @@ $( function() {
       </figure>
     </div>
    --> 
-  <div class="col-xs-2">
+  <div class="col-xs-2 dp">
       <figure>
        <img src="<c:url value='/Images/Product stock.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='/HMS/stopriceho.html';" value="Product Stocks and Pricing"></figcaption>
+      <figcaption><input type="button" class="ip" onclick="location.href='/HMS/stopriceho.html';" value="Product Stocks and Pricing"></figcaption>
       </figure>
     </div>
-    
-    
+    <div class="col-xs-1"></div>
+  
  </div>
 
 </div>
+
+<div id="dps" class="tab-pane fade">
+   <div class="row text-center">
+ <br><br>
+  
+   <div class="col-xs-2 ds">
+      <figure>
+       <img src="<c:url value='/Images/Customer.png'/>"/><br><br>
+      <figcaption><input type="button" onclick="location.href='/HMS/dcustomerho.html';" value="Dispensary Customers"></figcaption>
+      </figure>
+    </div> 
+    
+       <div class="col-xs-2" id="dpurchase">
+      <figure>
+       <img src="<c:url value='/Images/Purchase.png'/>"/><br><br>
+      <figcaption><input type="button" class="ip" onclick="location.href='/HMS/dpurchaseho.html';" value="Dispensary Purchase Entry"></figcaption>
+      </figure>
+    </div>
+    
+    <div class="col-xs-2" id="dsale">
+      <figure>
+       <img src="<c:url value='/Images/Sale.png'/>"/><br><br>
+      <figcaption><input type="button" onclick="location.href='/HMS/dsaleho.html';" value="Dispensary Sales"></figcaption>
+      </figure>
+    </div>
+    
+        <div class="col-xs-2" id="dstock">
+      <figure>
+       <img src="<c:url value='/Images/Product stock.png'/>"/><br><br>
+      <figcaption><input type="button" class="ip" onclick="location.href='/HMS/dstopriceho.html';" value="Dispensary Product Stocks and Pricing"></figcaption>
+      </figure>
+    </div>
+    
+ </div>
+  </div>
 </div>
 <div class="container">
 

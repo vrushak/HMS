@@ -3,6 +3,7 @@
  <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -180,27 +181,30 @@ $( function() {
 		    	 });  
 	    
 	    
-	    $( "#admdate" ).on( "click", function() {
-	   var a = $("#admdate").val();
-	
-	   var today = new Date(a);
-	   
-	    $("#admdate").attr('max',a)
- 	    $("#disdate").attr('min',a)
+	    $("#admdate").change(function(){
+			
+		      var startDate = document.getElementById("admdate").value;
+			var endDate = document.getElementById("disdate").value;
+		    
+		   		if (startDate >= endDate) {
+			          alert("From date should not be greater than "+moment(endDate).format("DD-MM-YYYY"));
+			          document.getElementById("admdate").value = "";
+			     }
+			
 		});
 	    
-
-		  $("#disdate").change(function () {
+		 
+	    $("#disdate").focusout(function () {
 			
-		      var startDate = document.getElementById("admdate").value.toString("YYYY-MM-DD");
-		      var endDate = document.getElementById("disdate").value.toString("YYYY-MM-DD");
-		   	
-		      if ((Date.parse(endDate) <= Date.parse(startDate))) {
-		          alert("To date should be greater than From date");
+		      var startDate = document.getElementById("admdate").value;
+		      var endDate = document.getElementById("disdate").value;
+		      
+		      if (endDate <= startDate ) {
+		    	  
+		          alert("To date should be greater than "+moment(startDate).format("DD-MM-YYYY"));
 		          document.getElementById("disdate").value = "";
 		      }
-	});
-
+		});
 	    
 	    
 	    
@@ -209,9 +213,10 @@ $( function() {
 </script>
 </head>
 <body>
+<sec:authentication property="principal.authorities" var="username" />
 <div class= "wrapper">
 <br>
-<font  color="#228B22" class="left" >Welcome : ${pageContext.request.userPrincipal.name}</font>  <i style="font-size:20px; align: right;color : #228B22" class="fa fa-cog" ></i> 
+<font  color="#228B22" class="left" >Welcome : <c:out value="${username}" /> : ${pageContext.request.userPrincipal.name}</font> 
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
 <div class="well well-lg" style='font-family: "Verdana","sans-serif"' id="well"> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
 

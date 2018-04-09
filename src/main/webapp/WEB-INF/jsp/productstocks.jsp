@@ -148,7 +148,7 @@ overflow-Y : hidden;
 
  	     
  	
- 	 if(user.includes("[ROLE_SALESMANAGER]")){
+ 	 if(user == "[ROLE_SALESMANAGER]" || user == "[ROLE_DISPSALESMANAGER]" ){
  	
  		var url = "/HMS/hmspharma1" ;
  		
@@ -169,8 +169,11 @@ overflow-Y : hidden;
  		$("#myTable th:eq(16), #myTable td:nth-child(17)").hide();
         document.getElementById("myTable").style.width = "1730px"; 		
         $('.ft').prop('readonly', true);
+        
+        $('#dpe').hide();	
+		$('#dpma').hide();
  	}
- 	else if(user.includes("[ROLE_PHARMACIST]")){
+ 	else if(user == "[ROLE_PHARMACIST]" || user == "[ROLE_DISPPHARMACIST]" ){
  	
  		 var url = "/HMS/hmspharma" ;
  			
@@ -178,7 +181,7 @@ overflow-Y : hidden;
  		 element.setAttribute("href",url)
  		
  		 
- 	
+ 		$('#dpma').hide();
  		
  	}
  	 
@@ -188,6 +191,7 @@ overflow-Y : hidden;
  		
  		 var element = document.getElementById('ho');
  		 element.setAttribute("href",url)
+ 		$('#dpma').hide();
  	}
  }
  
@@ -397,6 +401,19 @@ $(document).ready(function() {
         <li id="pe"><a href="/HMS/purchaseho.html">Purchase Entry</a></li>
         <li><a href="/HMS/saleho.html">Sales</a></li>
         <li><a href="/HMS/stopriceho.html">Product Stocks and Pricing</a></li>
+        
+          <li class="dropdown" id="dr2">
+        <a class="dropdown-toggle" data-toggle="dropdown">Dispensary
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+       
+       <li><a href="/HMS/dcustomerho.html">Customer Master</a></li>
+       <li id="dpma"><a href="/HMS/productho.html">Product  Master</a></li>
+        <li id="dpe"><a href="/HMS/dpurchaseho.html">Purchase Entry</a></li>
+        <li id="ds"><a href="/HMS/dsaleho.html">Sales</a></li>
+        <li id="dpsp"><a href="/HMS/dstopriceho.html">Product Stocks and Pricing</a></li>
+         
+        </ul>
       </li>
      
     </ul>

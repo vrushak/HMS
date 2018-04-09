@@ -171,7 +171,8 @@ function checkhome2(user){
 			document.getElementById("sm").style.display = "none"; 
 			document.getElementById("or").style.display = "none"; 
 			document.getElementById("pe").style.display = "none"; 
-		
+			$('#dpe').hide();	
+			$('#dpma').hide();
 		
 		 
 	}
@@ -182,7 +183,7 @@ function checkhome2(user){
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		
-		 
+		 $('#dpma').hide();
 	
 		
 	}
@@ -193,6 +194,7 @@ function checkhome2(user){
 		
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $('#dpma').hide();
 	}
 }
 function check(id){
@@ -234,6 +236,36 @@ function check(id){
 	}
 }
 
+function isDate(txtDate)
+{
+    var currVal = txtDate;
+    if(currVal == '')
+        return false;
+    
+    var rxDatePattern =/^\d{4}-\d{2}-\d{2}$/ ; //Declare Regex   
+    var dtArray = currVal.match(rxDatePattern); // is format OK?
+    if (dtArray == null) 
+        return false;
+    
+    //Checks for mm/dd/yyyy format.
+    dtMonth = dtArray[1];
+    dtDay= dtArray[3];
+    dtYear = dtArray[5];        
+    
+    if (dtMonth < 1 || dtMonth > 12) 
+        return false;
+    else if (dtDay < 1 || dtDay> 31) 
+        return false;
+    else if ((dtMonth==4 || dtMonth==6 || dtMonth==9 || dtMonth==11) && dtDay ==31) 
+        return false;
+    else if (dtMonth == 2) 
+    {
+        var isleap = (dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0));
+        if (dtDay> 29 || (dtDay ==29 && !isleap)) 
+                return false;
+    }
+    return true;
+}
 
 
 function deleteRow(r) {
@@ -434,11 +466,11 @@ var str = text.split(',');
          var mdesc  = "mdesc" + idx;
          var exp = "expdate"+idx; 
         
-         var row = "<tr><td><input class='form-control input-sm' type = 'text' form ='purchasesave' name = 'ean1' id='eans' value='"+str[0]+"'></td><td><input class='form-control input-sm' form ='purchasesave'  type='text' id = 'productSale' name= 'pname1' value = '"+str[1]+"'required></td><td><input class='form-control input-sm' type ='text'  name='Batch1' value ='NA' id='"+batch+"' onfocusout = 'doAjaxPost2(this.value)' form ='purchasesave' required></td><td><input type='date' class='form-control input-sm expSale' max='2999-12-31' form ='purchasesave' id = '"+exp+"' name= 'expDate1' required></td><td><input class='form-control input-sm' form='purchasesave'   type='text'  id = 'mpack' name='mpack' required value ='NA' required></td><td><input class='form-control input-sm unitp' form ='purchasesave'  type='text' id = 'sudesc'   name= 'sudesc' required value = 'NA' ></td><td><input onkeypress='return onlyNos(event,this);' class='form-control input-sm' form ='purchasesave'  type='number' min='1' id = '"+quantity+"' name='qty[]'  required value ='0'></td><td><input  class='form-control input-sm caluclate' form ='purchasesave' type='text' id = '"+discount+"' name='discount1[]' required  value ='0.00'></td><td><input  class='form-control input-sm' form ='purchasesave' type='text' id = '"+up+"'  name= 'up2[]'  value = '0.00' onfocusout = checkbatch($('#"+batch+"').val(),$('#"+exp+"').val(),$('#"+mdesc+"').val(),$('#"+up+"').val()) required ></td><td><input onkeypress='return onlyNos(event,this);' class='form-control input-sm' form ='purchasesave' type='text'  id = 'freeSale' name= 'free'  value = '0'  ></td><td><input class='form-control input-sm'  form ='purchasesave' readonly = 'readonly' type='text' id = '"+total+"'  name='price[]'  value = '0.00'></td><td><i class='fa fa-trash-o' style='font-size:20px' onclick='deleteRow(this)'></i></td></tr>";
+         var row = "<tr><td><input class='form-control input-sm' type = 'text' form ='purchasesave' name = 'ean1' id='eans' value='"+str[0]+"'></td><td><input class='form-control input-sm' form ='purchasesave'  type='text' id = 'productSale' name= 'pname1' value = '"+str[1]+"'required></td><td><input class='form-control input-sm' type ='text'  name='Batch1' value ='NA' id='"+batch+"' onfocusout = \"(doAjaxPost2(this.value,'"+str[1]+"'))\" form ='purchasesave' required></td><td><input type='date' class='form-control input-sm expSale' max='2999-12-31' form ='purchasesave' id = '"+exp+"' name= 'expDate1' required></td><td><input class='form-control input-sm' form='purchasesave'   type='text'  id = 'mpack' name='mpack' required value ='NA' required></td><td><input class='form-control input-sm' form='purchasesave'  onkeypress='return onlyNos(event,this);'  type='number' min='1' id = '"+mdesc+"' name='mdesc' required  value = '1' required></td><td><input class='form-control input-sm unitp' form ='purchasesave'  type='text' id = 'sudesc'   name= 'sudesc' required value = 'NA' ></td><td><input onkeypress='return onlyNos(event,this);' class='form-control input-sm' form ='purchasesave'  type='number' min='1' id = '"+quantity+"' name='qty[]'  required value ='0'></td><td><input  class='form-control input-sm caluclate' form ='purchasesave' type='text' id = '"+discount+"' name='discount1[]' required  value ='0.00'></td><td><input  class='form-control input-sm' form ='purchasesave' type='text' id = '"+up+"'  name= 'up2[]'  value = '0.00' onfocusout = checkbatch($('#"+batch+"').val(),$('#"+exp+"').val(),$('#"+mdesc+"').val(),$('#"+up+"').val()) required ></td><td><input onkeypress='return onlyNos(event,this);' class='form-control input-sm' form ='purchasesave' type='text'  id = 'freeSale' name= 'free'  value = '0'  ></td><td><input class='form-control input-sm'  form ='purchasesave' readonly = 'readonly' type='text' id = '"+total+"'  name='price[]'  value = '0.00'></td><td><i class='fa fa-trash-o' style='font-size:20px' onclick='deleteRow(this)'></i></td></tr>";
+   
          $('#myTable .tbody').append(row);
     
-
-
+         
 
 
         disbut();
@@ -604,9 +636,24 @@ function verifyproAdd(){
 
 	var x5 =document.getElementsByName("expDate1");
 	for(var i = 0;i<x5.length;i++){
-		if(x5[i].value < moment().format("YYYY-MM-DD")){
+		if(! isDate(x5[i].value))
+		{ alert('Invalid Date');
+		
+		  $('#ean').prop('disabled',true)
+		   	  $('#pname').prop('disabled',true)
+		   	  $('#bouton-contact').prop('disabled',true) 
+		return false;}
+		else if(x5[i].value <= moment().format("YYYY-MM-DD")){
 			alert("Expiry date should be greater than Current date")
+  	              $('#ean').prop('disabled',true)
+     		   	  $('#pname').prop('disabled',true)
+     		   	  $('#bouton-contact').prop('disabled',true)   
 			return false;
+		}
+		else{
+		  	  $('#ean').prop('disabled',false)
+ 		   	  $('#pname').prop('disabled',false)
+ 		   	  $('#bouton-contact').prop('disabled',false)
 		}
 	}
 
@@ -681,11 +728,23 @@ var longformat1 = date1*1;
 if(longformat > longformat1){
 	alert("Cannot create purchase entry for future dates")
 	$('#bouton-contact').prop("disabled",true)
+	    $('#ean').prop('disabled',true)
+       $('#pname').prop('disabled',true)
+        $('#gtot').prop('disabled',true)
+         $('#addepr').prop('disabled',true)
+         $('#Supplier').prop('disabled',true)
+     		   	  
 	return false;
 }
 else{
 	$('#bouton-contact').prop("disabled",false)
-	return true
+		
+	    $('#ean').prop('disabled',false)
+       $('#pname').prop('disabled',false)
+         $('#gtot').prop('disabled',false)
+         $('#addepr').prop('disabled',false)
+           $('#Supplier').prop('disabled',false)  
+	return true;
 }
 }
 
@@ -762,7 +821,7 @@ var ba;
 var ex;
 var mps;
 var cps;
-       function doAjaxPost2(batch) {
+       function doAjaxPost2(batch,name) {
     	   // get the form values
     	   
        
@@ -770,7 +829,7 @@ var cps;
          	  
 	           type: "GET",
 	   
-	           url: "/HMS/getBatdet?location="+encodeURIComponent(batch)+"",
+	           url: "/HMS/getBatdet?location="+encodeURIComponent(batch)+"&&location1="+encodeURIComponent(name)+"",
 	          data: "0",
 	        
 	           dataType: "JSON",
@@ -797,12 +856,11 @@ var cps;
 
 
        function checkbatch(batch,exp,mpsize,cp){
-     	  
-      	 
+     	
      	  if(batch == ba){
-    
+     		
      		  if(exp != ex || mpsize != mps || cp != cps){
-     		   
+     		
      			 $.alert({
      			    title: 'Warning!',
      			    content: 'Product with same batch exists with Exp Date - '+moment(ex).format("DD-MM-YYYY")+', Manufacturing Pack Size - '+mps+' and UnitCP - '+cps+'.<br>1. Correct all the differences and continue to add.<br>2. Change the Batch name and add as a new batch.<br>3. Cancel the entry and update Quantity detail in Product Stocks & Pricing screen.',
@@ -860,9 +918,11 @@ var cps;
 	        	x[9].getElementsByTagName('input')[0].value = 0;
 	        	b= Number(x[8].getElementsByTagName('input')[0].value)/(Number(x[7].getElementsByTagName('input')[0].value)*Number(x[5].getElementsByTagName('input')[0].value)); 
 	        	x[9].getElementsByTagName('input')[0].value = Number(b).toFixed(2);
-	        	console.log(b)
-	        
-	        	
+	        //	var idm =  x[9].getElementsByTagName('input')[0].id; 
+	        //	if(!$('#'+idm).val().includes("NaN") && !$('#'+idm).val().includes("0.00")  ){
+	        //		document.getElementById(idm).oninput();
+	        //	} 
+	        //console.log(x[9].getElementsByTagName('input')[0].value.length)
 	        }
 	        
 	        else if(document.getElementById("ins").checked == true){
@@ -870,13 +930,13 @@ var cps;
 	        	x[8].getElementsByTagName('input')[0].value = 0;
 	        		a = Number(b) * Number(x[7].getElementsByTagName('input')[0].value)*Number(x[5].getElementsByTagName('input')[0].value); 
 	        	x[8].getElementsByTagName('input')[0].value = Number(a);
-	        	console.log(x[8].getElementsByTagName('input')[0].value)
+	        	
 	        }
 	        else{
 	        	 
 	        }
 	        x[10].getElementsByTagName('input')[0].value = Math.round(Number(x[5].getElementsByTagName('input')[0].value) * Number(x[7].getElementsByTagName('input')[0].value));
-	        x[11].getElementsByTagName('input')[0].value = Math.round(Number(x[9].getElementsByTagName('input')[0].value) * Number(x[10].getElementsByTagName('input')[0].value));
+	        x[11].getElementsByTagName('input')[0].value = Math.round(Number(x[9].getElementsByTagName('input')[0].value) * Number(x[10].getElementsByTagName('input')[0].value)).toFixed(2)
 	       price = 0;
 	      
 	    });
@@ -929,6 +989,19 @@ $('#datetimepicker1').datetimepicker({
         <li><a href="/HMS/purchaseho.html">Purchase Entry</a></li>
         <li><a href="/HMS/saleho.html">Sales</a></li>
         <li><a href="/HMS/stopriceho.html">Product Stocks and Pricing</a></li>
+        
+          <li class="dropdown" id="dr2">
+        <a class="dropdown-toggle" data-toggle="dropdown">Dispensary
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+       
+       <li><a href="/HMS/dcustomerho.html">Customer Master</a></li>
+       <li id="dpma"><a href="/HMS/productho.html">Product  Master</a></li>
+        <li id="dpe"><a href="/HMS/dpurchaseho.html">Purchase Entry</a></li>
+        <li id="ds"><a href="/HMS/dsaleho.html">Sales</a></li>
+        <li id="dpsp"><a href="/HMS/dstopriceho.html">Product Stocks and Pricing</a></li>
+         
+        </ul>
              </li>
      
     </ul>
@@ -1005,7 +1078,7 @@ $('#datetimepicker1').datetimepicker({
 	      <div class="form-group">
             <p>Allocation Id<span>*</span></p>
      <select class="selectpicker" data-show-subtext="true" data-live-search="true"  name = "allocationid1" id ="allocationid1" onchange="setUrl(this.options[this.selectedIndex])"  required>
-  <option value="select">--Select--</option>
+  <option value="select">Select for Print</option>
  <c:forEach var="purchase"  items="${model.list2a}">
  <option value = "${purchase.allocationid}">${purchase.allocationid}</option>
  </c:forEach>
@@ -1183,7 +1256,7 @@ $('#datetimepicker1').datetimepicker({
 	  <h7> Note: Click on "Generate Total" button each time any changes are done </h7>        
  </div>
  </div>  	      
- <input type=""  class="bouton-contact"   form="purchasesave" id="bouton-contact" class="btn btn-warning button1" ></input>
+ <input type=""  class="bouton-contact"   form="purchasesave" id="bouton-contact" class="btn btn-warning button1" disabled></input>
 	  </div>
 	  </div>
 <c:forEach var="od"  items="${model.list2}">

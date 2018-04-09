@@ -247,9 +247,11 @@ function addname(getval){
      document.getElementById("admitnoH").value= str[3];		 
 	 document.getElementById("bouton-contact").disabled = false;
 	 var url = "/HMS/nursetr/" + str[0];
-	
+	 $("#myTable .tbody tr").remove()
 	 var element = document.getElementById('nob');
 	 element.setAttribute("href",url)
+	 
+	
 }
 
 

@@ -59,6 +59,41 @@ public class controllerDao {
 	    this.template = template;  
 	}  
 	
+	
+	//Read branch details
+	public List<Branch> getBranch() {
+		// TODO Auto-generated method stub
+		return template.query("select id,name,address,logo from branchdetails",new RowMapper<Branch>(){  
+	      public Branch mapRow(ResultSet rs, int row) throws SQLException {   
+		       Branch i = new Branch();
+		       i.setId(rs.getInt(1));
+		       i.setName(rs.getString(2));
+		       i.setAddress(rs.getString(3));
+		       i.setLogo(rs.getString(4));
+		   return i;
+	      }
+		});
+	}
+	
+	
+	//save branch details
+	
+public int saveBranch(Branch s) {
+		
+		String sql = "insert into branchdetails(name,address,logo) values('"+s.getName()+"','"+s.getAddress()+"','"+s.getLogo()+"')";
+		return template.update(sql);
+		// TODO Auto-generated method stub
+		
+	}
+	
+public int updBranch(Branch s) {
+	
+	String sql = "update branchdetails set name='"+s.getName()+"',address='"+s.getAddress()+"' where id='"+s.getId()+"'";
+	return template.update(sql);
+	// TODO Auto-generated method stub
+	
+}
+
 	//get patient id
 	public Patient pia;
 	public List<Patient> getPatientId() {
@@ -1962,6 +1997,8 @@ public List<Register> getNrole() {
         }
 	});
 }
+
+
 
 public List<Register> getArole() {
 	// TODO Auto-generated method stub

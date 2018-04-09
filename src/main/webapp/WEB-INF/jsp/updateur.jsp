@@ -404,9 +404,7 @@ function validDate() {
     <ul class="nav navbar-nav">
       <li class="active"><a id="" href="home.html">Home</a></li>
     </ul>
-    <ul class="nav navbar-nav navbar-right">
-  <li><a style="text-decoration: underline;" href="/HMS/home" id="back" ><span id="tit">Back to Home</span></a></li>
-    </ul>
+   
   </div>
 </nav>
   <center>

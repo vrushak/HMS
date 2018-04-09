@@ -214,7 +214,7 @@ function checkhome(user){
 	document.getElementById("hds").style.display = "none";
 	 var m = moment().format("DD-MM-YYYY");
 	document.getElementById("admdate").value= m;
-	$("#tit").text("Back to Print Documents")
+	
 	if(user.includes("[ROLE_FDESK]")){
 		
 		var url = "/HMS/frontdesk" ;
@@ -225,14 +225,14 @@ function checkhome(user){
 	else if(user.includes("[ROLE_ASSISTANT]")){
 	
 		 var url = "/HMS/frontdesk" ;
-		// $("#back").hide();
+		 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 	}
 	else if(user.includes("[ROLE_DOCTOR]")){
 		
 		 var url = "/HMS/doctor1" ;
-	//	 $("#back").hide();
+		 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 	}
@@ -240,15 +240,16 @@ function checkhome(user){
 	else if(user.includes("[ROLE_Accounts Admin]")){
 		
 		 var url = "/HMS/frontdesk" ;
-	//	 $("#back").hide();
+		 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 
 		}
 	else if(user.includes("[ROLE_NURSE]")){
-		$("#tit").text("Back to Nurse desk")
+	
 		 var url = "/HMS/nursedesk" ;
-	//	 $("#back").hide();
+		 $("#back").hide();
+		 $(".prdocs").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 
@@ -260,9 +261,9 @@ function checkhome(user){
 		 document.getElementById("myInput").style.visibility ="hidden";
 	}
 	else if(user.includes("[ROLE_CHIEFNURSE]")){
-		$("#tit").text("Back to Nurse desk")
+		$("#back").hide();
+		 $(".prdocs").hide();
 		 var url = "/HMS/nursedesk" ;
-	//	 $("#back").hide();
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 
@@ -274,6 +275,7 @@ function checkhome(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $('.prdocs').hide();
 	}
 }
 
@@ -502,18 +504,21 @@ function AutoGrowTextArea(textField)
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
-      <!-- 
-      <li class=""><a id="m2" href="">My Appointments</a></li>
-        <li class=""><a  id="m3" href="">General Checkup</a></li>
-          <li class=""><a id="m4" href="/HMS/discharge.html">Discharge Summary</a></li>
- 
-       <li class=""><a id="nob" href="/HMS/nursetr/"  onclick=' return visible();' target="_blank">Nurse observations</a></li>
-  -->
+    <li class="prdocs"><a href="/HMS/prdocs" >Print Documents</a></li>
+ <li class="dropdown back" id="back">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Quick Access
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/HMS/staff">Staff Details</a></li>
+          <li><a href="/HMS/doctor1">Doctor View</a></li>
+          <li><a href="/HMS/nursedesk">Nurse Station</a></li>
+          <li><a href="/HMS/frontdesk">Front Desk</a></li>
+          <li><a href="/HMS/prdocs" >Print Documents</a></li>
+        </ul>
+      </li>      
     </ul>
      
-  <ul class="nav navbar-nav navbar-right">
-  <li><a style="text-decoration: underline;"  href="#" onclick="goBack('<c:out value="${username}" />')"><span id="tit">Back</span></a></li>
-    </ul>
+  
   </div>
 </nav>
   <center>

@@ -3,6 +3,7 @@
  <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -58,15 +59,23 @@ margin-left:10px;
 	background : #009999;
 	
 }
+.backhome{
+text-decoration: underline;
+font-family: "Verdana","sans-serif";
+ color: #337ab7;
+font-size: 14px;
+   line-height: 1.42857143;
+}
 
 </style>
 </head>
 <body>
+<sec:authentication property="principal.authorities" var="username" />
 <div class= "wrapper">
 <br>
-<font color="#228B22" style='font-family: "Verdana","sans-serif"' class="left" >Welcome  <c:out value="${username}" /> : ${pageContext.request.userPrincipal.name}</font>  <i style="font-size:20px; align: right;color : #228B22" class="fa fa-cog" ></i> 
+<font color="#228B22" style='font-family: "Verdana","sans-serif"' class="left" >Welcome  <c:out value="${username}" /> : ${pageContext.request.userPrincipal.name}</font>   
 <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="location.href='/HMS/logout';"></i>
-<a style="text-decoration: underline;" href="/HMS/home" id="back" class='button2 rightspace' ><span id="tit">Back to Home</span></a>
+<a style="text-decoration: underline;" href="/HMS/home" id="back" class='button2 rightspace backhome' ><span id="tit">Back to Home</span></a>
 <div class="well well-lg" id="well" style='font-family: "Verdana","sans-serif"'> <center><h4><font color="white">CMS Wedge</font></h4></center></div>
 
  <div class ="container" >

@@ -120,7 +120,7 @@ function checkhome(user){
 	    <br>
 <div class="col-lg-12" style="height:400px; overflow:auto">	  
  <div class="table-responsive">          
-  <table class="table table-striped table-bordered table-hover table-condensed">
+  <table class="table table-striped table-bordered table-hover table-condensed" id="myTable">
  <thead>
       <tr>
         <th>Patient Id</th>

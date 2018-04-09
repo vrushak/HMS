@@ -54,7 +54,14 @@ public class Diagnose {
 	private String samplecol;
 	private String date1;
 	private String tresult;
+	private String prcalc;
 
+	public String getPrcalc() {
+		return prcalc;
+	}
+	public void setPrcalc(String prcalc) {
+		this.prcalc = prcalc;
+	}
 	public String getTresult() {
 		return tresult;
 	}

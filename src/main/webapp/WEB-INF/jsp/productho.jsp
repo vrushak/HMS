@@ -29,7 +29,7 @@
 <style type="text/css">
 
 .wrapper {
-  height : 800px;
+  height : 1000px;
   background: #eaeaea;  
   font-family: 'Open Sans', sans-serif;
 }
@@ -162,7 +162,7 @@ function checkhome2(user){
 
 	     
 	
-	 if(user.includes("[ROLE_SALESMANAGER]")){
+	 if(user == "[ROLE_SALESMANAGER]"){
 
 		var url = "/HMS/hmspharma1" ;
 		
@@ -178,6 +178,35 @@ function checkhome2(user){
 		 document.getElementById("manufacturer").disabled = true;
 		 document.getElementById("check").disabled = true;
 	}
+	 
+	 else if(user == "[ROLE_DISPSALESMANAGER]"){
+		 
+		 var url = "/HMS/hmspharma1" ;
+			
+		 var element = document.getElementById('ho');
+		 element.setAttribute("href",url)
+		 
+		document.getElementById("bouton-contact").disabled = true; 
+		document.getElementById("mm").style.display = "none"; 
+		document.getElementById("sm").style.display = "none"; 
+		document.getElementById("or").style.display = "none"; 
+		document.getElementById("pe").style.display = "none"; 
+		 $('input').prop('readonly', true);
+		 document.getElementById("manufacturer").disabled = true;
+		 document.getElementById("check").disabled = true;
+		 $('#dr1').hide();	
+			$('.pra').hide();
+			$('#dpe').hide();	
+	 }
+	 else if( user == "[ROLE_DISPPHARMACIST]"){
+		 var url = "/HMS/hmspharma" ;
+			
+		 var element = document.getElementById('ho');
+		 element.setAttribute("href",url)
+		 $('#dr1').hide();	
+			$('.pra').hide();
+			
+	 }
 	else if(user.includes("[ROLE_PHARMACIST]")){
 	
 		 var url = "/HMS/hmspharma" ;
@@ -623,22 +652,34 @@ var pnflag;
     </div>
      <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
-      <li class="dropdown">
+      <li class="dropdown" id="dr1">
         <a class="dropdown-toggle" data-toggle="dropdown">Masters
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-       <li id="mm"><a href="/HMS/manufactureho.html">Manufacturer Master</a></li>
-       <li id="sm"><a href="/HMS/supplierho.html">Supplier Master</a></li>
-       <li><a href="/HMS/customerho.html">Customer Master</a></li>
-       <li><a href="/HMS/productho.html">Product  Master</a></li>
+       <li id="mm" class="pra"><a href="/HMS/manufactureho.html">Manufacturer Master</a></li>
+       <li id="sm" class="pra"><a href="/HMS/supplierho.html">Supplier Master</a></li>
+       <li class="pra"><a href="/HMS/customerho.html">Customer Master</a></li>
+       <li class="pra"><a href="/HMS/productho.html">Product  Master</a></li>
          
         </ul>
       
-        <li id="or"><a href="/HMS/orderho.html">Order & Reorder</a></li>
-        <li id="pe"><a href="/HMS/purchaseho.html">Purchase Entry</a></li>
-        <li><a href="/HMS/saleho.html">Sales</a></li>
-        <li><a href="/HMS/stopriceho.html">Product Stocks and Pricing</a></li>
+        <li id="or" class="pra"><a href="/HMS/orderho.html">Order & Reorder</a></li>
+        <li id="pe" class="pra"><a href="/HMS/purchaseho.html">Purchase Entry</a></li>
+        <li class="pra"><a href="/HMS/saleho.html">Sales</a></li>
+        <li class="pra"><a href="/HMS/stopriceho.html">Product Stocks and Pricing</a></li>
       
+         <li class="dropdown" id="dr2">
+        <a class="dropdown-toggle" data-toggle="dropdown">Dispensary
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+       
+       <li><a href="/HMS/dcustomerho.html">Customer Master</a></li>
+       <li><a href="/HMS/productho.html">Product  Master</a></li>
+        <li id="dpe"><a href="/HMS/dpurchaseho.html">Purchase Entry</a></li>
+        <li id="ds"><a href="/HMS/dsaleho.html">Sales</a></li>
+        <li id="dpsp"><a href="/HMS/dstopriceho.html">Product Stocks and Pricing</a></li>
+         
+        </ul>
       </li>
      
     </ul>

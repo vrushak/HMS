@@ -162,14 +162,15 @@ function checkhome2(user){
 			document.getElementById("pe").style.display = "none"; 
 		
 		
-		 
+			$('#dpe').hide();	
+			$('#dpma').hide();
 	}
 	else if(user.includes("[ROLE_PHARMACIST]")){
 	
 		 var url = "/HMS/hmspharma" ;
 			
 		
-		 
+		 $('#dpma').hide();	
 	
 		
 	}
@@ -179,7 +180,7 @@ function checkhome2(user){
 		 var url = "/HMS/hmspharma" ;
 		
 		 var element = document.getElementById('ho');
-
+		 $('#dpma').hide();	
 	}
 }
 
@@ -410,7 +411,7 @@ if(stop == "0"){
 	alert("Product already added")
 	return false;
 }
-var markup = "<tr><td style='width:100px;'><input type='text'  class='form-control input-sm' id = 'ean' name= 'ean' form ='saveo' value = "+ean+" required></td><td style='width:400px;'><input type='text'  form ='saveo' class='form-control input-sm' id = 'productName' name= 'productName'  value = '"+decodeURI(pname)+"' required></td><td style='width:160px;'><input id = 'unit' form ='saveo' type='text' name= 'unit' class='form-control input-sm' value='"+dps+"' required></td><td style='width:100px;'><input form ='saveo'  type='number' onkeypress='return onlyNos(event,this);'  id = 'quantity' name= 'quantity' min = '1' value = '0' class='form-control input-sm' required ></td><td style='width:100px;'><input type = 'text' form ='saveo'  readonly='readonly' type='text'  id = 'stks' name='stks' value="+Number(p)+" class='form-control input-sm' required></td><td style='width:70px;'><i class='fa fa-trash-o'  style='font-size:20px'onclick='deleteRow(this)'></i></td></tr>"
+var markup = "<tr><td style='width:100px;'><input type='text'  class='form-control input-sm' id = 'ean' name= 'ean' form ='saveo' value = "+ean+" readonly required></td><td style='width:400px;'><input type='text'  form ='saveo' class='form-control input-sm' id = 'productName' name= 'productName'  value = '"+decodeURI(pname)+"'  readonly required></td><td style='width:160px;'><input id = 'unit' form ='saveo' type='text' name= 'unit' class='form-control input-sm' value='"+dps+"' required></td><td style='width:100px;'><input form ='saveo'  type='number' onkeypress='return onlyNos(event,this);'  id = 'quantity' name= 'quantity' min = '1' value = '0' class='form-control input-sm' required ></td><td style='width:100px;'><input type = 'text' form ='saveo'  readonly='readonly' type='text'  id = 'stks' name='stks' value="+Number(p)+" class='form-control input-sm' required></td><td style='width:70px;'><i class='fa fa-trash-o'  style='font-size:20px'onclick='deleteRow(this)'></i></td></tr>"
 
  $('#myTable tbody').append(markup);
 
@@ -696,7 +697,8 @@ function disp(){
 
 function verifypro(){
 	var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
-
+	var today = moment().format("DD-MM-YYYY hh:mm");
+	document.getElementById("orderDate").value = today;
 	if((tableRef.rows.length) < 1 )
 	{
 		alert("No products added.")
@@ -725,7 +727,7 @@ function doAjaxdel(r){
 //	var b = document.getElementById(type).value;
 	var c = $('#sinvoice').val();
 	var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
-	
+	var y;
 	
 	var ra = confirm("You are deleting a product. Do you want to proceed?");
 	if (ra == false) {
@@ -738,6 +740,9 @@ function doAjaxdel(r){
 	if(i == false){
 		return false;
 	}	
+	else{
+		y = 1;
+	}
 	}
 	
 	   $.ajax({
@@ -754,6 +759,9 @@ function doAjaxdel(r){
                  {
              	  alert("Record deleted Successfully")
                  }
+              	if(y > 0){
+              		window.location = "/HMS/orderho.html";
+              	}
              	  unsaved = false;
                  },
                  
@@ -798,7 +806,7 @@ function doAjaxdel(r){
 			   
 			  return false;
 		 }
-        $("#myTable tbody tr").remove();
+       $("#myTable tbody tr").remove();
      
     	   $.ajax({
          	  
@@ -824,17 +832,17 @@ function doAjaxdel(r){
         		   var tableRef = document.getElementById('myTable').getElementsByTagName('tbody')[0];
         		  var eanid = "ean" + tableRef.rows.length;
         		  var pid = "pid" + tableRef.rows.length;
-        		 
-        		   var markup = "<tr><td style='width:100px;' class='pc'><input type = 'text' class='form-control input-sm' id = 'ean' name= 'ean' form ='saveo' value = '"+datec.ean+"' required></td><td style='width:400px;' class='pc1'><input type='text' form ='saveo' class='form-control input-sm' id = 'productName' name= 'productName' value='"+datec.productName+"' required></textarea></td><td style='width:160px;' class='pc2'><input id = 'unit' class='form-control input-sm' form ='saveo' type='text' name= 'unit' value='"+decodeURI(datec.unit)+"' required></td><td style='width:100px;' class='pc'><input form ='saveo'  type='number' onkeypress='return onlyNos(event,this);' id = 'quantity' name= 'quantity' min = '1' value = '"+datec.quantity+"' class='form-control input-sm'  required></td><td style='width:100px;'class='pc'><input type = 'text' form ='saveo'   type='text'  id = 'stks' name='stks' value="+Number(datec.stks)+"  readonly='readonly' class='form-control input-sm' required></td><td style='width:70px;'><i class='fa fa-trash-o' id='"+encodeURI(datec.ean)+"' style='font-size:20px' onclick=doAjaxdel(this)></i></td></tr>"
+        	
+        		   var markup = "<tr><td style='width:100px;' class='pc'><input type = 'text' class='form-control input-sm' id = 'ean' name= 'ean' form ='saveo' value = '"+datec.ean+"' readonly required></td><td style='width:400px;' class='pc1'><input type='text' form ='saveo' class='form-control input-sm' id = 'productName' name= 'productName' readonly value='"+datec.productName+"' required></textarea></td><td style='width:160px;' class='pc2'><input id = 'unit' class='form-control input-sm' form ='saveo' type='text' name= 'unit' value='"+decodeURI(datec.unit)+"' required></td><td style='width:100px;' class='pc'><input form ='saveo'  type='number' onkeypress='return onlyNos(event,this);' id = 'quantity' name= 'quantity' min = '1' value = '"+datec.quantity+"' class='form-control input-sm'  required></td><td style='width:100px;'class='pc'><input type = 'text' form ='saveo'   type='text'  id = 'stks' name='stks' value="+Number(datec.stks)+"  readonly='readonly' class='form-control input-sm' required></td><td style='width:70px;'><i class='fa fa-trash-o' id='"+encodeURI(datec.ean)+"' style='font-size:20px' onclick=doAjaxdel(this)></i></td></tr>"
 
         		   $('#myTable tbody').append(markup);
-        		   document.getElementById(eanid).oninput();
-        		   document.getElementById(pid).oninput();
+        		  // document.getElementById(eanid).oninput();
+        		  // document.getElementById(pid).oninput();
         		   
-        		   $('select[name=Supplier]').val(datec.Supplier);
+        		   $('select[name=Supplier]').val(datec.supplier);
         		   $('#Supplier').selectpicker('refresh');
         		
-        		  
+        		  $('#orderDate').prop('readonly',true)
         	        
 	                   });    
 	           },
@@ -940,6 +948,19 @@ function chod(id){
         <li><a href="/HMS/purchaseho.html">Purchase Entry</a></li>
         <li><a href="/HMS/saleho.html">Sales</a></li>
         <li><a href="/HMS/stopriceho.html">Product Stocks and Pricing</a></li>
+        
+          <li class="dropdown" id="dr2">
+        <a class="dropdown-toggle" data-toggle="dropdown">Dispensary
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+       
+       <li><a href="/HMS/dcustomerho.html">Customer Master</a></li>
+       <li id="dpma"><a href="/HMS/productho.html">Product  Master</a></li>
+        <li id="dpe"><a href="/HMS/dpurchaseho.html">Purchase Entry</a></li>
+        <li id="ds"><a href="/HMS/dsaleho.html">Sales</a></li>
+        <li id="dpsp"><a href="/HMS/dstopriceho.html">Product Stocks and Pricing</a></li>
+         
+        </ul>
              </li>
      
     </ul>
@@ -1017,7 +1038,7 @@ function chod(id){
 	      <div class="col-xs-2">
 	       <div class="form-group">
 	       <p>Created By <span></span></p>
-	       <input form="saveo" type="text" id = "author" name="author" value="${pageContext.request.userPrincipal.name}" class="form-control input-sm">
+	       <input form="saveo" readonly type="text" id = "author" name="author" value="${pageContext.request.userPrincipal.name}" class="form-control input-sm">
      </div>
 	      </div>
 	  </div>
@@ -1108,8 +1129,8 @@ function chod(id){
    <tbody class="tbody">
      <c:forEach var="ps"  items="${model.list5}">
      <tr>
-     <td width="100px;"><input type='text'  class='form-control input-sm' id = 'ean' name= 'ean' form ='saveo' value = "${ps.prc}" required></td>
-     <td width="390px;"><input type='text'  form ='saveo' class='form-control input-sm' id = 'productName' name= 'productName'  value = "${ps.name}" required></td>
+     <td width="100px;"><input type='text'  class='form-control input-sm' id = 'ean' name= 'ean' form ='saveo' value = "${ps.prc}" readonly  required></td>
+     <td width="390px;"><input type='text'  form ='saveo' class='form-control input-sm' id = 'productName' name= 'productName'  value = "${ps.name}" readonly required></td>
      <td width="160px;"><input id = 'unit' form ='saveo' type='text' name= 'unit' class='form-control input-sm' value="${ps.dps}" required></td>
      <td width="100px;"><input form ='saveo'  type='number' onkeypress='return onlyNos(event,this);'  id = 'quantity' name= 'quantity' min = '1' value = '0' class='form-control input-sm' required ></td>
      <td width="100px;"><input type = 'text' form ='saveo'  readonly='readonly' type='text'  id = 'stks' name='stks' value="${ps.stocks}" class='form-control input-sm' required></td>

@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;  
 import java.util.List;
 
+import org.apache.poi.util.SystemOutLogger;
 import org.apache.taglibs.standard.tag.common.core.NullAttributeException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;  
 import org.springframework.jdbc.core.JdbcTemplate;  
@@ -206,8 +207,8 @@ public class controllerDao {
 		 }); 
 	}
 	// save customer
-	public int savec(Customer c){  
-	    String sql = "insert into customer(customer,name,type,age,sex,phone,address1,address2,mobile,city,fax,state,email,country,comment,pincode,active,date) values('"+c.getCustomer()+"','"+c.getName()+"','"+c.getMedical()+"','"+c.getAge()+"','"+c.getSex()+"','"+c.getPhone()+"','"+c.getAddress1()+"','"+c.getAddress2()+"','"+c.getMobile()+"','"+c.getCity()+"','"+c.getFax()+"','"+c.getState()+"','"+c.getEmail()+"','"+c.getCountry()+"','"+c.getComments()+"','"+c.getPincode()+"','"+c.getActive()+"',curdate()) on duplicate key update name = '"+c.getName()+"',type = '"+c.getMedical()+"',age='"+c.getAge()+"',sex ='"+c.getSex()+"',phone='"+c.getPhone()+"',address1 = '"+c.getAddress1()+"',address2 = '"+c.getAddress2()+"',mobile = '"+c.getMobile()+"',city = '"+c.getCity()+"',fax = '"+c.getFax()+"',state='"+c.getState()+"',email='"+c.getEmail()+"',country='"+c.getCountry()+"',comment='"+c.getComments()+"',pincode='"+c.getPincode()+"',active='"+c.getActive()+"',date=curdate()"; 
+	public int savec(Customer c,String table){  
+	    String sql = "insert into "+table+"(customer,name,type,age,sex,phone,address1,address2,mobile,city,fax,state,email,country,comment,pincode,active,date) values('"+c.getCustomer()+"','"+c.getName()+"','"+c.getMedical()+"','"+c.getAge()+"','"+c.getSex()+"','"+c.getPhone()+"','"+c.getAddress1()+"','"+c.getAddress2()+"','"+c.getMobile()+"','"+c.getCity()+"','"+c.getFax()+"','"+c.getState()+"','"+c.getEmail()+"','"+c.getCountry()+"','"+c.getComments()+"','"+c.getPincode()+"','"+c.getActive()+"',curdate()) on duplicate key update name = '"+c.getName()+"',type = '"+c.getMedical()+"',age='"+c.getAge()+"',sex ='"+c.getSex()+"',phone='"+c.getPhone()+"',address1 = '"+c.getAddress1()+"',address2 = '"+c.getAddress2()+"',mobile = '"+c.getMobile()+"',city = '"+c.getCity()+"',fax = '"+c.getFax()+"',state='"+c.getState()+"',email='"+c.getEmail()+"',country='"+c.getCountry()+"',comment='"+c.getComments()+"',pincode='"+c.getPincode()+"',active='"+c.getActive()+"',date=curdate()"; 
 	    return template.update(sql);  
 	}  
 	
@@ -219,8 +220,8 @@ public class controllerDao {
 	}
     
     //getCustomer datails
-    public List<Customer> getCustomername() {
-		return template.query("select customer,name,phone,age,sex,type from customer where active = 'active' order by name",new RowMapper<Customer>(){  
+    public List<Customer> getCustomername(String table) {
+		return template.query("select customer,name,phone,age,sex,type from "+table+" where active = 'active' order by name",new RowMapper<Customer>(){  
 	        public Customer mapRow(ResultSet rs, int row) throws SQLException {   
 		       Customer c = new Customer();
 		       System.out.println(rs.getString(1));
@@ -235,8 +236,8 @@ public class controllerDao {
 	        }
 		});
 	}
-	public List<Customer> getCustomername1() {
-		return template.query("select customer,name,type,age,sex,phone,address1,address2,mobile,city,fax,state,email,country,comment,pincode,active from customer order by name ",new RowMapper<Customer>(){  
+	public List<Customer> getCustomername1(String table) {
+		return template.query("select customer,name,type,age,sex,phone,address1,address2,mobile,city,fax,state,email,country,comment,pincode,active from "+table+" order by name ",new RowMapper<Customer>(){  
 	        public Customer mapRow(ResultSet rs, int row) throws SQLException {   
 		       Customer c = new Customer();
 		      c.setCustomer(rs.getString(1));
@@ -261,8 +262,8 @@ public class controllerDao {
 	        }
 		});
 	}
-	public List<Customer> getCustomerId() {
-		return template.query("select  max(CAST(SUBSTRING_INDEX(customer,'-',-1) as decimal)) from customer where date = curdate()",new RowMapper<Customer>(){  
+	public List<Customer> getCustomerId(String table) {
+		return template.query("select  max(CAST(SUBSTRING_INDEX(customer,'-',-1) as decimal)) from "+table+" where date = curdate()",new RowMapper<Customer>(){  
 	        public Customer mapRow(ResultSet rs, int row) throws SQLException {   
 		       Customer c = new Customer();
 		       System.out.println(rs.getString(1));
@@ -272,9 +273,9 @@ public class controllerDao {
 	        }
 		});
 	}
-	public List<Customer> getcheckcphone(String phone){
+	public List<Customer> getcheckcphone(String phone,String table){
 		//System.out.println("name:" +p.getName());
-		return template.query("select phone from customer where phone = '"+phone+"'",new RowMapper<Customer>(){  
+		return template.query("select phone from "+table+" where phone = '"+phone+"'",new RowMapper<Customer>(){  
 	        public Customer mapRow(ResultSet rs, int row) throws SQLException {  
 	        	Customer c=new Customer();  
 	          System.out.println("phone" +rs.getString(1));
@@ -425,13 +426,13 @@ public class controllerDao {
 	}
 	
 	public List<Product> Reorder(){
-	    return template.query("select pr.name,pr.prc,ps.currentstock,pr.dps from product pr left outer join  productstock ps on pr.name = ps.name where ps.currentstock <= pr.rq",new RowMapper<Product>(){  
+	    return template.query("select pr.name,pr.prc,sum(ps.currentstock),pr.dps from product pr left outer join  productstock ps on pr.name = ps.name where CAST(pr.rq as decimal)>= CAST(ps.currentstock as decimal) and rlflag = 'on' group by pr.name",new RowMapper<Product>(){  
 	        public Product mapRow(ResultSet rs, int row) throws SQLException {  
 	        	  Product s=new Product();  
 	    	      //      System.out.println(rs.getString(2));
 	    	            s.setName(rs.getString(1));
 	    	            s.setPrc(rs.getString(2));
-	    	            s.setStocks(rs.getString(3));
+	    	            s.setStocks(String.valueOf(rs.getInt(3)));
 	    	            s.setDps(rs.getString(4));
 	            return s;
 		
@@ -526,8 +527,8 @@ public class controllerDao {
 	
 	//auto generate invoice id
 	
-	public List<Sale> getinvId() {
-		return template.query("select max(CAST(SUBSTRING_INDEX(invoice,'-',-1) as decimal)) from saleho where invoiceDate = curdate()	",new RowMapper<Sale>(){  
+	public List<Sale> getinvId(String table) {
+		return template.query("select max(CAST(SUBSTRING_INDEX(invoice,'-',-1) as decimal)) from "+table+" where invoiceDate = curdate()	",new RowMapper<Sale>(){  
 	        public Sale mapRow(ResultSet rs, int row) throws SQLException {  
 	            Sale s = new Sale();  
 	            System.out.println(rs.getString(1));
@@ -538,8 +539,8 @@ public class controllerDao {
 	}
 	
 	
-	public List<Sale> getinvId1() {
-		return template.query("select distinct(invoice) from saleho",new RowMapper<Sale>(){  
+	public List<Sale> getinvId1(String table) {
+		return template.query("select distinct(invoice) from "+table+"",new RowMapper<Sale>(){  
 	        public Sale mapRow(ResultSet rs, int row) throws SQLException {  
 	            Sale s = new Sale();  
 	            System.out.println(rs.getString(1));
@@ -551,8 +552,8 @@ public class controllerDao {
 	
 	
 	//list products in sale screen
-	public List<Purchase> getProducts() {
-		return template.query("select ean,productName,Batch,expDate,unit,unitprice,quantity,total from purchase order by productName",new RowMapper<Purchase>(){  
+	public List<Purchase> getProducts(String table) {
+		return template.query("select ean,productName,Batch,expDate,unit,unitprice,quantity,total from "+table+" order by productName",new RowMapper<Purchase>(){  
 	        public Purchase mapRow(ResultSet rs, int row) throws SQLException {   
 		          Purchase p =new Purchase();
 			      p.setEan(rs.getString(1));
@@ -783,7 +784,7 @@ public class controllerDao {
 	//get orderid and supplier
 
 	public List<Order> getOrderid() {
-		return template.query("select distinct name from supply ",new RowMapper<Order>(){  
+		return template.query("select distinct name from supply where active = 'on'",new RowMapper<Order>(){  
 	        public Order mapRow(ResultSet rs, int row) throws SQLException {
 	        	Order o = new Order();
 	        //	o.setOrderid(rs.getString(1));
@@ -803,8 +804,8 @@ public class controllerDao {
 		});
 	}
 	
-	public List<Purchase> getAllocationid() {
-		return template.query("select max(CAST(SUBSTRING_INDEX(allocationid,'-',-1) as decimal)) from purchase",new RowMapper<Purchase>(){  
+	public List<Purchase> getAllocationid(String table) {
+		return template.query("select max(CAST(SUBSTRING_INDEX(allocationid,'-',-1) as decimal)) from "+table+"",new RowMapper<Purchase>(){  
 	        public Purchase mapRow(ResultSet rs, int row) throws SQLException {
 	        	Purchase o = new Purchase();
 	        //	o.setOrderid(rs.getString(1));
@@ -814,8 +815,8 @@ public class controllerDao {
 		});
 	}
 
-	public List<Purchase> getAllocationid1a() {
-		return template.query("select distinct allocationid from purchase order by CAST(SUBSTRING_INDEX(allocationid,'-',-1) as decimal) desc",new RowMapper<Purchase>(){  
+	public List<Purchase> getAllocationid1a(String table) {
+		return template.query("select distinct allocationid from "+table+" order by CAST(SUBSTRING_INDEX(allocationid,'-',-1) as decimal) desc",new RowMapper<Purchase>(){  
 	        public Purchase mapRow(ResultSet rs, int row) throws SQLException {
 	        	Purchase o = new Purchase();
 	        //	o.setOrderid(rs.getString(1));
@@ -881,6 +882,7 @@ public class controllerDao {
 	}
 	
 	public int updatecatho2(String name) {
+		System.out.println("hert");
 		String sql = "update productstock set category = (select pc from product where name='"+name+"') where name='"+name+"'";
 		return template.update(sql);
 }
@@ -1432,7 +1434,7 @@ public int dsavepurchase(Purchase p, String name, String batch, String expdate, 
 	
 	
 	public List<Productstock> getInfoStkSearch(String table) {
-		return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from productstock p order by p.name ",new RowMapper<Productstock>(){  
+		return template.query("select p.code,p.name,p.batch,p.expdate,p.category,p.mpack,p.mpsize,p.cp,p.prqty,p.prprice,p.currentstock,p.sudesc,p.stkpr,p.markup,p.sp,p.spdesc,p.spsize,p.stksp,p.sellqty,p.sunits,p.tprice from "+table+" p order by p.name ",new RowMapper<Productstock>(){  
 			public Productstock mapRow(ResultSet rs, int row) throws SQLException {
 	        	Productstock p = new Productstock();
 	        	p.setCode(rs.getString(1));
@@ -1552,7 +1554,8 @@ public int dsavepurchase(Purchase p, String name, String batch, String expdate, 
 		}
 		//select pr.Batch,pr.expDate,unit,unitprice,(select sum(currentstock) from productstock where productstock.batch=purchase.Batch),total,(select sum(sp) from productprice where productprice.batch=purchase.Batch) from purchase where productName='"+user3+"' and quantity > 0
 		public List<Sale> getinvprods(String user3,String table,String table1) {
-			return template.query("select pr.Batch,ps.expDate,ps.spdesc,ps.spsize,ps.currentstock,ps.sudesc,ps.sp,ps.cp,ps.sellqty,ps.sunits from "+table+" pr left outer join "+table1+" ps on pr.productName = ps.name  where ps.name = '"+user3+"' and ps.currentstock <> 0 and ps.expdate >= curdate() and pr.batch = ps.batch and pr.mpack = ps.mpack",new RowMapper<Sale>(){
+			
+			return template.query("select ps.batch,ps.expdate,ps.spdesc,ps.spsize,ps.currentstock,ps.sudesc,ps.sp,ps.cp,ps.sellqty,ps.sunits from "+table1+" ps where ps.name = '"+user3+"' and ps.currentstock <> 0 and ps.expdate >= curdate()",new RowMapper<Sale>(){
 		        public Sale mapRow(ResultSet rs, int row) throws SQLException {  
 		            Sale s=new Sale();  
 		      //      System.out.println(rs.getString(2));
@@ -1648,8 +1651,8 @@ public List<Sale> getsaleReports(String frdate,String edate,String table) {
 		
 		}
 
-public List<Productstock> getBatdet(String batch,String table) {
-	return template.query("select p.batch,p.expdate,p.mpsize,p.cp from "+table+" p where p.batch = '"+batch+"'",new RowMapper<Productstock>(){  
+public List<Productstock> getBatdet(String batch,String table,String pname) {
+	return template.query("select p.batch,p.expdate,p.mpsize,p.cp from "+table+" p where p.batch = '"+batch+"' and p.name='"+pname+"'",new RowMapper<Productstock>(){  
 		public Productstock mapRow(ResultSet rs, int row) throws SQLException {
         	Productstock p = new Productstock();
         
@@ -1657,11 +1660,23 @@ public List<Productstock> getBatdet(String batch,String table) {
             p.setExpDate(rs.getString(2));
             p.setMpsize(rs.getString(3));
             p.setCp(rs.getString(4));
-         
+        
       
 	return p;
         }
 	});
+}
+
+public int updateorpr(String name,String val) {
+	String sql = "update product set rlflag = '"+val+"' where name='"+name+"'";
+	return template.update(sql);
+}
+
+public int updatereord(String name,String val) {
+	System.out.println(name);
+	System.out.println(val);
+	String sql = "update product set rlflag = '"+val+"' where rq > (select sum(currentstock) from productstock where name='"+name+"') and name='"+name+"'";
+	return template.update(sql);
 }
 
 }

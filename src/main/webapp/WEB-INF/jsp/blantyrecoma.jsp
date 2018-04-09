@@ -731,9 +731,7 @@ $(document).ready(function(){
       </li>
  
     </ul>
-   <ul class="nav navbar-nav navbar-right">
-  <li><a href="#" id="back" ><span class="glyphicon glyphicon-user"></span><span id="tit">Back</span></a></li>
-    </ul>  </div>
+   </div>
 </nav>
   <center>
 </center>

@@ -193,8 +193,8 @@ public class econtroller {
 			
 			@RequestMapping(value="/customerho", method = RequestMethod.GET)
 			public ModelAndView customer(@ModelAttribute("c") Customer c) {
-				  List<Customer> list=hodao.getCustomername1();  
-				  List<Customer> list2=hodao.getCustomerId(); 
+				  List<Customer> list=hodao.getCustomername1("customer");  
+				  List<Customer> list2=hodao.getCustomerId("customer"); 
 				   Map<String, Object> model = new HashMap<String, Object>();
 			        model.put("list",list);
 			        model.put("list2",list2);
@@ -206,7 +206,7 @@ public class econtroller {
 		    public ModelAndView save(@ModelAttribute("c") Customer c,HttpServletRequest request){  
 				int savec = 0;
 			
-		       savec = hodao.savec(c);
+		       savec = hodao.savec(c,"customer");
 		       ModelAndView  mav = new ModelAndView();
 		       if(savec > 0){
 		       mav.addObject("message", "The record has been saved sucessfully");
@@ -217,6 +217,43 @@ public class econtroller {
 		       else{
 		       mav.addObject("message", "Record could not be saved successfully ");
 		       mav.setViewName("redirect:customerho.html");
+		       }
+		        RedirectView redirectView = new RedirectView();
+		        redirectView.setUrl("/HMS/customerho.html");
+		        return mav;//will redirect to viewemp request mapping  
+		    }  
+			
+			
+			// for dispensary
+			
+			
+			
+			@RequestMapping(value="/dcustomerho", method = RequestMethod.GET)
+			public ModelAndView dcustomer(@ModelAttribute("c") Customer c) {
+				  List<Customer> list=hodao.getCustomername1("dcustomer");  
+				  List<Customer> list2=hodao.getCustomerId("dcustomer"); 
+				   Map<String, Object> model = new HashMap<String, Object>();
+			        model.put("list",list);
+			        model.put("list2",list2);
+				return new ModelAndView("dcustomerho","model",model); 
+			}
+			
+			//saving customer masters
+			@RequestMapping(value="/dsavecustomerho",method = RequestMethod.POST)
+		    public ModelAndView dsave(@ModelAttribute("c") Customer c,HttpServletRequest request){  
+				int savec = 0;
+			
+		       savec = hodao.savec(c,"dcustomer");
+		       ModelAndView  mav = new ModelAndView();
+		       if(savec > 0){
+		       mav.addObject("message", "The record has been saved sucessfully");
+		       mav.setViewName("redirect:dcustomerho.html");		    
+		       				    
+		       }
+
+		       else{
+		       mav.addObject("message", "Record could not be saved successfully ");
+		       mav.setViewName("redirect:dcustomerho.html");
 		       }
 		        RedirectView redirectView = new RedirectView();
 		        redirectView.setUrl("/HMS/customerho.html");
@@ -357,6 +394,7 @@ public class econtroller {
 				    	saveo =  hodao.saveo(d,name[i],pack[i],quantity[i],stock[i],prccode[i]);//up[i],total[i],);
 				    	//products below reorder level will not be listed after product ordered
 				    	 hodao.updateActive(name[i]);
+				    	 hodao.updateorpr(name[i],"off");
 				    	 
 				    }
 			       
@@ -400,17 +438,17 @@ public class econtroller {
 			 
 			 @RequestMapping("/saleho")  
 			    public ModelAndView viewCustomer1(@ModelAttribute("c") Customer c){  
-				  List<Customer> list=hodao.getCustomername();
+				  List<Customer> list=hodao.getCustomername("customer");
 			
 				  /*
 			        List<Customer> list1=dao.getCustomername1(c); 
 			      
 			        List<Customer> list3=dao.getCustomername3(c); 
 			        */
-			        List<Purchase> list4=hodao.getProducts();
+			        List<Purchase> list4=hodao.getProducts("purchase");
 			        List<Purchase> list10=hodao.search3();
-			        List<Sale>list5 = hodao.getinvId();
-			        List<Sale>list9 = hodao.getinvId1();
+			        List<Sale>list5 = hodao.getinvId("saleho");
+			        List<Sale>list9 = hodao.getinvId1("saleho");
 			        List<TaxB>list6 = hodao.getTax();
 			        List<custDisc>list7 = hodao.getCustDis();
 			        List<Spdiscount>list8 = hodao.getSpdis();
@@ -525,7 +563,7 @@ public class econtroller {
 				       for(int i=0;i<qty1.length;i++){
 				    	savess = hodao.savess(s,name[i],batch[i],expdate[i],unit[i],up[i],qty1[i],stk1[i],price1[i],mpack[i],mdesc[i],sudesc[i],ean[i],"saleho");
 				    	updsass =  hodao.update(name[i],qty1[i],batch[i],"productstock");
-				    	 
+				    	 hodao.updatereord(name[i],"on"); 
 				    }
 				       ModelAndView  mav = new ModelAndView();
 				       if(savess > 0 && updsass > 0){
@@ -586,15 +624,16 @@ public class econtroller {
 			  //allocation id auto generation
 			  
 //quotation generation
-				@RequestMapping(value="/quotation",method = RequestMethod.GET)
+
+			  /*@RequestMapping(value="/quotation",method = RequestMethod.GET)
 			    public ModelAndView proforma(@ModelAttribute("q") quotation q,HttpServletRequest request,HttpServletResponse response){  
 			        
 					  List<Customer> list=hodao.getCustomername();
 						
 					  
-				        List<Purchase> list4=hodao.getProducts();
-				        List<Sale>list5 = hodao.getinvId();
-				        List<TaxB>list6 = hodao.getTax();
+				     //   List<Purchase> list4=hodao.getProducts();
+				       // List<Sale>list5 = hodao.getinvId();
+				       // List<TaxB>list6 = hodao.getTax();
 				        List<custDisc>list7 = hodao.getCustDis();
 				        List<Spdiscount>list8 = hodao.getSpdis();
 				       
@@ -610,9 +649,9 @@ public class econtroller {
 				       // model.put("list1",list1);
 				     //   model.put("list2",list2);
 				       // model.put("list3",list3);
-				        model.put("list4",list4);
-				        model.put("list5",list5);
-				        model.put("list6",list6);
+				      //  model.put("list4",list4);
+				       // model.put("list5",list5);
+				       // model.put("list6",list6);
 				        model.put("list7",list7);
 				        model.put("list8",list8);
 				        model.put("list9", list9);
@@ -621,7 +660,7 @@ public class econtroller {
 				        
 			        return new ModelAndView("quotation","model",model);//will redirect to viewemp request mapping  
 			    }  
-				
+				*/
 	//quotation save
   
 				@RequestMapping(value="/saveq",method = RequestMethod.POST)
@@ -673,7 +712,7 @@ public class econtroller {
 				        
 				}
 				
-				
+				/*
 				@RequestMapping(value="/getcust",method = RequestMethod.GET)
 			    public ModelAndView cust(@ModelAttribute("q") quotation q,HttpServletRequest request,HttpServletResponse response){  
 			        
@@ -748,15 +787,15 @@ public class econtroller {
 				        model.put("list13",list13);
 			        return new ModelAndView("quotation","model",model);//will redirect to viewemp request mapping  
 			    }  
-   
+   */
 	//purchase entry load
 				
 				
 				@RequestMapping(value="/purchaseho",method = RequestMethod.GET)
 				  public ModelAndView checkstat(@ModelAttribute("s") Purchase s,HttpServletRequest request,HttpServletResponse response ){
 					  List<Order> list1 = hodao.getOrderid();
-					  List<Purchase> list2 = hodao.getAllocationid();
-					  List<Purchase> list2a = hodao.getAllocationid1a();
+					  List<Purchase> list2 = hodao.getAllocationid("purchase");
+					  List<Purchase> list2a = hodao.getAllocationid1a("purchase");
 					  Map<String, Object> model = new HashMap<String, Object>();
 					  
 				       model.put("list1",list1);
@@ -770,8 +809,8 @@ public class econtroller {
 				@RequestMapping(value="/dpurchaseho",method = RequestMethod.GET)
 				  public ModelAndView dcheckstat(@ModelAttribute("s") Purchase s,HttpServletRequest request,HttpServletResponse response ){
 					  List<Order> list1 = hodao.getOrderid();
-					  List<Purchase> list2 = hodao.getAllocationid();
-					  List<Purchase> list2a = hodao.getAllocationid1a();
+					  List<Purchase> list2 = hodao.getAllocationid("dpurchase");
+					  List<Purchase> list2a = hodao.getAllocationid1a("dpurchase");
 					  Map<String, Object> model = new HashMap<String, Object>();
 					  
 				       model.put("list1",list1);
@@ -844,9 +883,10 @@ public class econtroller {
 					    	     hodao.updatecatho(name[i]);
 					    	     hodao.updateean(name[i]);
 					    	     hodao.updatecatho1(name[i]);
-					    	     hodao.updatecatho2(name[i]);
+					    	     
 					   pur3  = 	 hodao.saveproductstockho(ean1[i],name[i],batch[i],exp[i],mpack[i],mdesc[i],up[i],qty1[i],discount1[i],free[i],sudesc[i],price1[i],"70","0","NA","0","0","0","0","0.00");
-						  
+					             hodao.updatecatho2(name[i]);
+					             hodao.updatereord(name[i],"on");
 					    	 
 					 //   	 hodao.update(name[i],stk1[i]);
 					    }
@@ -902,11 +942,11 @@ public class econtroller {
 					   pur1  = 	 hodao.dsavepurchase(p,name[i],batch[i],exp[i],qty1[i],up[i],discount1[i],free[i],price1[i],ean1[i],mpack[i],mdesc[i],sudesc[i]);
 					   //pur2  =	 hodao.dsaveproductpriceho(p,name[i],batch[i],up[i],free[i]);
 					    	     hodao.dupdatecatho(name[i]);
-					    	     hodao.dupdateean(name[i]);
-					    	     hodao.dupdatecatho1(name[i]);
-					    	     hodao.dupdatecatho2(name[i]);
+					    	   //  hodao.dupdateean(name[i]);
+					    	    // hodao.dupdatecatho1(name[i]);
+					    	     
 					   pur3  = 	 hodao.dsaveproductstockho(ean1[i],name[i],batch[i],exp[i],mpack[i],mdesc[i],up[i],qty1[i],discount1[i],free[i],sudesc[i],price1[i],"70","0","NA","0","0","0","0","0.00");
-						  
+					   hodao.dupdatecatho2(name[i]);
 					    	 
 					 //   	 hodao.update(name[i],stk1[i]);
 					    }
@@ -914,13 +954,13 @@ public class econtroller {
 					       ModelAndView  mav = new ModelAndView();
 					       if(pur1 > 0 && pur3>0){
 					       mav.addObject("message", "The record has been saved sucessfully");
-					       mav.setViewName("redirect:purchaseho.html");		    
+					       mav.setViewName("redirect:dpurchaseho.html");		    
 					       				    
 					       }
 
 					       else{
 					       mav.addObject("message", "Record could not be saved successfully ");
-					       mav.setViewName("redirect:purchaseho.html");
+					       mav.setViewName("redirect:dpurchaseho.html");
 					       }
 					    RedirectView redirectView = new RedirectView();
 				        redirectView.setUrl("/HMS/purchaseho.html");
@@ -1070,7 +1110,7 @@ public ModelAndView saveprPr(@ModelAttribute("ps") Productprice pr ){
 //		  List<Order> list1 = hodao.getOrderid();
 	String jsonFormatData = "";
 	
-	List<Customer> list2 = hodao.getcheckcphone(c.getPhone());
+	List<Customer> list2 = hodao.getcheckcphone(c.getPhone(),"customer");
 	  Map<String, Object> model = new HashMap<String, Object>();
     //    model.put("list1",list1);
           model.put("list2", list2);
@@ -1084,22 +1124,48 @@ public ModelAndView saveprPr(@ModelAttribute("ps") Productprice pr ){
 
  return jsonFormatData;
 }
+
+//for dispensary customer
+
+//save to customer  masters
+@RequestMapping(value="/dcheckcphone",method = RequestMethod.GET)
+public   @ResponseBody String dcheckcphone(@ModelAttribute("c") Customer c){
+//		  List<Order> list1 = hodao.getOrderid();
+	String jsonFormatData = "";
+	
+	List<Customer> list2 = hodao.getcheckcphone(c.getPhone(),"dcustomer");
+	  Map<String, Object> model = new HashMap<String, Object>();
+  //    model.put("list1",list1);
+        model.put("list2", list2);
+      
+      Gson gson = new Gson(); 
+
+	    jsonFormatData = gson.toJson(list2);
+
+
+
+
+return jsonFormatData;
+}
 @RequestMapping(value="/delor/{fileno}/{drug}")
 public  @ResponseBody String  savebill(@PathVariable String drug,@PathVariable String fileno) {
  int bsave = 0;
  String jsonFormatData = "";
-
+String result;
 bsave = hodao.deletepr(fileno,drug);
 
 
 if(bsave > 0){
-	jsonFormatData = "success";
+	result = "success";
 				    
 }
 
 else{
-	jsonFormatData = "failure";
+	result = "failure";
 }
+Gson gson = new Gson(); 
+jsonFormatData = gson.toJson(result);
+
      return jsonFormatData;
 	}
 
@@ -1274,7 +1340,7 @@ public   @ResponseBody String batchdet(HttpServletRequest req, HttpServletRespon
 //		  List<Order> list1 = hodao.getOrderid();
 	String jsonFormatData = "";
 	
-	List<Productstock> list2 = hodao.getBatdet(req.getParameter("location"),"productstock");
+	List<Productstock> list2 = hodao.getBatdet(req.getParameter("location"),"productstock",req.getParameter("location1"));
 	  Map<String, Object> model = new HashMap<String, Object>();
   //    model.put("list1",list1);
         model.put("list2", list2);
@@ -1294,7 +1360,7 @@ public   @ResponseBody String dbatchdet(HttpServletRequest req, HttpServletRespo
 //		  List<Order> list1 = hodao.getOrderid();
 	String jsonFormatData = "";
 	
-	List<Productstock> list2 = hodao.getBatdet(req.getParameter("location"),"dproductstock");
+	List<Productstock> list2 = hodao.getBatdet(req.getParameter("location"),"dproductstock",req.getParameter("location1"));
 	  Map<String, Object> model = new HashMap<String, Object>();
   //    model.put("list1",list1);
         model.put("list2", list2);
@@ -1396,17 +1462,17 @@ return mav;//will redirect to viewemp request mapping
 
 @RequestMapping("/dsaleho")  
    public ModelAndView dviewCustomer1(@ModelAttribute("c") Customer c){  
-	  List<Customer> list=hodao.getCustomername();
+	  List<Customer> list=hodao.getCustomername("dcustomer");
 
 	  /*
        List<Customer> list1=dao.getCustomername1(c); 
      
        List<Customer> list3=dao.getCustomername3(c); 
        */
-       List<Purchase> list4=hodao.getProducts();
+       List<Purchase> list4=hodao.getProducts("dpurchase");
        List<Purchase> list10=hodao.search3();
-       List<Sale>list5 = hodao.getinvId();
-       List<Sale>list9 = hodao.getinvId1();
+       List<Sale>list5 = hodao.getinvId("dsaleho");
+       List<Sale>list9 = hodao.getinvId1("dsaleho");
        List<TaxB>list6 = hodao.getTax();
        List<custDisc>list7 = hodao.getCustDis();
        List<Spdiscount>list8 = hodao.getSpdis();
@@ -1427,7 +1493,7 @@ return mav;//will redirect to viewemp request mapping
        model.put("list9", list9);
        model.put("list10",list10);
        model.put("list11", list11);
-       return new ModelAndView("sales","model",model);
+       return new ModelAndView("dsales","model",model);
          
    }  
 	
@@ -1463,7 +1529,7 @@ return mav;//will redirect to viewemp request mapping
    }  
    */
 	
-	@RequestMapping(value="/getinvprds",method = RequestMethod.GET)
+	@RequestMapping(value="/dgetinvprds",method = RequestMethod.GET)
 	  public   @ResponseBody String dgetInvoiceprds(@ModelAttribute("p") Sale p){
 //		  List<Order> list1 = hodao.getOrderid();
 		String jsonFormatData = "";
@@ -1526,13 +1592,13 @@ return mav;//will redirect to viewemp request mapping
 	       ModelAndView  mav = new ModelAndView();
 	       if(savess > 0 && updsass > 0){
 	       mav.addObject("message", "The record has been saved sucessfully");
-	       mav.setViewName("redirect:saleho.html");		    
+	       mav.setViewName("redirect:dsaleho.html");		    
 	       				    
 	       }
 
 	       else{
 	       mav.addObject("message", "Record could not be saved successfully ");
-	       mav.setViewName("redirect:saleho.html");
+	       mav.setViewName("redirect:dsaleho.html");
 	       }
 	    RedirectView redirectView = new RedirectView();
        redirectView.setUrl("/HMS/saleho.html");

@@ -263,6 +263,7 @@ function checkhome(user){
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 $("#myTable th:eq(8), #myTable td:last-child").hide();
+		 $('#back').hide();
 	}
 	
 	else if(user.includes("[ROLE_DOCTOR]")){
@@ -271,6 +272,7 @@ function checkhome(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $('#back').hide();
 	}
 	
 	else if(user.includes("[ROLE_Accounts Admin]")){
@@ -281,7 +283,7 @@ function checkhome(user){
 		 element.setAttribute("href",url)
 		 $("#myTable th:eq(8), #myTable td:last-child").hide();
 		 $("#opener3").hide();
-		
+		 $('#back').hide();
 	}
 	else if(user.includes("[ROLE_ASSISTANT]")){
 		
@@ -293,6 +295,7 @@ function checkhome(user){
 		 document.getElementById("bc").disabled = true;
 		 $("#myTable th:eq(8), #myTable td:last-child").hide();
 		 $("#opener3").hide();
+		 $('#back').hide();
 	}
 
 	else{
@@ -300,6 +303,7 @@ function checkhome(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $('.prdocs').hide();
 	}
 	disbut()
 }
@@ -1060,17 +1064,18 @@ function doAjaxDelete(r,drug,type){
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
-      <!-- 
-      <li class=""><a id="m2" href="">My Appointments</a></li>
-        <li class=""><a  id="m3" href="">General Checkup</a></li>
-          <li class=""><a id="m4" href="/HMS/discharge.html">Discharge Summary</a></li>
- 
-       <li class=""><a id="nob" href="/HMS/nursetr/"  onclick=' return visible();' target="_blank">Nurse observations</a></li>
-  -->
-    </ul>
-     <ul class="nav navbar-nav navbar-right">
-      <li><a style="text-decoration: underline;" href="/HMS/prdocs">Back to Print Documents</a></li>
-      
+       <li class="prdocs"><a href="/HMS/prdocs" >Print Documents</a></li>
+ <li class="dropdown back" id="back">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Quick Access
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/HMS/staff">Staff Details</a></li>
+          <li><a href="/HMS/doctor1">Doctor View</a></li>
+          <li><a href="/HMS/nursedesk">Nurse Station</a></li>
+          <li><a href="/HMS/frontdesk">Front Desk</a></li>
+          <li><a href="/HMS/prdocs" >Print Documents</a></li>
+        </ul>
+      </li>      
     </ul>
   </div>
 </nav>
@@ -1148,7 +1153,7 @@ function doAjaxDelete(r,drug,type){
 	      </div>
 	      
 	      
-	       <div class="col-xs-4"><br><i style="font-size:24px;color:orange" id="opener2" onclick="return doAjaxPost2()" class="fa">&#xf15b;</i></div>
+	       <div class="col-xs-4"><br><i style="font-size:24px;color:orange" id="opener2" onclick="return doAjaxPost2()" class="fa fa-search"></i></div>
 	       <div class="col-xs-3">
 	      
 	       <div class="form-group">
@@ -1168,6 +1173,7 @@ function doAjaxDelete(r,drug,type){
 	      <div class="col-xs-5">
 	      
 	      <div class="form-group">
+	       <small class="text-muted">Note : Click on file icon provided next to Name drop down to view/edit records </small>
       <!--  
            
     Diagnosis:<input type="text" name="diagnosed" id="diagnosed"  form="form1" class="form-control input-sm"  required>
@@ -1253,7 +1259,7 @@ function doAjaxDelete(r,drug,type){
    </div>
   
  </div>
-  <small class="text-muted">Note : Click on file icon provided next to Name drop down to view/edit records </small>
+ 
             
   <div class="col-xs-7"></div>
    <span id="hds">Doctor's Signature ____________</span>

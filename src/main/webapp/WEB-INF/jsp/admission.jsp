@@ -43,7 +43,7 @@ function checkhome(user){
 			 
 		 var element = document.getElementById('ho');
 			 element.setAttribute("href",url); 
-			 
+			 $("#back").hide();
 		
 		}
 		else if(user.includes("[ROLE_NURSE]")){
@@ -52,6 +52,8 @@ function checkhome(user){
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 user1a = user;
+		 $("#back").hide();
+
 	}
 	else if(user.includes("[ROLE_CHIEFNURSE]")){
 		
@@ -59,6 +61,8 @@ function checkhome(user){
 		
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $("#back").hide();
+
 	}
 		
 	else{
@@ -119,7 +123,7 @@ function checkhome(user){
 	    <br>
 <div class="col-lg-12" style="height:400px; overflow:auto">	  
  <div class="table-responsive">          
-  <table class="table table-striped table-bordered table-hover table-condensed">
+  <table class="table table-striped table-bordered table-hover table-condensed" id="myTable">
  <thead>
       <tr>
         <th>Patient Id</th>

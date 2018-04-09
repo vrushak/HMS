@@ -3,6 +3,7 @@
  <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -205,6 +206,16 @@ fieldset.scheduler-border {
 #btn1{float : left;}
 
 
+
+
+figure {
+    display: inline-block;
+}
+.ip
+{
+white-space: normal;
+}
+
 </style>
 <script>
 
@@ -221,12 +232,26 @@ function myconfirm()
  }
 }
 
+function checkhome2(user){
+
+	if(user == "[ROLE_DISPSALESMANAGER]"){
+	
+		$('.ds').hide();
+		$('#psap').hide();
+		$('#sl').hide();
+		
+	}
+
+}
+
+
 </script>
-<body>
+<sec:authentication property="principal.authorities" var="username" />
+<body onload="checkhome2('<c:out value="${username}" />')">
 <div class = "wrapper">
 
 <br>
-<font color="#228B22" class="left" >Welcome : ${pageContext.request.userPrincipal.name}</font>  <i style="font-size:20px; align: right; color : #228B22;" class="fa fa-cog" ></i> 
+<font color="#228B22" class="left" >Welcome <c:out value="${username}" /> : ${pageContext.request.userPrincipal.name}</font>  <i style="font-size:20px; align: right; color : #228B22;" class="fa fa-cog" ></i> 
  <i class='fa fa-sign-out button2 rightspace' style='font-size:20px;color : #228B22'  onclick="return myconfirm()"></i>
 <div class="well well-sm" id="well"> <center><h4><font color="white">Pharmacy</font></h4></center></div>
 
@@ -234,10 +259,11 @@ function myconfirm()
 
   <ul class="nav nav-pills nav-justified">
     <li class="active"><a  data-toggle="pill"  href="#masters">Masters</a></li>
-    <li><a  data-toggle="pill" href="#os">Sales</a></li>
+    <li id="sl"><a  data-toggle="pill" href="#os">Sales</a></li>
    <!--   <li><a  data-toggle="pill" href="#co">Configuration</a></li>
     <li><a  data-toggle="pill"  href="#re">Reports</a></li> -->
-    <li><a  data-toggle="pill"  href="#ps">Product Stocks and Pricing</a></li>
+    <li id="psap"><a  data-toggle="pill"  href="#ps">Product Stocks and Pricing</a></li>
+     <li><a  data-toggle="pill"  href="#dsp">Dispensary</a></li>
   </ul>
   
   <div class="tab-content">
@@ -258,12 +284,13 @@ function myconfirm()
       </figure>
     </div>
    -->   
-    <div class="col-xs-2">
+    <div class="col-xs-2 ds">
       <figure>
        <img src="<c:url value='/Images/Customer.png'/>"/><br><br>
       <figcaption><input type="button" onclick="location.href='/HMS/customerho.html';" value="Customers"></figcaption>
       </figure>
     </div>
+    
     
     
     <div class="col-xs-2">
@@ -294,13 +321,14 @@ function myconfirm()
       </figure>
     </div>
   -->   
-    <div class="col-xs-2">
+    <div class="col-xs-2 ds">
       <figure>
        <img src="<c:url value='/Images/Sale.png'/>"/><br><br>
       <figcaption><input type="button" onclick="location.href='/HMS/saleho.html';" value="Sales"></figcaption>
       </figure>
     </div>
     
+   
     <!--  
     <div class="col-xs-2">
       <figure>
@@ -408,15 +436,45 @@ function myconfirm()
       </figure>
     </div>
    --> 
-  <div class="col-xs-2">
+  <div class="col-xs-2 ds">
       <figure>
        <img src="<c:url value='/Images/Product stock.png'/>"/><br><br>
-      <figcaption><input type="button" onclick="location.href='/HMS/stopriceho.html';" value="Product Stocks and Pricing"></figcaption>
+      <figcaption><input type="button" class="ip" onclick="location.href='/HMS/stopriceho.html';" value="Product Stocks and Pricing"></figcaption>
       </figure>
     </div>
+    
+    
+ 
  </div>
 
 </div>
+
+<div id="dsp" class="tab-pane fade">
+   <div class="row text-center">
+ <br><br>
+  
+       <div class="col-xs-2">
+      <figure>
+       <img src="<c:url value='/Images/Customer.png'/>"/><br><br>
+      <figcaption><input type="button" onclick="location.href='/HMS/dcustomerho.html';" value="Dispensary Customers"></figcaption>
+      </figure>
+    </div> 
+    
+       <div class="col-xs-2">
+      <figure>
+       <img src="<c:url value='/Images/Sale.png'/>"/><br><br>
+      <figcaption><input type="button" onclick="location.href='/HMS/dsaleho.html';" value="Dispensary Sales"></figcaption>
+      </figure>
+    </div>
+    
+       <div class="col-xs-2">
+      <figure>
+       <img src="<c:url value='/Images/Product stock.png'/>"/><br><br>
+      <figcaption><input type="button" class="ip" onclick="location.href='/HMS/dstopriceho.html';" value="Dispensary Product Stocks and Pricing"></figcaption>
+      </figure>
+    </div>
+ </div>
+  </div>
 </div>
 <div class="container">
 

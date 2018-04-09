@@ -369,23 +369,23 @@ function validmess(){
 function changetext(val){
 	
 	if(val.includes("ASSISTANT")){
-		$('.text-muted').text('Assistant role can generate bills in "Bill Generation" and has access to other frontdesk modules.');
+		$('.text-muted').text('Assistant role can generate bills in "Bill Generation" module and has access to other frontdesk modules.');
 	}
 	else if(val == "DISPPHARMACIST"){
-		$('.text-muted').text('Dispensary pharmacist role has access to all modules in "Pharmacy".');
+		$('.text-muted').text('Dispensary pharmacist role has access to all modules in "Dispensary". Also has access to view "Product Master" in "Pharmacy".');
 	}
 	else if(val == "DISPSALESMANAGER"){
-		$('.text-muted').text('Dispensary SalesManager role has access to Sales module in "Pharmacy". Also has access to view "Product Master" module and "Product Stocks and Pricing" module.');
+		$('.text-muted').text('Dispensary SalesManager role has access to "Customer Master" and "Sales" modules in "Dispensary". Also has access to view "Product Master" module in "Pharmacy" and "Product Stocks and Pricing" module in "Dispensary".');
 	}
 	else if(val.includes("PHARMACIST")){
 		$('.text-muted').text('Pharmacist role has access to all modules in "Pharmacy".');
 	}
 	else if(val.includes("SALESMANAGER")){
-		$('.text-muted').text('SalesManager role has access to Sales module in "Pharmacy". Also has access to view "Product Master" module and "Product Stocks and Pricing" module.');
+		$('.text-muted').text('SalesManager role has access to "Customer Master" and "Sales" modules in "Pharmacy". Also has access to view "Product Master" module and "Product Stocks and Pricing" module in "Pharmacy".');
 	}
 	
 	else{
-		$('.text-muted').text('Accounts Admin role can edit generated bills in "Bill Generation" and can add/edit in "Bill Configuration". Also has access to other frontdesk modules.');
+		$('.text-muted').text('Accounts Admin role can edit generated bills in "Bill Generation" module and can add/edit in "Bill Configuration". Also has access to other frontdesk modules.');
 	}
 }
 
@@ -455,9 +455,7 @@ $(document).ready(function () {
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="home.html">Home</a></li>
     </ul>
-        <ul class="nav navbar-nav navbar-right">
-  <li><a style="text-decoration: underline;" href="/HMS/home" id="back" ><span id="tit">Back to Home</span></a></li>
-    </ul>
+    
   </div>
 </nav>
   <center>

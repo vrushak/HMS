@@ -152,29 +152,29 @@ E-mail : lilayifamilyclinic@yahoo.com,TPIN NO :LFC098
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="35" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<textField>
-				<reportElement x="446" y="0" width="100" height="30" uuid="115b60c1-ed13-4bb9-888e-fdfcbf422b6f"/>
+				<reportElement stretchType="RelativeToTallestObject" x="446" y="0" width="100" height="30" uuid="115b60c1-ed13-4bb9-888e-fdfcbf422b6f"/>
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="350" y="0" width="96" height="30" uuid="c1474769-98ef-433c-9943-57d9c4d06fca"/>
+				<reportElement stretchType="RelativeToTallestObject" x="350" y="0" width="96" height="30" uuid="c1474769-98ef-433c-9943-57d9c4d06fca"/>
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{unit}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="110" y="0" width="240" height="30" uuid="fa6aba74-1d9a-4915-84b3-9ac272b59506"/>
+				<reportElement stretchType="RelativeToTallestObject" x="110" y="0" width="240" height="30" uuid="fa6aba74-1d9a-4915-84b3-9ac272b59506"/>
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>
 				<textFieldExpression><![CDATA[$F{productName}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isStretchWithOverflow="true">
 				<reportElement x="40" y="0" width="70" height="30" uuid="44de35c4-ffe2-4a80-b1be-b14874e8b3e6"/>
 				<box>
 					<pen lineWidth="0.5"/>
@@ -182,7 +182,7 @@ E-mail : lilayifamilyclinic@yahoo.com,TPIN NO :LFC098
 				<textFieldExpression><![CDATA[$F{ean}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="40" height="30" uuid="8e4858d1-a84e-424a-8936-5b74479641a4"/>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="40" height="30" uuid="8e4858d1-a84e-424a-8936-5b74479641a4"/>
 				<box>
 					<pen lineWidth="0.5"/>
 				</box>

@@ -178,7 +178,8 @@ function checkhome2(user){
 			document.getElementById("sm").style.display = "none"; 
 			document.getElementById("or").style.display = "none"; 
 			document.getElementById("pe").style.display = "none"; 
-		 
+			$('#dpe').hide();	
+			$('#dpma').hide();
 		
 		
 		 
@@ -189,7 +190,7 @@ function checkhome2(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
-			
+		 $('#dpma').hide();
 	}
 	 
 	
@@ -198,6 +199,7 @@ function checkhome2(user){
 		
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $('#dpma').hide();
 	}
 }
 function openNav() {
@@ -1189,7 +1191,7 @@ function highlightDuplicates() {
 	           success: function(response){
 	            
 	        	   if(response.length == 0){
-	        		   alert("Product Cannot be added. Current Stock has expired");
+	        		   alert("Product cannot be added. No Stock");
 	        	   }
 	        	   $.each(response, function(index, datec) {
 	                   //to print name of employee
@@ -1507,7 +1509,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
 	        	$('#sp').text("Unit SP should have a valid value")
 	        }
 	        else{
-	        	$('#sp').text("")
+	        	$('#sp').text(" ")
 	        
 	        }
 	        x[9].getElementsByTagName('input')[0].value = (Number(a) * Number(b)).toFixed(0);
@@ -1568,7 +1570,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
    
    function chid(id){
 	   if($('#sinvoice').val() == "Select"){
-		   alert("Please select Invoice Id")
+		   alert("Please select Invoice Id from 'Select Invoice' dropdown")
 		   return false;
 	   }
 	   else{
@@ -1607,6 +1609,18 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
         <li><a href="/HMS/saleho.html">Sales</a></li>
         <li><a href="/HMS/stopriceho.html">Product Stocks and Pricing</a></li>
       
+        <li class="dropdown" id="dr2">
+        <a class="dropdown-toggle" data-toggle="dropdown">Dispensary
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+       
+       <li><a href="/HMS/dcustomerho.html">Customer Master</a></li>
+       <li id="dpma"><a href="/HMS/productho.html">Product  Master</a></li>
+        <li id="dpe"><a href="/HMS/dpurchaseho.html">Purchase Entry</a></li>
+        <li id="ds"><a href="/HMS/dsaleho.html">Sales</a></li>
+        <li id="dpsp"><a href="/HMS/dstopriceho.html">Product Stocks and Pricing</a></li>
+         
+        </ul>
       </li>
      
     </ul>
@@ -1992,7 +2006,7 @@ $(document).on('change', ':input', function(){ //triggers change in all input fi
    
       
 	      
- <input type=""  class="bouton-contact" >
+ <input type=""  class="bouton-contact" disabled>
  
  
 </div>

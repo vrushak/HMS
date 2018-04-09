@@ -787,7 +787,7 @@ var tabname = $('.'+id).text();
 	  $('#prv').hide();
 	  $('#pir').hide();
 	  $(".tab-pane").width(1100)
-	  $("#cpc").hide();
+	  
 	  
 	  
   }
@@ -801,7 +801,7 @@ var tabname = $('.'+id).text();
 		  $('#text1').show();
 		  $('#pir').hide()
 	
-		  $("#cpc").show();
+		 
 	  }
 	  else{
 
@@ -1482,6 +1482,7 @@ var id = Math.random();
         		   document.getElementById("fe").value =  document.getElementById("fe").defaultValue;
         		   document.getElementById("rest").value =  document.getElementById("rest").defaultValue;
         		   document.getElementById("pulse").value = document.getElementById("pulse").defaultValue;
+        		   document.getElementById("prcalc").value = document.getElementById("prcalc").defaultValue;
         	}
     		   $.each(response.list17, function(index, datec) {
         	  		 
@@ -1499,7 +1500,12 @@ var id = Math.random();
            		   document.getElementById("fe").value = datec.fe;
            		   document.getElementById("rest").value = datec.rest;
            		   document.getElementById("pulse").value = datec.pulse;
-           		   
+           		   if(datec.prcalc == undefined ){
+           			   document.getElementById("prcalc").value = "NA";  
+           		   }else{
+           			   document.getElementById("prcalc").value = datec.prcalc;  	   
+           		   }
+           		
           	  		   
           	  	   });
   	  	   
@@ -1508,7 +1514,7 @@ var id = Math.random();
     		   if(response.list18.length == 0){
     	  		   alert("Selected patient does not have previous records")
     	  	   }
-rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + drug.weight + "</td><td>" + drug.temperature + "</td><td>"+drug.ac+"</td><td>"+drug.bp+"</td><td>"+drug.pulse+"</td><td>"+drug.bmi+"</td><td>"+drug.fi+"</td><td>"+drug.time+"</td></tr>";
+rows += "<tr><td>" + drug.fileno + "</td><td>" + drug.height + "</td><td>" + drug.weight + "</td><td>" + drug.temperature + "</td><td>"+drug.ac+"</td><td>"+drug.bp+"</td><td>"+drug.pulse+"</td><td>"+drug.bmi+"</td><td>"+drug.fi+"</td><td>"+drug.prcalc+"</td><td>"+drug.time+"</td></tr>";
       	 });
   	  	 
   	   $(rows).appendTo( "#myTable3 tbody" );  	  	 
@@ -1954,8 +1960,8 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
     	function addTotext(){
     		if($('#conception').val().length !=0 && $('#duedate').val().length != 0 && $('#fetalage').val().length !=0){
     	var t1 = '\n'+$('#ec').text() + moment($('#conception').val()).format('MMMM Do YYYY')+"\n" +$('#edd').text() + moment($('#duedate').val()).format('MMMM Do YYYY') +"\n"+$('#efa').text() + $('#fetalage').val()+'\n';
-    		var head = document.getElementById("text1").value;
-       	 $('#text1').val(head + t1);
+    		var head = document.getElementById("prcalc").value;
+       	 $('#prcalc').val(head + t1);
     		}
        	 $('#conception').val('')
        	$('#duedate').val('')
@@ -2240,6 +2246,21 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
   
   </div>
   </div>
+   <div class="form-group row" >
+      <div class="col-xs-1"></div>
+        <div class="col-xs-5">
+  <div class="form-group">
+            <p>Due Date Detials<span></span></p>
+           <textarea type="text" class="form-control input-sm" form="formc"  name="prcalc" id="prcalc" rows="3" value="NA"></textarea>
+           
+           
+      </div>
+        </div>
+        
+             <div class="col-xs-2">
+             <br><br>
+  <button type="button" class="btn btn-warning btn-sm" id="cpc" >Pregnancy Calculator</button>
+  </div></div> 
     </div> 
     
     <!-- Provisional Diagnosis -->
@@ -2383,7 +2404,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
       
 
 
-    <div class="col-xs-1" style="height:350px;width:50px;margin-left:50px;"><i class="fa fa-angle-double-right btn btn-warning btn-sm" id="prv" onclick="preview()" style="margin-left:-13px;margin-top:150px;font-size:25px;" aria-hidden="true"></i><br><br><br><i class="fa fa-calculator" id="cpc" title="Pregnancy Caluclator" style="margin-left:-13px;font-size:36px;color:orange"></i></div>
+    <div class="col-xs-1" style="height:350px;width:50px;margin-left:50px;"><i class="fa fa-angle-double-right btn btn-warning btn-sm" id="prv" onclick="preview()" style="margin-left:-13px;margin-top:150px;font-size:25px;" aria-hidden="true"></i></div>
    
     <div class="col-xs-4">
     <p id="tx" style="margin-top:-10px;"><b id='dd'>Diagnosis Details</b></p>
@@ -2414,6 +2435,7 @@ doAjaxPostNew(get,uri,data,successFn,errorFn,"application/json; charset=UTF-8","
         <th width="">Pulse</th>
         <th width="">BMI</th>
         <th width="">Chest Circumference<br>(Full Inspiration/Full Expiration/At Rest)</th>
+        <th width="">Due Date Detials</th>
         <th width="">Time Recorded</th>
        
       </tr>

@@ -150,7 +150,7 @@ public class nurseControllerDao {
 	public List<Vitals> getVitalinfo(String id) {
 		
 		// TODO Auto-generated method stub
-		return template.query("select v.pid,v.fileno,height,unitheight,weight,weightunit,temperature,tunit,abdominalc,bp,bmi,fi,fe,arest,pulse,timestamp,concat(p.fname,' ',p.mname,' ',p.lname) patient,v.nid,concat(n.fname,' ',n.mname,' ',n.lname),v.docid,concat(d.fname,' ',d.mname,' ',d.lname) doctor from vital v join patient p on p.pid=v.pid left outer join nurse n on v.nid = n.nid left outer join doctor d on d.docID = v.docid where v.fileno='"+id+"'",new RowMapper<Vitals>(){  
+		return template.query("select v.pid,v.fileno,height,unitheight,weight,weightunit,temperature,tunit,abdominalc,bp,bmi,fi,fe,arest,pulse,timestamp,concat(p.fname,' ',p.mname,' ',p.lname) patient,v.nid,concat(n.fname,' ',n.mname,' ',n.lname),v.docid,concat(d.fname,' ',d.mname,' ',d.lname) doctor,v.prcalc from vital v join patient p on p.pid=v.pid left outer join nurse n on v.nid = n.nid left outer join doctor d on d.docID = v.docid where v.fileno='"+id+"'",new RowMapper<Vitals>(){  
 	        public Vitals mapRow(ResultSet rs, int row) throws SQLException {   
 		       Vitals p= new Vitals();
 		       p.setPid(rs.getString(1));
@@ -176,11 +176,8 @@ public class nurseControllerDao {
 		       p.setNname(rs.getString(19));
 		       p.setDocid(rs.getString(20));
 		       p.setDname(rs.getString(21));
-		       
-		       
-		       System.out.println(rs.getString(19));
-		       System.out.println(rs.getString(21));
-		       
+		       p.setPrcalc(rs.getString(22));		       
+		       		       
 		       
 		       
 	return p;
@@ -193,7 +190,7 @@ public class nurseControllerDao {
 public List<Vitals> getVitalinfo1(String id) {
 		
 		// TODO Auto-generated method stub
-		return template.query("select v.pid,v.fileno,concat(v.height,' ',unitheight)height,concat(v.weight,' ',weightunit)weight,concat(temperature,' ',tunit)temperature,v.abdominalc,bp,bmi,concat(v.fi,' ',v.fe,' ',arest)Respiration,pulse,timestamp from vital v where v.pid='"+id+"'",new RowMapper<Vitals>(){  
+		return template.query("select v.pid,v.fileno,concat(v.height,' ',unitheight)height,concat(v.weight,' ',weightunit)weight,concat(temperature,' ',tunit)temperature,v.abdominalc,bp,bmi,concat(v.fi,' ',v.fe,' ',arest)Respiration,pulse,timestamp,prcalc from vital v where v.pid='"+id+"'",new RowMapper<Vitals>(){  
 	        public Vitals mapRow(ResultSet rs, int row) throws SQLException {   
 		       Vitals p= new Vitals();
 		       p.setPid(rs.getString(1));
@@ -214,6 +211,7 @@ public List<Vitals> getVitalinfo1(String id) {
 		       p.setPulse(rs.getString(10));
 		     
 		       p.setTime(rs.getString(11));
+		       p.setPrcalc(rs.getString(12));
 		      
 		       
 	return p;
@@ -253,14 +251,14 @@ public List<Vitals> getVitalinfo1(String id) {
 
 	public int saveVital(Vitals s) {
 		
-		String sql = "insert into vital(pid,fileno,height,unitheight,weight,weightunit,temperature,tunit,abdominalc,bp,pulse,bmi,fi,fe,arest,timestamp,nid,docid) values('"+s.getPid()+"','"+s.getFileno()+"','"+s.getHeight()+"','"+s.getUnith()+"','"+s.getWeight()+"','"+s.getUnitw()+"','"+s.getTemperature()+"','"+s.getUnitt()+"','"+s.getAc()+"','"+s.getBp()+"','"+s.getPulse()+"','"+s.getBmi()+"','"+s.getFi()+"','"+s.getFe()+"','"+s.getRest()+"',NOW(),'"+s.getNid()+"','"+s.getDocid()+"') on duplicate key update height = '"+s.getHeight()+"',unitheight='"+s.getUnith()+"',weight='"+s.getWeight()+"',weightunit='"+s.getUnitw()+"',temperature='"+s.getTemperature()+"',tunit='"+s.getUnitt()+"',abdominalc='"+s.getAc()+"',bp='"+s.getBp()+"',pulse='"+s.getPulse()+"',bmi='"+s.getBmi()+"',fi='"+s.getFi()+"',fe='"+s.getFe()+"',arest='"+s.getRest()+"',timestamp =NOW(),nid = '"+s.getNid()+"',docid='"+s.getDocid()+"'";
+		String sql = "insert into vital(pid,fileno,height,unitheight,weight,weightunit,temperature,tunit,abdominalc,bp,pulse,bmi,fi,fe,arest,timestamp,nid,docid,prcalc) values('"+s.getPid()+"','"+s.getFileno()+"','"+s.getHeight()+"','"+s.getUnith()+"','"+s.getWeight()+"','"+s.getUnitw()+"','"+s.getTemperature()+"','"+s.getUnitt()+"','"+s.getAc()+"','"+s.getBp()+"','"+s.getPulse()+"','"+s.getBmi()+"','"+s.getFi()+"','"+s.getFe()+"','"+s.getRest()+"',NOW(),'"+s.getNid()+"','"+s.getDocid()+"','"+s.getPrcalc()+"') on duplicate key update height = '"+s.getHeight()+"',unitheight='"+s.getUnith()+"',weight='"+s.getWeight()+"',weightunit='"+s.getUnitw()+"',temperature='"+s.getTemperature()+"',tunit='"+s.getUnitt()+"',abdominalc='"+s.getAc()+"',bp='"+s.getBp()+"',pulse='"+s.getPulse()+"',bmi='"+s.getBmi()+"',fi='"+s.getFi()+"',fe='"+s.getFe()+"',arest='"+s.getRest()+"',timestamp =NOW(),nid = '"+s.getNid()+"',docid='"+s.getDocid()+"',prcalc = '"+s.getPrcalc()+"'";
 		return template.update(sql);// TODO Auto-generated method stub
 		
 	}
 	//to load from doctor screen
 public int saveVital(Diagnose s) {
 		
-		String sql = "insert into vital(pid,fileno,height,unitheight,weight,weightunit,temperature,tunit,abdominalc,bp,pulse,bmi,fi,fe,arest,timestamp,nid,docid) values('"+s.getPpid()+"','"+s.getFileno()+"','"+s.getHeight()+"','"+s.getUnith()+"','"+s.getWeight()+"','"+s.getUnitw()+"','"+s.getTemperature()+"','"+s.getUnitt()+"','"+s.getAc()+"','"+s.getBp()+"','"+s.getPulse()+"','"+s.getBmi()+"','"+s.getFi()+"','"+s.getFe()+"','"+s.getRest()+"',NOW(),'"+s.getNid()+"','"+s.getDocid()+"') on duplicate key update height = '"+s.getHeight()+"',unitheight='"+s.getUnith()+"',weight='"+s.getWeight()+"',weightunit='"+s.getUnitw()+"',temperature='"+s.getTemperature()+"',tunit='"+s.getUnitt()+"',abdominalc='"+s.getAc()+"',bp='"+s.getBp()+"',pulse='"+s.getPulse()+"',bmi='"+s.getBmi()+"',fi='"+s.getFi()+"',fe='"+s.getFe()+"',arest='"+s.getRest()+"',timestamp =NOW(),nid = '"+s.getNid()+"',docid='"+s.getDocid()+"'";
+		String sql = "insert into vital(pid,fileno,height,unitheight,weight,weightunit,temperature,tunit,abdominalc,bp,pulse,bmi,fi,fe,arest,timestamp,nid,docid,prcalc) values('"+s.getPpid()+"','"+s.getFileno()+"','"+s.getHeight()+"','"+s.getUnith()+"','"+s.getWeight()+"','"+s.getUnitw()+"','"+s.getTemperature()+"','"+s.getUnitt()+"','"+s.getAc()+"','"+s.getBp()+"','"+s.getPulse()+"','"+s.getBmi()+"','"+s.getFi()+"','"+s.getFe()+"','"+s.getRest()+"',NOW(),'"+s.getNid()+"','"+s.getDocid()+"','"+s.getPrcalc()+"') on duplicate key update height = '"+s.getHeight()+"',unitheight='"+s.getUnith()+"',weight='"+s.getWeight()+"',weightunit='"+s.getUnitw()+"',temperature='"+s.getTemperature()+"',tunit='"+s.getUnitt()+"',abdominalc='"+s.getAc()+"',bp='"+s.getBp()+"',pulse='"+s.getPulse()+"',bmi='"+s.getBmi()+"',fi='"+s.getFi()+"',fe='"+s.getFe()+"',arest='"+s.getRest()+"',timestamp =NOW(),nid = '"+s.getNid()+"',docid='"+s.getDocid()+"',prcalc='"+s.getPrcalc()+"'";
 		return template.update(sql);// TODO Auto-generated method stub";
 		// TODO Auto-generated method stub
 		

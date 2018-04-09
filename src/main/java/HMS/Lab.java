@@ -32,8 +32,14 @@ public class Lab {
 	private String docid;
 	private String upfile;
 	private String fileno;
-   
+    private String prcalc;
 	
+	public String getPrcalc() {
+		return prcalc;
+	}
+	public void setPrcalc(String prcalc) {
+		this.prcalc = prcalc;
+	}
 	public String getDocid() {
 		return docid;
 	}

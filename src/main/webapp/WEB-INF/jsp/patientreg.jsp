@@ -73,9 +73,7 @@ function check(str){
 function checkhome(user){
 	 var n = moment().format("YYYY-MM-DD");
 	   
-		document.getElementById("modate").setAttribute("max",n);
-		document.getElementById("fodate").setAttribute("max",n);
-		document.getElementById("spdate").setAttribute("max",n);
+		
 
 
 	if(user.includes("dbfdesk")){
@@ -285,7 +283,7 @@ function datasuccess(data){
 	}
 	
 	
-		function getAge(dateString,id) {
+		function getAge(dateString,id,paid) {
 			  var now = new Date();
 			 
 			  
@@ -358,8 +356,9 @@ function datasuccess(data){
 			    ageString = age.months + monthString;
 			  else{ ageString = "Invalid Date!";
 
-			   alert(ageString);
+			   
 			  }
+			  validdate(dateString,paid);
 			   document.getElementById(id).value = ageString;
 			}
 
@@ -470,13 +469,13 @@ else{
 			
 		}
 		function validdate(id,id1){
-			var date = new Date(document.getElementById(id).value);
+			var date = new Date($(id).val());
 			var date1 = new Date()
 			var longformat = date*1;
 			var longformat1 = date1*1;
 			
 		
-		var va	='Valid? '+ !!document.getElementById(id).value;
+		var va	='Valid? '+ !!$(id).val();
      
 		if(va == 'Valid? false'){
 		$("#"+id1).text("invalid date!");
@@ -1156,7 +1155,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
    <div class="col-xs-5">
     <div class="form-group">
             <p>Date of Birth <span></span></p>
-     <input type="date"  name="modate" id="modate" onfocusout="return validdate(this.id,'sp1')"  class="form-control input-sm" required>
+     <input type="date"  name="modate" id="modate" onfocusout="return validdate(this,'sp1')"  class="form-control input-sm" required>
       <p><span id="sp1"></span></p>
 	</div>
    </div>
@@ -1176,7 +1175,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
    <div class="col-xs-5">
     <div class="form-group">
             <p>Date of Birth <span></span></p>
-     <input type="date"   name="fodate" id="fodate"   onfocusout="return validdate(this.id,'sp2')" class="form-control input-sm" required>
+     <input type="date"   name="fodate" id="fodate"   onfocusout="return validdate(this,'sp2')" class="form-control input-sm" required>
       <p><span id="sp2"></span></p>
 	</div>
    </div>
@@ -1188,8 +1187,8 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
 <div class="col-xs-3">
     <div class="form-group">
             <p>Date of Birth <span></span></p>
-     <input type="date" maxlength="2999-312-31"name="dob" id="dob"  onblur='getAge(this,"age")' class="form-control input-sm" required>
-
+     <input type="date" maxlength="2999-312-31"name="dob" id="dob"  onblur='getAge(this,"age","sp4")' class="form-control input-sm" required>
+  <p><span id="sp4"></span></p>
 	</div>
    </div>
    
@@ -1598,7 +1597,7 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
    <div class="form-group">
     
             <p>Date of Birth<span></span></p>
-         	<input type="date" name="spdate" id="spdate" onblur="return validdate(this.id,'sp3')" class="form-control input-sm"  >
+         	<input type="date" name="spdate" id="spdate" onblur="return validdate(this,'sp3')" class="form-control input-sm"  >
 	        <p><span id="sp3"></span></p>
 	</div>
  
@@ -1653,7 +1652,8 @@ function doAjaxPostNew(uri, postData, successFn, errorFn) {
    <div class="col-xs-3">
     <div class="form-group">
             <p>Date of Birth <span></span></p>
-         	<input type="date" name="rdateofbirth"  onblur='getAge(this,"ager")' id="rdateofbirth" class="form-control input-sm"   >
+         	<input type="date" name="rdateofbirth"  onblur='getAge(this,"ager","sp5")' id="rdateofbirth" class="form-control input-sm"   >
+            <p><span id="sp5"></span></p>
 </div>
     </div>
   

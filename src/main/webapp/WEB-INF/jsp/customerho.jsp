@@ -228,7 +228,8 @@ function checkhome2(user){
 			document.getElementById("sm").style.display = "none"; 
 			document.getElementById("or").style.display = "none"; 
 			document.getElementById("pe").style.display = "none"; 
-		
+			$('#dpe').hide();	
+			$('#dpma').hide();	
 		
 		 
 	}
@@ -239,7 +240,7 @@ function checkhome2(user){
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		
-		 
+		 $('#dpma').hide();	
 	
 		
 	}
@@ -250,7 +251,9 @@ function checkhome2(user){
 		
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $('#dpma').hide();	
 	}
+	 
 }
 
 
@@ -355,7 +358,7 @@ else{
 		}
 //		$('#myModal').modal('show');
 
-		 $(document).on('change', ':input', function(){ //triggers change in all input fields including text type
+		 $(document).on('change', '#customer2', function(){ //triggers change in all input fields including text type
 			  
 		     	unsaved = false;
 		     });
@@ -497,21 +500,35 @@ $(document).ready(function () {
     </div>
      <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
-      <li class="dropdown">
+      <li class="dropdown" id="dr1">
         <a class="dropdown-toggle" data-toggle="dropdown">Masters
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
         <li id="mm"><a href="/HMS/manufactureho.html">Manufacturer Master</a></li>
        <li id="sm"><a href="/HMS/supplierho.html">Supplier Master</a></li>
-       <li><a href="/HMS/customerho.html">Customer Master</a></li>
-       <li><a href="/HMS/productho.html">Product  Master</a></li>
+       <li id="cm"><a href="/HMS/customerho.html">Customer Master</a></li>
+       <li id="pm"><a href="/HMS/productho.html">Product  Master</a></li>
          
         </ul>
       
         <li id="or"><a href="/HMS/orderho.html">Order & Reorder</a></li>
         <li id="pe"><a href="/HMS/purchaseho.html">Purchase Entry</a></li>
-        <li><a href="/HMS/saleho.html">Sales</a></li>
-        <li><a href="/HMS/stopriceho.html">Product Stocks and Pricing</a></li>
+        <li id="sa"><a href="/HMS/saleho.html">Sales</a></li>
+        <li id="psp"><a href="/HMS/stopriceho.html">Product Stocks and Pricing</a></li>
+        
+          <li class="dropdown" id="dr2">
+        <a class="dropdown-toggle" data-toggle="dropdown">Dispensary
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+       
+       <li><a href="/HMS/dcustomerho.html">Customer Master</a></li>
+       <li id="dpma"><a href="/HMS/productho.html">Product  Master</a></li>
+        <li id="dpe"><a href="/HMS/dpurchaseho.html">Purchase Entry</a></li>
+        <li id="ds"><a href="/HMS/dsaleho.html">Sales</a></li>
+        <li id="dpsp"><a href="/HMS/dstopriceho.html">Product Stocks and Pricing</a></li>
+         
+        </ul>
+      
       
       
       </li>
@@ -665,7 +682,8 @@ $(document).ready(function () {
        
 	</div>
 	      </div>
-	      <div class="col-xs-3">
+	      
+	     	      <div class="col-xs-3">
 	     <div class="form-group">
   <p>Email<span></span></p>
  <input type="email" form="form1" class="form-control" id="email" name="email" >

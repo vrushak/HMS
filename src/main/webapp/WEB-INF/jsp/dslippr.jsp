@@ -196,6 +196,7 @@ function checkhome(user){
 		
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $('#back').hide();
 	}
 	else if(user.includes("[ROLE_ASSISTANT]")){
 	
@@ -203,6 +204,7 @@ function checkhome(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $('#back').hide();
 	}
 	else if(user.includes("[ROLE_DOCTOR]")){
 		
@@ -210,6 +212,7 @@ function checkhome(user){
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $('#back').hide();
 	}
 
 	else if(user.includes("[ROLE_Accounts Admin]")){
@@ -219,13 +222,14 @@ function checkhome(user){
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
 		 
-		
+		 $('#back').hide();
 	}
 	else{
 		 var url = "/HMS/home" ;
 			
 		 var element = document.getElementById('ho');
 		 element.setAttribute("href",url)
+		 $('.prdocs').hide();
 	}
 }
 
@@ -336,17 +340,18 @@ function disp(){
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a id="ho" href="">Home</a></li>
-      <!-- 
-      <li class=""><a id="m2" href="">My Appointments</a></li>
-        <li class=""><a  id="m3" href="">General Checkup</a></li>
-          <li class=""><a id="m4" href="/HMS/discharge.html">Discharge Summary</a></li>
- 
-       <li class=""><a id="nob" href="/HMS/nursetr/"  onclick=' return visible();' target="_blank">Nurse observations</a></li>
-  -->
-    </ul>
-     <ul class="nav navbar-nav navbar-right">
-      <li><a href="/HMS/prdocs"><span class="fa fa-arrow-left"></span>Back to Print Documents</a></li>
-      
+       <li class="prdocs"><a href="/HMS/prdocs" >Print Documents</a></li>
+ <li class="dropdown back" id="back">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Quick Access
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="/HMS/staff">Staff Details</a></li>
+          <li><a href="/HMS/doctor1">Doctor View</a></li>
+          <li><a href="/HMS/nursedesk">Nurse Station</a></li>
+          <li><a href="/HMS/frontdesk">Front Desk</a></li>
+          <li><a href="/HMS/prdocs" >Print Documents</a></li>
+        </ul>
+      </li>      
     </ul>
   </div>
 </nav>
